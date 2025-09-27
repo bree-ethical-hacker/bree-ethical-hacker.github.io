@@ -226,19 +226,19 @@ span{
 
 @keyframes words{
     0%, 20%{
-        content: "Ethical Hacker";
+        content: "Security Analyst";
     }
     21%, 40%{
-        content: "Threat Hunter";
+        content: "Ethical Hacker";
     }
     41%, 60%{
-        content: "Security Analyst";
+        content: "Threat Hunter";
     }
     61%, 80%{
         content: "SOC Analyst";
     }
     81%, 100%{
-        content: "Incident Responder";
+        content: "IR Analyst";
     }
 }
 
@@ -267,6 +267,7 @@ span{
         margin-top: 4rem;
     }
 }
+
 
 
 
