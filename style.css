@@ -347,3 +347,25 @@ span {
     background: #b74b4b;
     color: white;
 }
+
+/* Disclaimer Section */
+.disclaimer {
+    text-align: center;
+    margin-top: 10rem; /* pushes it down so it clears the fixed header */
+    padding: 2rem;
+}
+
+.disclaimer h2 {
+    font-size: 3.2rem;      /* bigger but balanced */
+    color: #b74b4b;         /* your theme red */
+    margin-bottom: 1rem;    /* small spacing below */
+}
+
+.disclaimer p {
+    font-size: 1.6rem;      /* increase readability */
+    color: #fff;            /* white text */
+    margin: 0.5rem 0;       /* smaller spacing between lines */
+    line-height: 1.5;       /* normal line spacing */
+}
+
+
