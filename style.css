@@ -319,7 +319,7 @@ span {
 .project-slide-img img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* keeps full image visible */
+    object-fit: cover; /* keeps full image visible */
     display: block;
 }
 
@@ -392,3 +392,4 @@ span {
     margin: 0.5rem 0;
     line-height: 1.6;
 }
+
