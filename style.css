@@ -351,21 +351,28 @@ span {
 /* Disclaimer Section */
 .disclaimer {
     text-align: center;
-    margin-top: 10rem; /* pushes it down so it clears the fixed header */
-    padding: 2rem;
+    margin-top: 8rem;       /* pushes it below the fixed header */
+    padding: 3rem 2rem;
+    max-width: 900px;       /* keeps text nicely centered */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .disclaimer h2 {
-    font-size: 3.2rem;      /* bigger but balanced */
-    color: #b74b4b;         /* your theme red */
-    margin-bottom: 1rem;    /* small spacing below */
+    font-size: 2.8rem;      /* balanced size */
+    font-weight: 700;
+    color: #b74b4b;         /* theme red */
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
 }
 
 .disclaimer p {
-    font-size: 1.6rem;      /* increase readability */
-    color: #fff;            /* white text */
-    margin: 0.5rem 0;       /* smaller spacing between lines */
-    line-height: 1.5;       /* normal line spacing */
+    font-size: 1.8rem;      /* readable size */
+    color: #e0e0e0;         /* softer white for better contrast */
+    margin: 0.5rem 0;       /* tighter spacing */
+    line-height: 1.6;       /* normal readable spacing */
 }
+
+
 
 
