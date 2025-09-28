@@ -57,7 +57,7 @@ nav a {
     margin-left: 4rem;
     font-weight: 500;
     text-decoration: none;
-    padding-bottom: 5px; /* space for underline */
+    padding-bottom: 5px;
 }
 
 nav a::after {
@@ -293,37 +293,56 @@ span {
     padding: 2rem 0;
 }
 
+/* ✅ Fixed Card Layout */
 .project-slide {
-    width: 35rem;
-    height: 42rem;
-    position: relative;
-    border-radius: 2rem;
+    width: 32rem;
+    height: 44rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 1.5rem;
     overflow: hidden;
     background: #161616;
     border: 1px solid #b74b4b;
 }
 
-.project-slide-img img {
+/* Image fix */
+.project-slide-img {
     width: 100%;
     height: 60%;
+    overflow: hidden;
+}
+
+.project-slide-img img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    display: block;
 }
 
+/* Content fix */
 .project-slide-content {
+    height: 40%;
     padding: 1.5rem;
-    color: white;
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
-.project-title {
-    font-size: 2rem;
+.project-slide-content h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
     color: #b74b4b;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
 }
 
-.project-desc {
+.project-slide-content p {
     font-size: 1.4rem;
-    color: #ccc;
+    line-height: 1.4;
+    color: #ddd;
+    margin: 0 auto;
+    max-width: 90%;
 }
 
 .projects-slider-control {
@@ -349,9 +368,26 @@ span {
 }
 
 /* Disclaimer Section */
+.disclaimer {
+    text-align: center;
+    margin-top: 8rem;
+    padding: 3rem 2rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+.disclaimer h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #b74b4b;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
 
-
-
-
-
+.disclaimer p {
+    font-size: 1.8rem;
+    color: #e0e0e0;
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
