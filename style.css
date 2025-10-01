@@ -199,7 +199,7 @@ span {
     box-shadow: 0 0 25px #b74b4b;
 }
 
-/* 🔴 Coming Soon Card button (smaller, different color) */
+/* 🔴 Coming Soon Card button */
 .coming-soon-card-btn {
     display: inline-block;
     padding: 0.4rem 1.5rem;
@@ -220,7 +220,7 @@ span {
     box-shadow: 0 0 15px #ff6600;
 }
 
-/* 🔴 Complete Card button (smaller, different color) */
+/* 🔴 Complete Card button */
 .complete-card-btn {
     display: inline-block;
     padding: 0.4rem 1.5rem;
@@ -351,11 +351,11 @@ span {
     flex-direction: column;
 }
 
-/* Image area = 80% with enforced ratio */
+/* Image area = 80% */
 .project-slide-img {
     width: 100%;
     height: 80%;
-    aspect-ratio: 1 / 1;   /* ✅ keeps images consistent */
+    aspect-ratio: 4 / 3;
     overflow: hidden;
     background: #000;
 }
@@ -363,25 +363,26 @@ span {
 .project-slide-img img {
     width: 100%;
     height: 100%;
-    object-fit: cover;    /* ✅ crops evenly */
+    object-fit: cover;
     display: block;
 }
 
 /* Content area = 20% */
 .project-slide-content {
     height: 20%;
-    padding: 0.8rem 1rem;
+    padding: 0.5rem 1rem;
     color: white;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;   /* ✅ Centers title + button vertically */
     align-items: center;
+    gap: 0.6rem;               /* ✅ Adds spacing between title + button */
 }
 
 /* Title larger */
 .project-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #b74b4b;
     font-weight: 600;
 }
@@ -400,13 +401,13 @@ span {
     font-size: 3.5rem;
     font-weight: 800;
     color: #b74b4b;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     text-transform: uppercase;
     letter-spacing: 0.15rem;
 }
 
 .disclaimer p {
-    font-size: 2rem;
+    font-size: 1.6rem;
     color: #e0e0e0;
     margin: 0.3rem 0;
     line-height: 1.2;
@@ -434,6 +435,3 @@ span {
     background: #b74b4b;
     color: white;
 }
-
-
-
