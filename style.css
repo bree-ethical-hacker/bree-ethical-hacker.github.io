@@ -378,10 +378,11 @@ span {
 
     display: flex;
     flex-direction: column;
-    justify-content: center;   /* ✅ centers vertically */
+    justify-content: flex-start;   /* ✅ centers vertically */
     align-items: center;       /* ✅ centers horizontally */
     gap: 0.5rem;               /* ✅ small spacing between title + button */
     overflow: hidden;          /* ✅ prevents overflow */
+    padding-top: 0.8rem;
 }
 
 /* Title larger */
@@ -455,6 +456,7 @@ span {
     background: #b74b4b !important;       /* filled red */
     border: 2px solid #b74b4b !important; /* outline matches */
 }
+
 
 
 
