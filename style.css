@@ -201,27 +201,29 @@ span {
 
 /* 🔴 Coming Soon Card button (smaller, different color) */
 .coming-soon-card-btn {
+    margin: 0;                 /* ✅ no overflow */
     display: inline-block;
     padding: 0.4rem 1.5rem;
     background-color: black;
     border-radius: 2rem;
     font-size: 1.2rem;
-    color: #7a7a7a;
+    color: #E8C999;
     font-weight: 600;
-    border: 2px solid #7a7a7a;
+    border: 2px solid #E8C999;
     transition: 0.3s ease;
     cursor: pointer;
     text-decoration: none;
 }
 
 .coming-soon-card-btn:hover {
-    background-color: #7a7a7a;
+    background-color: #E8C999;
     color: black;
-    box-shadow: 0 0 15px #7a7a7a;
+    box-shadow: 0 0 15px #E8C999;
 }
 
 /* 🔴 Complete Card button (smaller, different color) */
 .complete-card-btn {
+    margin: 0;                 /* ✅ no overflow */
     display: inline-block;
     padding: 0.4rem 1.5rem;
     background-color: black;
@@ -370,20 +372,25 @@ span {
 /* Content area = 20% */
 .project-slide-content {
     height: 20%;
-    padding: 0.8rem 1rem;
+    padding: 0 1rem;
     color: white;
     text-align: center;
+
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;   /* ✅ centers vertically */
+    align-items: center;       /* ✅ centers horizontally */
+    gap: 0.5rem;               /* ✅ small spacing between title + button */
+    overflow: hidden;          /* ✅ prevents overflow */
 }
 
 /* Title larger */
 .project-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #b74b4b;
     font-weight: 600;
+    margin: 0;                 /* ✅ no margin pushing it out */
+    line-height: 1.2;
 }
 
 /* Disclaimer section */
@@ -434,5 +441,6 @@ span {
     background: #b74b4b;
     color: white;
 }
+
 
 
