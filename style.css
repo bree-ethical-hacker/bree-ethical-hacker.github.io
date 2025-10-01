@@ -443,6 +443,18 @@ span {
     color: white;
 }
 
+/* Inactive bullets (outlined only) */
+.swiper-pagination-bullet {
+    background: transparent !important;   /* no fill */
+    border: 2px solid #b74b4b !important; /* red outline */
+    opacity: 1 !important;                /* keep visible */
+}
+
+/* Active bullet (filled) */
+.swiper-pagination-bullet-active {
+    background: #b74b4b !important;       /* filled red */
+    border: 2px solid #b74b4b !important; /* outline matches */
+}
 
 
 
