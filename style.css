@@ -357,7 +357,7 @@ span {
 .project-slide-img {
     width: 100%;
     height: 80%;
-    aspect-ratio: 1 / 1;   /* ✅ keeps images consistent */
+    aspect-ratio: 1 / 2;   /* ✅ keeps images consistent */
     overflow: hidden;
     background: #000;
 }
@@ -441,6 +441,7 @@ span {
     background: #b74b4b;
     color: white;
 }
+
 
 
 
