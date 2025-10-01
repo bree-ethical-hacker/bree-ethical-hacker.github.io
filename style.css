@@ -396,7 +396,7 @@ span {
 /* Disclaimer section */
 .disclaimer {
     text-align: center;
-    margin-top: 10rem;
+    margin-top: 15rem;
     padding: 3rem 2rem;
     max-width: 900px;
     margin-left: auto;
@@ -408,6 +408,7 @@ span {
     font-weight: 800;
     color: #b74b4b;
     margin-bottom: 2rem;
+    margin-top: 0;
     text-transform: uppercase;
     letter-spacing: 0.15rem;
 }
@@ -441,6 +442,7 @@ span {
     background: #b74b4b;
     color: white;
 }
+
 
 
 
