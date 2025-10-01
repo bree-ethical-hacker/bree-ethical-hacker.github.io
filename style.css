@@ -199,29 +199,8 @@ span {
     box-shadow: 0 0 25px #b74b4b;
 }
 
-/* 🔴 Coming Soon Card button */
-.coming-soon-card-btn {
-    display: inline-block;
-    padding: 0.4rem 1.5rem;
-    background-color: black;
-    border-radius: 2rem;
-    font-size: 1.2rem;
-    color: #ff6600;
-    font-weight: 600;
-    border: 2px solid #ff6600;
-    transition: 0.3s ease;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.coming-soon-card-btn:hover {
-    background-color: #ff6600;
-    color: black;
-    box-shadow: 0 0 15px #ff6600;
-}
-
-/* 🔴 Complete Card button */
-.complete-card-btn {
+/* 🔴 Card button (smaller, different color) */
+.card-btn {
     display: inline-block;
     padding: 0.4rem 1.5rem;
     background-color: black;
@@ -235,7 +214,7 @@ span {
     text-decoration: none;
 }
 
-.complete-card-btn:hover {
+.card-btn:hover {
     background-color: #4bb78e;
     color: black;
     box-shadow: 0 0 15px #4bb78e;
@@ -351,11 +330,11 @@ span {
     flex-direction: column;
 }
 
-/* Image area = 80% */
+/* Image area = 80% with enforced ratio */
 .project-slide-img {
     width: 100%;
     height: 80%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 3;   /* ✅ keeps images consistent */
     overflow: hidden;
     background: #000;
 }
@@ -363,26 +342,25 @@ span {
 .project-slide-img img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover;    /* ✅ crops evenly */
     display: block;
 }
 
 /* Content area = 20% */
 .project-slide-content {
     height: 20%;
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1rem;
     color: white;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;   /* ✅ Centers title + button vertically */
+    justify-content: space-between;
     align-items: center;
-    gap: 0.6rem;               /* ✅ Adds spacing between title + button */
 }
 
 /* Title larger */
 .project-title {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #b74b4b;
     font-weight: 600;
 }
@@ -401,16 +379,16 @@ span {
     font-size: 3.5rem;
     font-weight: 800;
     color: #b74b4b;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     text-transform: uppercase;
     letter-spacing: 0.15rem;
 }
 
 .disclaimer p {
-    font-size: 1.6rem;
+    font-size: 2rem;
     color: #e0e0e0;
-    margin: 0.3rem 0;
-    line-height: 1.2;
+    margin: 0.8rem 0;
+    line-height: 1.4;
 }
 
 /* Slider Controls */
