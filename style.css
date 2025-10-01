@@ -387,8 +387,8 @@ span {
 .disclaimer p {
     font-size: 2rem;
     color: #e0e0e0;
-    margin: 0.8rem 0;
-    line-height: 1.4;
+    margin: 0.3rem 0;
+    line-height: 1.2;
 }
 
 /* Slider Controls */
@@ -413,4 +413,5 @@ span {
     background: #b74b4b;
     color: white;
 }
+
 
