@@ -199,8 +199,29 @@ span {
     box-shadow: 0 0 25px #b74b4b;
 }
 
-/* 🔴 Card button (smaller, different color) */
-.card-btn {
+/* 🔴 Coming Soon Card button (smaller, different color) */
+.coming-soon-card-btn {
+    display: inline-block;
+    padding: 0.4rem 1.5rem;
+    background-color: black;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    color: #7a7a7a;
+    font-weight: 600;
+    border: 2px solid #7a7a7a;
+    transition: 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.coming-soon-card-btn:hover {
+    background-color: #7a7a7a;
+    color: black;
+    box-shadow: 0 0 15px #7a7a7a;
+}
+
+/* 🔴 Complete Card button (smaller, different color) */
+.complete-card-btn {
     display: inline-block;
     padding: 0.4rem 1.5rem;
     background-color: black;
@@ -214,7 +235,7 @@ span {
     text-decoration: none;
 }
 
-.card-btn:hover {
+.complete-card-btn:hover {
     background-color: #4bb78e;
     color: black;
     box-shadow: 0 0 15px #4bb78e;
@@ -334,7 +355,7 @@ span {
 .project-slide-img {
     width: 100%;
     height: 80%;
-    aspect-ratio: 4 / 3;   /* ✅ keeps images consistent */
+    aspect-ratio: 1 / 1;   /* ✅ keeps images consistent */
     overflow: hidden;
     background: #000;
 }
@@ -387,8 +408,8 @@ span {
 .disclaimer p {
     font-size: 2rem;
     color: #e0e0e0;
-    margin: 0.8rem 0;
-    line-height: 1.4;
+    margin: 0.3rem 0;
+    line-height: 1.2;
 }
 
 /* Slider Controls */
@@ -413,3 +434,5 @@ span {
     background: #b74b4b;
     color: white;
 }
+
+
