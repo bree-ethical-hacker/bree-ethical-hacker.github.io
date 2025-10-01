@@ -200,6 +200,29 @@ span {
     box-shadow: 0 0 25px #b74b4b;
 }
 
+/* 🔴 Card Button (identical to .btn but different color scheme) */
+.card-btn {
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background-color: black;
+    border-radius: 4rem;
+    font-size: 1.6rem;
+    color: #4bb78e; /* ✅ Change to your desired main color */
+    letter-spacing: 0.3rem;
+    font-weight: 600;
+    border: 2px solid #4bb78e;
+    transition: 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.card-btn:hover {
+    transform: scale3d(1.03, 1.03, 1.03);
+    background-color: #4bb78e; /* ✅ fills with accent color */
+    color: black;
+    box-shadow: 0 0 25px #4bb78e;
+}
+
 .typing-text {
     font-size: 34px;
     font-weight: 600;
@@ -395,3 +418,4 @@ span {
     margin: 0.5rem 0;
     line-height: 1.6;
 }
+
