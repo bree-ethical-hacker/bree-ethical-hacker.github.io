@@ -457,6 +457,54 @@ span {
     border: 2px solid #b74b4b !important; /* outline matches */
 }
 
+/* Contact section layout */
+.contact-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 8rem;
+}
+
+/* Left side (title) */
+.contact-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-left h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.contact-left span {
+  color: #b74b4b; /* your red accent */
+}
+
+/* Divider line */
+.contact-divider {
+  width: 3px;
+  background-color: #b74b4b;
+  margin: 0 2rem;
+}
+
+/* Right side (Calendly) */
+.contact-right {
+  flex: 1.5;
+  display: flex;
+  justify-content: center;
+}
+
+.calendly-inline-widget {
+  width: 100% !important;
+  min-width: 500px;
+  max-width: 700px;
+  height: 700px;
+}
 
 
 
