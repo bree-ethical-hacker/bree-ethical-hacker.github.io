@@ -375,7 +375,7 @@ span {
     padding: 0 1rem;
     color: white;
     text-align: center;
-
+    margin-top: -10px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;   /* ✅ centers vertically */
@@ -456,6 +456,7 @@ span {
     background: #b74b4b !important;       /* filled red */
     border: 2px solid #b74b4b !important; /* outline matches */
 }
+
 
 
 
