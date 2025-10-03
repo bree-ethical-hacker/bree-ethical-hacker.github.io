@@ -457,7 +457,7 @@ span {
     border: 2px solid #b74b4b !important; /* outline matches */
 }
 
-/* Contact section layout */
+/* === Contact Page Layout === */
 .contact-container {
   display: flex;
   justify-content: center;
@@ -466,7 +466,6 @@ span {
   margin-top: 8rem;
 }
 
-/* Left side (title) */
 .contact-left {
   flex: 1;
   display: flex;
@@ -481,18 +480,12 @@ span {
   text-align: left;
 }
 
-.contact-left span {
-  color: #b74b4b; /* your red accent */
-}
-
-/* Divider line */
 .contact-divider {
   width: 3px;
   background-color: #b74b4b;
   margin: 0 2rem;
 }
 
-/* Right side (Calendly) */
 .contact-right {
   flex: 1.5;
   display: flex;
@@ -505,6 +498,27 @@ span {
   max-width: 700px;
   height: 700px;
 }
+
+/* === Responsive Adjustments === */
+@media(max-width: 900px) {
+  .contact-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-divider {
+    display: none;
+  }
+
+  .contact-left h1 {
+    text-align: center;
+  }
+
+  .calendly-inline-widget {
+    min-width: 100%;
+  }
+}
+
 
 
 
