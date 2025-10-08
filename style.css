@@ -518,3 +518,64 @@ span {
     min-width: 100%;
   }
 }
+
+/* === PROJECT DETAIL PAGE === */
+.project-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: black;
+  color: white;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.project-box {
+  border: 2px solid #b74b4b;    /* thin red border */
+  border-radius: 2rem;          /* rounded edges */
+  padding: 4rem;
+  max-width: 800px;
+  width: 90%;
+  background: transparent;      /* no fill */
+}
+
+.project-box h1 {
+  color: #b74b4b;
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.project-box p {
+  font-size: 1.8rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Buttons inside project box */
+.project-buttons {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.project-buttons .btn {
+  display: inline-block;
+  padding: 1rem 2.8rem;
+  border-radius: 3rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  border: 2px solid #b74b4b;
+  color: #b74b4b;
+  background: transparent;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.project-buttons .btn:hover {
+  background: #b74b4b;
+  color: black;
+  box-shadow: 0 0 20px #b74b4b;
+}
+
