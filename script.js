@@ -21,39 +21,45 @@ var swiper = new Swiper('.projects-swiper', {
   },
 });
 
-// 🎧 Bulletproof sound system — works in Swiper & normal pages
+// 🎧 Sound system
 const soundFiles = {
   click: 'click.mp3',
-  error: 'error.mp3',
+  error: 'error.mp3'
 };
 
 function playSound(type) {
   const file = soundFiles[type];
   if (!file) return;
-
   const sound = new Audio(file);
   sound.currentTime = 0;
-  sound.volume = 1.0;
-  sound.play().catch(err => {
-    console.warn('Sound play error:', err);
-  });
+  sound.play().catch(() => {});
 }
 
-// Attach listeners
+// Reattachable function
 function attachSoundListeners() {
-  document.querySelectorAll('[data-sound]').forEach(button => {
-    button.addEventListener('click', e => {
-      playSound(button.getAttribute('data-sound'));
+  document.querySelectorAll('[data-sound]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      playSound(btn.getAttribute('data-sound'));
     });
   });
 }
 
-// Run once DOM is ready
+// Run when page loads
 document.addEventListener('DOMContentLoaded', () => {
   attachSoundListeners();
 });
 
-// Re-attach if Swiper (projects page) modifies DOM
+// If Swiper is present, wait for it to finish initializing
 window.addEventListener('load', () => {
-  attachSoundListeners();
+  // Delay a tiny bit to ensure Swiper clones are ready
+  setTimeout(() => {
+    attachSoundListeners();
+  }, 300);
 });
+
+// Prevent Coming Soon buttons from navigating
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.btn[data-sound="error"]');
+  if (btn) e.preventDefault();
+});
+
