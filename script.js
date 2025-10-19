@@ -57,3 +57,13 @@ document.addEventListener('click', e => {
   const btn = e.target.closest('.btn[data-sound="error"]');
   if (btn) e.preventDefault();
 });
+
+// 🔴 Shake animation for selected buttons only
+document.querySelectorAll('[data-shake]').forEach(button => {
+  button.addEventListener('click', () => {
+    button.classList.add('shake');
+    setTimeout(() => button.classList.remove('shake'), 400);
+  });
+});
+
+
