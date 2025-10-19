@@ -21,22 +21,25 @@ var swiper = new Swiper('.projects-swiper', {
   },
 });
 
-// Sound System
+// 🎧 Sound System (restart-friendly)
 const sounds = {
   click: new Audio('click.mp3'),
-  error: new Audio('error.mp3')
+  denied: new Audio('error.mp3')
 };
 
-// Add sound effect to specific buttons only
+// Allow rapid replays by cloning the sound each time
 document.querySelectorAll('[data-sound]').forEach(button => {
   button.addEventListener('click', () => {
     const soundType = button.getAttribute('data-sound');
-    const sound = sounds[soundType];
-    if (sound) {
-      sound.currentTime = 0;
+    const baseSound = sounds[soundType];
+
+    if (baseSound) {
+      const sound = baseSound.cloneNode(true); // clone makes it re-play instantly
+      sound.currentTime = 0;                   // ensure it starts from beginning
       sound.play();
     }
   });
 });
+
 
 
