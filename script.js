@@ -21,14 +21,22 @@ var swiper = new Swiper('.projects-swiper', {
   },
 });
 
-// Play pop sound on any button click
-const popSound = new Audio('click.mp3'); // replace with your file name
+// Sound System
+const sounds = {
+  click: new Audio('click.mp3'),
+  error: new Audio('error.mp3')
+};
 
-// For all clickable buttons and links
-document.querySelectorAll('.btn, .coming-soon-card-btn, .complete-card-btn, nav a').forEach(button => {
+// Add sound effect to specific buttons only
+document.querySelectorAll('[data-sound]').forEach(button => {
   button.addEventListener('click', () => {
-    popSound.currentTime = 0; // restart sound if clicked quickly
-    popSound.play();
+    const soundType = button.getAttribute('data-sound');
+    const sound = sounds[soundType];
+    if (sound) {
+      sound.currentTime = 0;
+      sound.play();
+    }
   });
 });
+
 
