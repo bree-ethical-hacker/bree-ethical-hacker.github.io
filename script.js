@@ -21,40 +21,39 @@ var swiper = new Swiper('.projects-swiper', {
   },
 });
 
-// 🎧 Sound System (reliable across all pages)
-const sounds = {
-  click: new Audio('click.mp3'),
-  denied: new Audio('denied.mp3')
+// 🎧 Bulletproof sound system — works in Swiper & normal pages
+const soundFiles = {
+  click: 'click.mp3',
+  error: 'error.mp3',
 };
 
-// Function to attach sound to tagged elements
+function playSound(type) {
+  const file = soundFiles[type];
+  if (!file) return;
+
+  const sound = new Audio(file);
+  sound.currentTime = 0;
+  sound.volume = 1.0;
+  sound.play().catch(err => {
+    console.warn('Sound play error:', err);
+  });
+}
+
+// Attach listeners
 function attachSoundListeners() {
   document.querySelectorAll('[data-sound]').forEach(button => {
-    button.addEventListener('click', () => {
-      const soundType = button.getAttribute('data-sound');
-      const baseSound = sounds[soundType];
-
-      if (baseSound) {
-        const sound = baseSound.cloneNode(true);
-        sound.currentTime = 0;
-        sound.play();
-      }
+    button.addEventListener('click', e => {
+      playSound(button.getAttribute('data-sound'));
     });
   });
 }
 
-// Attach listeners once DOM is ready
+// Run once DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   attachSoundListeners();
 });
 
-// If Swiper is used on this page, reattach after it initializes
-if (typeof Swiper !== 'undefined') {
-  window.addEventListener('load', () => {
-    attachSoundListeners(); // ensures buttons in Swiper slides get listeners
-  });
-}
-
-
-
-
+// Re-attach if Swiper (projects page) modifies DOM
+window.addEventListener('load', () => {
+  attachSoundListeners();
+});
