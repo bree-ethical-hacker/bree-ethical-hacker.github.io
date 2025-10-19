@@ -20,3 +20,15 @@ var swiper = new Swiper('.projects-swiper', {
     prevEl: '.swiper-button-prev',
   },
 });
+
+// Play pop sound on any button click
+const popSound = new Audio('click.mp3'); // replace with your file name
+
+// For all clickable buttons and links
+document.querySelectorAll('.btn, .coming-soon-card-btn, .complete-card-btn, nav a').forEach(button => {
+  button.addEventListener('click', () => {
+    popSound.currentTime = 0; // restart sound if clicked quickly
+    popSound.play();
+  });
+});
+
