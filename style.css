@@ -720,6 +720,12 @@ span {
   }
 }
 
+.menu-toggle {
+  background-color: red !important;
+  color: white !important;
+  display: block !important;
+}
+
 
 
 
