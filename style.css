@@ -621,6 +621,8 @@ span {
   animation: shake 0.4s ease;
 }
 
+
+
 /* Hide hamburger button on desktop */
 .menu-toggle {
   display: none;
@@ -631,7 +633,7 @@ span {
 }
 
 /* Mobile view */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .menu-toggle {
     display: block;
     z-index: 1001;
@@ -666,5 +668,6 @@ span {
     width: 100%;
   }
 }
+
 
 
