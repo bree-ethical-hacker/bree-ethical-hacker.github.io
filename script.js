@@ -66,4 +66,11 @@ document.querySelectorAll('[data-shake]').forEach(button => {
   });
 });
 
+// NAVIGATION BAR
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('nav ul');
+
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
 
