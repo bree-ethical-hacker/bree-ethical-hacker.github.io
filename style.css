@@ -621,4 +621,50 @@ span {
   animation: shake 0.4s ease;
 }
 
+/* Hide hamburger button on desktop */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    z-index: 1001;
+  }
+
+  nav ul {
+    position: fixed;
+    top: 0;
+    right: -250px; /* hidden off-screen */
+    width: 250px;
+    height: 100%;
+    background-color: #fff; /* match your site’s navbar color */
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding: 80px 20px;
+    gap: 20px;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+    transition: right 0.3s ease-in-out;
+  }
+
+  nav ul.active {
+    right: 0; /* slides in */
+  }
+
+  nav ul li {
+    width: 100%;
+  }
+
+  nav ul li a {
+    display: block;
+    width: 100%;
+  }
+}
+
 
