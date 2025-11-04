@@ -776,7 +776,7 @@ span {
   }
 
   .sidebar ul li {
-    transform: rotate(-90deg); /* make text vertical */
+    transform: rotate(90deg); /* make text vertical */
     transform-origin: center;
     margin: 0;
   }
@@ -798,6 +798,7 @@ span {
     justify-content: space-between;
   }
 }
+
 
 
 
