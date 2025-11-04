@@ -675,6 +675,49 @@ span {
   }
 }
 
+//SOME CHANGES I DONT UNDERSTAND
+/* HAMBURGER MENU STYLE */
+.menu-toggle {
+  display: none;            /* hidden by default (desktop) */
+  font-size: 3rem;          /* big enough to see */
+  background: none;         /* remove default button color */
+  color: #b74b4b;           /* red color to match your theme */
+  border: none;
+  cursor: pointer;
+  z-index: 200;
+}
+
+/* When screen is small (mobile view) */
+@media (max-width: 995px) {
+  .menu-toggle {
+    display: block;         /* show button */
+  }
+
+  nav {
+    position: absolute;
+    display: none;          /* hidden until button is clicked */
+    top: 70px;
+    right: 0;
+    width: 40%;
+    border-left: 3px solid #b74b4b;
+    border-bottom: 3px solid #b74b4b;
+    border-bottom-left-radius: 2rem;
+    background-color: #161616;
+    padding: 2rem;
+  }
+
+  nav.active {
+    display: block;         /* show menu when active */
+  }
+
+  nav a {
+    display: block;
+    font-size: 2rem;
+    margin: 2rem 0;
+  }
+}
+
+
 
 
 
