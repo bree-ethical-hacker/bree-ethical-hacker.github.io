@@ -636,7 +636,7 @@ span {
 .nav-links li a {
   color: white;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 3rem;
   font-weight: 500;
   transition: color 0.3s ease;
 }
@@ -644,7 +644,6 @@ span {
 .nav-links li a:hover {
   color: #b74b4b; /* your accent color */
 }
-
 
 .navbar.glass {
   position: fixed;
@@ -658,7 +657,7 @@ span {
   z-index: 100;
   backdrop-filter: blur(10px);
   background: rgba(20, 20, 20, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid red; /* red outline */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -679,8 +678,7 @@ span {
   height: 100vh;
   backdrop-filter: blur(20px);
   background: rgba(20, 20, 20, 0.6);
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
+  border-left: 1px solid red; /* red outline on the edge */
   box-shadow: -4px 0 10px rgba(0, 0, 0, 0.4);
   transition: right 0.4s ease;
   z-index: 1001;
@@ -743,6 +741,7 @@ span {
     display: block;
   }
 }
+
 
 
 
