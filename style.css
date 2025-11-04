@@ -624,6 +624,28 @@ span {
 
 
 /* === GLASS NAVIGATION BAR === */
+
+/* === NAV LINKS (DESKTOP) === */
+.nav-links {
+  display: flex;
+  gap: 2rem; /* space between items */
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #b74b4b; /* your accent color */
+}
+
+
 .navbar.glass {
   position: fixed;
   top: 0;
@@ -721,6 +743,7 @@ span {
     display: block;
   }
 }
+
 
 
 
