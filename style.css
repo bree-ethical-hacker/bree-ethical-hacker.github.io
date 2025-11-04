@@ -754,6 +754,52 @@ span {
 }
 
 
+/* === VERTICAL TEXT SIDEBAR MENU === */
+@media (max-width: 995px) {
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* equal space top/bottom */
+    align-items: center;
+    padding: 4rem 0;
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(20px);
+    border-radius: 0;
+    border: none;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .sidebar ul li {
+    transform: rotate(-90deg); /* make text vertical */
+    transform-origin: center;
+    margin: 0;
+  }
+
+  .sidebar ul li a {
+    font-size: 2rem;
+    color: white;
+    letter-spacing: 0.2rem;
+    transition: color 0.3s ease;
+  }
+
+  .sidebar ul li a:hover {
+    color: #b74b4b;
+  }
+
+  /* equal spacing top & bottom */
+  .sidebar ul {
+    height: 70vh; /* centers items vertically */
+    justify-content: space-between;
+  }
+}
+
+
 
 
 
