@@ -16,17 +16,40 @@
 <!-- MAIN PAGE BODY   -->
 <body>
 
-  <!-- NAVIGATION BAR -->
+  <!-- NAVIGATION BAR -->   !!!!!Check the href links for the pages "About, Projects, Contact"
   <header>
-    <span class="logo">Bree</span>
-    <button class="menu-toggle">☰</button>
     
-    <nav>  
-      <a href="index.html" class="active">Home</a> <!-- UNDERLINE ANIMATION -->
-      <a href="projects.html">Projects</a>
-      <a href="contact.html">Contact</a>
+    <nav class="navbar">
+      <div class="logo">Bree</div>
+      
+      <ul class="nav-links">
+        <li><a href="#about">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      
+      <div class="hamburger" id="hamburger">
+        <i class="fa fa-bars"></i>
+      </div>
+      
     </nav>
+  
+    <!-- Sidebar (hidden by default, slides in on mobile) -->
+    <div class="sidebar" id="sidebar">
+      
+      <ul>
+        <li><a href="#about">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      
+    </div>
+  
+    <!-- Overlay (darkens background when sidebar opens) -->
+    <div class="overlay" id="overlay"></div>
+    
   </header>
+
 
   <!-- MAIN PAGE CONTENT -->
   <section class="home">
@@ -64,6 +87,7 @@
   
 </body>
 </html>
+
 
 
 
