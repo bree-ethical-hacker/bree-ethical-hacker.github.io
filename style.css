@@ -798,6 +798,12 @@ span {
   }
 }
 
+/* Highlight active page in red */
+nav a.active,
+.nav-links li a.active,
+.sidebar ul li a.active {
+  color: #b74b4b;
+}
 
 
 
