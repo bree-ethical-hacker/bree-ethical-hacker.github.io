@@ -759,9 +759,9 @@ span {
   .sidebar {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* equal space top/bottom */
+    justify-content: center; /* center everything vertically */
     align-items: center;
-    padding: 4rem 0;
+    padding: 6rem 0; /* balanced top/bottom padding */
     background: rgba(20, 20, 20, 0.6);
     backdrop-filter: blur(20px);
     border-radius: 0;
@@ -771,18 +771,21 @@ span {
   .sidebar ul {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
+    justify-content: space-evenly; /* ✅ evenly distribute space */
+    align-items: center;
+    height: 70vh; /* keeps equal white space top & bottom */
+    list-style: none;
+    width: 100%;
   }
 
   .sidebar ul li {
-    transform: rotate(90deg); /* make text vertical */
+    transform: rotate(90deg); /* ✅ text faces the right direction */
     transform-origin: center;
     margin: 0;
   }
 
   .sidebar ul li a {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: white;
     letter-spacing: 0.2rem;
     transition: color 0.3s ease;
@@ -791,13 +794,8 @@ span {
   .sidebar ul li a:hover {
     color: #b74b4b;
   }
-
-  /* equal spacing top & bottom */
-  .sidebar ul {
-    height: 70vh; /* centers items vertically */
-    justify-content: space-between;
-  }
 }
+
 
 
 
