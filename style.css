@@ -738,7 +738,13 @@ span {
   .hamburger {
     display: block;
   }
+
+  .navbar.glass {
+    border: none !important;
+    box-shadow: none;
+  }
 }
+
 
 
 
