@@ -739,11 +739,20 @@ span {
     display: block;
   }
 
+  /* Remove red border and shadow on mobile navbar */
   .navbar.glass {
     border: none !important;
-    box-shadow: none;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Ensure sidebar is straight */
+  .sidebar {
+    border-radius: 0 !important;
+    border-left: none !important;
   }
 }
+
 
 
 
