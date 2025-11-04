@@ -19,14 +19,31 @@
 
   <!-- NAVIGATION BAR -->
   <header>
-    <span class="logo">Bree</span> <!-- This just dispays the Logo Bree. -->
-    <button class="menu-toggle">☰</button>
-    
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="projects.html" class="active">Projects</a> <!-- The "Class Active" ensures when the user clicks the projects page it gets the red animated undeline underneath. -->
-      <a href="contact.html">Contact</a>
+    <nav class="navbar glass">
+      <div class="logo">Bree</div>
+  
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+  
+      <div class="hamburger" id="hamburger">
+        <i class="fa fa-bars"></i>
+      </div>
     </nav>
+  
+    <!-- Sidebar (mobile only) -->
+    <div class="sidebar" id="sidebar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
   </header>
 
   
