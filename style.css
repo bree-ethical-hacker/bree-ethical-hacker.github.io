@@ -816,17 +816,18 @@ span {
 
 /* FOOTER */
 .footer {
+    position: fixed;          /* stay at bottom like navbar stays at top */
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 50%; /* half the height of the navbar */
+    height: 2rem;             /* half the navbar (adjust if navbar height changes) */
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    bottom: 0;
-    color: white;
-    font-size: 1.6rem;
+    z-index: 100;             /* same stacking as navbar */
+    font-size: 1.4rem;
     text-align: center;
-    padding: 1rem 0;
+    color: #b74b4b;           /* website red accent */
 }
 
 /* GLASS EFFECT FOR FOOTER */
@@ -835,6 +836,7 @@ span {
     background: rgba(20, 20, 20, 0.4);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+
 
 
 
