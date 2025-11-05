@@ -646,51 +646,38 @@ span {
 }
 
 .navbar.glass {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1rem 9%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-    backdrop-filter: blur(10px);
-    background: rgba(20, 20, 20, 0.4);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-
-    /* Keep circles inside navbar */
-    overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 9%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  background: rgba(20, 20, 20, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Red circles behind navbar content */
-.navbar.glass::before,
-.navbar.glass::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    background-color: rgba(183, 75, 75, 1); /* solid red */
-    z-index: -1; /* behind navbar content */
+/* === BACKGROUND DOTS BEHIND NAVBAR === */
+.navbar {
+  position: relative; /* ensures ::before is positioned inside navbar */
 }
 
-/* Left circle */
-.navbar.glass::before {
-    top: 50%;   /* vertically centered */
-    left: 20px; /* fixed px inside navbar */
-    width: 25px;
-    height: 25px;
-    transform: translateY(-50%); /* perfect vertical center */
+/* === BACKGROUND DOTS BEHIND NAVBAR === */
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 40%, rgba(183, 75, 75, 0.6), transparent 60%),
+    radial-gradient(circle at 80% 60%, rgba(183, 75, 75, 0.5), transparent 60%);
+  z-index: -1; /* keep dots behind the navbar content */
 }
-
-/* Right circle */
-.navbar.glass::after {
-    top: 50%;    /* vertically centered */
-    right: 20px; /* fixed px inside navbar */
-    width: 25px;
-    height: 25px;
-    transform: translateY(-50%); /* perfect vertical center */
-}
-
 
 
 /* === HAMBURGER ICON === */
@@ -844,12 +831,6 @@ span {
 .sidebar ul li a.active {
   color: #b74b4b;
 }
-
-
-
-
-
-
 
 
 
