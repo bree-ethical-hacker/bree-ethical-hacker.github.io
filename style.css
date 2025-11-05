@@ -814,28 +814,28 @@ span {
 }
 
 
-/* FOOTER */
 .footer {
-    position: fixed;          /* stay at bottom like navbar stays at top */
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 1rem 9%;         /* same as navbar for exact height */
+    height: 5rem;             /* MATCH NAVBAR HEIGHT */
     display: flex;
-    justify-content: center;  /* horizontally center text */
-    align-items: center;      /* vertically center text */
-    z-index: 100;             /* same stacking as navbar */
-    font-size: 1.8rem;        /* matches nav link size */
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    font-size: 1.8rem;
     text-align: center;
-    color: #b74b4b;           /* website red accent */
+    color: #b74b4b;
 }
 
-/* GLASS EFFECT FOR FOOTER */
+/* GLASS EFFECT */
 .glass-footer {
     backdrop-filter: blur(10px);
     background: rgba(20, 20, 20, 0.4);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+
 
 
 
