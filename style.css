@@ -660,6 +660,26 @@ span {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* === BACKGROUND DOTS BEHIND NAVBAR === */
+.navbar {
+  position: relative; /* ensures ::before is positioned inside navbar */
+}
+
+/* === BACKGROUND DOTS BEHIND NAVBAR === */
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 40%, rgba(183, 75, 75, 0.6), transparent 60%),
+    radial-gradient(circle at 80% 60%, rgba(183, 75, 75, 0.5), transparent 60%);
+  z-index: -1; /* keep dots behind the navbar content */
+}
+
+
 /* === HAMBURGER ICON === */
 .hamburger {
   display: none;
@@ -746,20 +766,6 @@ span {
     box-shadow: none !important;
     border-radius: 0 !important;
   }
-
-  /* === BACKGROUND DOTS BEHIND NAVBAR === */
-.navbar::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(circle at 20% 40%, rgba(183, 75, 75, 0.6), transparent 60%),
-    radial-gradient(circle at 80% 60%, rgba(183, 75, 75, 0.5), transparent 60%);
-  z-index: -1; /* keep dots behind the navbar content */
-}
   
 
   /* Ensure sidebar is straight */
@@ -825,6 +831,7 @@ span {
 .sidebar ul li a.active {
   color: #b74b4b;
 }
+
 
 
 
