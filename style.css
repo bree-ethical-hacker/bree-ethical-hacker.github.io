@@ -646,7 +646,7 @@ span {
 }
 
 .navbar.glass {
-  position: fixed;
+  position: relative;  /* This changed from fixed to relative for the 2 red navigation dots. */
   top: 0;
   left: 0;
   width: 100%;
@@ -660,29 +660,31 @@ span {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Remove old background gradients WE'RE HERE!!!!!!!*/ 
-.navbar::before {
+
+/* Solid red circles behind navbar content */
+.navbar.glass::before,
+.navbar.glass::after {
     content: "";
     position: absolute;
-    top: 20%; /* adjust vertical position */
-    left: 20%; /* adjust horizontal position */
-    width: 30px; /* circle size */
-    height: 30px;
+    border-radius: 50%;
     background-color: rgba(183, 75, 75, 1); /* solid red */
-    border-radius: 50%; /* makes it a circle */
-    z-index: -1;
+    z-index: 0; /* behind navbar content */
 }
 
-.navbar::after {
-    content: "";
-    position: absolute;
-    top: 60%;
-    left: 80%;
-    width: 30px;
-    height: 30px;
-    background-color: rgba(183, 75, 75, 1);
-    border-radius: 50%;
-    z-index: -1;
+/* Left circle */
+.navbar.glass::before {
+    top: 20%;  /* vertical position inside navbar */
+    left: 10%; /* horizontal position */
+    width: 25px; /* smaller size */
+    height: 25px;
+}
+
+/* Right circle */
+.navbar.glass::after {
+    top: 50%;
+    right: 10%;
+    width: 25px; /* smaller size */
+    height: 25px;
 }
 
 
@@ -838,6 +840,7 @@ span {
 .sidebar ul li a.active {
   color: #b74b4b;
 }
+
 
 
 
