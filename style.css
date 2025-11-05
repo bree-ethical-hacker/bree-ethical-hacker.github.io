@@ -820,12 +820,12 @@ span {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 2rem;             /* half the navbar (adjust if navbar height changes) */
+    padding: 1rem 9%;         /* same as navbar for exact height */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center;  /* horizontally center text */
+    align-items: center;      /* vertically center text */
     z-index: 100;             /* same stacking as navbar */
-    font-size: 1.4rem;
+    font-size: 1.8rem;        /* matches nav link size */
     text-align: center;
     color: #b74b4b;           /* website red accent */
 }
@@ -836,6 +836,8 @@ span {
     background: rgba(20, 20, 20, 0.4);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+
+
 
 
 
