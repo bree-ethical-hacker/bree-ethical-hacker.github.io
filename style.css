@@ -545,34 +545,36 @@ span {
 }
 
 
-/* PROJECTS INNER WEB PAGES */
+/* PROJECT DETAIL SECTION */
 .project-detail {
   display: flex;
   justify-content: center;
-  align-items: center; /* ✅ centers vertically */
-  min-height: calc(100vh - 12rem); /* leaves room for header/footer */
+  align-items: center;
   background: black;
   color: white;
   text-align: center;
-  padding: 10rem 2rem 8rem; /* keeps breathing room on smaller screens */
+  padding: 10rem 2rem 8rem; /* space below navbar & above footer */
   box-sizing: border-box;
+  min-height: 100vh;
 }
 
+/* PROJECT BOX (the red border container) */
 .project-box {
   border: 2px solid #b74b4b;
   border-radius: 2rem;
   padding: 4rem;
-  max-width: 1000px; /* ✅ slightly wider for large displays */
+  max-width: 1000px;
   width: 100%;
   background: transparent;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* ✅ centers content inside vertically */
-  align-items: center; /* ✅ centers content horizontally */
+  justify-content: center;
+  align-items: center;
+  margin: 6rem 0; /* ✅ keeps box a few inches below navbar and above footer */
 }
 
-/* Headings and paragraphs inside project box */
+/* TEXT STYLING */
 .project-box h1 {
   color: #b74b4b;
   font-size: clamp(3rem, 3.8vw, 4rem);
@@ -585,10 +587,10 @@ span {
   line-height: 1.7;
   margin-bottom: 1.8rem;
   word-wrap: break-word;
-  max-width: 80%; /* ✅ keeps text centered in a nice column */
+  max-width: 80%;
 }
 
-/* Buttons area */
+/* BUTTONS CONTAINER */
 .project-buttons {
   margin-top: 3rem;
   display: flex;
@@ -598,7 +600,7 @@ span {
   row-gap: 2.5rem;
 }
 
-/* Buttons themselves */
+/* BUTTONS */
 .project-buttons .btn {
   display: inline-block;
   padding: 1.2rem 3rem;
@@ -620,7 +622,21 @@ span {
   box-shadow: 0 0 20px #b74b4b;
 }
 
-/* RESPONSIVE ADJUSTMENTS */
+/* ✅ ADAPTIVE SPACING FOR LARGE SCREENS */
+@media (min-width: 1025px) {
+  .project-detail {
+    padding: 0;
+    height: calc(100vh - 12rem); /* fills screen but leaves room for navbar/footer */
+  }
+
+  .project-box {
+    margin: 6rem 0; /* keeps gap top & bottom */
+    max-height: calc(100vh - 12rem); /* ensures it never exceeds viewport */
+    justify-content: center;
+  }
+}
+
+/* ✅ MOBILE ADJUSTMENTS */
 @media (max-width: 768px) {
   .project-box {
     padding: 3rem 2rem;
@@ -659,6 +675,7 @@ span {
     font-size: 1.5rem;
   }
 }
+
 
 
 
@@ -893,6 +910,7 @@ span {
     background: rgba(20, 20, 20, 0.4);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+
 
 
 
