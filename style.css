@@ -549,12 +549,12 @@ span {
 .project-detail {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; /* ✅ centers vertically */
   min-height: calc(100vh - 12rem); /* leaves room for header/footer */
   background: black;
   color: white;
   text-align: center;
-  padding: 10rem 2rem 8rem; /* pushes content away from nav/footer */
+  padding: 10rem 2rem 8rem; /* keeps breathing room on smaller screens */
   box-sizing: border-box;
 }
 
@@ -562,37 +562,43 @@ span {
   border: 2px solid #b74b4b;
   border-radius: 2rem;
   padding: 4rem;
-  max-width: 900px;
+  max-width: 1000px; /* ✅ slightly wider for large displays */
   width: 100%;
   background: transparent;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* ✅ centers content inside vertically */
+  align-items: center; /* ✅ centers content horizontally */
 }
 
 /* Headings and paragraphs inside project box */
 .project-box h1 {
   color: #b74b4b;
-  font-size: 3.6rem;
+  font-size: clamp(3rem, 3.8vw, 4rem);
   margin-bottom: 2rem;
   line-height: 1.2;
 }
 
 .project-box p {
-  font-size: 1.8rem;
+  font-size: clamp(1.6rem, 1.8vw, 2rem);
   line-height: 1.7;
   margin-bottom: 1.8rem;
   word-wrap: break-word;
+  max-width: 80%; /* ✅ keeps text centered in a nice column */
 }
 
 /* Buttons area */
 .project-buttons {
   margin-top: 3rem;
   display: flex;
-  flex-wrap: wrap;           /* allows wrapping on smaller screens */
+  flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
-  row-gap: 2.5rem;           /* vertical spacing between buttons */
+  row-gap: 2.5rem;
 }
 
+/* Buttons themselves */
 .project-buttons .btn {
   display: inline-block;
   padding: 1.2rem 3rem;
@@ -604,7 +610,7 @@ span {
   background: transparent;
   transition: all 0.3s ease;
   text-decoration: none;
-  flex-shrink: 0;             /* prevents button from squishing */
+  flex-shrink: 0;
   min-width: 180px;
 }
 
@@ -626,10 +632,11 @@ span {
 
   .project-box p {
     font-size: 1.6rem;
+    max-width: 100%;
   }
 
   .project-buttons {
-    flex-direction: column; /* stack buttons vertically */
+    flex-direction: column-reverse; /* ✅ “Coming Soon” above “Back to Projects” */
     align-items: stretch;
   }
 
@@ -652,6 +659,7 @@ span {
     font-size: 1.5rem;
   }
 }
+
 
 
 
@@ -885,6 +893,7 @@ span {
     background: rgba(20, 20, 20, 0.4);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+
 
 
 
