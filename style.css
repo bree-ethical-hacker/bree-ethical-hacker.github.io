@@ -265,7 +265,7 @@ span {
 }
 
 .typing-text span::before {
-    content: "Penetration Tester";
+    content: "Pen Tester";
     color: #b74b4b;
     animation: words 20s infinite;
 }
@@ -910,6 +910,7 @@ span {
     background: rgba(20, 20, 20, 0.4);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+
 
 
 
