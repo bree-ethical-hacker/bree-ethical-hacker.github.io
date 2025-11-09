@@ -47,6 +47,29 @@
   <!-- WORDINGS -->
   <section class="project-detail">
     <div class="project-box">
+
+      <!-- AI Conversation Playback Card -->
+      <div class="ai-audio-card">
+        
+        <button id="ai-play-btn" class="play-btn">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        
+        <div class="audio-info">
+          <div class="progress-container">
+            <div id="ai-progress-bar" class="progress-bar"></div>
+          </div>
+          
+          <div class="time">
+            <span id="ai-current-time">0:00</span>
+            <span id="ai-duration">--</span>
+          </div>
+        </div>
+        
+        <audio id="ai-audio" src="conversation.mp3"></audio>
+      </div>
+
+      <!-- PROJECT WORDINGS -->
       <h1>Remotely Controlling Another Machine</h1>
   
       <p>This project shows how attackers can take control of another computer, opening the door to larger attacks such as ransomware, where sensitive files are locked and a fee is demanded for their return. A successful remote‑control attack can cause data loss and big operational disruption due to lack of access to important files/folders. The write-up will demonstrate how to find and fix these flaws in order to protect revenue, customers and compliance.</p>
