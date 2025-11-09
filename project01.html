@@ -47,6 +47,28 @@
 
   <!-- WORDINGS -->
   <section class="project-detail">
+
+    <!-- AI Conversation Playback Card -->
+      <div class="ai-audio-card">
+        
+        <button id="ai-play-btn" class="play-btn">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        
+        <div class="audio-info">
+          <div class="progress-container">
+            <div id="ai-progress-bar" class="progress-bar"></div>
+          </div>
+          
+          <div class="time">
+            <span id="ai-current-time">0:00</span>
+            <span id="ai-duration">--</span>
+          </div>
+        </div>
+        
+        <audio id="ai-audio" src="conversation.mp3"></audio>
+      </div>
+    
     <div class="project-box">
       <h1>Surveillance Through Android Apps</h1>
   
