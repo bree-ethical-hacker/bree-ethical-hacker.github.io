@@ -80,79 +80,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // AI POWERED CONVERSATION
-// AI Conversation Playback
+// AI Audio Playback (using .mp3)
+const aiAudio = document.getElementById('ai-audio');
 const aiPlayBtn = document.getElementById('ai-play-btn');
 const aiProgressBar = document.getElementById('ai-progress-bar');
 const aiCurrentTime = document.getElementById('ai-current-time');
 const aiDuration = document.getElementById('ai-duration');
+const aiPlayIcon = aiPlayBtn.querySelector('i');
 
-const aiConversation = [
-  { speaker: 'AI 1', text: 'Hey there, how are you doing today?' },
-  { speaker: 'AI 2', text: 'I’m doing great! Just exploring some AI projects lately.' },
-  { speaker: 'AI 1', text: 'Oh really? Anything interesting you’ve found so far?' },
-  { speaker: 'AI 2', text: 'Yeah! There’s this one that lets two AIs talk in real time — like we’re doing right now.' }
-];
+aiPlayBtn.addEventListener('click', () => {
+  if (aiAudio.paused) {
+    aiAudio.play();
+    aiPlayIcon.classList.remove('fa-play');
+    aiPlayIcon.classList.add('fa-pause');
+  } else {
+    aiAudio.pause();
+    aiPlayIcon.classList.remove('fa-pause');
+    aiPlayIcon.classList.add('fa-play');
+  }
+});
 
-let aiIndex = 0;
-let aiSpeaking = false;
-let aiElapsed = 0;
-let aiInterval;
-let aiTotalDuration = aiConversation.reduce((sum, line) => sum + line.text.length * 60, 0); // rough estimate
+aiAudio.addEventListener('timeupdate', () => {
+  const progress = (aiAudio.currentTime / aiAudio.duration) * 100;
+  aiProgressBar.style.width = `${progress}%`;
+  aiCurrentTime.textContent = formatTime(aiAudio.currentTime);
+});
 
-aiDuration.textContent = formatTime(aiTotalDuration / 100);
+aiAudio.addEventListener('loadedmetadata', () => {
+  aiDuration.textContent = formatTime(aiAudio.duration);
+});
 
-function speakAIConversation() {
-    if (aiSpeaking) {
-        window.speechSynthesis.cancel();
-        aiSpeaking = false;
-        aiPlayBtn.textContent = '▶️';
-        clearInterval(aiInterval);
-        aiProgressBar.style.width = '0%';
-        aiCurrentTime.textContent = '0:00';
-        return;
-    }
-
-    aiSpeaking = true;
-    aiPlayBtn.textContent = '⏸️';
-    aiIndex = 0;
-    aiElapsed = 0;
-
-    function speakNext() {
-        if (aiIndex < aiConversation.length) {
-            const line = aiConversation[aiIndex];
-            const utter = new SpeechSynthesisUtterance(line.text);
-            utter.voice = speechSynthesis.getVoices()[aiIndex % 2 === 0 ? 0 : 1]; // alternate voices
-            utter.pitch = aiIndex % 2 === 0 ? 1.0 : 1.2;
-            utter.rate = 1.05;
-
-            utter.onend = () => {
-                aiIndex++;
-                setTimeout(speakNext, 600); // small pause between lines
-            };
-            speechSynthesis.speak(utter);
-        } else {
-            aiSpeaking = false;
-            aiPlayBtn.textContent = '▶️';
-            clearInterval(aiInterval);
-        }
-    }
-
-    speakNext();
-
-    aiInterval = setInterval(() => {
-        aiElapsed += 0.5;
-        const progress = Math.min((aiElapsed / (aiTotalDuration / 100)) * 100, 100);
-        aiProgressBar.style.width = `${progress}%`;
-        aiCurrentTime.textContent = formatTime(aiElapsed);
-    }, 500);
-}
+aiAudio.addEventListener('ended', () => {
+  aiPlayIcon.classList.remove('fa-pause');
+  aiPlayIcon.classList.add('fa-play');
+  aiProgressBar.style.width = '0%';
+  aiCurrentTime.textContent = '0:00';
+});
 
 function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
-    return `${minutes}:${secs}`;
+  const minutes = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+  return `${minutes}:${secs}`;
 }
-
-aiPlayBtn.addEventListener('click', speakAIConversation);
-
-
