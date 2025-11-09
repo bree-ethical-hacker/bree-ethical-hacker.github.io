@@ -265,7 +265,7 @@ span {
 }
 
 .typing-text span::before {
-    content: "Pen Tester";
+    content: "Penetration Tester";
     color: #b74b4b;
     animation: words 20s infinite;
 }
@@ -289,10 +289,10 @@ span {
 
 @keyframes words {
     0%, 20% {
-        content: "Sec Analyst";
+        content: "Security Analyst";
     }
     21%, 40% {
-        content: "Eth Hacker";
+        content: "Ethical Hacker";
     }
     41%, 60% {
         content: "Threat Hunter";
@@ -301,7 +301,7 @@ span {
         content: "SOC Analyst";
     }
     81%, 100% {
-        content: "Responder";
+        content: "Inc Responder";
     }
 }
 
@@ -677,43 +677,6 @@ span {
 }
 
 
-/* === PERFECT CENTER BETWEEN NAVBAR & FOOTER (NO SCROLL, LARGE SCREENS) === */
-@media (min-width: 1025px) {
-  html, body {
-    height: 100%;
-    overflow-y: hidden; /* no vertical scroll on large screens */
-    display: flex;
-    flex-direction: column;
-  }
-
-  header {
-    flex-shrink: 0;
-  }
-
-  .footer {
-    flex-shrink: 0;
-  }
-
-  main,
-  .project-detail {
-    flex-grow: 1; /* fills the space between navbar and footer */
-    display: flex;
-    justify-content: center; /* centers horizontally */
-    align-items: center; /* centers vertically in available space */
-    padding: 0;
-  }
-
-  .project-box {
-    margin: 0;
-    width: 100%;
-    max-width: 1000px;
-    max-height: 80%; /* so it never overflows into navbar/footer */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-}
 
 
 
@@ -947,12 +910,6 @@ span {
     background: rgba(20, 20, 20, 0.4);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
-
-
-
-
-
-
 
 
 
