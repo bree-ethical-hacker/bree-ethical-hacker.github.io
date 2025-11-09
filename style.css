@@ -912,45 +912,46 @@ span {
 }
 
 
-/* === AI AUDIO CARD === */
+/* === AI AUDIO CARD (SLIM VERSION) === */
 .ai-audio-card {
   width: 100%;
-  background: black; /* same as site background */
+  max-width: 600px; /* keeps it compact */
+  background: black;
   border: 2px solid #b74b4b;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 1.5rem 2rem;
-  gap: 2rem;
-  margin-top: 3rem;
+  padding: 0.8rem 1.4rem;
+  gap: 1.2rem;
+  margin: 2rem auto 0;
   box-sizing: border-box;
 }
 
-/* Play/Pause Button (matches website button style) */
+/* Play/Pause Button */
 .ai-audio-card .play-btn {
   background-color: black;
   border: 2px solid #b74b4b;
   color: #b74b4b;
   border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
-  font-size: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1.6rem;
   cursor: pointer;
   transition: 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .ai-audio-card .play-btn:hover {
   background-color: #b74b4b;
   color: black;
   transform: scale(1.1);
-  box-shadow: 0 0 25px #b74b4b;
+  box-shadow: 0 0 15px #b74b4b;
 }
 
-/* Progress bar and time info */
+/* Progress bar + time info */
 .ai-audio-card .audio-info {
   flex: 1;
   display: flex;
@@ -960,10 +961,10 @@ span {
 
 .ai-audio-card .progress-container {
   background: #222;
-  border-radius: 10px;
-  height: 6px;
+  border-radius: 8px;
+  height: 4px;
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   overflow: hidden;
 }
 
@@ -977,22 +978,25 @@ span {
 .ai-audio-card .time {
   display: flex;
   justify-content: space-between;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   color: #ccc;
 }
 
 /* Responsive tweak */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .ai-audio-card {
-    padding: 1.2rem 1.6rem;
-    gap: 1.2rem;
+    padding: 0.7rem 1rem;
+    gap: 1rem;
+    max-width: 90%;
   }
 
   .ai-audio-card .play-btn {
-    width: 4.5rem;
-    height: 4.5rem;
-    font-size: 1.8rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.4rem;
+  }
+
+  .ai-audio-card .time {
+    font-size: 0.8rem;
   }
 }
-
-
