@@ -51,6 +51,29 @@
   <!-- WORDINGS -->
   <section class="project-detail">
     <div class="project-box">
+
+      <!-- AI Conversation Playback Card -->
+      <div class="ai-audio-card">
+        
+        <button id="ai-play-btn" class="play-btn">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        
+        <div class="audio-info">
+          <div class="progress-container">
+            <div id="ai-progress-bar" class="progress-bar"></div>
+          </div>
+          
+          <div class="time">
+            <span id="ai-current-time">0:00</span>
+            <span id="ai-duration">--</span>
+          </div>
+        </div>
+        
+        <audio id="ai-audio" src="conversation.mp3"></audio>
+      </div>
+
+      <!-- PROJECT WORDINGS -->
       <h1>Hunting For Security Flaws</h1>
   
       <p>This project demonstrates the crucial first step in most calculated attacks: scanning a company’s publicly visible footprint to find weaknesses. Spotting and fixing those exposures early can dramatically reduce financial and reputational risk by 75%. The full write‑up will walk you through how attackers gather critical business information, what impact it can have on your business, and practical ways to prevent it, all backed by credible references. </p>
