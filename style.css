@@ -677,35 +677,11 @@ span {
 }
 
 
-/* === PERFECTLY CENTERED PROJECT BOX (NO SCROLL, FOOTER VISIBLE) === */
+/* === PERFECT CENTER BETWEEN NAVBAR & FOOTER (NO SCROLL, LARGE SCREENS) === */
 @media (min-width: 1025px) {
   html, body {
-    height: 100%;           /* allow full height calculations */
-    overflow-y: hidden;     /* hide scrollbar */
-  }
-
-  /* Container for everything between navbar and footer */
-  .project-detail {
-    min-height: 0;
-    flex: 1;
-    display: flex;
-    justify-content: center;   /* center vertically */
-    align-items: center;       /* center horizontally */
-    padding: 0;
-  }
-
-  /* Red border box centered exactly */
-  .project-box {
-    margin: 0;
-    max-height: 80vh;          /* prevents overflow */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* Ensure footer and header sit above/below properly */
-  body {
+    height: 100%;
+    overflow-y: hidden; /* no vertical scroll on large screens */
     display: flex;
     flex-direction: column;
   }
@@ -716,6 +692,26 @@ span {
 
   .footer {
     flex-shrink: 0;
+  }
+
+  main,
+  .project-detail {
+    flex-grow: 1; /* fills the space between navbar and footer */
+    display: flex;
+    justify-content: center; /* centers horizontally */
+    align-items: center; /* centers vertically in available space */
+    padding: 0;
+  }
+
+  .project-box {
+    margin: 0;
+    width: 100%;
+    max-width: 1000px;
+    max-height: 80%; /* so it never overflows into navbar/footer */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -951,6 +947,7 @@ span {
     background: rgba(20, 20, 20, 0.4);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+
 
 
 
