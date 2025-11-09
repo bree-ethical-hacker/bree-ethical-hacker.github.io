@@ -48,6 +48,29 @@
   <!-- WORDINGS -->
   <section class="project-detail">
   <div class="project-box">
+
+    <!-- AI Conversation Playback Card -->
+      <div class="ai-audio-card">
+        
+        <button id="ai-play-btn" class="play-btn">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        
+        <div class="audio-info">
+          <div class="progress-container">
+            <div id="ai-progress-bar" class="progress-bar"></div>
+          </div>
+          
+          <div class="time">
+            <span id="ai-current-time">0:00</span>
+            <span id="ai-duration">--</span>
+          </div>
+        </div>
+        
+        <audio id="ai-audio" src="conversation.mp3"></audio>
+      </div>
+
+      <!-- PROJECT WORDINGS -->
     <h1>Hacking A Computer To Access Another</h1>
 
     <p>This project shows how to use one computer you control to reach another computer you can’t reach directly. By finding weak spots before attackers do, it helps reduce the risk of damaging breaches and service downtime. Undetected threats and operational strain resulted in 92% of organizations experiencing security incidents. The write‑up explains exactly how this is done and shows clear, practical steps to prevent this, so security teams can fix weaknesses before real attackers exploit them.</p>
