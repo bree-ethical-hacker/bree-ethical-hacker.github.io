@@ -912,83 +912,87 @@ span {
 }
 
 
-/* AI POWERED AUDIO RECORDINGS */
+/* === AI AUDIO CARD === */
 .ai-audio-card {
-    width: 340px;
-    background: #161616;
-    border: 2px solid #b74b4b;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    padding: 14px 18px;
-    gap: 15px;
-    margin-top: 3rem;
+  width: 100%;
+  background: black; /* same as site background */
+  border: 2px solid #b74b4b;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1.5rem 2rem;
+  gap: 2rem;
+  margin-top: 3rem;
+  box-sizing: border-box;
 }
 
+/* Play/Pause Button (matches website button style) */
 .ai-audio-card .play-btn {
-    background: #b74b4b;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: black;
+  border: 2px solid #b74b4b;
+  color: #b74b4b;
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ai-audio-card .play-btn:hover {
-    background: #ff4b4b;
+  background-color: #b74b4b;
+  color: black;
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #b74b4b;
 }
 
+/* Progress bar and time info */
 .ai-audio-card .audio-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .ai-audio-card .progress-container {
-    background: #333;
-    border-radius: 10px;
-    height: 6px;
-    width: 100%;
-    margin-bottom: 6px;
-    overflow: hidden;
+  background: #222;
+  border-radius: 10px;
+  height: 6px;
+  width: 100%;
+  margin-bottom: 8px;
+  overflow: hidden;
 }
 
 .ai-audio-card .progress-bar {
-    background: #b74b4b;
-    width: 0%;
-    height: 100%;
-    transition: width 0.1s linear;
+  background: #b74b4b;
+  width: 0%;
+  height: 100%;
+  transition: width 0.1s linear;
 }
 
 .ai-audio-card .time {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: #ccc;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  color: #ccc;
 }
 
+/* Responsive tweak */
+@media (max-width: 768px) {
+  .ai-audio-card {
+    padding: 1.2rem 1.6rem;
+    gap: 1.2rem;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  .ai-audio-card .play-btn {
+    width: 4.5rem;
+    height: 4.5rem;
+    font-size: 1.8rem;
+  }
+}
 
 
