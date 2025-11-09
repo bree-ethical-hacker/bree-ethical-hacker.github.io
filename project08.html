@@ -51,6 +51,29 @@
   <!-- WORDINGS -->
   <section class="project-detail">
     <div class="project-box">
+
+      <!-- AI Conversation Playback Card -->
+      <div class="ai-audio-card">
+        
+        <button id="ai-play-btn" class="play-btn">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        
+        <div class="audio-info">
+          <div class="progress-container">
+            <div id="ai-progress-bar" class="progress-bar"></div>
+          </div>
+          
+          <div class="time">
+            <span id="ai-current-time">0:00</span>
+            <span id="ai-duration">--</span>
+          </div>
+        </div>
+        
+        <audio id="ai-audio" src="conversation.mp3"></audio>
+      </div>
+
+      <!-- PROJECT WORDINGS -->
       <h1>Accessing Usernames & Passwords</h1>
   
       <p>This project shows how 80–95% of cyber attacks occur, with a simple phishing email. It demonstrates how an attacker can send a fake email linked to a cloned website, tricking users into entering their login details. Once their username and password are stolen, these credentials can be used to access business/personal accounts. This breach causes costly downtime and massive regulatory fines. The writeup explains how to spot these attacks early and outlines key ways to detect, prevent, and respond to them.</p>
