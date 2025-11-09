@@ -265,7 +265,7 @@ span {
 }
 
 .typing-text span::before {
-    content: "Penetration Tester";
+    content: "Pen Tester";
     color: #b74b4b;
     animation: words 20s infinite;
 }
@@ -289,10 +289,10 @@ span {
 
 @keyframes words {
     0%, 20% {
-        content: "Security Analyst";
+        content: "Sec Analyst";
     }
     21%, 40% {
-        content: "Ethical Hacker";
+        content: "Eth Hacker";
     }
     41%, 60% {
         content: "Threat Hunter";
@@ -301,7 +301,7 @@ span {
         content: "SOC Analyst";
     }
     81%, 100% {
-        content: "Inc Responder";
+        content: "Responder";
     }
 }
 
@@ -910,6 +910,8 @@ span {
     background: rgba(20, 20, 20, 0.4);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+
+
 
 
 
