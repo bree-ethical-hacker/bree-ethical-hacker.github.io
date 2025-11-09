@@ -912,14 +912,15 @@ span {
 }
 
 
-/* === AI AUDIO CARD (MATCHES RESUME BUTTON HEIGHT) === */
+
+
+/* === AI AUDIO CARD (SLIM + BORDERLESS) === */
 .ai-audio-card {
   width: 100%;
   max-width: 600px;
-  height: 4.5rem; /* same height as the Resume button */
-  background: black;
-  border: 2px solid #b74b4b;
-  border-radius: 1.5rem;
+  height: 4.5rem; /* same height as Resume button */
+  background: #111; /* soft dark background to distinguish it subtly */
+  border-radius: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -927,13 +928,14 @@ span {
   gap: 1.2rem;
   margin: 2rem auto 0;
   box-sizing: border-box;
+  box-shadow: 0 0 20px rgba(183, 75, 75, 0.1); /* soft red glow */
 }
 
 /* Play/Pause Button */
 .ai-audio-card .play-btn {
-  background-color: black;
-  border: 2px solid #b74b4b;
-  color: #b74b4b;
+  background-color: #b74b4b;
+  color: black;
+  border: none;
   border-radius: 50%;
   width: 3rem;
   height: 3rem;
@@ -947,13 +949,12 @@ span {
 }
 
 .ai-audio-card .play-btn:hover {
-  background-color: #b74b4b;
-  color: black;
-  transform: scale(1.08);
-  box-shadow: 0 0 15px #b74b4b;
+  background-color: #ff4b4b;
+  box-shadow: 0 0 20px #b74b4b;
+  transform: scale(1.05);
 }
 
-/* Audio info section (kept minimal for slim height) */
+/* Progress bar + time info */
 .ai-audio-card .audio-info {
   flex: 1;
   display: flex;
@@ -964,7 +965,7 @@ span {
 
 .ai-audio-card .progress-container {
   background: #222;
-  border-radius: 8px;
+  border-radius: 10px;
   height: 3px;
   width: 100%;
   margin-bottom: 3px;
@@ -994,8 +995,12 @@ span {
   }
 
   .ai-audio-card .play-btn {
-    width: 2.7rem;
-    height: 2.7rem;
-    font-size: 1.2rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    font-size: 1.3rem;
+  }
+
+  .ai-audio-card .time {
+    font-size: 0.8rem;
   }
 }
