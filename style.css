@@ -677,6 +677,30 @@ span {
 }
 
 
+/* === NO-SCROLL, PERFECTLY BALANCED LAYOUT ON LARGE SCREENS === */
+@media (min-width: 1025px) {
+  body {
+    overflow-y: hidden; /* ✅ remove scroll on big screens */
+  }
+
+  .project-detail {
+    height: calc(100vh - 10rem); /* total height minus navbar & footer (adjust if needed) */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* center the red box */
+    align-items: center;
+  }
+
+  .project-box {
+    margin: 0;
+    max-height: calc(100vh - 10rem); /* ensures it never exceeds view */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
 
 
 
@@ -910,6 +934,7 @@ span {
     background: rgba(20, 20, 20, 0.4);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+
 
 
 
