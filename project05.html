@@ -49,6 +49,29 @@
   <!-- WORDINGS -->
   <section class="project-detail">
   <div class="project-box">
+
+    <!-- AI Conversation Playback Card -->
+      <div class="ai-audio-card">
+        
+        <button id="ai-play-btn" class="play-btn">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        
+        <div class="audio-info">
+          <div class="progress-container">
+            <div id="ai-progress-bar" class="progress-bar"></div>
+          </div>
+          
+          <div class="time">
+            <span id="ai-current-time">0:00</span>
+            <span id="ai-duration">--</span>
+          </div>
+        </div>
+        
+        <audio id="ai-audio" src="conversation.mp3"></audio>
+      </div>
+
+      <!-- PROJECT WORDINGS -->
     <h1>Breaking Servers</h1>
 
     <p>This project demonstrates a DDoS Attack, when successful, it can cause outages that stop customers from using your site, hurting sales and reputation. Attackers flood the site with fake visitors or keep lots of sessions open so real paying customers can’t use your site. A single attack can cause hours or days of downtime. The write-up shows how to spot these attacks early and gives simple steps to detect, stop, and recover from them.</p>
