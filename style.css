@@ -264,6 +264,7 @@ span {
     position: relative;
 }
 
+
 /* ============================
    BLINKING CURSOR FOR SCRAMBLE
 ============================= */
@@ -332,6 +333,25 @@ span {
     }
 }
 */
+/* ===============================
+   MOBILE: FIX SCRAMBLE TEXT OVERFLOW
+================================ */
+
+@media (max-width: 768px) {
+    .typing-text span {
+        display: block;          /* behaves like <br> */
+        font-size: 1.8rem;       /* smaller for mobile */
+        line-height: 2.4rem;
+        margin-top: 5px;
+        white-space: nowrap;     /* prevents wrapping glitches */
+    }
+
+    .typing-text {
+        font-size: 1.8rem;
+        line-height: 2.4rem;
+    }
+}
+
 
 /* HOME PAGE MEDIA QUERIES */
 @media (max-width: 1000px) {
@@ -1057,5 +1077,6 @@ span {
         width: 100%;
     }
 }
+
 
 
