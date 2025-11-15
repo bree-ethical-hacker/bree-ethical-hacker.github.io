@@ -264,6 +264,7 @@ span {
     position: relative;
 }
 
+/*
 .typing-text span::before {
     content: "Pen Tester";
     color: #b74b4b;
@@ -304,7 +305,7 @@ span {
         content: "Responder";
     }
 }
-
+*/
 
 /* HOME PAGE MEDIA QUERIES */
 @media (max-width: 1000px) {
@@ -1004,3 +1005,4 @@ span {
     font-size: 0.8rem;
   }
 }
+
