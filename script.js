@@ -122,3 +122,54 @@ function formatTime(seconds) {
   const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
   return `${minutes}:${secs}`;
 }
+
+
+
+
+// ===============================
+// HACKER DECODE TEXT EFFECT
+// ===============================
+
+const roles = [
+  "Sec Analyst",
+  "Eth Hacker",
+  "Threat Hunter",
+  "SOC Analyst",
+  "Responder"
+];
+
+const span = document.querySelector(".typing-text span");
+
+let currentIndex = 0;
+let interval = null;
+
+function hackerEffect(text) {
+  let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*";
+  let iterations = 0;
+
+  clearInterval(interval);
+
+  interval = setInterval(() => {
+    span.innerText = text
+      .split("")
+      .map((letter, index) => {
+        if (index < iterations) return text[index];
+        return letters[Math.floor(Math.random() * letters.length)];
+      })
+      .join("");
+
+    if (iterations >= text.length) {
+      clearInterval(interval);
+    }
+
+    iterations += 1 / 2; // speed of reveal
+  }, 30);
+}
+
+function cycleRoles() {
+  hackerEffect(roles[currentIndex]);
+  currentIndex = (currentIndex + 1) % roles.length;
+}
+
+cycleRoles();
+setInterval(cycleRoles, 2500);
