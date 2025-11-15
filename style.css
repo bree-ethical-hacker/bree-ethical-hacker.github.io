@@ -1033,3 +1033,29 @@ span {
 }
 
 
+/* ===============================
+   DESKTOP: NO SCROLL / PERFECT FIT
+================================ */
+
+@media (min-width: 1024px) {
+    body {
+        overflow: hidden; /* removes scrollbar */
+    }
+
+    .home {
+        min-height: 100vh;
+        padding-top: 0;
+        padding-bottom: 0;
+        display: flex;
+        align-items: center;   /* vertically center */
+        justify-content: center;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 20px; /* adjust as needed */
+        width: 100%;
+    }
+}
+
+
