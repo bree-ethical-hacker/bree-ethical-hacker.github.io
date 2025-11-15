@@ -132,7 +132,7 @@ function formatTime(seconds) {
 
 const roles = [
   "Sec Analyst",
-  "Eth Hacker",
+  "Ethic Hacker",
   "Threat Hunter",
   "SOC Analyst",
   "Responder"
