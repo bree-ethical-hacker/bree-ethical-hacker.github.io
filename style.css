@@ -264,6 +264,32 @@ span {
     position: relative;
 }
 
+/* ============================
+   BLINKING CURSOR FOR SCRAMBLE
+============================= */
+
+.typing-text {
+    position: relative;
+    display: inline-block;
+}
+
+.typing-text::after {
+    content: "";
+    position: absolute;
+    right: -10px;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: #b74b4b;
+    animation: cursorBlink 0.7s infinite;
+}
+
+@keyframes cursorBlink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 /*
 .typing-text span::before {
     content: "Pen Tester";
@@ -1005,4 +1031,5 @@ span {
     font-size: 0.8rem;
   }
 }
+
 
