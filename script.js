@@ -132,11 +132,10 @@ function formatTime(seconds) {
 
 // ====== SCRAMBLE TEXT ANIMATION ======
 const roles = [
-  "Jr. Security Analyst",
+  "Sec Analyst",
   "Threat Hunter",
-  "Incident Responder",
-  "SOC Analyst",
-  "Cybersecurity Researcher"
+  "Responder",
+  "SOC Analyst"
 ];
 
 const dynamicText = document.getElementById("dynamic-text");
