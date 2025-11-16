@@ -130,46 +130,51 @@ function formatTime(seconds) {
 // HACKER DECODE TEXT EFFECT
 // ===============================
 
+// ====== SCRAMBLE TEXT ANIMATION ======
 const roles = [
-  "Sec Analyst",
-  "Ethic Hacker",
+  "Jr. Security Analyst",
   "Threat Hunter",
+  "Incident Responder",
   "SOC Analyst",
-  "Responder"
+  "Cybersecurity Researcher"
 ];
 
-const span = document.querySelector(".typing-text span");
+const dynamicText = document.getElementById("dynamic-text");
 
-let currentIndex = 0;
-let interval = null;
+let currentRole = 0;
+let scrambleInterval;
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*";
 
-function hackerEffect(text) {
-  let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*";
-  let iterations = 0;
+function scrambleText(role) {
+  let iteration = 0;
+  const target = role;
+  const total = target.length;
 
-  clearInterval(interval);
+  clearInterval(scrambleInterval);
 
-  interval = setInterval(() => {
-    span.innerText = text
+  scrambleInterval = setInterval(() => {
+    dynamicText.innerText = target
       .split("")
-      .map((letter, index) => {
-        if (index < iterations) return text[index];
+      .map((char, idx) => {
+        if (idx < iteration) return target[idx];
         return letters[Math.floor(Math.random() * letters.length)];
       })
       .join("");
 
-    if (iterations >= text.length) {
-      clearInterval(interval);
+    iteration += 1 / 2; // smooth speed
+
+    if (iteration >= total) {
+      clearInterval(scrambleInterval);
+      dynamicText.innerText = target;
+      setTimeout(() => rotateRole(), 1500);
     }
-
-    iterations += 1 / 2; // speed of reveal
-  }, 30);
+  }, 50);
 }
 
-function cycleRoles() {
-  hackerEffect(roles[currentIndex]);
-  currentIndex = (currentIndex + 1) % roles.length;
+function rotateRole() {
+  currentRole = (currentRole + 1) % roles.length;
+  scrambleText(roles[currentRole]);
 }
 
-cycleRoles();
-setInterval(cycleRoles, 2500);
+// Start animation
+scrambleText(roles[currentRole]);
