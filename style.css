@@ -276,10 +276,10 @@ span {
 /* ============================
    BLINKING CURSOR
 ============================ */
-.typing-text::after {
+.typing-text span::after {
     content: "";
     position: absolute;
-    right: -10px;
+    right: -2px;
     top: 0;
     width: 3px;
     height: 100%;
@@ -293,41 +293,60 @@ span {
 }
 
 /* ============================
-   MOBILE: SCRAMBLE TEXT ADJUSTMENTS
+   SCRAMBLE TEXT MEDIA QUERIES
 ============================ */
-@media (max-width: 1024px) {
+/* --- Large screens (desktop) --- */
+.typing-text {
+    font-size: 3.4rem;
+    line-height: 4rem;
+}
+
+/* --- Medium screens: iPad Pro, Nest Hub --- */
+@media (max-width: 1200px) and (min-width: 1025px) {
     .typing-text {
-        font-size: 2.2rem;      /* smaller for tablets */
+        font-size: 2.8rem;
+        line-height: 3.2rem;
     }
 }
 
-@media (max-width: 768px) {
+/* --- Tablets (smaller) --- */
+@media (max-width: 1024px) and (min-width: 769px) {
     .typing-text {
-        font-size: 1.8rem;      /* smaller for mobile */
+        font-size: 2.2rem;
+        line-height: 2.8rem;
+    }
+}
+
+/* --- Mobile --- */
+@media (max-width: 768px) and (min-width: 421px) {
+    .typing-text {
+        font-size: 1.8rem;
         line-height: 2.4rem;
-        white-space: normal;    /* allow wrapping with block spans */
+        white-space: normal;
     }
 
     .typing-text span {
-        display: block;         /* move each word to next line */
+        display: block;
         font-size: 1.8rem;
         line-height: 2.4rem;
         margin-top: 5px;
-        white-space: nowrap;    /* prevent wrapping inside a word */
+        white-space: nowrap;
     }
 }
 
+/* --- Very small screens --- */
 @media (max-width: 420px) {
     .typing-text {
-        font-size: 1.7rem;      /* very small screens */
-        line-height: 2.2rem;
+        font-size: 2rem; /* slightly bigger so it's readable */
+        line-height: 2.4rem;
     }
 
     .typing-text span {
-        font-size: 1.7rem;
-        line-height: 2.2rem;
+        font-size: 2rem;
+        line-height: 2.4rem;
     }
 }
+
 
 
 
@@ -1055,6 +1074,7 @@ span {
         left: 0;
     }
 }
+
 
 
 
