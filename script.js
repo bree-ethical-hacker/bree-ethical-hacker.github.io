@@ -143,7 +143,7 @@ const dynamicText = document.getElementById("dynamic-text");
 
 let currentRole = 0;
 let scrambleInterval;
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#$%^*";
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*:";
 
 function scrambleText(role) {
   let iteration = 0;
