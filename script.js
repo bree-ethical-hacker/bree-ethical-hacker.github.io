@@ -133,8 +133,9 @@ function formatTime(seconds) {
 // ====== SCRAMBLE TEXT ANIMATION ======
 const roles = [
   "Sec Analyst",
+  "Ethical Hacker",
   "Threat Hunter",
-  "Responder",
+  "Inc Responder",
   "SOC Analyst"
 ];
 
