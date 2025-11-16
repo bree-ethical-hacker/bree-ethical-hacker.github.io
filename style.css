@@ -1077,30 +1077,6 @@ span {
 }
 
 
-/* ===============================
-   DESKTOP:
-================================ */
-
-@media (min-width: 1024px) {
-    html, body {
-        height: 100%;
-        overflow: auto; /* scroll bar */
-    }
-
-    .home {
-        min-height: calc(100vh - 80px); /* leave space for footer */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        left: 0;
-    }
-}
 
 
 
