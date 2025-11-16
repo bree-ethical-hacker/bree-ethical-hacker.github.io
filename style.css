@@ -276,7 +276,7 @@ span {
 /* ============================
    BLINKING CURSOR
 ============================ */
-.typing-text span::after {
+/* .typing-text span::after {
     content: "";
     position: absolute;
     right: -2px;
@@ -290,7 +290,7 @@ span {
 @keyframes cursorBlink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
-}
+} */
 
 
 .cursor {
@@ -1037,12 +1037,16 @@ span {
   width: 100%;
   margin-bottom: 3px;
   overflow: hidden;
+  position: relative;
 }
 
 .ai-audio-card .progress-bar {
   background: #b74b4b;
   width: 0%;
   height: 100%;
+  position: absolute;
+  left: 0;    /* ensure it always starts from left */
+  top: 0;
   transition: width 0.1s linear;
 }
 
@@ -1074,13 +1078,13 @@ span {
 
 
 /* ===============================
-   DESKTOP: NO SCROLL / PERFECT FIT
+   DESKTOP:
 ================================ */
 
 @media (min-width: 1024px) {
     html, body {
         height: 100%;
-        overflow: hidden; /* no scroll bar */
+        overflow: auto; /* scroll bar */
     }
 
     .home {
@@ -1097,6 +1101,7 @@ span {
         left: 0;
     }
 }
+
 
 
 
