@@ -292,6 +292,23 @@ span {
     50% { opacity: 0; }
 }
 
+
+.cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em; /* same height as text */
+    background-color: #b74b4b;
+    margin-left: 2px; /* tiny spacing */
+    animation: cursorBlink 0.7s infinite;
+    vertical-align: bottom; /* aligns with baseline of letters */
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+
 /* ============================
    SCRAMBLE TEXT MEDIA QUERIES
 ============================ */
@@ -312,10 +329,16 @@ span {
 /* --- Tablets (smaller) --- */
 @media (max-width: 1024px) and (min-width: 769px) {
     .typing-text {
-        font-size: 2.2rem;
-        line-height: 2.8rem;
+        font-size: 2.4rem; /* slightly bigger for readability */
+        line-height: 3.2rem; /* more vertical spacing */
+        margin-bottom: 1rem; /* extra spacing below typing text */
+    }
+
+    .home-content p {
+        margin-top: 1rem; /* ensure paragraph is spaced below */
     }
 }
+
 
 /* --- Mobile --- */
 @media (max-width: 768px) and (min-width: 421px) {
@@ -1074,6 +1097,7 @@ span {
         left: 0;
     }
 }
+
 
 
 
