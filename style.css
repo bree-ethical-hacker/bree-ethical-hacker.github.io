@@ -256,6 +256,11 @@ span {
 /* ============================
    TYPING TEXT ANIMATION
 ============================ */
+.typing-wrapper {
+    white-space: nowrap;      /* keeps text + cursor together ALWAYS */
+    display: inline-block;
+}
+
 .typing-text {
     font-size: 34px;          /* default desktop size */
     font-weight: 600;
@@ -990,6 +995,7 @@ span {
   border-radius: 1.2rem;
   display: flex;
   align-items: center;
+  align-self: flex-start;  
   justify-content: space-between;
   padding: 0 1.2rem;
   gap: 1.2rem;
@@ -1075,6 +1081,7 @@ span {
     font-size: 0.8rem;
   }
 }
+
 
 
 
