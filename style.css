@@ -107,7 +107,7 @@ nav a.active::after {
 /* ??????? */
 section {
     min-height: 100vh;
-    padding: calc(5rem + 7rem) 9% 5rem;
+    padding: calc(5rem + 8rem) 9% 5rem;
 }
 
 
@@ -1075,6 +1075,7 @@ span {
     font-size: 0.8rem;
   }
 }
+
 
 
 
