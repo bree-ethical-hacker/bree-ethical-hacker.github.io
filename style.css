@@ -1083,48 +1083,52 @@ span {
 }
 
 
-/* CENTER SWIPER ON ALL DEVICES */
-#projects-slider {
-    min-height: 100vh;              /* full screen */
-    display: flex;
-    flex-direction: column;         /* disclaimer on top, slider below */
-    justify-content: center;        /* vertical center */
-    align-items: center;            /* horizontal center */
-    padding: 0 2rem;                /* small horizontal padding */
-    box-sizing: border-box;
+/* -----------------------------
+   Center the Swiper wrapper
+   (only modifies .swiper-wrapper)
+   ----------------------------- */
+
+/* set nav/footer heights (adjust if your header/footer are taller) */
+:root{
+  --site-nav-height: 5rem;    /* fallback nav height (change if needed) */
+  --site-footer-height: 5rem; /* footer height (matches your .footer) */
 }
 
-/* Make sure container doesn't add weird spacing */
-#projects-slider .container {
-    width: 100%;
-    max-width: 1200px;
+/* ensure the swiper wrapper itself becomes a flex centering container
+   and gets the exact height between nav and footer */
+.swiper-wrapper {
+  display: flex !important;               /* make wrapper a flexbox */
+  align-items: center !important;         /* vertical center its slides */
+  justify-content: center !important;     /* horizontal center */
+  gap: 2rem;                              /* optional spacing between slides */
+
+  /* height = viewport minus nav minus footer (centers vertically in that band) */
+  min-height: calc(100vh - var(--site-nav-height) - var(--site-footer-height));
+  height: calc(100vh - var(--site-nav-height) - var(--site-footer-height));
+  box-sizing: border-box;
+  padding: 1rem 0;                        /* small vertical breathing room */
 }
 
-/* Let swiper auto-size instead of fixed height */
-.projects-swiper {
-    height: auto;
-    padding: 2rem 0;
-    width: 100%;
-    max-width: 40rem;  /* keeps size consistent on all screens */
+/* make sure Swiper's auto slides sizing won't overflow: */
+.projects-swiper,
+.projects-swiper .swiper {
+  height: auto;
 }
 
-/* Center the disclaimer */
-#projects-slider h2,
-#projects-slider h3 {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-/* RESPONSIVE: less padding on small screens */
+/* Small-screen tweak — reduce required height so mobile looks tight */
 @media (max-width: 600px) {
-    #projects-slider {
-        padding: 2rem 1rem;
-    }
+  :root {
+    --site-nav-height: 5rem;
+    --site-footer-height: 5rem;
+  }
 
-    .projects-swiper {
-        max-width: 32rem;
-    }
+  .swiper-wrapper {
+    padding: 0.6rem 0;
+    gap: 1rem;
+  }
 }
+
+
 
 
 
