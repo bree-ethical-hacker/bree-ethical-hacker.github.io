@@ -1100,7 +1100,6 @@ span {
   display: flex !important;               /* make wrapper a flexbox */
   align-items: center !important;         /* vertical center its slides */
   justify-content: center !important;     /* horizontal center */
-  gap: 2rem;                              /* optional spacing between slides */
 
   /* height = viewport minus nav minus footer (centers vertically in that band) */
   min-height: calc(100vh - var(--site-nav-height) - var(--site-footer-height));
@@ -1110,10 +1109,10 @@ span {
 }
 
 /* make sure Swiper's auto slides sizing won't overflow: */
-.projects-swiper,
+/* .projects-swiper,
 .projects-swiper .swiper {
   height: auto;
-}
+} */
 
 /* Small-screen tweak — reduce required height so mobile looks tight */
 @media (max-width: 600px) {
@@ -1124,9 +1123,9 @@ span {
 
   .swiper-wrapper {
     padding: 0.6rem 0;
-    gap: 1rem;
   }
 }
+
 
 
 
