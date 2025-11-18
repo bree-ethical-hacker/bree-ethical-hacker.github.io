@@ -1083,6 +1083,49 @@ span {
 }
 
 
+/* CENTER SWIPER ON ALL DEVICES */
+#projects-slider {
+    min-height: 100vh;              /* full screen */
+    display: flex;
+    flex-direction: column;         /* disclaimer on top, slider below */
+    justify-content: center;        /* vertical center */
+    align-items: center;            /* horizontal center */
+    padding: 0 2rem;                /* small horizontal padding */
+    box-sizing: border-box;
+}
+
+/* Make sure container doesn't add weird spacing */
+#projects-slider .container {
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Let swiper auto-size instead of fixed height */
+.projects-swiper {
+    height: auto;
+    padding: 2rem 0;
+    width: 100%;
+    max-width: 40rem;  /* keeps size consistent on all screens */
+}
+
+/* Center the disclaimer */
+#projects-slider h2,
+#projects-slider h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* RESPONSIVE: less padding on small screens */
+@media (max-width: 600px) {
+    #projects-slider {
+        padding: 2rem 1rem;
+    }
+
+    .projects-swiper {
+        max-width: 32rem;
+    }
+}
+
 
 
 
