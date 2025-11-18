@@ -1083,48 +1083,13 @@ span {
 }
 
 
-/* -----------------------------
-   Center the Swiper wrapper
-   (only modifies .swiper-wrapper)
-   ----------------------------- */
-
-/* set nav/footer heights (adjust if your header/footer are taller) */
-:root{
-  --site-nav-height: 5rem;    /* fallback nav height (change if needed) */
-  --site-footer-height: 5rem; /* footer height (matches your .footer) */
-}
-
-/* ensure the swiper wrapper itself becomes a flex centering container
-   and gets the exact height between nav and footer */
+/* CENTERED SWIPPER */
 .swiper-wrapper {
-  display: flex !important;               /* make wrapper a flexbox */
-  align-items: center !important;         /* vertical center its slides */
-  justify-content: center !important;     /* horizontal center */
-
-  /* height = viewport minus nav minus footer (centers vertically in that band) */
-  min-height: calc(100vh - var(--site-nav-height) - var(--site-footer-height));
-  height: calc(100vh - var(--site-nav-height) - var(--site-footer-height));
-  box-sizing: border-box;
-  padding: 1rem 0;                        /* small vertical breathing room */
+  margin-top: calc((100vh - 10rem) / 2);
 }
 
-/* make sure Swiper's auto slides sizing won't overflow: */
-/* .projects-swiper,
-.projects-swiper .swiper {
-  height: auto;
-} */
 
-/* Small-screen tweak — reduce required height so mobile looks tight */
-@media (max-width: 600px) {
-  :root {
-    --site-nav-height: 5rem;
-    --site-footer-height: 5rem;
-  }
 
-  .swiper-wrapper {
-    padding: 0.6rem 0;
-  }
-}
 
 
 
