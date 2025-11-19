@@ -1219,6 +1219,10 @@ span {
 }
 
 /* SMALL CIRCLES BOTTOM OF PROJECTS SLIDER */
+.swiper-pagination {
+  margin-top: 2rem !important;
+}
+
 .swiper-pagination-bullet {
   background: transparent !important;
   border: 2px solid #b74b4b !important;
@@ -1272,6 +1276,7 @@ span {
     height: 36rem;
   }
 }
+
 
 
 
