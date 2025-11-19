@@ -1220,7 +1220,7 @@ span {
 
 /* SMALL CIRCLES BOTTOM OF PROJECTS SLIDER */
 .swiper-pagination {
-  margin-top: 2rem !important;
+  margin-top: 4rem !important;
 }
 
 .swiper-pagination-bullet {
@@ -1276,6 +1276,7 @@ span {
     height: 36rem;
   }
 }
+
 
 
 
