@@ -1082,7 +1082,11 @@ span {
   }
 }
 
+
+
+
 /* PROJECTS CONTENT CENTERED */
+/* 
 #projects-slider .projects-swiper {
   display: flex;
   justify-content: center;
@@ -1090,26 +1094,29 @@ span {
   height: 70vh;
 }
 
-/* FORCE SWIPER + DISCLAIMER TO ALIGN WITH ARROWS/PAGINATION */
 #projects-slider {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;   /* <--- THIS is the important one */
-    width: 100%;
+    /* width: 100%;
 }
 
 .projects-swiper {
     margin-left: auto;
     margin-right: auto;     /* <--- centers the swiper track */
-    width: fit-content;     /* <--- keeps width tight around the cards */
-}
+    /* width: fit-content;     /* <--- keeps width tight around the cards */
+/* }
 
 .disclaimer {
     margin-left: auto;
     margin-right: auto;     /* <--- centers the text perfectly */
-    text-align: center;
-}
+    /* text-align: center;
+}      */
+
+
+
+
 
 
 
