@@ -1089,7 +1089,7 @@ span {
 
 /* PROJECTS SLIDER - CENTERED ON ALL DEVICES */
 #projects-slider {
-  padding: 0;
+  padding: 10rem 2rem 5rem 2rem;
   text-align: center;
   background: black;
   min-height: 100vh;
@@ -1272,6 +1272,7 @@ span {
     height: 36rem;
   }
 }
+
 
 
 
