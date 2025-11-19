@@ -1114,7 +1114,7 @@ span {
   text-align: center;
   padding: 2rem;
   max-width: 900px;
-  margin: 0 auto 3rem auto;
+  margin: 0 auto;
 }
 
 .disclaimer h2 {
@@ -1272,6 +1272,7 @@ span {
     height: 36rem;
   }
 }
+
 
 
 
