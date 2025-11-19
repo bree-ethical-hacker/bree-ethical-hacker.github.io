@@ -215,18 +215,18 @@ span {
     background-color: black;
     border-radius: 2rem;
     font-size: 1.2rem;
-    color: #E8C999;
+    color: #fff;
     font-weight: 600;
-    border: 2px solid #E8C999;
+    border: 2px solid #fff;
     transition: 0.3s ease;
     cursor: pointer;
     text-decoration: none;
 }
 
 .coming-soon-card-btn:hover {
-    background-color: #E8C999;
+    background-color: #fff;
     color: black;
-    box-shadow: 0 0 15px #E8C999;
+    box-shadow: 0 0 15px #fff;
 }
 
 
@@ -1276,6 +1276,7 @@ span {
     height: 36rem;
   }
 }
+
 
 
 
