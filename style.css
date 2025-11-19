@@ -1082,11 +1082,14 @@ span {
   }
 }
 
-
-/* CENTERED SWIPPER */
-.swiper-wrapper {
-  margin-top: calc((100vh - 10rem) / 2);
+/* PROJECTS CONTENT CENTERED */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
 }
+
 
 
 
