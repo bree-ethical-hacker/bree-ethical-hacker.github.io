@@ -1280,10 +1280,17 @@ span {
 
 
 
+/* ENTIRE PROJECTS SWIPER */
+.projects-swiper {
+  height: 50rem;
+  padding: 2rem 0 8rem 0; /* Added 8rem bottom padding */
+  width: 100%;
+  margin: 0 auto;
+}
 
 /* SMALL CIRCLES BOTTOM OF PROJECTS SLIDER */
 .swiper-pagination {
-  margin-top: 6rem !important; /* Increased from 4rem */
+  margin-top: 4rem !important;
 }
 
 .swiper-pagination-bullet {
@@ -1299,14 +1306,16 @@ span {
 
 /* Increase spacing on smaller devices where overlap occurs */
 @media (max-width: 768px) {
-  .swiper-pagination {
-    margin-top: 7rem !important; /* More space on tablets */
+  .projects-swiper {
+    height: 50rem;
+    padding: 2rem 0 10rem 0; /* More bottom padding on tablets */
   }
 }
 
 @media (max-width: 480px) {
-  .swiper-pagination {
-    margin-top: 8rem !important; /* Even more space on mobile */
+  .projects-swiper {
+    height: 50rem;
+    padding: 2rem 0 12rem 0; /* Even more bottom padding on mobile */
   }
 }
 
