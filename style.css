@@ -183,7 +183,7 @@ span {
 }
 
 
-/* RESUME BUTTON */
+/* CERTIFICATES BUTTON */
 .btn {
     display: inline-block;
     padding: 1rem 2.8rem;
@@ -480,7 +480,7 @@ span {
 /* ?????? */
 .project-title {
     font-size: 1.6rem;
-    color: #b74b4b;
+    color: #fff;
     font-weight: 600;
     margin: 0;                 /* ✅ no margin pushing it out */
     line-height: 1.2;
@@ -1309,5 +1309,6 @@ span {
     margin-top: 8rem !important; /* Even more space on mobile */
   }
 }
+
 
 
