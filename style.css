@@ -1279,6 +1279,36 @@ span {
 
 
 
+/* SMALL CIRCLES BOTTOM OF PROJECTS SLIDER */
+.swiper-pagination {
+  margin-top: 4rem !important;
+  position: relative !important;
+  bottom: -3rem !important; /* Adds extra space below the swiper */
+}
+
+.swiper-pagination-bullet {
+  background: transparent !important;
+  border: 2px solid #b74b4b !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #b74b4b !important;
+  border: 2px solid #b74b4b !important;
+}
+
+/* Increase spacing on smaller devices where overlap occurs */
+@media (max-width: 768px) {
+  .swiper-pagination {
+    bottom: -4rem !important; /* More space on tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .swiper-pagination {
+    bottom: -5rem !important; /* Even more space on mobile */
+  }
+}
 
 
 
