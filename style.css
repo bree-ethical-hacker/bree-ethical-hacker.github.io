@@ -1281,5 +1281,33 @@ span {
 
 
 
+/* SMALL CIRCLES BOTTOM OF PROJECTS SLIDER */
+.swiper-pagination {
+  margin-top: 6rem !important; /* Increased from 4rem */
+}
+
+.swiper-pagination-bullet {
+  background: transparent !important;
+  border: 2px solid #b74b4b !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #b74b4b !important;
+  border: 2px solid #b74b4b !important;
+}
+
+/* Increase spacing on smaller devices where overlap occurs */
+@media (max-width: 768px) {
+  .swiper-pagination {
+    margin-top: 7rem !important; /* More space on tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .swiper-pagination {
+    margin-top: 8rem !important; /* Even more space on mobile */
+  }
+}
 
 
