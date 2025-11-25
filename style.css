@@ -480,7 +480,7 @@ span {
 /* ?????? */
 .project-title {
     font-size: 1.6rem;
-    color: #fff;
+    color: #b74b4b;
     font-weight: 600;
     margin: 0;                 /* ✅ no margin pushing it out */
     line-height: 1.2;
@@ -1189,7 +1189,7 @@ span {
 
 .project-title {
   font-size: 1.6rem;
-  color: #fff;
+  color: #b74b4b;
   font-weight: 600;
   margin: 0;
   line-height: 1.2;
@@ -1279,11 +1279,10 @@ span {
 
 
 
-
 /* ENTIRE PROJECTS SWIPER */
 .projects-swiper {
   height: 50rem;
-  padding: 2rem 0 8rem 0; /* Added 8rem bottom padding */
+  padding: 2rem 0 6rem 0; /* Reduced from 8rem to 6rem */
   width: 100%;
   margin: 0 auto;
 }
@@ -1308,14 +1307,14 @@ span {
 @media (max-width: 768px) {
   .projects-swiper {
     height: 50rem;
-    padding: 2rem 0 10rem 0; /* More bottom padding on tablets */
+    padding: 2rem 0 8rem 0; /* Reduced from 10rem to 8rem */
   }
 }
 
 @media (max-width: 480px) {
   .projects-swiper {
     height: 50rem;
-    padding: 2rem 0 12rem 0; /* Even more bottom padding on mobile */
+    padding: 2rem 0 10rem 0; /* Reduced from 12rem to 10rem */
   }
 }
 
