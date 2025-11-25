@@ -1189,7 +1189,7 @@ span {
 
 .project-title {
   font-size: 1.6rem;
-  color: #b74b4b;
+  color: #fff;
   font-weight: 600;
   margin: 0;
   line-height: 1.2;
@@ -1309,6 +1309,7 @@ span {
     margin-top: 8rem !important; /* Even more space on mobile */
   }
 }
+
 
 
 
