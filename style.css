@@ -1321,3 +1321,33 @@ span {
 
 
 
+/* PROJECT DETAIL SECTION */
+.project-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  color: white;
+  text-align: center;
+  padding: 12rem 2rem 8rem; /* increased top padding for more space from navbar */
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+/* PROJECT BOX (the red border container) */
+.project-box {
+  border: 2px solid #b74b4b;
+  border-radius: 2rem;
+  padding: 3rem 4rem 4rem; /* reduced top padding to balance content */
+  max-width: 1000px;
+  width: 100%;
+  background: transparent;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0; /* removed margin as padding handles spacing now */
+}
+
+
