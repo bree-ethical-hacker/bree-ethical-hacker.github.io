@@ -117,6 +117,18 @@ aiAudio.addEventListener('ended', () => {
   aiCurrentTime.textContent = '0:00';
 });
 
+// Allow seeking by clicking on progress container
+const progressContainer = document.querySelector('.progress-container');
+progressContainer.addEventListener('click', (e) => {
+  const containerWidth = progressContainer.offsetWidth;
+  const clickX = e.offsetX;
+  const duration = aiAudio.duration;
+  aiAudio.currentTime = (clickX / containerWidth) * duration;
+});
+
+// Add cursor pointer to show it's clickable
+progressContainer.style.cursor = 'pointer';
+
 function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
