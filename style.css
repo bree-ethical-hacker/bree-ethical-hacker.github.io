@@ -1455,3 +1455,43 @@ span {
     height: 550px !important;
   }
 }
+
+
+/* Progress bar with handle */
+.ai-audio-card .progress-bar {
+  background: #b74b4b;
+  width: 0%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: width 0.1s linear;
+}
+
+/* Progress handle (red dot) - ALWAYS VISIBLE */
+.ai-audio-card .progress-bar::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: #b74b4b;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(183, 75, 75, 0.6);
+  opacity: 1; /* Always visible now */
+}
+
+/* Make progress container taller for easier clicking */
+.ai-audio-card .progress-container {
+  background: #222;
+  border-radius: 10px;
+  height: 6px; /* Made taller from 3px */
+  width: 100%;
+  margin-bottom: 3px;
+  overflow: visible; /* Changed from hidden so handle can show */
+  position: relative;
+  cursor: pointer;
+}
