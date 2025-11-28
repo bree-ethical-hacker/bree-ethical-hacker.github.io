@@ -1327,6 +1327,10 @@ span {
 ======================================== */
 
 @media (min-width: 1025px) and (max-width: 1600px) {
+   .project-detail {
+    padding-top: 14rem; /* increased space from navbar */
+  } 
+    
   .project-box {
     padding: 2.5rem 3rem 3rem;
     max-width: 900px;
@@ -1351,3 +1355,4 @@ span {
     max-width: 500px;
   }
 }
+
