@@ -108,6 +108,7 @@ aiAudio.addEventListener('timeupdate', () => {
 
 aiAudio.addEventListener('loadedmetadata', () => {
   aiDuration.textContent = formatTime(aiAudio.duration);
+  aiProgressBar.classList.add('loaded'); // Show the handle
 });
 
 aiAudio.addEventListener('ended', () => {
