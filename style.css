@@ -1321,33 +1321,33 @@ span {
 
 
 
-/* PROJECT DETAIL SECTION */
-.project-detail {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: black;
-  color: white;
-  text-align: center;
-  padding: 12rem 2rem 8rem; /* increased top padding for more space from navbar */
-  box-sizing: border-box;
-  min-height: 100vh;
+/* ========================================
+   ADD THIS TO YOUR style.css
+   FIX FOR 1440px SCREEN OVERLAP ISSUE
+======================================== */
+
+@media (min-width: 1025px) and (max-width: 1600px) {
+  .project-box {
+    padding: 2.5rem 3rem 3rem;
+    max-width: 900px;
+  }
+  
+  .project-box h1 {
+    font-size: 2.6rem;
+  }
+  
+  .project-box p {
+    font-size: 1.45rem;
+    line-height: 1.55;
+    max-width: 90%;
+  }
+  
+  .project-buttons .btn {
+    padding: 0.9rem 2rem;
+    font-size: 1.4rem;
+  }
+  
+  .ai-audio-card {
+    max-width: 500px;
+  }
 }
-
-/* PROJECT BOX (the red border container) */
-.project-box {
-  border: 2px solid #b74b4b;
-  border-radius: 2rem;
-  padding: 3rem 4rem 4rem; /* reduced top padding to balance content */
-  max-width: 1000px;
-  width: 100%;
-  background: transparent;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0; /* removed margin as padding handles spacing now */
-}
-
-
