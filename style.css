@@ -1366,7 +1366,7 @@ span {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 12rem 2rem 8rem;
+  padding: 10rem 2rem 8rem; /* Reduced top padding from 12rem to 10rem */
 }
 
 .contact-container {
@@ -1396,10 +1396,10 @@ span {
 /* CALENDLY WITH ROUNDED CORNERS */
 .contact-calendly {
   width: 100%;
-  max-width: 900px;
-  border-radius: 2rem; /* Soften the edges */
-  overflow: hidden; /* This ensures the iframe respects the border-radius */
-  box-shadow: 0 0 30px rgba(183, 75, 75, 0.2); /* Optional: adds a subtle glow */
+  max-width: 900px; /* Default for smaller screens */
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(183, 75, 75, 0.2);
 }
 
 .calendly-inline-widget {
@@ -1408,8 +1408,30 @@ span {
   border: none;
 }
 
-/* RESPONSIVE QUERIES */
+/* LARGE SCREENS - Expand Calendly width */
+@media(min-width: 1200px) {
+  .contact-calendly {
+    max-width: 1100px; /* Wider on large screens */
+  }
+  
+  .calendly-inline-widget {
+    height: 750px !important;
+  }
+}
+
+/* MEDIUM SCREENS - Slightly wider */
+@media(min-width: 769px) and (max-width: 1199px) {
+  .contact-calendly {
+    max-width: 1000px; /* Medium width for tablets/laptops */
+  }
+}
+
+/* TABLET */
 @media(max-width: 768px) {
+  .contact-section {
+    padding: 9rem 2rem 6rem; /* Less top spacing on tablets */
+  }
+  
   .contact-heading h1 {
     font-size: 3.2rem;
   }
@@ -1419,9 +1441,10 @@ span {
   }
 }
 
+/* MOBILE */
 @media(max-width: 480px) {
   .contact-section {
-    padding: 10rem 1.5rem 6rem;
+    padding: 8rem 1.5rem 6rem; /* Even less top spacing on mobile */
   }
   
   .contact-heading h1 {
