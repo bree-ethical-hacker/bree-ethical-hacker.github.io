@@ -9,6 +9,8 @@
     border: none;
     outline: none;
     font-family: 'Poppins', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
 }
 
 html {
@@ -1496,4 +1498,5 @@ span {
   position: relative;
   cursor: pointer;
 }
+
 
