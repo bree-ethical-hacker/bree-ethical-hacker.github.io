@@ -1356,3 +1356,81 @@ span {
   }
 }
 
+
+
+
+
+/* CONTACT WEB PAGE */
+.contact-section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12rem 2rem 8rem;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.contact-heading {
+  text-align: center;
+}
+
+.contact-heading h1 {
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: white;
+}
+
+.contact-heading h1 span {
+  color: #b74b4b;
+}
+
+/* CALENDLY WITH ROUNDED CORNERS */
+.contact-calendly {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 2rem; /* Soften the edges */
+  overflow: hidden; /* This ensures the iframe respects the border-radius */
+  box-shadow: 0 0 30px rgba(183, 75, 75, 0.2); /* Optional: adds a subtle glow */
+}
+
+.calendly-inline-widget {
+  width: 100% !important;
+  height: 700px !important;
+  border: none;
+}
+
+/* RESPONSIVE QUERIES */
+@media(max-width: 768px) {
+  .contact-heading h1 {
+    font-size: 3.2rem;
+  }
+  
+  .calendly-inline-widget {
+    height: 600px !important;
+  }
+}
+
+@media(max-width: 480px) {
+  .contact-section {
+    padding: 10rem 1.5rem 6rem;
+  }
+  
+  .contact-heading h1 {
+    font-size: 2.8rem;
+  }
+  
+  .calendly-inline-widget {
+    height: 550px !important;
+  }
+}
+
+
