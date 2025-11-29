@@ -127,6 +127,48 @@ progressContainer.addEventListener('click', (e) => {
   aiAudio.currentTime = (clickX / containerWidth) * duration;
 });
 
+// Add drag functionality
+let isDragging = false;
+
+progressContainer.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  updateAudioTime(e);
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (isDragging) {
+    updateAudioTime(e);
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+});
+
+// Touch support for mobile
+progressContainer.addEventListener('touchstart', (e) => {
+  isDragging = true;
+  updateAudioTime(e.touches[0]);
+});
+
+document.addEventListener('touchmove', (e) => {
+  if (isDragging) {
+    updateAudioTime(e.touches[0]);
+  }
+});
+
+document.addEventListener('touchend', () => {
+  isDragging = false;
+});
+
+function updateAudioTime(e) {
+  const rect = progressContainer.getBoundingClientRect();
+  const offsetX = e.clientX - rect.left;
+  const containerWidth = progressContainer.offsetWidth;
+  const percentage = Math.max(0, Math.min(1, offsetX / containerWidth));
+  aiAudio.currentTime = percentage * aiAudio.duration;
+}
+
 // Add cursor pointer to show it's clickable
 progressContainer.style.cursor = 'pointer';
 
