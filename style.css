@@ -307,7 +307,7 @@ span {
     background-color: #b74b4b;
     margin-left: 2px; /* tiny spacing */
     animation: cursorBlink 0.7s infinite;
-    vertical-align: bottom; /* aligns with baseline of letters */
+    vertical-align: baseline; /* aligns with baseline of letters */
 }
 
 @keyframes cursorBlink {
@@ -1504,6 +1504,7 @@ span {
   position: relative;
   cursor: pointer;
 }
+
 
 
 
