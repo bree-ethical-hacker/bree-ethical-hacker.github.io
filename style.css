@@ -1085,6 +1085,12 @@ span {
 }
 
 
+/* Align main audio card to the left (home page only) */
+.ai-audio-card.main-audio {
+  margin: 2rem 0 0 0; /* removes the 'auto' centering */
+  align-self: flex-start;
+}
+
 
 
 /* !!!! PROJECTS SWIPPER UPDATE !!!! */
@@ -1498,6 +1504,7 @@ span {
   position: relative;
   cursor: pointer;
 }
+
 
 
 
