@@ -4,7 +4,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; 
     text-decoration: none; 
     border: none;
     outline: none;
@@ -1574,4 +1574,5 @@ span {
     margin-top: 1.5rem !important;
   }
 }
+
 
