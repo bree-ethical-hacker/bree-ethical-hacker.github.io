@@ -1507,5 +1507,66 @@ span {
 
 
 
+/* FIX 1: Raise pagination dots on smaller devices */
+@media (max-width: 768px) {
+  .swiper-pagination {
+    margin-top: 2rem !important; /* Reduced from 4rem */
+    position: relative;
+    bottom: 1rem; /* Moves it up */
+  }
+  
+  .projects-swiper {
+    padding-bottom: 4rem; /* Reduced to make room */
+  }
+}
+
+@media (max-width: 480px) {
+  .swiper-pagination {
+    margin-top: 1.5rem !important;
+    position: relative;
+    bottom: 1.5rem;
+  }
+  
+  .projects-swiper {
+    padding-bottom: 3rem;
+  }
+}
+
+/* FIX 2: Prevent button cutoff on smaller devices */
+@media (max-width: 768px) {
+  .project-slide-content {
+    height: auto; /* Changed from fixed 20% */
+    min-height: 20%;
+    padding: 1rem 1rem 1.5rem; /* Added bottom padding */
+    overflow: visible; /* Changed from hidden */
+    margin-top: -15px; /* Reduced overlap slightly */
+  }
+  
+  .project-slide {
+    height: 44rem; /* Increased from 42rem to accommodate */
+  }
+  
+  .coming-soon-card-btn,
+  .complete-card-btn {
+    padding: 0.6rem 1.8rem; /* Slightly larger for easier tapping */
+    font-size: 1.3rem;
+    white-space: nowrap; /* Prevents text wrapping */
+  }
+}
+
+@media (max-width: 480px) {
+  .project-slide {
+    height: 40rem; /* Adjusted for very small screens */
+  }
+  
+  .project-slide-content {
+    padding: 0.8rem 1rem 1.2rem;
+  }
+  
+  .project-title {
+    font-size: 1.4rem; /* Slightly smaller on mobile */
+    line-height: 1.3;
+  }
+}
 
 
