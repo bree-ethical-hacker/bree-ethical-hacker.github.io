@@ -1548,3 +1548,30 @@ span {
   }
 }
 
+
+
+
+
+
+/* Raise pagination dots on smaller devices */
+@media (max-width: 768px) {
+  .projects-swiper {
+    padding-bottom: 8rem !important;
+  }
+  
+  .swiper-pagination {
+    position: relative !important;
+    margin-top: 2rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-swiper {
+    padding-bottom: 10rem !important;
+  }
+  
+  .swiper-pagination {
+    margin-top: 1.5rem !important;
+  }
+}
+
