@@ -149,14 +149,19 @@
 
     // NAVIGATION LINKS SOUND EFFECT
     const navSound = new Audio('navigation.mp3');
+    navSound.preload = 'auto'; // Preload the audio
+    navSound.load(); // Force load immediately
     
     // Get all navigation links (both desktop nav-links and mobile sidebar)
     const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
     
     allNavLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navSound.currentTime = 0; // Reset sound to start
-        navSound.play().catch(() => {}); // Play sound, catch errors silently
+      link.addEventListener('click', (e) => {
+        console.log('Nav link clicked!'); // Debug message
+        navSound.currentTime = 0;
+        navSound.play()
+          .then(() => console.log('Sound played successfully'))
+          .catch(error => console.error('Sound play failed:', error));
       });
     });
     
@@ -164,6 +169,7 @@
 
 </body>
 </html>
+
 
 
 
