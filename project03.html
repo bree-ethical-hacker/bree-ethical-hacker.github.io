@@ -128,6 +128,28 @@
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
     });
+
+    // NAVIGATION LINKS SOUND EFFECT
+    const navSound = new Audio('nav.mp3');
+    
+    const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
+    
+    allNavLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent immediate navigation
+        
+        navSound.currentTime = 0;
+        navSound.play().catch(() => {});
+        
+        // Get the href before navigation
+        const destination = link.getAttribute('href');
+        
+        // Navigate after a short delay to allow sound to play
+        setTimeout(() => {
+          window.location.href = destination;
+        }, 150); // Adjust timing as needed (150ms is usually good)
+      });
+    });
     
   </script>
 </body>
