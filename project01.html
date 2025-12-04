@@ -106,15 +106,23 @@
   <!-- GLASS NAVIGATION BAR -->
   <script>
     
+    // GLASS NAVIGATION BAR (Updated with sound)
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
-  
+    
+    // Create audio element for hamburger menu sound
+    const menuSound = new Audio('menu.mp3'); // Change filename to match your sound file
+    
     hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
+      
+      // Play sound effect
+      menuSound.currentTime = 0; // Reset to start in case it's clicked multiple times quickly
+      menuSound.play().catch(() => {}); // Catch any playback errors silently
     });
-  
+    
     overlay.addEventListener('click', () => {
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
