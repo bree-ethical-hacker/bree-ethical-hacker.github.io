@@ -145,11 +145,26 @@
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
     });
+
+
+    // NAVIGATION LINKS SOUND EFFECT
+    const navSound = new Audio('nav.mp3');
+    
+    // Get all navigation links (both desktop nav-links and mobile sidebar)
+    const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
+    
+    allNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navSound.currentTime = 0; // Reset sound to start
+        navSound.play().catch(() => {}); // Play sound, catch errors silently
+      });
+    });
     
   </script>
 
 </body>
 </html>
+
 
 
 
