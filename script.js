@@ -53,10 +53,15 @@ function attachComingSoonListeners() {
   document.querySelectorAll('.coming-soon-card-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      e.stopPropagation();
-      playSound('error');
-      btn.classList.add('shake');
-      setTimeout(() => btn.classList.remove('shake'), 400);
+      playSound('click');
+      
+      // Get the href from parent link
+      const destination = btn.getAttribute('href');
+      
+      // Navigate after sound plays
+      setTimeout(() => {
+        window.location.href = destination;
+      }, 150);
     });
   });
 }
