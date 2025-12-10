@@ -23,40 +23,70 @@ if (document.querySelector('.projects-swiper')) {
   });
 }
 
-// 🎧 Sound system
-const soundFiles = {
-  click: 'click.mp3',
-  error: 'error.mp3'
+
+
+
+// 🎧 FIXED Sound system - create audio instances once
+const sounds = {
+  click: new Audio('click.mp3'),
+  error: new Audio('error.mp3')
 };
 
+// Preload all sounds
+Object.values(sounds).forEach(audio => {
+  audio.preload = 'auto';
+});
+
 function playSound(type) {
-  const file = soundFiles[type];
-  if (!file) return;
-  const sound = new Audio(file);
+  const sound = sounds[type];
+  if (!sound) return;
   sound.currentTime = 0;
-  sound.play().catch(() => {});
+  sound.play().catch(err => console.log('Audio play failed:', err));
 }
 
-function attachSoundListeners() {
-  document.querySelectorAll('[data-sound]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      playSound(btn.getAttribute('data-sound'));
+// Handle Coming Soon buttons specifically
+function attachComingSoonListeners() {
+  document.querySelectorAll('.coming-soon-card-btn').forEach(btn => {
+    btn.replaceWith(btn.cloneNode(true));
+  });
+  
+  document.querySelectorAll('.coming-soon-card-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      playSound('error');
+      btn.classList.add('shake');
+      setTimeout(() => btn.classList.remove('shake'), 400);
     });
   });
 }
 
-document.addEventListener('DOMContentLoaded', attachSoundListeners);
+// Handle other sound buttons
+function attachSoundListeners() {
+  document.querySelectorAll('[data-sound]:not(.coming-soon-card-btn)').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const soundType = btn.getAttribute('data-sound');
+      if (soundType) playSound(soundType);
+    });
+  });
+}
 
-// If Swiper is present, reattach after it initializes
+document.addEventListener('DOMContentLoaded', () => {
+  attachSoundListeners();
+  attachComingSoonListeners();
+});
+
 window.addEventListener('load', () => {
-  setTimeout(attachSoundListeners, 300);
+  setTimeout(() => {
+    attachSoundListeners();
+    attachComingSoonListeners();
+  }, 300);
 });
 
-// Prevent Coming Soon buttons from navigating
-document.addEventListener('click', e => {
-  const btn = e.target.closest('.btn[data-sound="error"]');
-  if (btn) e.preventDefault();
-});
+
+
+
+
 
 // 🔴 Shake animation for selected buttons only
 document.querySelectorAll('[data-shake]').forEach(button => {
