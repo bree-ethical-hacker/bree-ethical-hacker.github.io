@@ -1,11 +1,17 @@
 // ✅ Only run Swiper if the element exists
 if (document.querySelector('.projects-swiper')) {
+
+  // Add these 3 lines BEFORE var swiper = new Swiper...
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialSlide = parseInt(urlParams.get('slide')) || 0;
+  
   var swiper = new Swiper('.projects-swiper', {
     effect: 'coverflow',
     grabCursor: true,
     centeredSlides: true,
     loop: true,
     slidesPerView: 'auto',
+    initialSlide: initialSlide, // ✅ Start at the specified slide
     coverflowEffect: {
       rotate: 0,
       stretch: 0,
