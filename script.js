@@ -29,7 +29,8 @@ if (document.querySelector('.projects-swiper')) {
 // 🎧 FIXED Sound system - create audio instances once
 const sounds = {
   click: new Audio('click.mp3'),
-  error: new Audio('error.mp3')
+  error: new Audio('error.mp3'),
+  locked: new Audio('locked.mp3')  // Add this line
 };
 
 // Preload all sounds
@@ -67,11 +68,26 @@ function attachComingSoonListeners() {
 }
 
 // Handle other sound buttons
+// Handle other sound buttons
 function attachSoundListeners() {
   document.querySelectorAll('[data-sound]:not(.coming-soon-card-btn)').forEach(btn => {
     btn.addEventListener('click', (e) => {
+      e.preventDefault();
       const soundType = btn.getAttribute('data-sound');
-      if (soundType) playSound(soundType);
+      
+      if (soundType) {
+        playSound(soundType);
+        
+        // Get the href for navigation
+        const destination = btn.getAttribute('href');
+        
+        // Navigate after sound plays
+        if (destination) {
+          setTimeout(() => {
+            window.location.href = destination;
+          }, 250);
+        }
+      }
     });
   });
 }
