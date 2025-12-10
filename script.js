@@ -61,7 +61,7 @@ function attachComingSoonListeners() {
       // Navigate after sound plays
       setTimeout(() => {
         window.location.href = destination;
-      }, 150);
+      }, 250);
     });
   });
 }
