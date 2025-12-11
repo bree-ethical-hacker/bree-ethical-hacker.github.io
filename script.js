@@ -27,6 +27,27 @@ if (document.querySelector('.projects-swiper')) {
       prevEl: '.swiper-button-prev',
     },
   });
+
+  // 🎵 Add navigation sound to swiper arrows
+  const swiperNavSound = new Audio('nav.mp3');
+  swiperNavSound.preload = 'auto';
+  
+  const nextArrow = document.querySelector('.swiper-button-next');
+  const prevArrow = document.querySelector('.swiper-button-prev');
+  
+  if (nextArrow) {
+    nextArrow.addEventListener('click', () => {
+      swiperNavSound.currentTime = 0;
+      swiperNavSound.play().catch(() => {});
+    });
+  }
+  
+  if (prevArrow) {
+    prevArrow.addEventListener('click', () => {
+      swiperNavSound.currentTime = 0;
+      swiperNavSound.play().catch(() => {});
+    });
+  }
 }
 
 
