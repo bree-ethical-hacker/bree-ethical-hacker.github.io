@@ -29,7 +29,7 @@ if (document.querySelector('.projects-swiper')) {
   });
 
   // 🎵 Add navigation sound to swiper arrows
-  const swiperNavSound = new Audio('nav.mp3');
+  const swiperNavSound = new Audio('navigation.mp3');
   swiperNavSound.preload = 'auto';
   
   const nextArrow = document.querySelector('.swiper-button-next');
