@@ -1720,3 +1720,28 @@ span {
 
 
 
+/* LARGE SCREENS - Significantly expand Calendly */
+@media(min-width: 1200px) {
+  .contact-calendly {
+    max-width: 1300px; /* CHANGED: Increased from 1100px to fill more space */
+  }
+  
+  .calendly-inline-widget {
+    height: 900px !important; /* CHANGED: Increased from 750px for better proportions */
+  }
+}
+
+/* EXTRA LARGE SCREENS - Even more expansion */
+/* NEW: Added this entire media query for screens 1400px+ */
+@media(min-width: 1400px) {
+  .contact-calendly {
+    max-width: 1400px; /* NEW: Maximum expansion for very large screens */
+  }
+  
+  .calendly-inline-widget {
+    height: 950px !important; /* NEW: Taller height to match the wider container */
+  }
+}
+
+
+
