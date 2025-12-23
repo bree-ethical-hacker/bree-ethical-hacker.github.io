@@ -1608,14 +1608,16 @@ span {
   text-align: center;
 }
 
+
 /* ============================
    TYPING TEXT ANIMATION
 ============================ */
-/* CHANGED: Use inline-flex instead of inline-block to prevent cursor wrapping */
+/* CHANGED: Removed gap between text and cursor */
 .typing-wrapper {
     white-space: nowrap;
     display: inline-flex;
     align-items: baseline;
+    gap: 0; /* Ensures no gap between text and cursor */
 }
 
 .typing-text {
@@ -1635,12 +1637,32 @@ span {
     white-space: nowrap;
 }
 
-/* CHANGED: Added minimum width to prevent text wrapping and cursor jumping */
+/* Dynamic text container - prevents wrapping */
 #dynamic-text {
     display: inline-block;
     white-space: nowrap;
     min-width: 165px;
 }
+
+/* ============================
+   BLINKING CURSOR
+============================ */
+/* CHANGED: Removed margin-left to eliminate space */
+.cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background-color: #b74b4b;
+    margin-left: 0px; /* Changed from 2px to 0px */
+    animation: cursorBlink 0.7s infinite;
+    vertical-align: baseline;
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
 
 /* --- Mobile --- */
 @media (max-width: 768px) and (min-width: 421px) {
@@ -1695,5 +1717,6 @@ span {
         line-height: 2.4rem;
     }
 }
+
 
 
