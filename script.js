@@ -166,6 +166,29 @@ const aiCurrentTime = document.getElementById('ai-current-time');
 const aiDuration = document.getElementById('ai-duration');
 const aiPlayIcon = aiPlayBtn.querySelector('i');
 
+// CHANGED: Force load metadata immediately to prevent --:-- showing
+aiAudio.load();
+
+// CHANGED: Set duration when metadata loads
+aiAudio.addEventListener('loadedmetadata', () => {
+  aiDuration.textContent = formatTime(aiAudio.duration);
+  aiProgressBar.classList.add('loaded');
+});
+
+// CHANGED: Backup check if metadata doesn't load immediately
+setTimeout(() => {
+  if (aiAudio.duration && !isNaN(aiAudio.duration)) {
+    aiDuration.textContent = formatTime(aiAudio.duration);
+  }
+}, 500);
+
+// CHANGED: Additional check when audio is ready to play
+aiAudio.addEventListener('canplaythrough', () => {
+  if (aiAudio.duration && !isNaN(aiAudio.duration)) {
+    aiDuration.textContent = formatTime(aiAudio.duration);
+  }
+});
+
 aiPlayBtn.addEventListener('click', () => {
   if (aiAudio.paused) {
     aiAudio.play();
@@ -178,15 +201,16 @@ aiPlayBtn.addEventListener('click', () => {
   }
 });
 
+// CHANGED: Keep duration visible during playback
 aiAudio.addEventListener('timeupdate', () => {
   const progress = (aiAudio.currentTime / aiAudio.duration) * 100;
   aiProgressBar.style.width = `${progress}%`;
   aiCurrentTime.textContent = formatTime(aiAudio.currentTime);
-});
-
-aiAudio.addEventListener('loadedmetadata', () => {
-  aiDuration.textContent = formatTime(aiAudio.duration);
-  aiProgressBar.classList.add('loaded'); // Show the handle
+  
+  // Keep duration visible during playback
+  if (aiAudio.duration && !isNaN(aiAudio.duration)) {
+    aiDuration.textContent = formatTime(aiAudio.duration);
+  }
 });
 
 aiAudio.addEventListener('ended', () => {
@@ -250,7 +274,9 @@ function updateAudioTime(e) {
 // Add cursor pointer to show it's clickable
 progressContainer.style.cursor = 'pointer';
 
+// CHANGED: Return '--' if duration is invalid, preventing NaN display
 function formatTime(seconds) {
+  if (!seconds || isNaN(seconds)) return '--';
   const minutes = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
   return `${minutes}:${secs}`;
