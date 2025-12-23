@@ -1745,3 +1745,57 @@ span {
 
 
 
+
+
+
+/* CALENDLY */
+/* CALENDLY WITH ROUNDED CORNERS */
+.contact-calendly {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(183, 75, 75, 0.2);
+}
+
+.calendly-inline-widget {
+  width: 100% !important;
+  height: 700px !important;
+  border: none;
+}
+
+/* NEW: 1024px-1199px screens (common laptop sizes like 1280x800) */
+@media(min-width: 1024px) and (max-width: 1199px) {
+  .contact-calendly {
+    max-width: 1150px; /* CHANGED: Expand to fill more space on medium laptops */
+  }
+  
+  .calendly-inline-widget {
+    height: 850px !important; /* CHANGED: Increase height proportionally */
+  }
+}
+
+/* LARGE SCREENS - Significantly expand Calendly */
+@media(min-width: 1200px) {
+  .contact-calendly {
+    max-width: 1300px; /* CHANGED: Increased from 1100px to fill more space */
+  }
+  
+  .calendly-inline-widget {
+    height: 900px !important; /* CHANGED: Increased from 750px for better proportions */
+  }
+}
+
+/* EXTRA LARGE SCREENS - Even more expansion */
+/* NEW: Added this entire media query for screens 1400px+ */
+@media(min-width: 1400px) {
+  .contact-calendly {
+    max-width: 1400px; /* NEW: Maximum expansion for very large screens */
+  }
+  
+  .calendly-inline-widget {
+    height: 950px !important; /* NEW: Taller height to match the wider container */
+  }
+}
+
+
