@@ -1,8 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<!-- HEAD WITH CSS  -->
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- HEAD WITH CSS  -->
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap");
 
@@ -468,8 +476,41 @@ body {
 
 
 
-<!-- BODY   -->
+<!-- CERTS BODY   -->
 <body>
+
+  <!-- NAVIGATION BAR -->
+  <header>
+    <nav class="navbar glass">
+      <div class="logo">Bree</div>
+  
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+  
+      <div class="hamburger" id="hamburger">
+        <i class="fa fa-bars"></i>
+      </div>
+    </nav>
+  
+    <!-- Sidebar (mobile only) -->
+    <div class="sidebar" id="sidebar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </div>
+  
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+  </header>
+
+
+
+  <!-- BODY CONTENT -->
   <div class="controls">
     <button class="control-btn" onclick="toggleAnimation()">⏸️ Pause</button>
     <button class="control-btn" onclick="resetPosition()">🔄 Reset</button>
@@ -502,12 +543,66 @@ body {
   </div>
 
 
+  <!-- FOOTER -->
+  <footer class="footer glass-footer">
+    <p>Based in Melbourne, Australia</p>
+  </footer>
+
 
 
   <!-- SCRIPT CODE -->
-  <script>
-        const codeChars =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789(){}[]<>;:,._-+=!@#$%^&*|\\/\"'`~?";
+  <!-- JAVASCRIPT -->
+  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+  <script src="script.js">
+
+    // GLASS NAVIGATION BAR (Updated with sound)
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    
+    // Create audio element for hamburger menu sound
+    const menuSound = new Audio('menu.mp3'); // Change filename to match your sound file
+    
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      
+      // Play sound effect
+      menuSound.currentTime = 0; // Reset to start in case it's clicked multiple times quickly
+      menuSound.play().catch(() => {}); // Catch any playback errors silently
+    });
+    
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+
+    // NAVIGATION LINKS SOUND EFFECT
+    const navSound = new Audio('nav.mp3');
+    
+    const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
+    
+    allNavLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent immediate navigation
+        
+        navSound.currentTime = 0;
+        navSound.play().catch(() => {});
+        
+        // Get the href before navigation
+        const destination = link.getAttribute('href');
+        
+        // Navigate after a short delay to allow sound to play
+        setTimeout(() => {
+          window.location.href = destination;
+        }, 150); // Adjust timing as needed (150ms is usually good)
+      });
+    });
+
+
+    // CERTIFICATION JAVASCRIPT
+    const codeChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789(){}[]<>;:,._-+=!@#$%^&*|\\/\"'`~?";
     
     const scannerLeft = window.innerWidth / 2 - 2;
     const scannerRight = window.innerWidth / 2 + 2;
@@ -1659,3 +1754,4 @@ body {
 
   
 </body>
+</html>
