@@ -23,8 +23,11 @@
 body {
   background: #000000;
   min-height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .controls {
@@ -87,11 +90,12 @@ body {
 .container {
   position: relative;
   width: 100vw;
-  height: calc(100vh - 140px); /* Subtract navbar + footer height */
+  flex: 1;
   margin-top: 70px; /* Height of navbar */
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: calc(100vh - 140px);
 }
 
 .card-stream {
