@@ -61,11 +61,6 @@ body {
   color: black;
   box-shadow: 0 0 25px #b74b4b;
 }
-    
- /* Icon spacing inside buttons */
-.control-btn i {
-  margin-right: 0.5rem;
-}
 
 .info {
   position: absolute;
@@ -507,21 +502,20 @@ body {
   <div class="controls">
     <button class="control-btn" onclick="toggleAnimation()">
       <i class="fa-solid fa-pause"></i>
-      Pause
     </button>
+    
     <button class="control-btn" onclick="resetPosition()">
       <i class="fa-solid fa-rotate-right"></i>
-      Reset
     </button>
+    
     <button class="control-btn" onclick="changeDirection()">
       <i class="fa-solid fa-arrows-left-right"></i>
-      Direction
     </button>
   </div>
 
 
   <div class="speed-indicator">
-    Speed: <span id="speedValue">120</span> px/s
+    <span id="speedValue"></span>
   </div>
 
 
@@ -594,6 +588,18 @@ body {
       });
     });
 
+
+    // CONTROL BUTTONS SOUND EFFECT
+    const controlBtns = document.querySelectorAll('.control-btn');
+    
+    controlBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const clickSound = new Audio('nav.mp3');
+        clickSound.currentTime = 0;
+        clickSound.play().catch(() => {});
+      });
+    });
+    
 
     // CERTIFICATION JAVASCRIPT
     const codeChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789(){}[]<>;:,._-+=!@#$%^&*|\\/\"'`~?";
@@ -761,9 +767,9 @@ body {
         const btn = document.querySelector(".control-btn");
         
         if (this.isAnimating) {
-          btn.innerHTML = '<i class="fa-solid fa-pause"></i> PAUSE';
+          btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
         } else {
-          btn.innerHTML = '<i class="fa-solid fa-play"></i> PLAY';
+          btn.innerHTML = '<i class="fa-solid fa-play"></i>';
         }
       
         if (this.isAnimating) {
@@ -1066,10 +1072,14 @@ body {
       }
     }
     
-    function resetPosition() {
-      if (cardStream) {
-        cardStream.resetPosition();
-      }
+    function goHome() {
+      const navSound = new Audio('nav.mp3');
+      navSound.currentTime = 0;
+      navSound.play().catch(() => {});
+      
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 150);
     }
     
     function changeDirection() {
