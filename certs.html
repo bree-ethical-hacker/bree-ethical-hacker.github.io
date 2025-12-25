@@ -458,6 +458,193 @@ body {
 }
 
 
+/* ============================
+   RESPONSIVE DESIGN
+============================ */
+
+/* Large Screens (Desktop) - Default styles already work */
+@media (min-width: 1025px) {
+  .controls {
+    top: 90px;
+    gap: 10px;
+  }
+  
+  .control-btn {
+    padding: 1rem 2.8rem;
+    font-size: 1.6rem;
+  }
+  
+  .card-wrapper {
+    width: 400px;
+    height: 250px;
+  }
+  
+  .card,
+  .card-normal,
+  .card-ascii {
+    width: 400px;
+    height: 250px;
+  }
+}
+
+/* Medium Screens (Tablets - iPad, etc.) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .controls {
+    top: 80px;
+    gap: 8px;
+  }
+  
+  .control-btn {
+    padding: 0.8rem 2.2rem;
+    font-size: 1.4rem;
+  }
+  
+  .card-wrapper {
+    width: 350px;
+    height: 220px;
+  }
+  
+  .card,
+  .card-normal,
+  .card-ascii {
+    width: 350px;
+    height: 220px;
+  }
+  
+  .card-line {
+    gap: 50px;
+  }
+}
+
+/* Small Screens (Mobile Landscape & Small Tablets) */
+@media (max-width: 768px) and (min-width: 481px) {
+  .controls {
+    top: 75px;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .control-btn {
+    padding: 0.7rem 1.8rem;
+    font-size: 1.3rem;
+  }
+  
+  .control-btn i {
+    font-size: 1.4rem;
+  }
+  
+  .card-wrapper {
+    width: 300px;
+    height: 190px;
+  }
+  
+  .card,
+  .card-normal,
+  .card-ascii {
+    width: 300px;
+    height: 190px;
+  }
+  
+  .card-line {
+    gap: 40px;
+  }
+  
+  .card-image {
+    border-radius: 12px;
+  }
+}
+
+/* Extra Small Screens (Mobile Portrait) */
+@media (max-width: 480px) {
+  .controls {
+    top: 70px;
+    gap: 5px;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .control-btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 1.2rem;
+    width: auto;
+    min-width: 50px;
+  }
+  
+  .control-btn i {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+  
+  .card-wrapper {
+    width: 280px;
+    height: 175px;
+  }
+  
+  .card,
+  .card-normal,
+  .card-ascii {
+    width: 280px;
+    height: 175px;
+  }
+  
+  .card-line {
+    gap: 30px;
+  }
+  
+  .card-image {
+    border-radius: 10px;
+  }
+  
+  .container {
+    margin-top: 140px; /* Extra space for vertical buttons */
+  }
+}
+
+/* Very Small Screens (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .controls {
+    top: 65px;
+    gap: 4px;
+  }
+  
+  .control-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 1.1rem;
+  }
+  
+  .control-btn i {
+    font-size: 1.2rem;
+  }
+  
+  .card-wrapper {
+    width: 250px;
+    height: 156px;
+  }
+  
+  .card,
+  .card-normal,
+  .card-ascii {
+    width: 250px;
+    height: 156px;
+  }
+  
+  .card-line {
+    gap: 25px;
+  }
+}
+
+/* Navbar adjustments for mobile */
+@media (max-width: 995px) {
+  .navbar.glass {
+    padding: 1rem 5%;
+  }
+  
+  .logo {
+    font-size: 2.5rem;
+  }
+}
+
   </style>
 </head>
 
@@ -912,9 +1099,19 @@ body {
       }
     
       calculateCodeDimensions(cardWidth, cardHeight) {
-        const fontSize = 11;
-        const lineHeight = 13;
-        const charWidth = 6;
+        // Adjust font size based on card width for better responsiveness
+        let fontSize = 11;
+        let charWidth = 6;
+        
+        if (cardWidth < 300) {
+          fontSize = 9;
+          charWidth = 5;
+        } else if (cardWidth < 350) {
+          fontSize = 10;
+          charWidth = 5.5;
+        }
+        
+        const lineHeight = Math.ceil(fontSize * 1.18);
         const width = Math.floor(cardWidth / charWidth);
         const height = Math.floor(cardHeight / lineHeight);
         return { width, height, fontSize, lineHeight };
