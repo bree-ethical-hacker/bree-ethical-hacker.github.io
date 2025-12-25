@@ -58,19 +58,6 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.speed-indicator {
-  position: absolute;
-  top: 90px;  /* Changed from 20px to account for navbar height */
-  right: 20px;
-  color: white;
-  font-size: 16px;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 8px 16px;
-  border-radius: 20px;
-  backdrop-filter: blur(5px);
-  z-index: 100;
-}
-
 .info {
   position: absolute;
   bottom: 20px;
@@ -468,9 +455,9 @@ body {
       <div class="logo">Bree</div>
   
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" class="active">Home</a></li>
         <li><a href="projects.html">Projects</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="contact.html" >Contact</a></li>
       </ul>
   
       <div class="hamburger" id="hamburger">
@@ -497,14 +484,9 @@ body {
   <div class="controls">
     <button class="control-btn" onclick="toggleAnimation()">⏸️ Pause</button>
     <button class="control-btn" onclick="resetPosition()">🔄 Reset</button>
-    <button class="control-btn" onclick="changeDirection()">
-      ↔️ Direction
-    </button>
+    <button class="control-btn" onclick="changeDirection()">↔️ Direction</button>
   </div>
 
-  <div class="speed-indicator">
-    Speed: <span id="speedValue">120</span> px/s
-  </div>
 
   <div class="container">
     <canvas id="particleCanvas"></canvas>
