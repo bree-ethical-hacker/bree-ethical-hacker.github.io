@@ -1802,14 +1802,14 @@ span {
 
 /* GREEN COMPLETE BUTTON */
 .btn-complete {
-  border-color: #2d7a52 !important;
-  color: #2d7a52 !important;
+  border-color: #4bb78e !important;
+  color: #4bb78e !important;
 }
 
 .btn-complete:hover {
-  background: #2d7a52 !important;
+  background: #4bb78e !important;
   color: black !important;
-  box-shadow: 0 0 25px #2d7a52 !important;
+  box-shadow: 0 0 25px #4bb78e !important;
 }
 
 
@@ -1834,6 +1834,7 @@ span {
     color: black !important;                 /* Added !important */
     box-shadow: 0 0 15px #4bb78e !important; /* Added !important */
 }
+
 
 
 
