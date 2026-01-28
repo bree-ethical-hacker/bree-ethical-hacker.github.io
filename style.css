@@ -1799,3 +1799,16 @@ span {
 }
 
 
+
+/* GREEN COMPLETE BUTTON */
+.btn-complete {
+  border-color: #4CAF50 !important;
+  color: #4CAF50 !important;
+}
+
+.btn-complete:hover {
+  background: #4CAF50 !important;
+  color: black !important;
+  box-shadow: 0 0 25px #4CAF50 !important;
+}
+
