@@ -48,7 +48,7 @@ header {
 }
 
 .logo img {
-    height: 10rem; /* matches your original font-size */
+    height: 8rem; /* matches your original font-size */
     width: auto;
     display: block;
     transition: 0.5s ease;
@@ -808,7 +808,6 @@ span {
   top: 0;
   left: 0;
   width: 100%;
-  height: 8rem;  /* //ADDED THIS */
   padding: 1rem 9%;
   display: flex;
   justify-content: space-between;
@@ -1844,6 +1843,7 @@ span {
     color: black !important;                 /* Added !important */
     box-shadow: 0 0 15px #4bb78e !important; /* Added !important */
 }
+
 
 
 
