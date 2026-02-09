@@ -43,11 +43,20 @@ header {
 
 /* MAIN LOGO */
 .logo {
-    font-size: 3rem;
-    color: #b74b4b;
-    font-weight: 800;
     cursor: pointer;
     transition: 0.5s ease;
+}
+
+.logo img {
+    height: 3rem; /* matches your original font-size */
+    width: auto;
+    display: block;
+    transition: 0.5s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
 }
 
 
@@ -1834,6 +1843,7 @@ span {
     color: black !important;                 /* Added !important */
     box-shadow: 0 0 15px #4bb78e !important; /* Added !important */
 }
+
 
 
 
