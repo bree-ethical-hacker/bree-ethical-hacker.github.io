@@ -367,67 +367,193 @@
       pointer-events: none;
     }
 
-    /* NAVBAR STYLES - KEEP YOUR ORIGINAL */
-    .navbar.glass {
+    /* =========== NAVBAR STYLES - UPDATED TO MATCH contact.html =========== */
+    header {
+      margin-top: 20px;
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      padding: 1.5rem 10%;
+      padding: 1rem 9%;
+      background-color: transparent;
+      filter: drop-shadow(10px);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
+      z-index: 100;
     }
 
+    /* MAIN LOGO */
     .logo {
-      font-size: 3rem;
-      color: white;
-      font-weight: bold;
+      cursor: pointer;
+      transition: 0.5s ease;
     }
 
+    .logo img {
+      height: 8rem;
+      width: auto;
+      display: block;
+      transition: 0.5s ease;
+    }
+
+    .logo img:hover {
+      transform: scale(1.05);
+      opacity: 0.8;
+    }
+
+    /* GLASS NAVBAR - UPDATED TO MATCH contact.html */
+    .navbar.glass {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1rem 9%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background: rgba(20, 20, 20, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* NAV LINKS (DESKTOP) */
     .nav-links {
       display: flex;
       gap: 2rem;
       list-style: none;
+      align-items: center;
     }
 
-    .nav-links a {
+    .nav-links li a {
       color: white;
       text-decoration: none;
-      font-size: 1.2rem;
-      transition: color 0.3s;
+      font-size: 2rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      position: relative;
+      padding-bottom: 5px;
     }
 
-    .nav-links a:hover {
+    .nav-links li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 3px;
+      background-color: #b74b4b;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links li a:hover::after,
+    .nav-links li a.active::after {
+      width: 100%;
+    }
+
+    .nav-links li a:hover {
       color: #b74b4b;
     }
 
+    .nav-links li a.active {
+      color: #b74b4b;
+    }
+
+    /* HAMBURGER ICON */
     .hamburger {
       display: none;
-      color: white;
-      font-size: 1.5rem;
       cursor: pointer;
+      font-size: 2rem;
+      color: #b74b4b;
     }
 
+    /* SIDEBAR MENU (MOBILE) */
     .sidebar {
-      display: none;
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 260px;
+      height: 100vh;
+      backdrop-filter: blur(20px);
+      background: rgba(20, 20, 20, 0.6);
+      box-shadow: -4px 0 10px rgba(0, 0, 0, 0.4);
+      transition: right 0.4s ease;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
-    .overlay {
-      display: none;
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
     }
 
-    /* FOOTER */
-    .footer {
-      background: rgba(0, 0, 0, 0.8);
+    .sidebar ul li {
+      margin: 25px 0;
+    }
+
+    .sidebar ul li a {
       color: white;
-      text-align: center;
-      padding: 1rem;
-      position: relative;
-      bottom: 0;
+      font-size: 2rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+      color: #b74b4b;
+    }
+
+    .sidebar ul li a.active {
+      color: #b74b4b;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    /* OVERLAY (BEHIND SIDEBAR) */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      z-index: 1000;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* FOOTER - UPDATED TO MATCH contact.html */
+    .footer {
+      position: static;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      font-size: 1.8rem;
+      text-align: center;
+      color: #b74b4b;
+    }
+
+    /* GLASS EFFECT FOR FOOTER */
+    .glass-footer {
+      backdrop-filter: blur(10px);
+      background: rgba(20, 20, 20, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
     /* ============================
@@ -536,12 +662,26 @@
         height: 250px;
       }
       
+      /* RESPONSIVENESS FOR NAVBAR - UPDATED TO MATCH contact.html */
+      .nav-links {
+        display: none;
+      }
+
       .hamburger {
         display: block;
       }
-      
-      .nav-links {
-        display: none;
+
+      /* Remove red border and shadow on mobile navbar */
+      .navbar.glass {
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+
+      /* Ensure sidebar is straight */
+      .sidebar {
+        border-radius: 0 !important;
+        border-left: none !important;
       }
     }
 
@@ -593,12 +733,13 @@
         width: 3px;
       }
       
-      .hamburger {
-        display: block;
-      }
-      
+      /* RESPONSIVENESS FOR NAVBAR */
       .nav-links {
         display: none;
+      }
+
+      .hamburger {
+        display: block;
       }
     }
 
@@ -653,16 +794,17 @@
         width: 3px;
       }
       
+      /* RESPONSIVENESS FOR NAVBAR */
+      .nav-links {
+        display: none;
+      }
+
       .hamburger {
         display: block;
       }
       
-      .nav-links {
-        display: none;
-      }
-      
-      .logo {
-        font-size: 2.5rem;
+      .logo img {
+        height: 6rem;
       }
     }
 
@@ -709,13 +851,16 @@
 
 <body>
 
-  <!-- NAVIGATION BAR - SIMPLIFIED FOR RESPONSIVENESS -->
+  <!-- NAVIGATION BAR - UPDATED TO MATCH contact.html -->
   <header>
     <nav class="navbar glass">
-      <div class="logo">Bree</div>
+      
+      <div class="logo">
+        <img src="LOGO.jpg" alt="Logo">
+      </div>
   
       <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -724,6 +869,18 @@
         <i class="fa fa-bars"></i>
       </div>
     </nav>
+  
+    <!-- Sidebar (mobile only) -->
+    <div class="sidebar" id="sidebar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
   </header>
 
   <!-- BODY CONTENT -->
@@ -757,50 +914,59 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
+  <!-- FOOTER - UPDATED TO MATCH contact.html -->
+  <footer class="footer glass-footer">
     <p>Based in Melbourne, Australia</p>
   </footer>
 
-  <!-- JAVASCRIPT - KEEP YOUR ORIGINAL EFFECTS BUT MAKE RESPONSIVE -->
+  <!-- JAVASCRIPT -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    // Navigation functionality
+    // GLASS NAVIGATION BAR (Updated with sound) - FROM contact.html
     const hamburger = document.getElementById('hamburger');
-    const navLinks = document.querySelector('.nav-links');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    
+    // Create audio element for hamburger menu sound
+    const menuSound = new Audio('menu.mp3'); // Change filename to match your sound file
     
     hamburger.addEventListener('click', () => {
-      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-      if (navLinks.style.display === 'flex') {
-        navLinks.style.flexDirection = 'column';
-        navLinks.style.position = 'absolute';
-        navLinks.style.top = '100%';
-        navLinks.style.left = '0';
-        navLinks.style.width = '100%';
-        navLinks.style.backgroundColor = 'rgba(0,0,0,0.9)';
-        navLinks.style.padding = '1rem';
-        navLinks.style.gap = '1rem';
-      }
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      
+      // Play sound effect
+      menuSound.currentTime = 0; // Reset to start in case it's clicked multiple times quickly
+      menuSound.play().catch(() => {}); // Catch any playback errors silently
+    });
+    
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
     });
 
-    // Navigation sound effects
+    // NAVIGATION LINKS SOUND EFFECT - FROM contact.html
     const navSound = new Audio('nav.mp3');
-    const allNavLinks = document.querySelectorAll('.nav-links a');
+    
+    const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
     
     allNavLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent immediate navigation
+        
         navSound.currentTime = 0;
         navSound.play().catch(() => {});
         
+        // Get the href before navigation
         const destination = link.getAttribute('href');
+        
+        // Navigate after a short delay to allow sound to play
         setTimeout(() => {
           window.location.href = destination;
-        }, 150);
+        }, 150); // Adjust timing as needed (150ms is usually good)
       });
     });
 
-    // Control buttons sound effect
+    // Control buttons sound effect - FROM ORIGINAL CERTS CODE
     const controlBtns = document.querySelectorAll('.control-btn');
     controlBtns.forEach(btn => {
       btn.addEventListener('click', () => {
