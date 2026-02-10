@@ -14,846 +14,669 @@
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap");
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #000000;
-      min-height: 100vh;
-      overflow-x: hidden;
-      overflow-y: auto;
-      font-family: "Arial", sans-serif;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* NAVBAR STYLES */
-    .navbar.glass {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 1.5rem 10%;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(183, 75, 75, 0.2);
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo img {
-      height: 50px;
-      width: auto;
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 3rem;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: #b74b4b;
-    }
-
-    .hamburger {
-      display: none;
-      color: white;
-      font-size: 1.8rem;
-      cursor: pointer;
-    }
-
-    .sidebar {
-      position: fixed;
-      top: 0;
-      right: -300px;
-      width: 250px;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 2rem;
-      z-index: 2000;
-      transition: right 0.3s ease;
-    }
-
-    .sidebar.active {
-      right: 0;
-    }
-
-    .sidebar ul {
-      list-style: none;
-      margin-top: 4rem;
-    }
-
-    .sidebar li {
-      margin-bottom: 1.5rem;
-    }
-
-    .sidebar a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-      display: block;
-      padding: 0.5rem 0;
-      transition: color 0.3s ease;
-    }
-
-    .sidebar a:hover,
-    .sidebar a.active {
-      color: #b74b4b;
-    }
-
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1500;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
-    /* FOOTER STYLES */
-    .footer.glass-footer {
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(183, 75, 75, 0.2);
-      padding: 1.5rem;
-      text-align: center;
-      color: white;
-      margin-top: auto;
-    }
-
-    /* MAIN CONTENT */
-    .controls {
-      position: fixed;
-      top: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      z-index: 100;
-    }
-
-    .control-btn {
-      display: inline-block;
-      padding: 1rem 2.8rem;
-      background-color: black;
-      border-radius: 4rem;
-      font-size: 1.6rem;
-      color: #b74b4b;
-      letter-spacing: 0.3rem;
-      font-weight: 600;
-      border: 2px solid #b74b4b;
-      transition: 0.3s ease;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .control-btn:hover {
-      transform: scale3d(1.03, 1.03, 1.03);
-      background-color: #b74b4b;
-      color: black;
-      box-shadow: 0 0 25px #b74b4b;
-    }
-
-    .info {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255, 255, 255, 0.9);
-      text-align: center;
-      font-size: 14px;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 15px 25px;
-      border-radius: 20px;
-      backdrop-filter: blur(5px);
-      z-index: 100;
-      line-height: 1.4;
-    }
-
-    .container {
-      position: relative;
-      width: 100vw;
-      flex: 1;
-      margin-top: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: calc(100vh - 140px);
-    }
-
-    .speed-indicator {
-      position: absolute;
-      top: 90px;
-      right: 20px;
-      color: white;
-      font-size: 16px;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 8px 16px;
-      border-radius: 20px;
-      backdrop-filter: blur(5px);
-      z-index: 100;
-      display: none;
-    }
-
-    .card-stream {
-      position: absolute;
-      width: 100vw;
-      height: 180px;
-      display: flex;
-      align-items: center;
-      overflow: visible;
-    }
-
-    .card-line {
-      display: flex;
-      align-items: center;
-      gap: 60px;
-      white-space: nowrap;
-      cursor: grab;
-      user-select: none;
-      will-change: transform;
-    }
-
-    .card-line:active {
-      cursor: grabbing;
-    }
-
-    .card-line.dragging {
-      cursor: grabbing;
-    }
-
-    .card-line.css-animated {
-      animation: scrollCards 40s linear infinite;
-    }
-
-    @keyframes scrollCards {
-      0% {
-        transform: translateX(-100%);
-      }
-      100% {
-        transform: translateX(100vw);
-      }
-    }
-
-    .card-wrapper {
-      position: relative;
-      width: 400px;
-      height: 250px;
-      flex-shrink: 0;
-    }
-
-    .card {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 400px;
-      height: 250px;
-      border-radius: 15px;
-      overflow: hidden;
-    }
-
-    .card-normal {
-      background: transparent;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 0;
-      color: white;
-      z-index: 2;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 15px;
-      transition: all 0.3s ease;
-      filter: brightness(1.1) contrast(1.1);
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-image:hover {
-      filter: brightness(1.2) contrast(1.2);
-    }
-
-    .card-ascii {
-      background: transparent;
-      z-index: 1;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 400px;
-      height: 250px;
-      border-radius: 15px;
-      overflow: hidden;
-    }
-
-    .ascii-content {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      color: rgba(220, 210, 255, 0.6);
-      font-family: "Courier New", monospace;
-      font-size: 11px;
-      line-height: 13px;
-      overflow: hidden;
-      white-space: pre;
-      clip-path: inset(0 calc(100% - var(--clip-left, 0%)) 0 0);
-      animation: glitch 0.1s infinite linear alternate-reverse;
-      margin: 0;
-      padding: 0;
-      text-align: left;
-      vertical-align: top;
-      box-sizing: border-box;
-      -webkit-mask-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0.8) 30%,
-        rgba(0, 0, 0, 0.6) 50%,
-        rgba(0, 0, 0, 0.4) 80%,
-        rgba(0, 0, 0, 0.2) 100%
-      );
-      mask-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0.8) 30%,
-        rgba(0, 0, 0, 0.6) 50%,
-        rgba(0, 0, 0, 0.4) 80%,
-        rgba(0, 0, 0, 0.2) 100%
-      );
-    }
-
-    @keyframes glitch {
-      0% {
-        opacity: 1;
-      }
-      15% {
-        opacity: 0.9;
-      }
-      16% {
-        opacity: 1;
-      }
-      49% {
-        opacity: 0.8;
-      }
-      50% {
-        opacity: 1;
-      }
-      99% {
-        opacity: 0.9;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    .scanner {
-      display: none;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 4px;
-      height: 300px;
-      border-radius: 30px;
-      background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(139, 0, 0, 0.8),
-        rgba(200, 0, 0, 1),
-        rgba(139, 0, 0, 0.8),
-        transparent
-      );
-      box-shadow: 0 0 20px rgba(200, 0, 0, 0.8), 0 0 40px rgba(200, 0, 0, 0.4);
-      animation: scanPulse 2s ease-in-out infinite alternate;
-      z-index: 10;
-    }
-
-    @keyframes scanPulse {
-      0% {
-        opacity: 0.8;
-        transform: translate(-50%, -50%) scaleY(1);
-      }
-      100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scaleY(1.1);
-      }
-    }
-
-    .card-normal {
-      clip-path: inset(0 0 0 var(--clip-right, 0%));
-    }
-
-    .card-ascii {
-      clip-path: inset(0 calc(100% - var(--clip-left, 0%)) 0 0);
-    }
-
-    .scan-effect {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(200, 0, 0, 0.4),
-        transparent
-      );
-      animation: scanEffect 0.6s ease-out;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    @keyframes scanEffect {
-      0% {
-        transform: translateX(-100%);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-    }
-
-    #particleCanvas {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      width: 100vw;
-      height: 250px;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    #scannerCanvas {
-      position: absolute;
-      top: 50%;
-      left: -3px;
-      transform: translateY(-50%);
-      width: 100vw;
-      height: 300px;
-      z-index: 15;
-      pointer-events: none;
-    }
-
-    /* ============================
-       RESPONSIVE DESIGN
-    ============================ */
-
-    /* Navbar responsive adjustments */
-    @media (max-width: 995px) {
-      .navbar.glass {
-        padding: 1rem 5%;
-      }
-
-      .logo img {
-        height: 40px;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .hamburger {
-        display: block;
-      }
-
-      .controls {
-        top: 80px;
-        gap: 8px;
-      }
-
-      .control-btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 1.4rem;
-      }
-    }
-
-    /* Large Screens (Desktop) - Default styles */
-    @media (min-width: 1201px) {
-      .card-wrapper {
-        width: 400px;
-        height: 250px;
-      }
-
-      .card,
-      .card-normal,
-      .card-ascii {
-        width: 400px;
-        height: 250px;
-      }
-
-      .card-line {
-        gap: 60px;
-      }
-    }
-
-    /* Medium Screens (Tablets - Landscape) */
-    @media (max-width: 1200px) and (min-width: 992px) {
-      .controls {
-        top: 85px;
-        gap: 10px;
-      }
-
-      .control-btn {
-        padding: 0.9rem 2rem;
-        font-size: 1.5rem;
-      }
-
-      .card-wrapper {
-        width: 350px;
-        height: 219px;
-      }
-
-      .card,
-      .card-normal,
-      .card-ascii {
-        width: 350px;
-        height: 219px;
-      }
-
-      .card-line {
-        gap: 50px;
-      }
-
-      .ascii-content {
-        font-size: 10px;
-        line-height: 12px;
-      }
-    }
-
-    /* Medium Screens (Tablets - Portrait) */
-    @media (max-width: 991px) and (min-width: 768px) {
-      .controls {
-        top: 80px;
-        gap: 8px;
-      }
-
-      .control-btn {
-        padding: 0.8rem 1.8rem;
-        font-size: 1.4rem;
-        letter-spacing: 0.2rem;
-      }
-
-      .card-wrapper {
-        width: 320px;
-        height: 200px;
-      }
-
-      .card,
-      .card-normal,
-      .card-ascii {
-        width: 320px;
-        height: 200px;
-      }
-
-      .card-line {
-        gap: 40px;
-      }
-
-      .card-stream {
-        height: 160px;
-      }
-
-      #particleCanvas {
-        height: 200px;
-      }
-
-      #scannerCanvas {
-        height: 250px;
-      }
-
-      .container {
-        margin-top: 70px;
-        min-height: calc(100vh - 140px);
-      }
-
-      .ascii-content {
-        font-size: 9px;
-        line-height: 11px;
-      }
-    }
-
-    /* Small Screens (Mobile Landscape & Small Tablets) */
-    @media (max-width: 767px) and (min-width: 576px) {
-      .controls {
-        top: 75px;
-        gap: 6px;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 90%;
-      }
-
-      .control-btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 1.2rem;
-        letter-spacing: 0.15rem;
-      }
-
-      .control-btn i {
-        font-size: 1.1rem;
-      }
-
-      .card-wrapper {
-        width: 280px;
-        height: 175px;
-      }
-
-      .card,
-      .card-normal,
-      .card-ascii {
-        width: 280px;
-        height: 175px;
-      }
-
-      .card-line {
-        gap: 35px;
-      }
-
-      .card-image {
-        border-radius: 12px;
-      }
-
-      .card-stream {
-        height: 140px;
-      }
-
-      #particleCanvas {
-        height: 175px;
-      }
-
-      #scannerCanvas {
-        height: 220px;
-      }
-
-      .container {
-        margin-top: 65px;
-        min-height: calc(100vh - 130px);
-      }
-
-      .ascii-content {
-        font-size: 8px;
-        line-height: 10px;
-      }
-
-      .footer.glass-footer {
-        padding: 1rem;
-        font-size: 0.9rem;
-      }
-    }
-
-    /* Extra Small Screens (Mobile Portrait) */
-    @media (max-width: 575px) {
-      .navbar.glass {
-        padding: 0.8rem 5%;
-      }
-
-      .logo img {
-        height: 35px;
-      }
-
-      .controls {
-        top: 70px;
-        gap: 5px;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 95%;
-      }
-
-      .control-btn {
-        padding: 0.5rem 1rem;
-        font-size: 1.1rem;
-        letter-spacing: 0.1rem;
-        min-width: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .control-btn i {
-        font-size: 1rem;
-      }
-
-      .card-wrapper {
-        width: 240px;
-        height: 150px;
-      }
-
-      .card,
-      .card-normal,
-      .card-ascii {
-        width: 240px;
-        height: 150px;
-      }
-
-      .card-line {
-        gap: 25px;
-      }
-
-      .card-image {
-        border-radius: 10px;
-      }
-
-      .container {
-        margin-top: 60px;
-        min-height: calc(100vh - 120px);
-      }
-
-      .card-stream {
-        height: 120px;
-      }
-
-      #particleCanvas {
-        height: 150px;
-      }
-
-      #scannerCanvas {
-        height: 190px;
-      }
-
-      .ascii-content {
-        font-size: 7px;
-        line-height: 9px;
-      }
-
-      .footer.glass-footer {
-        padding: 0.8rem;
-        font-size: 0.8rem;
-      }
-
-      .sidebar {
-        width: 200px;
-      }
-    }
-
-    /* Very Small Screens (iPhone SE, etc.) */
-    @media (max-width: 375px) {
-      .controls {
-        top: 65px;
-        gap: 4px;
-      }
-
-      .control-btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 1rem;
-        letter-spacing: 0.08rem;
-      }
-
-      .card-wrapper {
-        width: 220px;
-        height: 138px;
-      }
-
-      .card,
-      .card-normal,
-      .card-ascii {
-        width: 220px;
-        height: 138px;
-      }
-
-      .card-line {
-        gap: 20px;
-      }
-
-      .card-stream {
-        height: 110px;
-      }
-
-      #particleCanvas {
-        height: 138px;
-      }
-
-      #scannerCanvas {
-        height: 170px;
-      }
-
-      .ascii-content {
-        font-size: 6px;
-        line-height: 8px;
-      }
-    }
-
-    /* Height adjustments for very short screens */
-    @media (max-height: 600px) {
-      .controls {
-        top: 70px;
-      }
-
-      .card-wrapper {
-        width: 200px;
-        height: 125px;
-      }
-
-      .card,
-      .card-normal,
-      .card-ascii {
-        width: 200px;
-        height: 125px;
-      }
-
-      .card-stream {
-        height: 100px;
-      }
-
-      .container {
-        margin-top: 60px;
-        min-height: calc(100vh - 100px);
-      }
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000000;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* ADDED: Prevent horizontal overflow */
+  max-width: 100%; /* ADDED: Prevent horizontal overflow */
+}
+
+.controls {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+}
+
+.control-btn {
+  display: inline-block;
+  padding: 1rem 2.8rem;
+  background-color: black;
+  border-radius: 4rem;
+  font-size: 1.6rem;
+  color: #b74b4b;
+  letter-spacing: 0.3rem;
+  font-weight: 600;
+  border: 2px solid #b74b4b;
+  transition: 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.control-btn:hover {
+  transform: scale3d(1.03, 1.03, 1.03);
+  background-color: #b74b4b;
+  color: black;
+  box-shadow: 0 0 25px #b74b4b;
+}
+
+.info {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px 25px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  z-index: 100;
+  line-height: 1.4;
+}
+
+.container {
+  position: relative;
+  width: 100vw;
+  flex: 1;
+  margin-top: 70px; /* Height of navbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 140px);
+  overflow: hidden; /* ADDED: Prevent overflow */
+}
+
+.speed-indicator {
+  position: absolute;
+  top: 90px;
+  right: 20px;
+  color: white;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 16px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  z-index: 100;
+  display: none;
+}
+
+.card-stream {
+  position: absolute;
+  width: 100vw;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  left: 0; /* ADDED: Ensure proper positioning */
+}
+
+.card-line {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  white-space: nowrap;
+  cursor: grab;
+  user-select: none;
+  will-change: transform;
+  -webkit-overflow-scrolling: touch; /* ADDED: Smooth iOS scrolling */
+  touch-action: pan-y; /* ADDED: Better touch handling */
+}
+
+.card-line:active {
+  cursor: grabbing;
+}
+
+.card-line.dragging {
+  cursor: grabbing;
+}
+
+.card-line.css-animated {
+  animation: scrollCards 40s linear infinite;
+}
+
+@keyframes scrollCards {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(calc(100vw + 100%)); /* CHANGED: More responsive calculation */
+  }
+}
+
+.card-wrapper {
+  position: relative;
+  width: 400px;
+  height: 250px;
+  flex-shrink: 0;
+}
+
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 250px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-normal {
+  background: transparent;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  color: white;
+  z-index: 2;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  filter: brightness(1.1) contrast(1.1);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-image:hover {
+  filter: brightness(1.2) contrast(1.2);
+}
+
+.card-ascii {
+  background: transparent;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 250px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-chip {
+  width: 40px;
+  height: 30px;
+  background: linear-gradient(45deg, #ffd700, #ffed4e);
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.card-chip::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  background: linear-gradient(45deg, #e6c200, #f4d03f);
+  border-radius: 2px;
+}
+
+.contactless {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  width: 25px;
+  height: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.contactless::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 15px;
+  height: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+}
+
+.card-number {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.card-holder {
+  color: white;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.card-expiry {
+  color: white;
+  font-size: 14px;
+}
+
+.card-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.ascii-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: rgba(220, 210, 255, 0.6);
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  line-height: 13px;
+  overflow: hidden;
+  white-space: pre;
+  clip-path: inset(0 calc(100% - var(--clip-left, 0%)) 0 0);
+  animation: glitch 0.1s infinite linear alternate-reverse;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  vertical-align: top;
+  box-sizing: border-box;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.8) 30%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.4) 80%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.8) 30%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.4) 80%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+@keyframes glitch {
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  16% {
+    opacity: 1;
+  }
+  49% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.scanner {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 300px;
+  border-radius: 30px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(139, 0, 0, 0.8),
+    rgba(200, 0, 0, 1),
+    rgba(139, 0, 0, 0.8),
+    transparent
+  );
+  box-shadow: 0 0 20px rgba(200, 0, 0, 0.8), 0 0 40px rgba(200, 0, 0, 0.4);
+  animation: scanPulse 2s ease-in-out infinite alternate;
+  z-index: 10;
+}
+
+@keyframes scanPulse {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scaleY(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scaleY(1.1);
+  }
+}
+
+.scanner-label {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(0, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.card-normal {
+  clip-path: inset(0 0 0 var(--clip-right, 0%));
+}
+
+.card-ascii {
+  clip-path: inset(0 calc(100% - var(--clip-left, 0%)) 0 0);
+}
+
+.scan-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(200, 0, 0, 0.4),
+    transparent
+  );
+  animation: scanEffect 0.6s ease-out;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes scanEffect {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.instructions {
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  max-width: 200px;
+  text-align: right;
+  z-index: 5;
+}
+
+#particleCanvas {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100vw;
+  height: 250px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#scannerCanvas {
+  position: absolute;
+  top: 50%;
+  left: -3px;
+  transform: translateY(-50%);
+  width: 100vw;
+  height: 300px;
+  z-index: 15;
+  pointer-events: none;
+}
+
+
+/* ============================
+   RESPONSIVE DESIGN
+============================ */
+
+/* Large Screens (Desktop) - Default styles already work */
+@media (min-width: 1025px) {
+  .controls {
+    top: 90px;
+    gap: 10px;
+  }
+  
+  .control-btn {
+    padding: 1rem 2.8rem;
+    font-size: 1.6rem;
+  }
+  
+  .card-wrapper {
+    width: 400px;
+    height: 250px;
+  }
+  
+  .card,
+  .card-normal,
+  .card-ascii {
+    width: 400px;
+    height: 250px;
+  }
+}
+
+/* Medium Screens (Tablets - iPad, etc.) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .controls {
+    top: 80px;
+    gap: 8px;
+  }
+  
+  .control-btn {
+    padding: 0.8rem 2.2rem;
+    font-size: 1.4rem;
+  }
+  
+  .card-wrapper {
+    width: 350px;
+    height: 220px;
+  }
+  
+  .card,
+  .card-normal,
+  .card-ascii {
+    width: 350px;
+    height: 220px;
+  }
+  
+  .card-line {
+    gap: 50px;
+  }
+}
+
+/* Small Screens (Mobile Landscape & Small Tablets) */
+@media (max-width: 768px) and (min-width: 481px) {
+  .controls {
+    top: 75px;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .control-btn {
+    padding: 0.7rem 1.8rem;
+    font-size: 1.3rem;
+  }
+  
+  .control-btn i {
+    font-size: 1.4rem;
+  }
+  
+  .card-wrapper {
+    width: 300px;
+    height: 190px;
+  }
+  
+  .card,
+  .card-normal,
+  .card-ascii {
+    width: 300px;
+    height: 190px;
+  }
+  
+  .card-line {
+    gap: 40px;
+  }
+  
+  .card-image {
+    border-radius: 12px;
+  }
+}
+
+/* Extra Small Screens (Mobile Portrait) */
+@media (max-width: 480px) {
+  .controls {
+    top: 70px;
+    gap: 5px;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .control-btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 1.2rem;
+    width: auto;
+    min-width: 50px;
+  }
+  
+  .control-btn i {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+  
+  .card-wrapper {
+    width: 280px;
+    height: 175px;
+  }
+  
+  .card,
+  .card-normal,
+  .card-ascii {
+    width: 280px;
+    height: 175px;
+  }
+  
+  .card-line {
+    gap: 30px;
+  }
+  
+  .card-image {
+    border-radius: 10px;
+  }
+  
+  .container {
+    margin-top: 140px; /* Extra space for vertical buttons */
+    min-height: calc(100vh - 200px); /* ADDED: Adjust for vertical buttons */
+  }
+}
+
+/* Very Small Screens (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .controls {
+    top: 65px;
+    gap: 4px;
+  }
+  
+  .control-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 1.1rem;
+  }
+  
+  .control-btn i {
+    font-size: 1.2rem;
+  }
+  
+  .card-wrapper {
+    width: 250px;
+    height: 156px;
+  }
+  
+  .card,
+  .card-normal,
+  .card-ascii {
+    width: 250px;
+    height: 156px;
+  }
+  
+  .card-line {
+    gap: 25px;
+  }
+}
+
+/* Navbar adjustments for mobile */
+@media (max-width: 995px) {
+  .navbar.glass {
+    padding: 1rem 5%;
+  }
+  
+  .logo {
+    font-size: 2.5rem;
+  }
+}
+
   </style>
 </head>
 
+
+
+
+<!-- CERTS BODY   -->
 <body>
+
   <!-- NAVIGATION BAR -->
   <header>
     <nav class="navbar glass">
-      <div class="logo">
-        <img src="LOGO.jpg" alt="Black Widow Logo">
-      </div>
-
+      <div class="logo">Bree</div>
+  
       <ul class="nav-links">
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="projects.html">Projects</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" >Contact</a></li>
       </ul>
-
+  
       <div class="hamburger" id="hamburger">
         <i class="fa fa-bars"></i>
       </div>
     </nav>
-
+  
     <!-- Sidebar (mobile only) -->
     <div class="sidebar" id="sidebar">
       <ul>
@@ -862,29 +685,33 @@
         <li><a href="contact.html" class="active">Contact</a></li>
       </ul>
     </div>
-
+  
     <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
   </header>
+
+
 
   <!-- BODY CONTENT -->
   <div class="controls">
     <button class="control-btn" onclick="toggleAnimation()">
       <i class="fa-solid fa-pause"></i>
     </button>
-
+    
     <button class="control-btn" onclick="goHome()">
       <i class="fa-solid fa-house"></i>
     </button>
-
+    
     <button class="control-btn" onclick="changeDirection()">
       <i class="fa-solid fa-arrows-left-right"></i>
     </button>
   </div>
 
+
   <div class="speed-indicator">
     <span id="speedValue"></span>
   </div>
+
 
   <div class="container">
     <canvas id="particleCanvas"></canvas>
@@ -897,61 +724,68 @@
     </div>
   </div>
 
+
   <!-- FOOTER -->
   <footer class="footer glass-footer">
     <p>Based in Melbourne, Australia</p>
   </footer>
+
 
   <!-- SCRIPT CODE -->
   <!-- JAVASCRIPT -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <script>
+
     // GLASS NAVIGATION BAR (Updated with sound)
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
-
+    
     // Create audio element for hamburger menu sound
-    const menuSound = new Audio('menu.mp3');
-
+    const menuSound = new Audio('menu.mp3'); // Change filename to match your sound file
+    
     hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
-
+      
       // Play sound effect
-      menuSound.currentTime = 0;
-      menuSound.play().catch(() => {});
+      menuSound.currentTime = 0; // Reset to start in case it's clicked multiple times quickly
+      menuSound.play().catch(() => {}); // Catch any playback errors silently
     });
-
+    
     overlay.addEventListener('click', () => {
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
     });
 
+
     // NAVIGATION LINKS SOUND EFFECT
     const navSound = new Audio('nav.mp3');
-
+    
     const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
-
+    
     allNavLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault();
-
+        e.preventDefault(); // Prevent immediate navigation
+        
         navSound.currentTime = 0;
         navSound.play().catch(() => {});
-
+        
+        // Get the href before navigation
         const destination = link.getAttribute('href');
-
+        
+        // Navigate after a short delay to allow sound to play
         setTimeout(() => {
           window.location.href = destination;
-        }, 150);
+        }, 150); // Adjust timing as needed (150ms is usually good)
       });
     });
 
+
     // CONTROL BUTTONS SOUND EFFECT
     const controlBtns = document.querySelectorAll('.control-btn');
-
+    
     controlBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const clickSound = new Audio('nav.mp3');
@@ -959,10 +793,14 @@
         clickSound.play().catch(() => {});
       });
     });
+    
 
     // CERTIFICATION JAVASCRIPT
     const codeChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789(){}[]<>;:,._-+=!@#$%^&*|\\/\"'`~?";
-
+    
+    const scannerLeft = window.innerWidth / 2 - 2;
+    const scannerRight = window.innerWidth / 2 + 2;
+    
     class CardStreamController {
       constructor() {
         this.container = document.getElementById("cardStream");
@@ -996,29 +834,38 @@
         this.startPeriodicUpdates();
       }
 
+      // CHANGED: Updated to use responsive dimensions
       calculateDimensions() {
-        this.containerWidth = this.container.offsetWidth;
-        const cardWidth = this.getCardWidth();
-        const cardGap = this.getCardGap();
+        this.containerWidth = window.innerWidth; // Use window width for container
+        const cardWidth = this.getCardWidth(); // Use responsive card width
+        const cardGap = this.getCardGap(); // Use responsive gap
         const cardCount = this.cardLine.children.length;
         this.cardLineWidth = (cardWidth + cardGap) * cardCount;
       }
 
+      // NEW: Get responsive card width based on screen size
       getCardWidth() {
-        if (window.innerWidth <= 375) return 220;
-        if (window.innerWidth <= 575) return 240;
-        if (window.innerWidth <= 767) return 280;
-        if (window.innerWidth <= 991) return 320;
-        if (window.innerWidth <= 1200) return 350;
+        const width = window.innerWidth;
+        if (width <= 375) return 250;
+        if (width <= 480) return 280;
+        if (width <= 768) return 300;
+        if (width <= 1024) return 350;
         return 400;
       }
 
+      // NEW: Get responsive card height (maintains aspect ratio)
+      getCardHeight() {
+        const width = this.getCardWidth();
+        return Math.floor(width * 0.625); // 250/400 = 0.625 aspect ratio
+      }
+
+      // NEW: Get responsive gap between cards
       getCardGap() {
-        if (window.innerWidth <= 375) return 20;
-        if (window.innerWidth <= 575) return 25;
-        if (window.innerWidth <= 767) return 35;
-        if (window.innerWidth <= 991) return 40;
-        if (window.innerWidth <= 1200) return 50;
+        const width = window.innerWidth;
+        if (width <= 375) return 25;
+        if (width <= 480) return 30;
+        if (width <= 768) return 40;
+        if (width <= 1024) return 50;
         return 60;
       }
 
@@ -1029,9 +876,8 @@
 
         this.cardLine.addEventListener(
           "touchstart",
-          (e) => this.startDrag(e.touches[0]), {
-            passive: false
-          }
+          (e) => this.startDrag(e.touches[0]),
+          { passive: false }
         );
         document.addEventListener("touchmove", (e) => this.onDrag(e.touches[0]), {
           passive: false,
@@ -1042,9 +888,54 @@
         this.cardLine.addEventListener("selectstart", (e) => e.preventDefault());
         this.cardLine.addEventListener("dragstart", (e) => e.preventDefault());
 
+        // CHANGED: Added responsive resize handler
         window.addEventListener("resize", () => {
-          this.calculateDimensions();
-          this.populateCardLine();
+          this.handleResize();
+        });
+        
+        // NEW: Handle orientation changes
+        window.addEventListener("orientationchange", () => {
+          setTimeout(() => {
+            this.handleResize();
+          }, 100);
+        });
+      }
+
+      // NEW: Handle window resize
+      handleResize() {
+        this.calculateDimensions();
+        this.updateCardPosition();
+        this.updateCardClipping();
+        
+        // Update all card dimensions
+        this.updateCardDimensions();
+      }
+
+      // NEW: Update card dimensions on resize
+      updateCardDimensions() {
+        const cardWrappers = this.cardLine.querySelectorAll('.card-wrapper');
+        const cardWidth = this.getCardWidth();
+        const cardHeight = this.getCardHeight();
+        
+        cardWrappers.forEach(wrapper => {
+          wrapper.style.width = cardWidth + 'px';
+          wrapper.style.height = cardHeight + 'px';
+          
+          const cards = wrapper.querySelectorAll('.card, .card-normal, .card-ascii');
+          cards.forEach(card => {
+            card.style.width = cardWidth + 'px';
+            card.style.height = cardHeight + 'px';
+          });
+          
+          // Update ASCII content for new size
+          const asciiContent = wrapper.querySelector('.ascii-content');
+          if (asciiContent) {
+            const { width, height, fontSize, lineHeight } = 
+              this.calculateCodeDimensions(cardWidth, cardHeight);
+            asciiContent.style.fontSize = fontSize + 'px';
+            asciiContent.style.lineHeight = lineHeight + 'px';
+            asciiContent.textContent = this.generateCode(width, height);
+          }
         });
       }
 
@@ -1143,13 +1034,13 @@
       toggleAnimation() {
         this.isAnimating = !this.isAnimating;
         const btn = document.querySelector(".control-btn");
-
+        
         if (this.isAnimating) {
           btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
         } else {
           btn.innerHTML = '<i class="fa-solid fa-play"></i>';
         }
-
+      
         if (this.isAnimating) {
           this.cardLine.style.animation = "none";
         }
@@ -1169,7 +1060,7 @@
         this.updateSpeedIndicator();
 
         const btn = document.querySelector(".control-btn");
-        btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        btn.innerHTML = '<i class="fa-solid fa-pause"></i> PAUSE';
       }
 
       changeDirection() {
@@ -1290,926 +1181,10 @@
       }
 
       calculateCodeDimensions(cardWidth, cardHeight) {
-        let fontSize = 11;
-        let charWidth = 6;
-
+        // CHANGED: Made fully responsive based on actual card size
+        let fontSize, charWidth;
+        
         if (cardWidth < 250) {
-          fontSize = 7;
-          charWidth = 4.2;
-        } else if (cardWidth < 300) {
           fontSize = 8;
-          charWidth = 4.8;
-        } else if (cardWidth < 350) {
-          fontSize = 9;
-          charWidth = 5.4;
-        }
-
-        const lineHeight = Math.ceil(fontSize * 1.18);
-        const width = Math.floor(cardWidth / charWidth);
-        const height = Math.floor(cardHeight / lineHeight);
-        return {
-          width,
-          height,
-          fontSize,
-          lineHeight
-        };
-      }
-
-      createCardWrapper(index) {
-        const wrapper = document.createElement("div");
-        wrapper.className = "card-wrapper";
-
-        const normalCard = document.createElement("div");
-        normalCard.className = "card card-normal";
-
-        const cardImages = [
-          "Juja.png",
-          "Strathmore.png",
-          "Diploma.png"
-        ];
-
-        const cardImage = document.createElement("img");
-        cardImage.className = "card-image";
-        cardImage.src = cardImages[index % cardImages.length];
-        cardImage.alt = "Credit Card";
-
-        cardImage.onerror = () => {
-          const cardWidth = this.getCardWidth();
-          const cardHeight = Math.round(cardWidth * 0.625);
-
-          const canvas = document.createElement("canvas");
-          canvas.width = cardWidth;
-          canvas.height = cardHeight;
-          const ctx = canvas.getContext("2d");
-
-          const gradient = ctx.createLinearGradient(0, 0, cardWidth, cardHeight);
-          gradient.addColorStop(0, "#667eea");
-          gradient.addColorStop(1, "#764ba2");
-
-          ctx.fillStyle = gradient;
-          ctx.fillRect(0, 0, cardWidth, cardHeight);
-
-          cardImage.src = canvas.toDataURL();
-        };
-
-        normalCard.appendChild(cardImage);
-
-        const asciiCard = document.createElement("div");
-        asciiCard.className = "card card-ascii";
-
-        const asciiContent = document.createElement("div");
-        asciiContent.className = "ascii-content";
-
-        const cardWidth = this.getCardWidth();
-        const cardHeight = Math.round(cardWidth * 0.625);
-
-        const {
-          width,
-          height,
-          fontSize,
-          lineHeight
-        } =
-        this.calculateCodeDimensions(cardWidth, cardHeight);
-        asciiContent.style.fontSize = fontSize + "px";
-        asciiContent.style.lineHeight = lineHeight + "px";
-        asciiContent.textContent = this.generateCode(width, height);
-
-        asciiCard.appendChild(asciiContent);
-        wrapper.appendChild(normalCard);
-        wrapper.appendChild(asciiCard);
-
-        return wrapper;
-      }
-
-      updateCardClipping() {
-        const scannerX = window.innerWidth / 2;
-        const scannerWidth = 8;
-        const scannerLeft = scannerX - scannerWidth / 2;
-        const scannerRight = scannerX + scannerWidth / 2;
-        let anyScanningActive = false;
-
-        document.querySelectorAll(".card-wrapper").forEach((wrapper) => {
-          const rect = wrapper.getBoundingClientRect();
-          const cardLeft = rect.left;
-          const cardRight = rect.right;
-          const cardWidth = rect.width;
-
-          const normalCard = wrapper.querySelector(".card-normal");
-          const asciiCard = wrapper.querySelector(".card-ascii");
-
-          if (cardLeft < scannerRight && cardRight > scannerLeft) {
-            anyScanningActive = true;
-            const scannerIntersectLeft = Math.max(scannerLeft - cardLeft, 0);
-            const scannerIntersectRight = Math.min(
-              scannerRight - cardLeft,
-              cardWidth
-            );
-
-            const normalClipRight = (scannerIntersectLeft / cardWidth) * 100;
-            const asciiClipLeft = (scannerIntersectRight / cardWidth) * 100;
-
-            normalCard.style.setProperty("--clip-right", `${normalClipRight}%`);
-            asciiCard.style.setProperty("--clip-left", `${asciiClipLeft}%`);
-
-            if (!wrapper.hasAttribute("data-scanned") && scannerIntersectLeft > 0) {
-              wrapper.setAttribute("data-scanned", "true");
-              const scanEffect = document.createElement("div");
-              scanEffect.className = "scan-effect";
-              wrapper.appendChild(scanEffect);
-              setTimeout(() => {
-                if (scanEffect.parentNode) {
-                  scanEffect.parentNode.removeChild(scanEffect);
-                }
-              }, 600);
-            }
-          } else {
-            if (cardRight < scannerLeft) {
-              normalCard.style.setProperty("--clip-right", "100%");
-              asciiCard.style.setProperty("--clip-left", "100%");
-            } else if (cardLeft > scannerRight) {
-              normalCard.style.setProperty("--clip-right", "0%");
-              asciiCard.style.setProperty("--clip-left", "0%");
-            }
-            wrapper.removeAttribute("data-scanned");
-          }
-        });
-
-        if (window.setScannerScanning) {
-          window.setScannerScanning(anyScanningActive);
-        }
-      }
-
-      updateAsciiContent() {
-        document.querySelectorAll(".ascii-content").forEach((content) => {
-          if (Math.random() < 0.15) {
-            const cardWidth = this.getCardWidth();
-            const cardHeight = Math.round(cardWidth * 0.625);
-            const {
-              width,
-              height
-            } = this.calculateCodeDimensions(cardWidth, cardHeight);
-            content.textContent = this.generateCode(width, height);
-          }
-        });
-      }
-
-      populateCardLine() {
-        this.cardLine.innerHTML = "";
-        const cardsCount = 30;
-        for (let i = 0; i < cardsCount; i++) {
-          const cardWrapper = this.createCardWrapper(i);
-          this.cardLine.appendChild(cardWrapper);
-        }
-      }
-
-      startPeriodicUpdates() {
-        setInterval(() => {
-          this.updateAsciiContent();
-        }, 200);
-
-        const updateClipping = () => {
-          this.updateCardClipping();
-          requestAnimationFrame(updateClipping);
-        };
-        updateClipping();
-      }
-    }
-
-    let cardStream;
-
-    function toggleAnimation() {
-      if (cardStream) {
-        cardStream.toggleAnimation();
-      }
-    }
-
-    function goHome() {
-      const navSound = new Audio('nav.mp3');
-      navSound.currentTime = 0;
-      navSound.play().catch(() => {});
-
-      setTimeout(() => {
-        window.location.href = 'index.html';
-      }, 150);
-    }
-
-    function changeDirection() {
-      if (cardStream) {
-        cardStream.changeDirection();
-      }
-    }
-
-    class ParticleSystem {
-      constructor() {
-        this.scene = null;
-        this.camera = null;
-        this.renderer = null;
-        this.particles = null;
-        this.particleCount = this.getParticleCount();
-        this.canvas = document.getElementById("particleCanvas");
-
-        this.init();
-      }
-
-      getParticleCount() {
-        if (window.innerWidth <= 575) return 200;
-        if (window.innerWidth <= 991) return 300;
-        return 400;
-      }
-
-      getCanvasHeight() {
-        if (window.innerWidth <= 375) return 138;
-        if (window.innerWidth <= 575) return 150;
-        if (window.innerWidth <= 767) return 175;
-        if (window.innerWidth <= 991) return 200;
-        if (window.innerWidth <= 1200) return 219;
-        return 250;
-      }
-
-      init() {
-        this.scene = new THREE.Scene();
-
-        const canvasHeight = this.getCanvasHeight();
-
-        this.camera = new THREE.OrthographicCamera(
-          -window.innerWidth / 2,
-          window.innerWidth / 2,
-          canvasHeight / 2,
-          -canvasHeight / 2,
-          1,
-          1000
-        );
-        this.camera.position.z = 100;
-
-        this.renderer = new THREE.WebGLRenderer({
-          canvas: this.canvas,
-          alpha: true,
-          antialias: true,
-        });
-        this.renderer.setSize(window.innerWidth, canvasHeight);
-        this.renderer.setClearColor(0x000000, 0);
-
-        this.createParticles();
-
-        this.animate();
-
-        window.addEventListener("resize", () => this.onWindowResize());
-      }
-
-      createParticles() {
-        const geometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(this.particleCount * 3);
-        const colors = new Float32Array(this.particleCount * 3);
-        const sizes = new Float32Array(this.particleCount);
-        const velocities = new Float32Array(this.particleCount);
-
-        const canvas = document.createElement("canvas");
-        canvas.width = 100;
-        canvas.height = 100;
-        const ctx = canvas.getContext("2d");
-
-        const half = canvas.width / 2;
-        const hue = 0;
-
-        const gradient = ctx.createRadialGradient(half, half, 0, half, half, half);
-        gradient.addColorStop(0.025, "#fff");
-        gradient.addColorStop(0.1, `hsl(${hue}, 61%, 33%)`);
-        gradient.addColorStop(0.25, `hsl(${hue}, 64%, 6%)`);
-        gradient.addColorStop(1, "transparent");
-
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(half, half, half, 0, Math.PI * 2);
-        ctx.fill();
-
-        const texture = new THREE.CanvasTexture(canvas);
-
-        const canvasHeight = this.getCanvasHeight();
-
-        for (let i = 0; i < this.particleCount; i++) {
-          positions[i * 3] = (Math.random() - 0.5) * window.innerWidth * 2;
-          positions[i * 3 + 1] = (Math.random() - 0.5) * canvasHeight;
-          positions[i * 3 + 2] = 0;
-
-          colors[i * 3] = 1;
-          colors[i * 3 + 1] = 1;
-          colors[i * 3 + 2] = 1;
-
-          const orbitRadius = Math.random() * 200 + 100;
-          sizes[i] = (Math.random() * (orbitRadius - 60) + 60) / 8;
-
-          velocities[i] = Math.random() * 60 + 30;
-        }
-
-        geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-        geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-        geometry.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
-
-        this.velocities = velocities;
-
-        const alphas = new Float32Array(this.particleCount);
-        for (let i = 0; i < this.particleCount; i++) {
-          alphas[i] = (Math.random() * 8 + 2) / 10;
-        }
-        geometry.setAttribute("alpha", new THREE.BufferAttribute(alphas, 1));
-        this.alphas = alphas;
-
-        const material = new THREE.ShaderMaterial({
-          uniforms: {
-            pointTexture: {
-              value: texture
-            },
-            size: {
-              value: 15.0
-            },
-          },
-          vertexShader: `
-            attribute float alpha;
-            varying float vAlpha;
-            varying vec3 vColor;
-            uniform float size;
-            
-            void main() {
-              vAlpha = alpha;
-              vColor = color;
-              vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-              gl_PointSize = size;
-              gl_Position = projectionMatrix * mvPosition;
-            }
-          `,
-          fragmentShader: `
-            uniform sampler2D pointTexture;
-            varying float vAlpha;
-            varying vec3 vColor;
-            
-            void main() {
-              gl_FragColor = vec4(vColor, vAlpha) * texture2D(pointTexture, gl_PointCoord);
-            }
-          `,
-          transparent: true,
-          blending: THREE.AdditiveBlending,
-          depthWrite: false,
-          vertexColors: true,
-        });
-
-        this.particles = new THREE.Points(geometry, material);
-        this.scene.add(this.particles);
-      }
-
-      animate() {
-        requestAnimationFrame(() => this.animate());
-
-        if (this.particles) {
-          const positions = this.particles.geometry.attributes.position.array;
-          const alphas = this.particles.geometry.attributes.alpha.array;
-          const time = Date.now() * 0.001;
-
-          const canvasHeight = this.getCanvasHeight();
-
-          for (let i = 0; i < this.particleCount; i++) {
-            positions[i * 3] += this.velocities[i] * 0.016;
-
-            if (positions[i * 3] > window.innerWidth / 2 + 100) {
-              positions[i * 3] = -window.innerWidth / 2 - 100;
-              positions[i * 3 + 1] = (Math.random() - 0.5) * canvasHeight;
-            }
-
-            positions[i * 3 + 1] += Math.sin(time + i * 0.1) * 0.5;
-
-            const twinkle = Math.floor(Math.random() * 10);
-            if (twinkle === 1 && alphas[i] > 0) {
-              alphas[i] -= 0.05;
-            } else if (twinkle === 2 && alphas[i] < 1) {
-              alphas[i] += 0.05;
-            }
-
-            alphas[i] = Math.max(0, Math.min(1, alphas[i]));
-          }
-
-          this.particles.geometry.attributes.position.needsUpdate = true;
-          this.particles.geometry.attributes.alpha.needsUpdate = true;
-        }
-
-        this.renderer.render(this.scene, this.camera);
-      }
-
-      onWindowResize() {
-        const canvasHeight = this.getCanvasHeight();
-
-        this.camera.left = -window.innerWidth / 2;
-        this.camera.right = window.innerWidth / 2;
-        this.camera.top = canvasHeight / 2;
-        this.camera.bottom = -canvasHeight / 2;
-        this.camera.updateProjectionMatrix();
-
-        this.renderer.setSize(window.innerWidth, canvasHeight);
-      }
-
-      destroy() {
-        if (this.renderer) {
-          this.renderer.dispose();
-        }
-        if (this.particles) {
-          this.scene.remove(this.particles);
-          this.particles.geometry.dispose();
-          this.particles.material.dispose();
-        }
-      }
-    }
-
-    let particleSystem;
-
-    class ParticleScanner {
-      constructor() {
-        this.canvas = document.getElementById("scannerCanvas");
-        this.ctx = this.canvas.getContext("2d");
-        this.animationId = null;
-
-        this.w = window.innerWidth;
-        this.h = this.getCanvasHeight();
-        this.particles = [];
-        this.count = 0;
-        this.maxParticles = this.getMaxParticles();
-        this.intensity = 0.8;
-        this.lightBarX = this.w / 2;
-        this.lightBarWidth = 3;
-        this.fadeZone = this.getFadeZone();
-
-        this.scanTargetIntensity = 1.8;
-        this.scanTargetParticles = this.getScanMaxParticles();
-        this.scanTargetFadeZone = 35;
-
-        this.scanningActive = false;
-
-        this.baseIntensity = this.intensity;
-        this.baseMaxParticles = this.maxParticles;
-        this.baseFadeZone = this.fadeZone;
-
-        this.currentIntensity = this.intensity;
-        this.currentMaxParticles = this.maxParticles;
-        this.currentFadeZone = this.fadeZone;
-        this.transitionSpeed = 0.05;
-
-        this.setupCanvas();
-        this.createGradientCache();
-        this.initParticles();
-        this.animate();
-
-        window.addEventListener("resize", () => this.onResize());
-      }
-
-      getCanvasHeight() {
-        if (window.innerWidth <= 375) return 170;
-        if (window.innerWidth <= 575) return 190;
-        if (window.innerWidth <= 767) return 220;
-        if (window.innerWidth <= 991) return 250;
-        if (window.innerWidth <= 1200) return 269;
-        return 300;
-      }
-
-      getMaxParticles() {
-        if (window.innerWidth <= 575) return 400;
-        if (window.innerWidth <= 991) return 600;
-        return 800;
-      }
-
-      getScanMaxParticles() {
-        if (window.innerWidth <= 575) return 1200;
-        if (window.innerWidth <= 991) return 1800;
-        return 2500;
-      }
-
-      getFadeZone() {
-        if (window.innerWidth <= 575) return 50;
-        if (window.innerWidth <= 991) return 55;
-        return 60;
-      }
-
-      setupCanvas() {
-        this.canvas.width = this.w;
-        this.canvas.height = this.h;
-        this.canvas.style.width = this.w + "px";
-        this.canvas.style.height = this.h + "px";
-        this.ctx.clearRect(0, 0, this.w, this.h);
-      }
-
-      onResize() {
-        this.w = window.innerWidth;
-        this.h = this.getCanvasHeight();
-        this.lightBarX = this.w / 2;
-        this.maxParticles = this.getMaxParticles();
-        this.scanTargetParticles = this.getScanMaxParticles();
-        this.fadeZone = this.getFadeZone();
-        this.setupCanvas();
-      }
-
-      createGradientCache() {
-        this.gradientCanvas = document.createElement("canvas");
-        this.gradientCtx = this.gradientCanvas.getContext("2d");
-        this.gradientCanvas.width = 16;
-        this.gradientCanvas.height = 16;
-
-        const half = this.gradientCanvas.width / 2;
-        const gradient = this.gradientCtx.createRadialGradient(
-          half,
-          half,
-          0,
-          half,
-          half,
-          half
-        );
-        gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
-        gradient.addColorStop(0.3, "rgba(200, 0, 0, 0.8)");
-        gradient.addColorStop(0.7, "rgba(139, 0, 0, 0.4)");
-        gradient.addColorStop(1, "transparent");
-
-        this.gradientCtx.fillStyle = gradient;
-        this.gradientCtx.beginPath();
-        this.gradientCtx.arc(half, half, half, 0, Math.PI * 2);
-        this.gradientCtx.fill();
-      }
-
-      random(min, max) {
-        if (arguments.length < 2) {
-          max = min;
-          min = 0;
-        }
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
-
-      randomFloat(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-
-      createParticle() {
-        const intensityRatio = this.intensity / this.baseIntensity;
-        const speedMultiplier = 1 + (intensityRatio - 1) * 1.2;
-        const sizeMultiplier = 1 + (intensityRatio - 1) * 0.7;
-
-        return {
-          x: this.lightBarX +
-            this.randomFloat(-this.lightBarWidth / 2, this.lightBarWidth / 2),
-          y: this.randomFloat(0, this.h),
-
-          vx: this.randomFloat(0.2, 1.0) * speedMultiplier,
-          vy: this.randomFloat(-0.15, 0.15) * speedMultiplier,
-
-          radius: this.randomFloat(0.4, 1) * sizeMultiplier,
-          alpha: this.randomFloat(0.6, 1),
-          decay: this.randomFloat(0.005, 0.025) * (2 - intensityRatio * 0.5),
-          originalAlpha: 0,
-          life: 1.0,
-          time: 0,
-          startX: 0,
-
-          twinkleSpeed: this.randomFloat(0.02, 0.08) * speedMultiplier,
-          twinkleAmount: this.randomFloat(0.1, 0.25),
-        };
-      }
-
-      initParticles() {
-        for (let i = 0; i < this.maxParticles; i++) {
-          const particle = this.createParticle();
-          particle.originalAlpha = particle.alpha;
-          particle.startX = particle.x;
-          this.count++;
-          this.particles[this.count] = particle;
-        }
-      }
-
-      updateParticle(particle) {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        particle.time++;
-
-        particle.alpha =
-          particle.originalAlpha * particle.life +
-          Math.sin(particle.time * particle.twinkleSpeed) * particle.twinkleAmount;
-
-        particle.life -= particle.decay;
-
-        if (particle.x > this.w + 10 || particle.life <= 0) {
-          this.resetParticle(particle);
-        }
-      }
-
-      resetParticle(particle) {
-        particle.x = this.lightBarX +
-          this.randomFloat(-this.lightBarWidth / 2, this.lightBarWidth / 2);
-        particle.y = this.randomFloat(0, this.h);
-        particle.vx = this.randomFloat(0.2, 1.0);
-        particle.vy = this.randomFloat(-0.15, 0.15);
-        particle.alpha = this.randomFloat(0.6, 1);
-        particle.originalAlpha = particle.alpha;
-        particle.life = 1.0;
-        particle.time = 0;
-        particle.startX = particle.x;
-      }
-
-      drawParticle(particle) {
-        if (particle.life <= 0) return;
-
-        let fadeAlpha = 1;
-
-        if (particle.y < this.fadeZone) {
-          fadeAlpha = particle.y / this.fadeZone;
-        } else if (particle.y > this.h - this.fadeZone) {
-          fadeAlpha = (this.h - particle.y) / this.fadeZone;
-        }
-
-        fadeAlpha = Math.max(0, Math.min(1, fadeAlpha));
-
-        this.ctx.globalAlpha = particle.alpha * fadeAlpha;
-        this.ctx.drawImage(
-          this.gradientCanvas,
-          particle.x - particle.radius,
-          particle.y - particle.radius,
-          particle.radius * 2,
-          particle.radius * 2
-        );
-      }
-
-      drawLightBar() {
-        const verticalGradient = this.ctx.createLinearGradient(0, 0, 0, this.h);
-        verticalGradient.addColorStop(0, "rgba(255, 255, 255, 0)");
-        verticalGradient.addColorStop(
-          this.fadeZone / this.h,
-          "rgba(255, 255, 255, 1)"
-        );
-        verticalGradient.addColorStop(
-          1 - this.fadeZone / this.h,
-          "rgba(255, 255, 255, 1)"
-        );
-        verticalGradient.addColorStop(1, "rgba(255, 255, 255, 0)");
-
-        this.ctx.globalCompositeOperation = "lighter";
-
-        const targetGlowIntensity = this.scanningActive ? 3.5 : 1;
-
-        if (!this.currentGlowIntensity) this.currentGlowIntensity = 1;
-
-        this.currentGlowIntensity +=
-          (targetGlowIntensity - this.currentGlowIntensity) * this.transitionSpeed;
-
-        const glowIntensity = this.currentGlowIntensity;
-        const lineWidth = this.lightBarWidth;
-        const glow1Alpha = this.scanningActive ? 1.0 : 0.8;
-        const glow2Alpha = this.scanningActive ? 0.8 : 0.6;
-        const glow3Alpha = this.scanningActive ? 0.6 : 0.4;
-
-        const coreGradient = this.ctx.createLinearGradient(
-          this.lightBarX - lineWidth / 2,
-          0,
-          this.lightBarX + lineWidth / 2,
-          0
-        );
-        coreGradient.addColorStop(0, "rgba(255, 255, 255, 0)");
-        coreGradient.addColorStop(
-          0.3,
-          `rgba(255, 255, 255, ${0.9 * glowIntensity})`
-        );
-        coreGradient.addColorStop(0.5, `rgba(255, 255, 255, ${1 * glowIntensity})`);
-        coreGradient.addColorStop(
-          0.7,
-          `rgba(255, 255, 255, ${0.9 * glowIntensity})`
-        );
-        coreGradient.addColorStop(1, "rgba(255, 255, 255, 0)");
-
-        this.ctx.globalAlpha = 1;
-        this.ctx.fillStyle = coreGradient;
-
-        const radius = 15;
-        this.ctx.beginPath();
-        this.ctx.roundRect(
-          this.lightBarX - lineWidth / 2,
-          0,
-          lineWidth,
-          this.h,
-          radius
-        );
-        this.ctx.fill();
-
-        const glow1Gradient = this.ctx.createLinearGradient(
-          this.lightBarX - lineWidth * 2,
-          0,
-          this.lightBarX + lineWidth * 2,
-          0
-        );
-        glow1Gradient.addColorStop(0, "rgba(139, 0, 0, 0)");
-        glow1Gradient.addColorStop(0.5, `rgba(200, 0, 0, ${0.8 * glowIntensity})`);
-        glow1Gradient.addColorStop(1, "rgba(139, 0, 0, 0)");
-
-        this.ctx.globalAlpha = glow1Alpha;
-        this.ctx.fillStyle = glow1Gradient;
-
-        const glow1Radius = 25;
-        this.ctx.beginPath();
-        this.ctx.roundRect(
-          this.lightBarX - lineWidth * 2,
-          0,
-          lineWidth * 4,
-          this.h,
-          glow1Radius
-        );
-        this.ctx.fill();
-
-        const glow2Gradient = this.ctx.createLinearGradient(
-          this.lightBarX - lineWidth * 4,
-          0,
-          this.lightBarX + lineWidth * 4,
-          0
-        );
-        glow2Gradient.addColorStop(0, "rgba(139, 0, 0, 0)");
-        glow2Gradient.addColorStop(0.5, `rgba(139, 0, 0, ${0.4 * glowIntensity})`);
-        glow2Gradient.addColorStop(1, "rgba(139, 0, 0, 0)");
-
-        this.ctx.globalAlpha = glow2Alpha;
-        this.ctx.fillStyle = glow2Gradient;
-
-        const glow2Radius = 35;
-        this.ctx.beginPath();
-        this.ctx.roundRect(
-          this.lightBarX - lineWidth * 4,
-          0,
-          lineWidth * 8,
-          this.h,
-          glow2Radius
-        );
-        this.ctx.fill();
-
-        if (this.scanningActive) {
-          const glow3Gradient = this.ctx.createLinearGradient(
-            this.lightBarX - lineWidth * 8,
-            0,
-            this.lightBarX + lineWidth * 8,
-            0
-          );
-          glow3Gradient.addColorStop(0, "rgba(139, 0, 0, 0)");
-          glow3Gradient.addColorStop(0.5, "rgba(139, 0, 0, 0.2)");
-          glow3Gradient.addColorStop(1, "rgba(139, 0, 0, 0)");
-
-          this.ctx.globalAlpha = glow3Alpha;
-          this.ctx.fillStyle = glow3Gradient;
-
-          const glow3Radius = 45;
-          this.ctx.beginPath();
-          this.ctx.roundRect(
-            this.lightBarX - lineWidth * 8,
-            0,
-            lineWidth * 16,
-            this.h,
-            glow3Radius
-          );
-          this.ctx.fill();
-        }
-
-        this.ctx.globalCompositeOperation = "destination-in";
-        this.ctx.globalAlpha = 1;
-        this.ctx.fillStyle = verticalGradient;
-        this.ctx.fillRect(0, 0, this.w, this.h);
-      }
-
-      render() {
-        const targetIntensity = this.scanningActive ?
-          this.scanTargetIntensity :
-          this.baseIntensity;
-        const targetMaxParticles = this.scanningActive ?
-          this.scanTargetParticles :
-          this.baseMaxParticles;
-        const targetFadeZone = this.scanningActive ?
-          this.scanTargetFadeZone :
-          this.baseFadeZone;
-
-        this.currentIntensity +=
-          (targetIntensity - this.currentIntensity) * this.transitionSpeed;
-        this.currentMaxParticles +=
-          (targetMaxParticles - this.currentMaxParticles) * this.transitionSpeed;
-        this.currentFadeZone +=
-          (targetFadeZone - this.currentFadeZone) * this.transitionSpeed;
-
-        this.intensity = this.currentIntensity;
-        this.maxParticles = Math.floor(this.currentMaxParticles);
-        this.fadeZone = this.currentFadeZone;
-
-        this.ctx.globalCompositeOperation = "source-over";
-        this.ctx.clearRect(0, 0, this.w, this.h);
-
-        this.drawLightBar();
-
-        this.ctx.globalCompositeOperation = "lighter";
-        for (let i = 1; i <= this.count; i++) {
-          if (this.particles[i]) {
-            this.updateParticle(this.particles[i]);
-            this.drawParticle(this.particles[i]);
-          }
-        }
-
-        const currentIntensity = this.intensity;
-        const currentMaxParticles = this.maxParticles;
-
-        if (Math.random() < currentIntensity && this.count < currentMaxParticles) {
-          const particle = this.createParticle();
-          particle.originalAlpha = particle.alpha;
-          particle.startX = particle.x;
-          this.count++;
-          this.particles[this.count] = particle;
-        }
-
-        const intensityRatio = this.intensity / this.baseIntensity;
-
-        if (intensityRatio > 1.1 && Math.random() < (intensityRatio - 1.0) * 1.2) {
-          const particle = this.createParticle();
-          particle.originalAlpha = particle.alpha;
-          particle.startX = particle.x;
-          this.count++;
-          this.particles[this.count] = particle;
-        }
-
-        if (intensityRatio > 1.3 && Math.random() < (intensityRatio - 1.3) * 1.4) {
-          const particle = this.createParticle();
-          particle.originalAlpha = particle.alpha;
-          particle.startX = particle.x;
-          this.count++;
-          this.particles[this.count] = particle;
-        }
-
-        if (intensityRatio > 1.5 && Math.random() < (intensityRatio - 1.5) * 1.8) {
-          const particle = this.createParticle();
-          particle.originalAlpha = particle.alpha;
-          particle.startX = particle.x;
-          this.count++;
-          this.particles[this.count] = particle;
-        }
-
-        if (intensityRatio > 2.0 && Math.random() < (intensityRatio - 2.0) * 2.0) {
-          const particle = this.createParticle();
-          particle.originalAlpha = particle.alpha;
-          particle.startX = particle.x;
-          this.count++;
-          this.particles[this.count] = particle;
-        }
-
-        if (this.count > currentMaxParticles + 200) {
-          const excessCount = Math.min(15, this.count - currentMaxParticles);
-          for (let i = 0; i < excessCount; i++) {
-            delete this.particles[this.count - i];
-          }
-          this.count -= excessCount;
-        }
-      }
-
-      animate() {
-        this.render();
-        this.animationId = requestAnimationFrame(() => this.animate());
-      }
-
-      setScanningActive(active) {
-        this.scanningActive = active;
-      }
-
-      getStats() {
-        return {
-          intensity: this.intensity,
-          maxParticles: this.maxParticles,
-          currentParticles: this.count,
-          lightBarWidth: this.lightBarWidth,
-          fadeZone: this.fadeZone,
-          scanningActive: this.scanningActive,
-          canvasWidth: this.w,
-          canvasHeight: this.h,
-        };
-      }
-
-      destroy() {
-        if (this.animationId) {
-          cancelAnimationFrame(this.animationId);
-        }
-
-        this.particles = [];
-        this.count = 0;
-      }
-    }
-
-    let particleScanner;
-
-    document.addEventListener("DOMContentLoaded", () => {
-      cardStream = new CardStreamController();
-      particleSystem = new ParticleSystem();
-      particleScanner = new ParticleScanner();
-
-      window.setScannerScanning = (active) => {
-        if (particleScanner) {
-          particleScanner.setScanningActive(active);
-        }
-      };
-
-      window.getScannerStats = () => {
-        if (particleScanner) {
-          return particleScanner.getStats();
-        }
-        return null;
-      };
-    });
-  </script>
-</body>
-</html>
+          charWidth = 4.5;
+        } else if (cardWidth < 
