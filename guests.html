@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Files - Flipping Interface</title>
+    <style>
+        /* Font imports */
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Mono&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'DM Sans', sans-serif;
+            padding: 20px;
+        }
+
+        /* Main container with side arrows */
+        .flipping-interface {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Container for the stacked case files */
+        .case-stack {
+            position: relative;
+            width: 380px;
+            height: 500px;
+            margin: 0;
+        }
+
+        /* Individual case file - stacked */
+        .case-file {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            transform-origin: center center;
+            pointer-events: none; /* Prevent direct clicking on cards */
+        }
+
+        /* Active card gets pointer events */
+        .case-file.active {
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        /* Folder tab at the top */
+        .case-tab {
+            position: absolute;
+            top: -29px;
+            right: 0;
+            width: 199px;
+            height: 29px;
+            filter: drop-shadow(0 -9px 7px rgba(0, 0, 0, 0.1));
+            z-index: 2;
+        }
+
+        .case-tab svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Card content */
+        .case-content {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.9));
+            border: 1px solid #ffffff;
+            border-radius: 8px;
+            border-top-right-radius: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        /* Case number - positioned over the tab */
+        .case-number {
+            position: absolute;
+            top: -26px;
+            right: 0;
+            width: 180px;
+            text-align: center;
+            font-family: 'Space Mono', 'DM Mono', monospace;
+            font-size: 16px;
+            color: #000000;
+            z-index: 3;
+        }
+
+        .case-title {
+            font-family: 'DM Mono', monospace;
+            font-size: 18px;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+            color: #000000;
+            font-weight: 500;
+            margin-top: 4px;
+            line-height: 1.3;
+        }
+
+        .divider {
+            width: 100%;
+            border-bottom: 1px solid #000000;
+            margin: 4px 0;
+        }
+
+        /* Grid layout for images and description */
+        .case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr auto;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .network-image {
+            background-color: #6b7280;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 4px;
+            min-height: 100px;
+        }
+
+        .abstract-image {
+            grid-row: span 2;
+            background-color: #6b7280;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 4px;
+            min-height: 200px;
+        }
+
+        .case-description {
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            color: #000000;
+            line-height: 1.5;
+            letter-spacing: 0.01em;
+        }
+
+        .week-badge {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+            text-align: right;
+            border-top: 1px dashed #ccc;
+            padding-top: 8px;
+        }
+
+        /* All cases now use the Case 03 gradient style */
+        .network-image {
+            background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
+            opacity: 0.9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .network-image::after {
+            content: "NETWORK";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            opacity: 0.5;
+            white-space: nowrap;
+        }
+
+        .abstract-image {
+            background: linear-gradient(45deg, #a8c0ff 0%, #3f2b96 100%);
+            opacity: 0.9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .abstract-image::after {
+            content: "ABSTRACT";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            color: white;
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            opacity: 0.5;
+            white-space: nowrap;
+        }
+
+        /* Custom labels for each case */
+        .case-file[data-index="0"] .network-image::after {
+            content: "PANDA";
+        }
+
+        .case-file[data-index="0"] .abstract-image::after {
+            content: "CT AFFAIRS";
+            transform: translate(-50%, -50%) rotate(-90deg);
+            font-size: 9px;
+        }
+
+        .case-file[data-index="1"] .network-image::after {
+            content: "APT29";
+        }
+
+        .case-file[data-index="1"] .abstract-image::after {
+            content: "SUPPLY";
+            transform: translate(-50%, -50%) rotate(-90deg);
+        }
+
+        .case-file[data-index="2"] .network-image::after {
+            content: "RANSOM";
+        }
+
+        .case-file[data-index="2"] .abstract-image::after {
+            content: "UNI";
+            transform: translate(-50%, -50%) rotate(-90deg);
+        }
+
+        /* Arrow controls - now on the right */
+        .arrow-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            order: 2; /* Pushes arrows to the right */
+        }
+
+        .arrow-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+            font-size: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .arrow-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(1.1);
+        }
+
+        .arrow-btn:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+
+        .arrow-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .arrow-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Position indicator - now vertical on the right */
+        .position-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            font-family: 'DM Mono', monospace;
+            font-size: 14px;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 10px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .indicator-dots {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: white;
+            transform: scale(1.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Case counter */
+        .case-counter {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: white;
+            text-align: center;
+            letter-spacing: 1px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        .current-case-label {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .flipping-interface {
+                flex-direction: column;
+            }
+            
+            .arrow-controls {
+                flex-direction: row;
+                order: 0;
+            }
+
+            .position-indicator {
+                flex-direction: row;
+                padding: 10px 15px;
+            }
+
+            .indicator-dots {
+                flex-direction: row;
+            }
+
+            .case-counter {
+                writing-mode: horizontal-tb;
+                transform: none;
+            }
+
+            .case-stack {
+                width: 320px;
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flipping-interface">
+        <!-- Stacked Case Files Container (now on left) -->
+        <div class="case-stack" id="caseStack">
+            <!-- Case 03: Waifu University (Index 2 - Top by default) -->
+            <div class="case-file" data-index="2" id="case3">
+                <div class="case-tab">
+                    <svg width="199" height="29" viewBox="0 0 199 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip2)">
+                            <path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/>
+                            <path d="M32.6572 0.5H195C196.795 0.5 198.25 1.95505 198.25 3.75V307.25C198.25 309.045 196.795 310.5 195 310.5H-112C-113.795 310.5 -115.25 309.045 -115.25 307.25V32.2842C-115.25 30.4784 -113.777 29.0188 -111.972 29.0342L-0.183594 29.9854C1.0904 29.9961 2.31499 29.4953 3.21582 28.5947L30.3584 1.45215C30.9676 0.842775 31.7958 0.5 32.6572 0.5Z" stroke="white" stroke-miterlimit="16"/>
+                        </g>
+                        <defs>
+                            <clipPath id="clip2">
+                                <rect width="199" height="29" fill="white"/>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="case-number">CASE 03</div>
+                <div class="case-content">
+                    <div class="case-title">WATELI UN</div>
+                    <div class="divider"></div>
+                    <div class="case-grid">
+                        <div class="network-image"></div>
+                        <div class="abstract-image"></div>
+                        <div class="case-description">AlphV (BlackCat) ransomware has hit the university's network.</div>
+                    </div>
+                    <div class="week-badge">WEEK 21</div>
+                </div>
+            </div>
+
+            <!-- Case 02: Techtonik (Index 1) -->
+            <div class="case-file" data-index="1" id="case2">
+                <div class="case-tab">
+                    <svg width="199" height="29" viewBox="0 0 199 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip1)">
+                            <path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/>
+                            <path d="M32.6572 0.5H195C196.795 0.5 198.25 1.95505 198.25 3.75V307.25C198.25 309.045 196.795 310.5 195 310.5H-112C-113.795 310.5 -115.25 309.045 -115.25 307.25V32.2842C-115.25 30.4784 -113.777 29.0188 -111.972 29.0342L-0.183594 29.9854C1.0904 29.9961 2.31499 29.4953 3.21582 28.5947L30.3584 1.45215C30.9676 0.842775 31.7958 0.5 32.6572 0.5Z" stroke="white" stroke-miterlimit="16"/>
+                        </g>
+                        <defs>
+                            <clipPath id="clip1">
+                                <rect width="199" height="29" fill="white"/>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="case-number">CASE 02</div>
+                <div class="case-content">
+                    <div class="case-title">TECHTONIK</div>
+                    <div class="divider"></div>
+                    <div class="case-grid">
+                        <div class="network-image"></div>
+                        <div class="abstract-image"></div>
+                        <div class="case-description">APT29 compromises a tech supply chain.</div>
+                    </div>
+                    <div class="week-badge">WEEK 21</div>
+                </div>
+            </div>
+
+            <!-- Case 01: Council of Tropical Affairs (Index 0) -->
+            <div class="case-file" data-index="0" id="case1">
+                <div class="case-tab">
+                    <svg width="199" height="29" viewBox="0 0 199 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0)">
+                            <path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/>
+                            <path d="M32.6572 0.5H195C196.795 0.5 198.25 1.95505 198.25 3.75V307.25C198.25 309.045 196.795 310.5 195 310.5H-112C-113.795 310.5 -115.25 309.045 -115.25 307.25V32.2842C-115.25 30.4784 -113.777 29.0188 -111.972 29.0342L-0.183594 29.9854C1.0904 29.9961 2.31499 29.4953 3.21582 28.5947L30.3584 1.45215C30.9676 0.842775 31.7958 0.5 32.6572 0.5Z" stroke="white" stroke-miterlimit="16"/>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0">
+                                <rect width="199" height="29" fill="white"/>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="case-number">CASE 01</div>
+                <div class="case-content">
+                    <div class="case-title">COUNCIL OF TROPICAL AFFAIRS</div>
+                    <div class="divider"></div>
+                    <div class="case-grid">
+                        <div class="network-image"></div>
+                        <div class="abstract-image"></div>
+                        <div class="case-description">Mustang Panda has targeted a government entity. (espionage)</div>
+                    </div>
+                    <div class="week-badge">WEEK 21</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right side: Arrow controls -->
+        <div class="arrow-controls">
+            <div class="position-indicator">
+                <div class="current-case-label" id="currentCaseDisplay">Case 03</div>
+                <div class="indicator-dots" id="dotIndicator">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <div class="case-counter" id="caseCounter">3/3</div>
+            </div>
+            
+            <button class="arrow-btn" id="prevBtn" disabled>
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7-7 7 7"/>
+                </svg>
+            </button>
+            
+            <button class="arrow-btn" id="nextBtn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 19V5M5 12l7 7 7-7"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const caseFiles = Array.from(document.querySelectorAll('.case-file'));
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentCaseDisplay = document.getElementById('currentCaseDisplay');
+        const caseCounter = document.getElementById('caseCounter');
+        const dots = document.querySelectorAll('.dot');
+        
+        let currentIndex = 2; // Start with Case 03 (index 2)
+        const totalCases = caseFiles.length;
+
+        // Case names for display
+        const caseNames = {
+            0: 'Case 01',
+            1: 'Case 02',
+            2: 'Case 03'
+        };
+
+        function updateStack(index) {
+            // Remove active class from all
+            caseFiles.forEach(file => {
+                file.classList.remove('active');
+            });
+
+            // Add active class to current file
+            caseFiles[index].classList.add('active');
+
+            // Update positions and transforms based on current index
+            caseFiles.forEach((file, i) => {
+                file.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                
+                if (i === index) {
+                    // Current card - front and center
+                    file.style.transform = 'rotate(0deg) translateY(-15px)';
+                    file.style.zIndex = '10';
+                    file.style.top = '0';
+                    file.style.left = '0';
+                    file.style.opacity = '1';
+                    file.style.filter = 'brightness(1)';
+                } else if (i < index) {
+                    // Cards below in stack (lower index)
+                    const offset = (index - i) * 15;
+                    file.style.transform = `rotate(${2 + (index - i)}deg) translateY(${offset}px) translateX(${offset}px)`;
+                    file.style.zIndex = `${5 - (index - i)}`;
+                    file.style.top = `${offset}px`;
+                    file.style.left = `${offset}px`;
+                    file.style.opacity = '0.9';
+                    file.style.filter = 'brightness(0.8)';
+                } else {
+                    // Cards above in stack (higher index)
+                    const offset = (i - index) * 15;
+                    file.style.transform = `rotate(${-2 - (i - index)}deg) translateY(${offset}px) translateX(-${offset}px)`;
+                    file.style.zIndex = `${5 - (i - index)}`;
+                    file.style.top = `${offset}px`;
+                    file.style.left = `-${offset}px`;
+                    file.style.opacity = '0.9';
+                    file.style.filter = 'brightness(0.8)';
+                }
+            });
+
+            // Update display
+            currentCaseDisplay.textContent = caseNames[index];
+            caseCounter.textContent = `${index + 1}/${totalCases}`;
+            
+            // Update dots
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+
+            // Update button states
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === totalCases - 1;
+        }
+
+        // Event listeners for arrows
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateStack(currentIndex);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < totalCases - 1) {
+                currentIndex++;
+                updateStack(currentIndex);
+            }
+        });
+
+        // Click on cards also navigates (optional)
+        caseFiles.forEach((file, index) => {
+            file.addEventListener('click', () => {
+                if (index !== currentIndex) {
+                    currentIndex = index;
+                    updateStack(currentIndex);
+                }
+            });
+        });
+
+        // Initialize stack
+        updateStack(currentIndex);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateStack(currentIndex);
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (currentIndex < totalCases - 1) {
+                    currentIndex++;
+                    updateStack(currentIndex);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
