@@ -46,13 +46,13 @@
     /* UPDATED: Controls - always horizontal, never stack */
     .controls {
       position: absolute;
-      top: 220px; /* INCREASED from 200px to lower the buttons */
+      top: 220px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       flex-direction: row;
       gap: 10px;
-      z-index: 90; /* Lower than sidebar (2000) and overlay (1000) */
+      z-index: 90;
       flex-wrap: nowrap;
       white-space: nowrap;
     }
@@ -71,7 +71,7 @@
       cursor: pointer;
       text-decoration: none;
       flex-shrink: 0;
-      pointer-events: auto; /* Ensure buttons are clickable */
+      pointer-events: auto;
     }
 
     .control-btn:hover {
@@ -85,19 +85,19 @@
     .sidebar.active ~ * .controls,
     .sidebar.active + * .controls,
     body:has(.sidebar.active) .controls {
-      z-index: 50; /* Even lower when sidebar is active */
+      z-index: 50;
     }
 
     /* INCREASED BUTTON SIZES FOR SMALLER SCREENS - WITH LOWERED POSITIONS */
     @media (max-width: 995px) {
       .controls {
-        top: 200px; /* INCREASED from 180px */
+        top: 200px;
       }
     }
 
     @media (max-width: 768px) {
       .controls {
-        top: 190px; /* INCREASED from 170px */
+        top: 190px;
         gap: 12px;
       }
       
@@ -110,7 +110,7 @@
 
     @media (max-width: 576px) {
       .controls {
-        top: 180px; /* INCREASED from 160px */
+        top: 180px;
         gap: 10px;
       }
       
@@ -127,7 +127,7 @@
 
     @media (max-width: 480px) {
       .controls {
-        top: 170px; /* INCREASED from 150px */
+        top: 170px;
         gap: 8px;
       }
       
@@ -144,7 +144,7 @@
 
     @media (max-width: 375px) {
       .controls {
-        top: 160px; /* INCREASED from 140px */
+        top: 160px;
         gap: 6px;
       }
       
@@ -162,7 +162,7 @@
     /* Even smaller screens - minimal but still readable */
     @media (max-width: 320px) {
       .controls {
-        top: 150px; /* INCREASED from 130px */
+        top: 150px;
         gap: 5px;
       }
       
@@ -197,48 +197,49 @@
       position: relative;
       width: 100%;
       flex: 1;
-      margin-top: 240px; /* INCREASED from 220px to account for lower buttons */
+      margin-top: 240px;
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: calc(100vh - 270px);
       overflow: visible;
       z-index: 1;
+      touch-action: pan-y pinch-zoom; /* Allows vertical scrolling while preserving horizontal drag */
     }
 
     @media (max-width: 995px) {
       .container {
-        margin-top: 220px; /* INCREASED from 200px */
+        margin-top: 220px;
       }
     }
 
     @media (max-width: 768px) {
       .container {
-        margin-top: 210px; /* INCREASED from 190px */
+        margin-top: 210px;
       }
     }
 
     @media (max-width: 576px) {
       .container {
-        margin-top: 200px; /* INCREASED from 180px */
+        margin-top: 200px;
       }
     }
 
     @media (max-width: 480px) {
       .container {
-        margin-top: 190px; /* INCREASED from 170px */
+        margin-top: 190px;
       }
     }
 
     @media (max-width: 375px) {
       .container {
-        margin-top: 180px; /* INCREASED from 160px */
+        margin-top: 180px;
       }
     }
 
     @media (max-width: 320px) {
       .container {
-        margin-top: 170px; /* INCREASED from 150px */
+        margin-top: 170px;
       }
     }
 
@@ -263,6 +264,7 @@
       display: flex;
       align-items: center;
       overflow: visible;
+      touch-action: none; /* Prevents browser from handling touch events */
     }
 
     .card-line {
@@ -273,6 +275,10 @@
       cursor: grab;
       user-select: none;
       will-change: transform;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      touch-action: none; /* Critical for touch dragging */
     }
 
     .card-line:active {
@@ -301,6 +307,8 @@
       width: 400px;
       height: 250px;
       flex-shrink: 0;
+      pointer-events: auto; /* Ensures cards are interactive */
+      -webkit-tap-highlight-color: transparent;
     }
 
     .card {
@@ -311,6 +319,7 @@
       height: 250px;
       border-radius: 15px;
       overflow: hidden;
+      pointer-events: none; /* Prevents cards from intercepting touch events */
     }
 
     .card-normal {
@@ -334,6 +343,7 @@
       transition: all 0.3s ease;
       filter: brightness(1.1) contrast(1.1);
       box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+      pointer-events: none; /* Prevents images from intercepting touch events */
     }
 
     .card-image:hover {
@@ -420,6 +430,7 @@
       box-shadow: 0 0 20px rgba(200, 0, 0, 0.8), 0 0 40px rgba(200, 0, 0, 0.4);
       animation: scanPulse 2s ease-in-out infinite alternate;
       z-index: 10;
+      pointer-events: none; /* Allows touch events to pass through */
     }
 
     @keyframes scanPulse {
@@ -496,15 +507,15 @@
 
     /* FOOTER Z-INDEX OVERRIDES */
     .footer {
-      z-index: 90 !important; /* Match controls z-index */
-      position: relative; /* Ensure z-index works */
+      z-index: 90 !important;
+      position: relative;
     }
 
     /* When sidebar is active, footer stays below it */
     .sidebar.active ~ .footer,
     .sidebar.active + .footer,
     body:has(.sidebar.active) .footer {
-      z-index: 50 !important; /* Same as controls when sidebar active */
+      z-index: 50 !important;
     }
 
     /* ============================
@@ -787,7 +798,7 @@
       });
     });
 
-    // CERTIFICATION JAVASCRIPT (keep all your original code below)
+    // CERTIFICATION JAVASCRIPT
     class CardStreamController {
       constructor() {
         this.container = document.getElementById("cardStream");
@@ -801,7 +812,7 @@
         this.isDragging = false;
 
         this.lastTime = 0;
-        this.lastMouseX = 0;
+        this.lastX = 0; // For both mouse and touch
         this.mouseVelocity = 0;
         this.friction = 0.95;
         this.minVelocity = 30;
@@ -855,15 +866,36 @@
       }
 
       setupEventListeners() {
+        // Mouse events
         this.cardLine.addEventListener("mousedown", (e) => this.startDrag(e));
         document.addEventListener("mousemove", (e) => this.onDrag(e));
         document.addEventListener("mouseup", () => this.endDrag());
 
-        this.cardLine.addEventListener("touchstart", (e) => this.startDrag(e.touches[0]), { passive: false });
-        document.addEventListener("touchmove", (e) => this.onDrag(e.touches[0]), { passive: false });
-        document.addEventListener("touchend", () => this.endDrag());
+        // Touch events - CRITICAL for mobile
+        this.cardLine.addEventListener("touchstart", (e) => {
+          e.preventDefault(); // Prevent scrolling while dragging
+          this.startDrag(e.touches[0]);
+        }, { passive: false });
 
+        document.addEventListener("touchmove", (e) => {
+          e.preventDefault(); // Prevent scrolling while dragging
+          this.onDrag(e.touches[0]);
+        }, { passive: false });
+
+        document.addEventListener("touchend", (e) => {
+          e.preventDefault();
+          this.endDrag();
+        }, { passive: false });
+
+        document.addEventListener("touchcancel", (e) => {
+          e.preventDefault();
+          this.endDrag();
+        }, { passive: false });
+
+        // Wheel event for desktop
         this.cardLine.addEventListener("wheel", (e) => this.onWheel(e));
+        
+        // Prevent default drag behaviors
         this.cardLine.addEventListener("selectstart", (e) => e.preventDefault());
         this.cardLine.addEventListener("dragstart", (e) => e.preventDefault());
 
@@ -872,67 +904,43 @@
         });
       }
 
-      handleResize() {
-        this.calculateDimensions();
-        this.updateCardPosition();
-        this.updateCardClipping();
-        this.updateAllCardDimensions();
-      }
-
-      updateAllCardDimensions() {
-        const cardWrappers = this.cardLine.querySelectorAll('.card-wrapper');
-        const cardWidth = this.getCurrentCardWidth();
-        const cardHeight = this.getCurrentCardHeight();
-        
-        cardWrappers.forEach(wrapper => {
-          wrapper.style.width = cardWidth + 'px';
-          wrapper.style.height = cardHeight + 'px';
-          
-          const cards = wrapper.querySelectorAll('.card, .card-normal, .card-ascii');
-          cards.forEach(card => {
-            card.style.width = cardWidth + 'px';
-            card.style.height = cardHeight + 'px';
-          });
-          
-          const asciiContent = wrapper.querySelector('.ascii-content');
-          if (asciiContent) {
-            const { width, height, fontSize, lineHeight } = 
-              this.calculateCodeDimensions(cardWidth, cardHeight);
-            asciiContent.style.fontSize = fontSize + 'px';
-            asciiContent.style.lineHeight = lineHeight + 'px';
-            asciiContent.textContent = this.generateCode(width, height);
-          }
-        });
-      }
-
       startDrag(e) {
         e.preventDefault();
         this.isDragging = true;
         this.isAnimating = false;
-        this.lastMouseX = e.clientX;
+        this.lastX = e.clientX;
         this.mouseVelocity = 0;
 
+        // Stop any ongoing animation
+        this.cardLine.style.animation = "none";
+        
+        // Get current transform position
         const transform = window.getComputedStyle(this.cardLine).transform;
         if (transform !== "none") {
           const matrix = new DOMMatrix(transform);
           this.position = matrix.m41;
         }
 
-        this.cardLine.style.animation = "none";
         this.cardLine.classList.add("dragging");
         document.body.style.userSelect = "none";
         document.body.style.cursor = "grabbing";
+        
+        // Also prevent body scrolling on mobile
+        document.body.style.overflow = "hidden";
       }
 
       onDrag(e) {
         if (!this.isDragging) return;
         e.preventDefault();
 
-        const deltaX = e.clientX - this.lastMouseX;
+        const deltaX = e.clientX - this.lastX;
         this.position += deltaX;
-        this.mouseVelocity = deltaX * 60;
-        this.lastMouseX = e.clientX;
+        this.mouseVelocity = deltaX * 60; // Scale for momentum
+        this.lastX = e.clientX;
 
+        // Apply boundary constraints with smooth wrapping
+        this.applyPositionConstraints();
+        
         this.cardLine.style.transform = `translateX(${this.position}px)`;
         this.updateCardClipping();
       }
@@ -942,17 +950,32 @@
         this.isDragging = false;
         this.cardLine.classList.remove("dragging");
 
+        // Apply momentum if velocity is significant
         if (Math.abs(this.mouseVelocity) > this.minVelocity) {
           this.velocity = Math.abs(this.mouseVelocity);
           this.direction = this.mouseVelocity > 0 ? 1 : -1;
         } else {
-          this.velocity = 120;
+          this.velocity = 120; // Default speed
         }
 
         this.isAnimating = true;
         this.updateSpeedIndicator();
+        
+        // Restore body scrolling
         document.body.style.userSelect = "";
         document.body.style.cursor = "";
+        document.body.style.overflow = "";
+      }
+
+      applyPositionConstraints() {
+        // Implement smooth wrapping when reaching edges
+        const buffer = 100; // Buffer before wrapping
+        
+        if (this.position > this.containerWidth + buffer) {
+          this.position = -this.cardLineWidth + buffer;
+        } else if (this.position < -this.cardLineWidth - buffer) {
+          this.position = this.containerWidth - buffer;
+        }
       }
 
       animate() {
@@ -961,55 +984,60 @@
         this.lastTime = currentTime;
 
         if (this.isAnimating && !this.isDragging) {
+          // Apply friction
           if (this.velocity > this.minVelocity) {
             this.velocity *= this.friction;
           } else {
             this.velocity = Math.max(this.minVelocity, this.velocity);
           }
 
+          // Update position
           this.position += this.velocity * this.direction * deltaTime;
-          this.updateCardPosition();
+          
+          // Apply wrapping
+          this.applyPositionConstraints();
+          
+          // Update transform
+          this.cardLine.style.transform = `translateX(${this.position}px)`;
+          
           this.updateSpeedIndicator();
+          this.updateCardClipping();
         }
 
         requestAnimationFrame(() => this.animate());
       }
 
       updateCardPosition() {
-        const containerWidth = this.containerWidth;
-        const cardLineWidth = this.cardLineWidth;
-
-        if (this.position < -cardLineWidth) {
-          this.position = containerWidth;
-        } else if (this.position > containerWidth) {
-          this.position = -cardLineWidth;
-        }
-
+        this.applyPositionConstraints();
         this.cardLine.style.transform = `translateX(${this.position}px)`;
         this.updateCardClipping();
       }
 
       updateSpeedIndicator() {
-        this.speedIndicator.textContent = Math.round(this.velocity);
+        if (this.speedIndicator) {
+          this.speedIndicator.textContent = Math.round(this.velocity);
+        }
       }
 
       toggleAnimation() {
         this.isAnimating = !this.isAnimating;
-        const btn = document.querySelector(".control-btn");
+        const btn = document.querySelector(".control-btn:first-child");
         
-        if (this.isAnimating) {
-          btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-        } else {
-          btn.innerHTML = '<i class="fa-solid fa-play"></i>';
-        }
-      
-        if (this.isAnimating) {
-          this.cardLine.style.animation = "none";
+        if (btn) {
+          if (this.isAnimating) {
+            btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+            // Resume animation
+            this.velocity = 120;
+          } else {
+            btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+            // Stop animation immediately
+            this.velocity = 0;
+          }
         }
       }
 
       resetPosition() {
-        this.position = this.containerWidth;
+        this.position = this.containerWidth / 2;
         this.velocity = 120;
         this.direction = -1;
         this.isAnimating = true;
@@ -1031,9 +1059,12 @@
         const scrollSpeed = 20;
         const delta = e.deltaY > 0 ? scrollSpeed : -scrollSpeed;
         this.position += delta;
+        this.applyPositionConstraints();
         this.updateCardPosition();
         this.updateCardClipping();
       }
+
+      // ... rest of your existing methods (generateCode, calculateCodeDimensions, createCardWrapper, updateCardClipping, updateAsciiContent, populateCardLine, startPeriodicUpdates) remain exactly the same ...
 
       generateCode(width, height) {
         const randInt = (min, max) =>
