@@ -46,7 +46,7 @@
     /* UPDATED: Controls - always horizontal, never stack */
     .controls {
       position: absolute;
-      top: 200px;
+      top: 220px; /* INCREASED from 200px to lower the buttons */
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -88,16 +88,16 @@
       z-index: 50; /* Even lower when sidebar is active */
     }
 
-    /* INCREASED BUTTON SIZES FOR SMALLER SCREENS */
+    /* INCREASED BUTTON SIZES FOR SMALLER SCREENS - WITH LOWERED POSITIONS */
     @media (max-width: 995px) {
       .controls {
-        top: 180px;
+        top: 200px; /* INCREASED from 180px */
       }
     }
 
     @media (max-width: 768px) {
       .controls {
-        top: 170px;
+        top: 190px; /* INCREASED from 170px */
         gap: 12px;
       }
       
@@ -110,7 +110,7 @@
 
     @media (max-width: 576px) {
       .controls {
-        top: 160px;
+        top: 180px; /* INCREASED from 160px */
         gap: 10px;
       }
       
@@ -127,7 +127,7 @@
 
     @media (max-width: 480px) {
       .controls {
-        top: 150px;
+        top: 170px; /* INCREASED from 150px */
         gap: 8px;
       }
       
@@ -144,7 +144,7 @@
 
     @media (max-width: 375px) {
       .controls {
-        top: 140px;
+        top: 160px; /* INCREASED from 140px */
         gap: 6px;
       }
       
@@ -162,7 +162,7 @@
     /* Even smaller screens - minimal but still readable */
     @media (max-width: 320px) {
       .controls {
-        top: 130px;
+        top: 150px; /* INCREASED from 130px */
         gap: 5px;
       }
       
@@ -197,48 +197,48 @@
       position: relative;
       width: 100%;
       flex: 1;
-      margin-top: 220px;
+      margin-top: 240px; /* INCREASED from 220px to account for lower buttons */
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: calc(100vh - 250px);
+      min-height: calc(100vh - 270px);
       overflow: visible;
       z-index: 1;
     }
 
     @media (max-width: 995px) {
       .container {
-        margin-top: 200px;
+        margin-top: 220px; /* INCREASED from 200px */
       }
     }
 
     @media (max-width: 768px) {
       .container {
-        margin-top: 190px;
+        margin-top: 210px; /* INCREASED from 190px */
       }
     }
 
     @media (max-width: 576px) {
       .container {
-        margin-top: 180px;
+        margin-top: 200px; /* INCREASED from 180px */
       }
     }
 
     @media (max-width: 480px) {
       .container {
-        margin-top: 170px;
+        margin-top: 190px; /* INCREASED from 170px */
       }
     }
 
     @media (max-width: 375px) {
       .container {
-        margin-top: 160px;
+        margin-top: 180px; /* INCREASED from 160px */
       }
     }
 
     @media (max-width: 320px) {
       .container {
-        margin-top: 150px;
+        margin-top: 170px; /* INCREASED from 150px */
       }
     }
 
@@ -492,6 +492,19 @@
       height: 300px;
       z-index: 15;
       pointer-events: none;
+    }
+
+    /* FOOTER Z-INDEX OVERRIDES */
+    .footer {
+      z-index: 90 !important; /* Match controls z-index */
+      position: relative; /* Ensure z-index works */
+    }
+
+    /* When sidebar is active, footer stays below it */
+    .sidebar.active ~ .footer,
+    .sidebar.active + .footer,
+    body:has(.sidebar.active) .footer {
+      z-index: 50 !important; /* Same as controls when sidebar active */
     }
 
     /* ============================
