@@ -39,14 +39,18 @@
     }
 
     /* KEEP YOUR ORIGINAL CERTIFICATES STYLES */
+    /* UPDATED: Controls - always horizontal, never stack */
     .controls {
       position: absolute;
       top: 200px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
+      flex-direction: row; /* Always horizontal */
       gap: 10px;
       z-index: 100;
+      flex-wrap: nowrap; /* Prevent wrapping */
+      white-space: nowrap; /* Keep buttons on one line */
     }
 
     .control-btn {
@@ -62,6 +66,7 @@
       transition: 0.3s ease;
       cursor: pointer;
       text-decoration: none;
+      flex-shrink: 0; /* Prevent buttons from shrinking */
     }
 
     .control-btn:hover {
@@ -69,6 +74,79 @@
       background-color: #b74b4b;
       color: black;
       box-shadow: 0 0 25px #b74b4b;
+    }
+
+    /* Adjust button sizes for different screens while keeping horizontal */
+    @media (max-width: 768px) {
+      .controls {
+        top: 180px; /* Slightly lower on mobile */
+        gap: 8px;
+      }
+      
+      .control-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1.4rem;
+        letter-spacing: 0.2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .controls {
+        top: 170px;
+        gap: 6px;
+      }
+      
+      .control-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 1.3rem;
+        letter-spacing: 0.15rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .controls {
+        top: 160px;
+        gap: 5px;
+      }
+      
+      .control-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 1.2rem;
+        letter-spacing: 0.1rem;
+      }
+      
+      .control-btn i {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .controls {
+        top: 150px;
+        gap: 4px;
+      }
+      
+      .control-btn {
+        padding: 0.5rem 1rem;
+        font-size: 1.1rem;
+        letter-spacing: 0.05rem;
+      }
+      
+      .control-btn i {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .controls {
+        top: 140px;
+        gap: 3px;
+      }
+      
+      .control-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 1rem;
+      }
     }
 
     .info {
@@ -91,12 +169,42 @@
       position: relative;
       width: 100%;
       flex: 1;
-      margin-top: 150px; /* Increased to make room for buttons */
+      margin-top: 220px; /* Increased to ensure buttons don't overlap with navbar */
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: calc(100vh - 200px);
+      min-height: calc(100vh - 250px);
       overflow: visible;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin-top: 200px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .container {
+        margin-top: 190px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin-top: 180px;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .container {
+        margin-top: 170px;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .container {
+        margin-top: 160px;
+      }
     }
 
     .speed-indicator {
@@ -630,21 +738,11 @@
     }
 
     /* ============================
-       RESPONSIVE DESIGN FOR CERTIFICATES
+       RESPONSIVE DESIGN FOR CERTIFICATES CARDS
     ============================ */
 
     /* Large Desktop */
     @media (min-width: 1200px) {
-      .controls {
-        top: 200px;
-        gap: 10px;
-      }
-      
-      .control-btn {
-        padding: 1rem 2.8rem;
-        font-size: 1.6rem;
-      }
-      
       .card-wrapper {
         width: 400px;
         height: 250px;
@@ -668,16 +766,6 @@
 
     /* Medium Desktop */
     @media (max-width: 1199px) and (min-width: 992px) {
-      .controls {
-        top: 200px;
-        gap: 8px;
-      }
-      
-      .control-btn {
-        padding: 0.9rem 2.4rem;
-        font-size: 1.5rem;
-      }
-      
       .card-wrapper {
         width: 350px;
         height: 220px;
@@ -701,16 +789,6 @@
 
     /* Tablets */
     @media (max-width: 991px) and (min-width: 768px) {
-      .controls {
-        top: 200px;
-        gap: 6px;
-      }
-      
-      .control-btn {
-        padding: 0.8rem 2rem;
-        font-size: 1.4rem;
-      }
-      
       .card-wrapper {
         width: 300px;
         height: 190px;
@@ -727,10 +805,6 @@
         gap: 40px;
       }
       
-      .container {
-        margin-top: 170px;
-      }
-      
       .scanner {
         height: 250px;
       }
@@ -738,22 +812,6 @@
 
     /* Mobile Landscape */
     @media (max-width: 767px) and (min-width: 576px) {
-      .controls {
-        top: 200px;
-        gap: 6px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      
-      .control-btn {
-        padding: 0.7rem 1.8rem;
-        font-size: 1.3rem;
-      }
-      
-      .control-btn i {
-        font-size: 1.4rem;
-      }
-      
       .card-wrapper {
         width: 280px;
         height: 175px;
@@ -774,11 +832,6 @@
         border-radius: 12px;
       }
       
-      .container {
-        margin-top: 200px;
-        min-height: calc(100vh - 220px);
-      }
-      
       .scanner {
         height: 220px;
         width: 3px;
@@ -787,25 +840,6 @@
 
     /* Mobile Portrait */
     @media (max-width: 575px) {
-      .controls {
-        top: 200px;
-        gap: 5px;
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .control-btn {
-        padding: 0.6rem 1.5rem;
-        font-size: 1.2rem;
-        width: auto;
-        min-width: 50px;
-      }
-      
-      .control-btn i {
-        font-size: 1.3rem;
-        margin: 0;
-      }
-      
       .card-wrapper {
         width: 250px;
         height: 156px;
@@ -826,11 +860,6 @@
         border-radius: 10px;
       }
       
-      .container {
-        margin-top: 220px;
-        min-height: calc(100vh - 200px);
-      }
-      
       .scanner {
         height: 200px;
         width: 3px;
@@ -843,20 +872,6 @@
 
     /* Very Small Phones */
     @media (max-width: 375px) {
-      .controls {
-        top: 200px;
-        gap: 4px;
-      }
-      
-      .control-btn {
-        padding: 0.5rem 1.2rem;
-        font-size: 1.1rem;
-      }
-      
-      .control-btn i {
-        font-size: 1.2rem;
-      }
-      
       .card-wrapper {
         width: 220px;
         height: 138px;
@@ -916,7 +931,7 @@
     <div class="overlay" id="overlay"></div>
   </header>
 
-  <!-- BODY CONTENT - BUTTONS MOVED LOWER -->
+  <!-- BODY CONTENT - BUTTONS NOW STAY HORIZONTAL ON ALL SCREENS -->
   <div class="controls">
     <button class="control-btn" onclick="toggleAnimation()">
       <i class="fa-solid fa-pause"></i>
