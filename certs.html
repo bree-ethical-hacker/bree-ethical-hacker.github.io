@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> 
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Certificates</title>
@@ -43,7 +43,6 @@
       color: white;
     }
 
-    /* KEEP YOUR ORIGINAL CERTIFICATES STYLES */
     /* UPDATED: Controls - always horizontal, never stack */
     .controls {
       position: absolute;
@@ -53,7 +52,7 @@
       display: flex;
       flex-direction: row;
       gap: 10px;
-      z-index: 100;
+      z-index: 90; /* Lower than sidebar (2000) and overlay (1000) */
       flex-wrap: nowrap;
       white-space: nowrap;
     }
@@ -72,6 +71,7 @@
       cursor: pointer;
       text-decoration: none;
       flex-shrink: 0;
+      pointer-events: auto; /* Ensure buttons are clickable */
     }
 
     .control-btn:hover {
@@ -81,64 +81,99 @@
       box-shadow: 0 0 25px #b74b4b;
     }
 
-    /* Adjust button sizes for different screens while keeping horizontal */
-    @media (max-width: 768px) {
+    /* When sidebar is active, buttons stay below it */
+    .sidebar.active ~ * .controls,
+    .sidebar.active + * .controls,
+    body:has(.sidebar.active) .controls {
+      z-index: 50; /* Even lower when sidebar is active */
+    }
+
+    /* INCREASED BUTTON SIZES FOR SMALLER SCREENS */
+    @media (max-width: 995px) {
       .controls {
         top: 180px;
-        gap: 8px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .controls {
+        top: 170px;
+        gap: 12px;
       }
       
       .control-btn {
-        padding: 0.8rem 2rem;
-        font-size: 1.4rem;
-        letter-spacing: 0.2rem;
+        padding: 1rem 2.4rem;
+        font-size: 1.8rem;
+        letter-spacing: 0.25rem;
       }
     }
 
     @media (max-width: 576px) {
       .controls {
-        top: 170px;
-        gap: 6px;
+        top: 160px;
+        gap: 10px;
       }
       
       .control-btn {
-        padding: 0.7rem 1.5rem;
-        font-size: 1.3rem;
-        letter-spacing: 0.15rem;
+        padding: 0.9rem 2.2rem;
+        font-size: 1.7rem;
+        letter-spacing: 0.2rem;
+      }
+      
+      .control-btn i {
+        font-size: 1.7rem;
       }
     }
 
     @media (max-width: 480px) {
       .controls {
-        top: 160px;
-        gap: 5px;
+        top: 150px;
+        gap: 8px;
       }
       
       .control-btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 1.2rem;
-        letter-spacing: 0.1rem;
+        padding: 0.8rem 2rem;
+        font-size: 1.6rem;
+        letter-spacing: 0.15rem;
       }
       
       .control-btn i {
-        font-size: 1.2rem;
+        font-size: 1.6rem;
       }
     }
 
     @media (max-width: 375px) {
       .controls {
-        top: 150px;
-        gap: 4px;
+        top: 140px;
+        gap: 6px;
       }
       
       .control-btn {
-        padding: 0.5rem 1rem;
-        font-size: 1.1rem;
-        letter-spacing: 0.05rem;
+        padding: 0.7rem 1.8rem;
+        font-size: 1.5rem;
+        letter-spacing: 0.1rem;
       }
       
       .control-btn i {
-        font-size: 1.1rem;
+        font-size: 1.5rem;
+      }
+    }
+
+    /* Even smaller screens - minimal but still readable */
+    @media (max-width: 320px) {
+      .controls {
+        top: 130px;
+        gap: 5px;
+      }
+      
+      .control-btn {
+        padding: 0.6rem 1.6rem;
+        font-size: 1.4rem;
+        letter-spacing: 0.08rem;
+      }
+      
+      .control-btn i {
+        font-size: 1.4rem;
       }
     }
 
@@ -154,7 +189,7 @@
       padding: 15px 25px;
       border-radius: 20px;
       backdrop-filter: blur(5px);
-      z-index: 100;
+      z-index: 90;
       line-height: 1.4;
     }
 
@@ -168,23 +203,42 @@
       justify-content: center;
       min-height: calc(100vh - 250px);
       overflow: visible;
+      z-index: 1;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 995px) {
       .container {
         margin-top: 200px;
       }
     }
 
-    @media (max-width: 576px) {
+    @media (max-width: 768px) {
       .container {
         margin-top: 190px;
       }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 576px) {
       .container {
         margin-top: 180px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin-top: 170px;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .container {
+        margin-top: 160px;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .container {
+        margin-top: 150px;
       }
     }
 
@@ -198,7 +252,7 @@
       padding: 8px 16px;
       border-radius: 20px;
       backdrop-filter: blur(5px);
-      z-index: 100;
+      z-index: 90;
       display: none;
     }
 
