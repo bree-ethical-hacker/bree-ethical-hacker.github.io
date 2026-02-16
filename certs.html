@@ -10,11 +10,21 @@
   
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      text-decoration: none;
+      border: none;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      tap-highlight-color: transparent;
+    }
+
+    html {
+      font-size: 62.5%;
     }
 
     body {
@@ -22,15 +32,16 @@
       min-height: 100vh;
       overflow-x: hidden;
       overflow-y: auto;
-      font-family: "Arial", sans-serif;
+      font-family: 'Poppins', sans-serif;
       display: flex;
       flex-direction: column;
+      color: white;
     }
 
-    /* KEEP YOUR ORIGINAL STYLES */
+    /* KEEP YOUR ORIGINAL CERTIFICATES STYLES */
     .controls {
       position: absolute;
-      top: 90px;
+      top: 200px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -80,12 +91,12 @@
       position: relative;
       width: 100%;
       flex: 1;
-      margin-top: 70px; /* Height of navbar */
+      margin-top: 150px; /* Increased to make room for buttons */
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: calc(100vh - 140px);
-      overflow: visible; /* CHANGED: Changed from hidden to visible for scanner line */
+      min-height: calc(100vh - 200px);
+      overflow: visible;
     }
 
     .speed-indicator {
@@ -259,9 +270,9 @@
       }
     }
 
-    /* RED SCANNER LINE - NOW VISIBLE (CHANGED FROM display: none TO display: block) */
+    /* RED SCANNER LINE */
     .scanner {
-      display: block; /* CHANGED: Changed from none to block */
+      display: block;
       position: absolute;
       left: 50%;
       top: 50%;
@@ -367,7 +378,7 @@
       pointer-events: none;
     }
 
-    /* =========== NAVBAR STYLES - UPDATED TO MATCH contact.html =========== */
+    /* =========== NAVBAR STYLES - COPIED EXACTLY FROM style(2).css =========== */
     header {
       margin-top: 20px;
       position: fixed;
@@ -401,7 +412,7 @@
       opacity: 0.8;
     }
 
-    /* GLASS NAVBAR - UPDATED TO MATCH contact.html */
+    /* GLASS NAVBAR */
     .navbar.glass {
       position: fixed;
       top: 0;
@@ -533,7 +544,69 @@
       pointer-events: all;
     }
 
-    /* FOOTER - UPDATED TO MATCH contact.html */
+    /* === VERTICAL TEXT SIDEBAR MENU - COPIED EXACTLY FROM style(2).css === */
+    @media (max-width: 995px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .navbar.glass {
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 6rem 0;
+        background: rgba(20, 20, 20, 0.6);
+        backdrop-filter: blur(20px);
+        border-radius: 0;
+        border: none;
+      }
+
+      .sidebar ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 70vh;
+        list-style: none;
+        width: 100%;
+      }
+
+      .sidebar ul li {
+        transform: rotate(90deg);
+        transform-origin: center;
+        margin: 0;
+      }
+
+      .sidebar ul li a {
+        font-size: 2rem;
+        font-weight: 500;
+        color: white;
+        letter-spacing: 0.2rem;
+        transition: color 0.3s ease;
+      }
+
+      .sidebar ul li a:hover {
+        color: #b74b4b;
+      }
+
+      .sidebar {
+        border-radius: 0 !important;
+        border-left: none !important;
+      }
+    }
+
+    /* FOOTER - COPIED EXACTLY FROM style(2).css */
     .footer {
       position: static;
       bottom: 0;
@@ -557,13 +630,13 @@
     }
 
     /* ============================
-       RESPONSIVE DESIGN - FIXED VERSION
+       RESPONSIVE DESIGN FOR CERTIFICATES
     ============================ */
 
-    /* Large Desktop - Default styles */
+    /* Large Desktop */
     @media (min-width: 1200px) {
       .controls {
-        top: 90px;
+        top: 200px;
         gap: 10px;
       }
       
@@ -596,7 +669,7 @@
     /* Medium Desktop */
     @media (max-width: 1199px) and (min-width: 992px) {
       .controls {
-        top: 85px;
+        top: 200px;
         gap: 8px;
       }
       
@@ -629,7 +702,7 @@
     /* Tablets */
     @media (max-width: 991px) and (min-width: 768px) {
       .controls {
-        top: 80px;
+        top: 200px;
         gap: 6px;
       }
       
@@ -655,40 +728,18 @@
       }
       
       .container {
-        margin-top: 90px;
+        margin-top: 170px;
       }
       
       .scanner {
         height: 250px;
-      }
-      
-      /* RESPONSIVENESS FOR NAVBAR - UPDATED TO MATCH contact.html */
-      .nav-links {
-        display: none;
-      }
-
-      .hamburger {
-        display: block;
-      }
-
-      /* Remove red border and shadow on mobile navbar */
-      .navbar.glass {
-        border: none !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-      }
-
-      /* Ensure sidebar is straight */
-      .sidebar {
-        border-radius: 0 !important;
-        border-left: none !important;
       }
     }
 
     /* Mobile Landscape */
     @media (max-width: 767px) and (min-width: 576px) {
       .controls {
-        top: 75px;
+        top: 200px;
         gap: 6px;
         flex-wrap: wrap;
         justify-content: center;
@@ -724,7 +775,7 @@
       }
       
       .container {
-        margin-top: 120px;
+        margin-top: 200px;
         min-height: calc(100vh - 220px);
       }
       
@@ -732,21 +783,12 @@
         height: 220px;
         width: 3px;
       }
-      
-      /* RESPONSIVENESS FOR NAVBAR */
-      .nav-links {
-        display: none;
-      }
-
-      .hamburger {
-        display: block;
-      }
     }
 
     /* Mobile Portrait */
     @media (max-width: 575px) {
       .controls {
-        top: 70px;
+        top: 200px;
         gap: 5px;
         flex-direction: column;
         align-items: center;
@@ -785,22 +827,13 @@
       }
       
       .container {
-        margin-top: 140px;
+        margin-top: 220px;
         min-height: calc(100vh - 200px);
       }
       
       .scanner {
         height: 200px;
         width: 3px;
-      }
-      
-      /* RESPONSIVENESS FOR NAVBAR */
-      .nav-links {
-        display: none;
-      }
-
-      .hamburger {
-        display: block;
       }
       
       .logo img {
@@ -811,7 +844,7 @@
     /* Very Small Phones */
     @media (max-width: 375px) {
       .controls {
-        top: 65px;
+        top: 200px;
         gap: 4px;
       }
       
@@ -851,7 +884,7 @@
 
 <body>
 
-  <!-- NAVIGATION BAR - UPDATED TO MATCH contact.html -->
+  <!-- NAVIGATION BAR - COPIED EXACTLY FROM contact.html -->
   <header>
     <nav class="navbar glass">
       
@@ -883,7 +916,7 @@
     <div class="overlay" id="overlay"></div>
   </header>
 
-  <!-- BODY CONTENT -->
+  <!-- BODY CONTENT - BUTTONS MOVED LOWER -->
   <div class="controls">
     <button class="control-btn" onclick="toggleAnimation()">
       <i class="fa-solid fa-pause"></i>
@@ -906,7 +939,7 @@
     <canvas id="particleCanvas"></canvas>
     <canvas id="scannerCanvas"></canvas>
 
-    <!-- RED SCANNER LINE - NOW VISIBLE -->
+    <!-- RED SCANNER LINE -->
     <div class="scanner"></div>
 
     <div class="card-stream" id="cardStream">
@@ -914,7 +947,7 @@
     </div>
   </div>
 
-  <!-- FOOTER - UPDATED TO MATCH contact.html -->
+  <!-- FOOTER - COPIED EXACTLY FROM contact.html -->
   <footer class="footer glass-footer">
     <p>Based in Melbourne, Australia</p>
   </footer>
@@ -922,21 +955,20 @@
   <!-- JAVASCRIPT -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    // GLASS NAVIGATION BAR (Updated with sound) - FROM contact.html
+    // GLASS NAVIGATION BAR (from contact.html)
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     
     // Create audio element for hamburger menu sound
-    const menuSound = new Audio('menu.mp3'); // Change filename to match your sound file
+    const menuSound = new Audio('menu.mp3');
     
     hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
       
-      // Play sound effect
-      menuSound.currentTime = 0; // Reset to start in case it's clicked multiple times quickly
-      menuSound.play().catch(() => {}); // Catch any playback errors silently
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
     });
     
     overlay.addEventListener('click', () => {
@@ -944,29 +976,27 @@
       overlay.classList.remove('active');
     });
 
-    // NAVIGATION LINKS SOUND EFFECT - FROM contact.html
+    // NAVIGATION LINKS SOUND EFFECT
     const navSound = new Audio('nav.mp3');
     
     const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
     
     allNavLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent immediate navigation
+        e.preventDefault();
         
         navSound.currentTime = 0;
         navSound.play().catch(() => {});
         
-        // Get the href before navigation
         const destination = link.getAttribute('href');
         
-        // Navigate after a short delay to allow sound to play
         setTimeout(() => {
           window.location.href = destination;
-        }, 150); // Adjust timing as needed (150ms is usually good)
+        }, 150);
       });
     });
 
-    // Control buttons sound effect - FROM ORIGINAL CERTS CODE
+    // Control buttons sound effect
     const controlBtns = document.querySelectorAll('.control-btn');
     controlBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -976,7 +1006,7 @@
       });
     });
 
-    // CERTIFICATION JAVASCRIPT - MODIFIED FOR RESPONSIVENESS
+    // CERTIFICATION JAVASCRIPT (keep all your original code below)
     class CardStreamController {
       constructor() {
         this.container = document.getElementById("cardStream");
@@ -1010,7 +1040,6 @@
         this.startPeriodicUpdates();
       }
 
-      // RESPONSIVE: Get current card dimensions
       getCurrentCardWidth() {
         const width = window.innerWidth;
         if (width <= 375) return 220;
@@ -1023,7 +1052,7 @@
 
       getCurrentCardHeight() {
         const cardWidth = this.getCurrentCardWidth();
-        return Math.floor(cardWidth * 0.625); // Maintain 400:250 aspect ratio
+        return Math.floor(cardWidth * 0.625);
       }
 
       getCurrentCardGap() {
@@ -1057,7 +1086,6 @@
         this.cardLine.addEventListener("selectstart", (e) => e.preventDefault());
         this.cardLine.addEventListener("dragstart", (e) => e.preventDefault());
 
-        // RESPONSIVE: Handle window resize
         window.addEventListener("resize", () => {
           this.handleResize();
         });
@@ -1085,7 +1113,6 @@
             card.style.height = cardHeight + 'px';
           });
           
-          // Update ASCII content for new size
           const asciiContent = wrapper.querySelector('.ascii-content');
           if (asciiContent) {
             const { width, height, fontSize, lineHeight } = 
@@ -1097,7 +1124,6 @@
         });
       }
 
-      // KEEP YOUR ORIGINAL METHODS BUT UPDATE HARDCODED VALUES
       startDrag(e) {
         e.preventDefault();
         this.isDragging = true;
@@ -1228,7 +1254,6 @@
         this.updateCardClipping();
       }
 
-      // KEEP YOUR ORIGINAL generateCode METHOD
       generateCode(width, height) {
         const randInt = (min, max) =>
           Math.floor(Math.random() * (max - min + 1)) + min;
@@ -1331,7 +1356,6 @@
       }
 
       calculateCodeDimensions(cardWidth, cardHeight) {
-        // RESPONSIVE: Adjust font size based on card width
         let fontSize = 11;
         let charWidth = 6;
         
@@ -1356,7 +1380,6 @@
         const wrapper = document.createElement("div");
         wrapper.className = "card-wrapper";
         
-        // RESPONSIVE: Use current dimensions
         const cardWidth = this.getCurrentCardWidth();
         const cardHeight = this.getCurrentCardHeight();
         
@@ -1484,7 +1507,6 @@
 
       populateCardLine() {
         this.cardLine.innerHTML = "";
-        // RESPONSIVE: Create appropriate number of cards
         const cardsNeeded = Math.ceil(window.innerWidth / 200) + 5;
         for (let i = 0; i < cardsNeeded; i++) {
           const cardWrapper = this.createCardWrapper(i);
@@ -1505,7 +1527,6 @@
       }
     }
 
-    // KEEP YOUR ORIGINAL ParticleSystem CLASS BUT UPDATE FOR RESPONSIVENESS
     class ParticleSystem {
       constructor() {
         this.scene = null;
@@ -1679,7 +1700,6 @@
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(window.innerWidth, 250);
         
-        // Update canvas size
         this.canvas.width = window.innerWidth;
         this.canvas.style.width = window.innerWidth + 'px';
       }
@@ -1696,7 +1716,6 @@
       }
     }
 
-    // KEEP YOUR ORIGINAL ParticleScanner CLASS BUT UPDATE FOR RESPONSIVENESS
     class ParticleScanner {
       constructor() {
         this.canvas = document.getElementById("scannerCanvas");
