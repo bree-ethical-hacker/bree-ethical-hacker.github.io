@@ -38,455 +38,7 @@
       color: white;
     }
 
-    /* KEEP YOUR ORIGINAL CERTIFICATES STYLES */
-    /* UPDATED: Controls - always horizontal, never stack */
-    .controls {
-      position: absolute;
-      top: 200px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: row; /* Always horizontal */
-      gap: 10px;
-      z-index: 100;
-      flex-wrap: nowrap; /* Prevent wrapping */
-      white-space: nowrap; /* Keep buttons on one line */
-    }
-
-    .control-btn {
-      display: inline-block;
-      padding: 1rem 2.8rem;
-      background-color: black;
-      border-radius: 4rem;
-      font-size: 1.6rem;
-      color: #b74b4b;
-      letter-spacing: 0.3rem;
-      font-weight: 600;
-      border: 2px solid #b74b4b;
-      transition: 0.3s ease;
-      cursor: pointer;
-      text-decoration: none;
-      flex-shrink: 0; /* Prevent buttons from shrinking */
-    }
-
-    .control-btn:hover {
-      transform: scale3d(1.03, 1.03, 1.03);
-      background-color: #b74b4b;
-      color: black;
-      box-shadow: 0 0 25px #b74b4b;
-    }
-
-    /* Adjust button sizes for different screens while keeping horizontal */
-    @media (max-width: 768px) {
-      .controls {
-        top: 180px; /* Slightly lower on mobile */
-        gap: 8px;
-      }
-      
-      .control-btn {
-        padding: 0.8rem 2rem;
-        font-size: 1.4rem;
-        letter-spacing: 0.2rem;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .controls {
-        top: 170px;
-        gap: 6px;
-      }
-      
-      .control-btn {
-        padding: 0.7rem 1.5rem;
-        font-size: 1.3rem;
-        letter-spacing: 0.15rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .controls {
-        top: 160px;
-        gap: 5px;
-      }
-      
-      .control-btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 1.2rem;
-        letter-spacing: 0.1rem;
-      }
-      
-      .control-btn i {
-        font-size: 1.2rem;
-      }
-    }
-
-    @media (max-width: 375px) {
-      .controls {
-        top: 150px;
-        gap: 4px;
-      }
-      
-      .control-btn {
-        padding: 0.5rem 1rem;
-        font-size: 1.1rem;
-        letter-spacing: 0.05rem;
-      }
-      
-      .control-btn i {
-        font-size: 1.1rem;
-      }
-    }
-
-    @media (max-width: 320px) {
-      .controls {
-        top: 140px;
-        gap: 3px;
-      }
-      
-      .control-btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 1rem;
-      }
-    }
-
-    .info {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255, 255, 255, 0.9);
-      text-align: center;
-      font-size: 14px;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 15px 25px;
-      border-radius: 20px;
-      backdrop-filter: blur(5px);
-      z-index: 100;
-      line-height: 1.4;
-    }
-
-    .container {
-      position: relative;
-      width: 100%;
-      flex: 1;
-      margin-top: 220px; /* Increased to ensure buttons don't overlap with navbar */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: calc(100vh - 250px);
-      overflow: visible;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        margin-top: 200px;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .container {
-        margin-top: 190px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        margin-top: 180px;
-      }
-    }
-
-    @media (max-width: 375px) {
-      .container {
-        margin-top: 170px;
-      }
-    }
-
-    @media (max-width: 320px) {
-      .container {
-        margin-top: 160px;
-      }
-    }
-
-    .speed-indicator {
-      position: absolute;
-      top: 90px;
-      right: 20px;
-      color: white;
-      font-size: 16px;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 8px 16px;
-      border-radius: 20px;
-      backdrop-filter: blur(5px);
-      z-index: 100;
-      display: none;
-    }
-
-    .card-stream {
-      position: absolute;
-      width: 100%;
-      height: 180px;
-      display: flex;
-      align-items: center;
-      overflow: visible;
-    }
-
-    .card-line {
-      display: flex;
-      align-items: center;
-      gap: 60px;
-      white-space: nowrap;
-      cursor: grab;
-      user-select: none;
-      will-change: transform;
-    }
-
-    .card-line:active {
-      cursor: grabbing;
-    }
-
-    .card-line.dragging {
-      cursor: grabbing;
-    }
-
-    .card-line.css-animated {
-      animation: scrollCards 40s linear infinite;
-    }
-
-    @keyframes scrollCards {
-      0% {
-        transform: translateX(-100%);
-      }
-      100% {
-        transform: translateX(100vw);
-      }
-    }
-
-    .card-wrapper {
-      position: relative;
-      width: 400px;
-      height: 250px;
-      flex-shrink: 0;
-    }
-
-    .card {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 400px;
-      height: 250px;
-      border-radius: 15px;
-      overflow: hidden;
-    }
-
-    .card-normal {
-      background: transparent;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 0;
-      color: white;
-      z-index: 2;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 15px;
-      transition: all 0.3s ease;
-      filter: brightness(1.1) contrast(1.1);
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-image:hover {
-      filter: brightness(1.2) contrast(1.2);
-    }
-
-    .card-ascii {
-      background: transparent;
-      z-index: 1;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 400px;
-      height: 250px;
-      border-radius: 15px;
-      overflow: hidden;
-    }
-
-    .ascii-content {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      color: rgba(220, 210, 255, 0.6);
-      font-family: "Courier New", monospace;
-      font-size: 11px;
-      line-height: 13px;
-      overflow: hidden;
-      white-space: pre;
-      clip-path: inset(0 calc(100% - var(--clip-left, 0%)) 0 0);
-      animation: glitch 0.1s infinite linear alternate-reverse;
-      margin: 0;
-      padding: 0;
-      text-align: left;
-      vertical-align: top;
-      box-sizing: border-box;
-      -webkit-mask-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0.8) 30%,
-        rgba(0, 0, 0, 0.6) 50%,
-        rgba(0, 0, 0, 0.4) 80%,
-        rgba(0, 0, 0, 0.2) 100%
-      );
-      mask-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0.8) 30%,
-        rgba(0, 0, 0, 0.6) 50%,
-        rgba(0, 0, 0, 0.4) 80%,
-        rgba(0, 0, 0, 0.2) 100%
-      );
-    }
-
-    @keyframes glitch {
-      0% {
-        opacity: 1;
-      }
-      15% {
-        opacity: 0.9;
-      }
-      16% {
-        opacity: 1;
-      }
-      49% {
-        opacity: 0.8;
-      }
-      50% {
-        opacity: 1;
-      }
-      99% {
-        opacity: 0.9;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    /* RED SCANNER LINE */
-    .scanner {
-      display: block;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 4px;
-      height: 300px;
-      border-radius: 30px;
-      background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(139, 0, 0, 0.8),
-        rgba(200, 0, 0, 1),
-        rgba(139, 0, 0, 0.8),
-        transparent
-      );
-      box-shadow: 0 0 20px rgba(200, 0, 0, 0.8), 0 0 40px rgba(200, 0, 0, 0.4);
-      animation: scanPulse 2s ease-in-out infinite alternate;
-      z-index: 10;
-    }
-
-    @keyframes scanPulse {
-      0% {
-        opacity: 0.8;
-        transform: translate(-50%, -50%) scaleY(1);
-      }
-      100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scaleY(1.1);
-      }
-    }
-
-    .scanner-label {
-      position: absolute;
-      bottom: -40px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(0, 255, 255, 0.9);
-      font-size: 12px;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-    }
-
-    .card-normal {
-      clip-path: inset(0 0 0 var(--clip-right, 0%));
-    }
-
-    .card-ascii {
-      clip-path: inset(0 calc(100% - var(--clip-left, 0%)) 0 0);
-    }
-
-    .scan-effect {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(200, 0, 0, 0.4),
-        transparent
-      );
-      animation: scanEffect 0.6s ease-out;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    @keyframes scanEffect {
-      0% {
-        transform: translateX(-100%);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-    }
-
-    #particleCanvas {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      width: 100%;
-      height: 250px;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    #scannerCanvas {
-      position: absolute;
-      top: 50%;
-      left: -3px;
-      transform: translateY(-50%);
-      width: 100%;
-      height: 300px;
-      z-index: 15;
-      pointer-events: none;
-    }
-
-    /* =========== NAVBAR STYLES - COPIED EXACTLY FROM style(2).css =========== */
+    /* =========== NAVBAR STYLES - EXACT COPY FROM CONTACT.HTML =========== */
     header {
       margin-top: 20px;
       position: fixed;
@@ -652,7 +204,7 @@
       pointer-events: all;
     }
 
-    /* === VERTICAL TEXT SIDEBAR MENU - COPIED EXACTLY FROM style(2).css === */
+    /* MOBILE RESPONSIVE STYLES - EXACT COPY FROM CONTACT.HTML */
     @media (max-width: 995px) {
       .nav-links {
         display: none;
@@ -708,13 +260,38 @@
         color: #b74b4b;
       }
 
+      .sidebar ul li a.active {
+        color: #b74b4b;
+      }
+
       .sidebar {
         border-radius: 0 !important;
         border-left: none !important;
       }
     }
 
-    /* FOOTER - COPIED EXACTLY FROM style(2).css */
+    /* ADDITIONAL MOBILE SIZES TO ENSURE CONSISTENCY */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem 5%;
+      }
+      
+      .navbar.glass {
+        padding: 1rem 5%;
+      }
+      
+      .logo img {
+        height: 6rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo img {
+        height: 5rem;
+      }
+    }
+
+    /* FOOTER - EXACT COPY FROM CONTACT.HTML */
     .footer {
       position: static;
       bottom: 0;
@@ -735,6 +312,403 @@
       backdrop-filter: blur(10px);
       background: rgba(20, 20, 20, 0.4);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* KEEP YOUR ORIGINAL CERTIFICATES STYLES */
+    /* UPDATED: Controls - always horizontal, never stack */
+    .controls {
+      position: absolute;
+      top: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      z-index: 100;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+
+    .control-btn {
+      display: inline-block;
+      padding: 1rem 2.8rem;
+      background-color: black;
+      border-radius: 4rem;
+      font-size: 1.6rem;
+      color: #b74b4b;
+      letter-spacing: 0.3rem;
+      font-weight: 600;
+      border: 2px solid #b74b4b;
+      transition: 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .control-btn:hover {
+      transform: scale3d(1.03, 1.03, 1.03);
+      background-color: #b74b4b;
+      color: black;
+      box-shadow: 0 0 25px #b74b4b;
+    }
+
+    /* Adjust button sizes for different screens while keeping horizontal */
+    @media (max-width: 768px) {
+      .controls {
+        top: 180px;
+        gap: 8px;
+      }
+      
+      .control-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1.4rem;
+        letter-spacing: 0.2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .controls {
+        top: 170px;
+        gap: 6px;
+      }
+      
+      .control-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 1.3rem;
+        letter-spacing: 0.15rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .controls {
+        top: 160px;
+        gap: 5px;
+      }
+      
+      .control-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 1.2rem;
+        letter-spacing: 0.1rem;
+      }
+      
+      .control-btn i {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .controls {
+        top: 150px;
+        gap: 4px;
+      }
+      
+      .control-btn {
+        padding: 0.5rem 1rem;
+        font-size: 1.1rem;
+        letter-spacing: 0.05rem;
+      }
+      
+      .control-btn i {
+        font-size: 1.1rem;
+      }
+    }
+
+    .info {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.9);
+      text-align: center;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 15px 25px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      line-height: 1.4;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      margin-top: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 250px);
+      overflow: visible;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin-top: 200px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .container {
+        margin-top: 190px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin-top: 180px;
+      }
+    }
+
+    .speed-indicator {
+      position: absolute;
+      top: 90px;
+      right: 20px;
+      color: white;
+      font-size: 16px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      display: none;
+    }
+
+    .card-stream {
+      position: absolute;
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      overflow: visible;
+    }
+
+    .card-line {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      white-space: nowrap;
+      cursor: grab;
+      user-select: none;
+      will-change: transform;
+    }
+
+    .card-line:active {
+      cursor: grabbing;
+    }
+
+    .card-line.dragging {
+      cursor: grabbing;
+    }
+
+    .card-line.css-animated {
+      animation: scrollCards 40s linear infinite;
+    }
+
+    @keyframes scrollCards {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100vw);
+      }
+    }
+
+    .card-wrapper {
+      position: relative;
+      width: 400px;
+      height: 250px;
+      flex-shrink: 0;
+    }
+
+    .card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 400px;
+      height: 250px;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .card-normal {
+      background: transparent;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0;
+      color: white;
+      z-index: 2;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      filter: brightness(1.1) contrast(1.1);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-image:hover {
+      filter: brightness(1.2) contrast(1.2);
+    }
+
+    .card-ascii {
+      background: transparent;
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 400px;
+      height: 250px;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .ascii-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: rgba(220, 210, 255, 0.6);
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      line-height: 13px;
+      overflow: hidden;
+      white-space: pre;
+      clip-path: inset(0 calc(100% - var(--clip-left, 0%)) 0 0);
+      animation: glitch 0.1s infinite linear alternate-reverse;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+      vertical-align: top;
+      box-sizing: border-box;
+      -webkit-mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.8) 30%,
+        rgba(0, 0, 0, 0.6) 50%,
+        rgba(0, 0, 0, 0.4) 80%,
+        rgba(0, 0, 0, 0.2) 100%
+      );
+      mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.8) 30%,
+        rgba(0, 0, 0, 0.6) 50%,
+        rgba(0, 0, 0, 0.4) 80%,
+        rgba(0, 0, 0, 0.2) 100%
+      );
+    }
+
+    @keyframes glitch {
+      0% { opacity: 1; }
+      15% { opacity: 0.9; }
+      16% { opacity: 1; }
+      49% { opacity: 0.8; }
+      50% { opacity: 1; }
+      99% { opacity: 0.9; }
+      100% { opacity: 1; }
+    }
+
+    /* RED SCANNER LINE */
+    .scanner {
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 4px;
+      height: 300px;
+      border-radius: 30px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(139, 0, 0, 0.8),
+        rgba(200, 0, 0, 1),
+        rgba(139, 0, 0, 0.8),
+        transparent
+      );
+      box-shadow: 0 0 20px rgba(200, 0, 0, 0.8), 0 0 40px rgba(200, 0, 0, 0.4);
+      animation: scanPulse 2s ease-in-out infinite alternate;
+      z-index: 10;
+    }
+
+    @keyframes scanPulse {
+      0% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scaleY(1);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scaleY(1.1);
+      }
+    }
+
+    .card-normal {
+      clip-path: inset(0 0 0 var(--clip-right, 0%));
+    }
+
+    .card-ascii {
+      clip-path: inset(0 calc(100% - var(--clip-left, 0%)) 0 0);
+    }
+
+    .scan-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(200, 0, 0, 0.4),
+        transparent
+      );
+      animation: scanEffect 0.6s ease-out;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    @keyframes scanEffect {
+      0% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+
+    #particleCanvas {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 250px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #scannerCanvas {
+      position: absolute;
+      top: 50%;
+      left: -3px;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 300px;
+      z-index: 15;
+      pointer-events: none;
     }
 
     /* ============================
@@ -864,10 +838,6 @@
         height: 200px;
         width: 3px;
       }
-      
-      .logo img {
-        height: 6rem;
-      }
     }
 
     /* Very Small Phones */
@@ -899,7 +869,7 @@
 
 <body>
 
-  <!-- NAVIGATION BAR - COPIED EXACTLY FROM contact.html -->
+  <!-- NAVIGATION BAR - EXACT COPY FROM CONTACT.HTML -->
   <header>
     <nav class="navbar glass">
       
@@ -962,7 +932,7 @@
     </div>
   </div>
 
-  <!-- FOOTER - COPIED EXACTLY FROM contact.html -->
+  <!-- FOOTER - EXACT COPY FROM CONTACT.HTML -->
   <footer class="footer glass-footer">
     <p>Based in Melbourne, Australia</p>
   </footer>
