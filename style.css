@@ -1845,11 +1845,17 @@ span {
 }
 
 
-/* CONTACT WEB PAGE - FIX FOR CENTERING ON LARGE SCREENS */
+
+
+
+
+
+
+/* CONTACT WEB PAGE */
 .contact-section {
   min-height: 100vh;
   display: flex;
-  justify-content: center; /* This centers the container horizontally */
+  justify-content: center;
   align-items: center;
   padding: 10rem 2rem 8rem;
 }
@@ -1857,19 +1863,32 @@ span {
 .contact-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* This centers children horizontally */
-  justify-content: center;
+  align-items: center;
   gap: 3rem;
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto; /* This ensures the container itself is centered */
 }
 
-/* CALENDLY - Force it to be centered */
+.contact-heading {
+  text-align: center;
+  width: 100%;
+}
+
+.contact-heading h1 {
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: white;
+}
+
+.contact-heading h1 span {
+  color: #b74b4b;
+}
+
+/* CALENDLY WITH ROUNDED CORNERS */
 .contact-calendly {
   width: 100%;
   max-width: 900px;
-  margin: 0 auto; /* CRITICAL: This centers the Calendly block */
   border-radius: 2rem;
   overflow: hidden;
   box-shadow: 0 0 30px rgba(183, 75, 75, 0.2);
@@ -1879,21 +1898,95 @@ span {
   width: 100% !important;
   height: 700px !important;
   border: none;
-  display: block; /* Ensures it behaves as a block element */
 }
 
-/* LARGE SCREENS - Keep everything centered */
-@media(min-width: 1200px) {
-  .contact-container {
-    max-width: 1400px; /* Allow container to be wider on large screens */
-  }
-  
+/* NEW: 1024px-1199px screens (common laptop sizes like 1280x800) */
+@media(min-width: 1024px) and (max-width: 1199px) {
   .contact-calendly {
-    max-width: 1100px; /* Make Calendly wider on large screens */
-    margin: 0 auto; /* Keep it centered */
+    max-width: 1150px;
   }
   
   .calendly-inline-widget {
-    height: 800px !important;
+    height: 850px !important;
+  }
+}
+
+/* LARGE SCREENS - Significantly expand Calendly and shift right */
+@media(min-width: 1200px) {
+  .contact-container {
+    max-width: 1400px;
+    align-items: flex-start; /* Change from center to flex-start */
+  }
+  
+  .contact-heading {
+    text-align: left; /* Align heading to left on large screens */
+    padding-left: 2rem;
+  }
+  
+  .contact-calendly {
+    max-width: 1300px;
+    align-self: flex-end; /* Push Calendly to the right */
+    margin-right: 2rem; /* Add some spacing from the right edge */
+  }
+  
+  .calendly-inline-widget {
+    height: 900px !important;
+  }
+}
+
+/* EXTRA LARGE SCREENS - Even more expansion and right alignment */
+@media(min-width: 1400px) {
+  .contact-container {
+    max-width: 1600px;
+  }
+  
+  .contact-calendly {
+    max-width: 1400px;
+    margin-right: 4rem; /* More spacing on very large screens */
+  }
+  
+  .calendly-inline-widget {
+    height: 950px !important;
+  }
+}
+
+/* MEDIUM SCREENS - Slightly wider */
+@media(min-width: 769px) and (max-width: 1199px) {
+  .contact-calendly {
+    max-width: 1000px;
+  }
+}
+
+/* TABLET */
+@media(max-width: 768px) {
+  .contact-section {
+    padding: 9rem 2rem 6rem;
+  }
+  
+  .contact-heading h1 {
+    font-size: 3.2rem;
+  }
+  
+  .contact-calendly {
+    max-width: 100%;
+  }
+  
+  .calendly-inline-widget {
+    height: 600px !important;
+  }
+}
+
+/* MOBILE */
+@media(max-width: 480px) {
+  .contact-section {
+    padding: 8rem 1.5rem 6rem;
+  }
+  
+  .contact-heading h1 {
+    font-size: 2.8rem;
+  }
+  
+  .calendly-inline-widget {
+    height: 550px !important;
   }
 }
