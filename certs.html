@@ -48,7 +48,7 @@
     /* CERTIFICATES HEADING - EXACT STYLE FROM DISCLAIMER IN PROJECTS.HTML */
     .certificates-heading {
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 2rem 0.5rem 2rem; /* Reduced bottom padding */
       max-width: 900px;
       margin: 12rem auto 0; /* Increased top margin to push below navbar */
     }
@@ -57,7 +57,7 @@
       font-size: 3.5rem;
       font-weight: 800;
       color: #b74b4b;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0; /* Removed bottom margin */
       text-transform: uppercase;
       letter-spacing: 0.15rem;
     }
@@ -73,7 +73,7 @@
       z-index: 90;
       flex-wrap: nowrap;
       white-space: nowrap;
-      margin: 2rem auto 1rem; /* Added margin for spacing */
+      margin: 0.5rem auto 1rem; /* Reduced top margin from 2rem to 0.5rem */
     }
 
     .control-btn {
@@ -121,6 +121,7 @@
       
       .controls {
         gap: 12px;
+        margin-top: 0.3rem; /* Reduced top margin for mobile */
       }
       
       .control-btn {
@@ -137,6 +138,7 @@
       
       .controls {
         gap: 10px;
+        margin-top: 0.2rem; /* Reduced top margin for mobile */
       }
       
       .control-btn {
@@ -151,12 +153,17 @@
     }
 
     @media (max-width: 480px) {
+      .certificates-heading {
+        padding: 2rem 2rem 0.2rem 2rem; /* Further reduced bottom padding */
+      }
+      
       .certificates-heading h2 {
         font-size: 2rem;
       }
       
       .controls {
         gap: 8px;
+        margin-top: 0.1rem; /* Minimal top margin */
       }
       
       .control-btn {
@@ -177,6 +184,7 @@
       
       .controls {
         gap: 6px;
+        margin-top: 0; /* No top margin */
       }
       
       .control-btn {
@@ -198,6 +206,7 @@
       
       .controls {
         gap: 5px;
+        margin-top: 0;
       }
       
       .control-btn {
@@ -231,7 +240,7 @@
       position: relative;
       width: 100%;
       flex: 1;
-      margin-top: 2rem; /* Reduced from 240px to account for heading */
+      margin-top: 1rem; /* Slightly reduced from 2rem */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -242,13 +251,13 @@
 
     @media (max-width: 768px) {
       .container {
-        margin-top: 1.5rem;
+        margin-top: 0.8rem;
       }
     }
 
     @media (max-width: 480px) {
       .container {
-        margin-top: 1rem;
+        margin-top: 0.5rem;
       }
     }
 
