@@ -20,14 +20,28 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             background-color: #0a0a0a;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        /* Main content wrapper - pushes footer to bottom */
+        .main-content {
+            flex: 1 0 auto;
+            display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'DM Sans', sans-serif;
-            padding: 20px;
+            padding: 80px 20px 40px; /* Top padding for navbar, bottom spacing */
+            width: 100%;
         }
 
         /* Main container with side arrows */
@@ -38,6 +52,7 @@
             max-width: 1200px;
             width: 100%;
             justify-content: center;
+            margin: 0 auto;
         }
 
         /* Container for the stacked case files */
@@ -56,7 +71,7 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             transform-origin: center center;
-            pointer-events: none; /* Prevent direct clicking on cards */
+            pointer-events: none;
         }
 
         /* Active card gets pointer events */
@@ -250,7 +265,7 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            order: 2; /* Pushes arrows to the right */
+            order: 2;
         }
 
         .arrow-btn {
@@ -349,6 +364,28 @@
             margin-bottom: 5px;
         }
 
+        /* Footer */
+        .footer {
+            flex-shrink: 0;
+            width: 100%;
+            height: 5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            text-align: center;
+            color: #b74b4b;
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .glass-footer {
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .flipping-interface {
@@ -358,6 +395,7 @@
             .arrow-controls {
                 flex-direction: row;
                 order: 0;
+                margin-bottom: 20px;
             }
 
             .position-indicator {
@@ -378,196 +416,213 @@
                 width: 320px;
                 height: 450px;
             }
+
+            .main-content {
+                padding: 100px 20px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .case-stack {
+                width: 280px;
+                height: 420px;
+            }
+
+            .case-title {
+                font-size: 16px;
+            }
+
+            .case-description {
+                font-size: 11px;
+            }
+
+            .arrow-btn {
+                width: 50px;
+                height: 50px;
+            }
         }
     </style>
 </head>
 
-
-    
 <body>
-<!-- NAVIGATION BAR -->
-  <header>
-    <nav class="navbar glass">
-      
-      <div class="logo">
-        <img src="LOGO.jpg" alt="Black Widow Logo">
-      </div>
-  
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
-      </ul>
-  
-      <div class="hamburger" id="hamburger">
-        <i class="fa fa-bars"></i>
-      </div>
-    </nav>
-  
-    <!-- Sidebar (mobile only) -->
-    <div class="sidebar" id="sidebar">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
-      </ul>
-    </div>
-  
-    <!-- Overlay -->
-    <div class="overlay" id="overlay"></div>
-  </header>
-
-
-    <!-- PAGE CONTENT -->
-    <div class="flipping-interface">
-        <!-- Stacked Case Files Container (now on left) -->
-        <div class="case-stack" id="caseStack">
-            <!-- Case 03: Waifu University (Index 2 - Top by default) -->
-            <div class="case-file" data-index="2" id="case3">
-                <div class="case-tab">
-                    <svg width="199" height="29" viewBox="0 0 199 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip2)">
-                            <path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/>
-                            <path d="M32.6572 0.5H195C196.795 0.5 198.25 1.95505 198.25 3.75V307.25C198.25 309.045 196.795 310.5 195 310.5H-112C-113.795 310.5 -115.25 309.045 -115.25 307.25V32.2842C-115.25 30.4784 -113.777 29.0188 -111.972 29.0342L-0.183594 29.9854C1.0904 29.9961 2.31499 29.4953 3.21582 28.5947L30.3584 1.45215C30.9676 0.842775 31.7958 0.5 32.6572 0.5Z" stroke="white" stroke-miterlimit="16"/>
-                        </g>
-                        <defs>
-                            <clipPath id="clip2">
-                                <rect width="199" height="29" fill="white"/>
-                            </clipPath>
-                        </defs>
-                    </svg>
-                </div>
-                <div class="case-number">CASE 03</div>
-                <div class="case-content">
-                    <div class="case-title">WATELI UN</div>
-                    <div class="divider"></div>
-                    <div class="case-grid">
-                        <div class="network-image"></div>
-                        <div class="abstract-image"></div>
-                        <div class="case-description">AlphV (BlackCat) ransomware has hit the university's network.</div>
-                    </div>
-                    <div class="week-badge">WEEK 21</div>
-                </div>
-            </div>
-
-            <!-- Case 02: Techtonik (Index 1) -->
-            <div class="case-file" data-index="1" id="case2">
-                <div class="case-tab">
-                    <svg width="199" height="29" viewBox="0 0 199 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip1)">
-                            <path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/>
-                            <path d="M32.6572 0.5H195C196.795 0.5 198.25 1.95505 198.25 3.75V307.25C198.25 309.045 196.795 310.5 195 310.5H-112C-113.795 310.5 -115.25 309.045 -115.25 307.25V32.2842C-115.25 30.4784 -113.777 29.0188 -111.972 29.0342L-0.183594 29.9854C1.0904 29.9961 2.31499 29.4953 3.21582 28.5947L30.3584 1.45215C30.9676 0.842775 31.7958 0.5 32.6572 0.5Z" stroke="white" stroke-miterlimit="16"/>
-                        </g>
-                        <defs>
-                            <clipPath id="clip1">
-                                <rect width="199" height="29" fill="white"/>
-                            </clipPath>
-                        </defs>
-                    </svg>
-                </div>
-                <div class="case-number">CASE 02</div>
-                <div class="case-content">
-                    <div class="case-title">TECHTONIK</div>
-                    <div class="divider"></div>
-                    <div class="case-grid">
-                        <div class="network-image"></div>
-                        <div class="abstract-image"></div>
-                        <div class="case-description">APT29 compromises a tech supply chain.</div>
-                    </div>
-                    <div class="week-badge">WEEK 21</div>
-                </div>
-            </div>
-
-            <!-- Case 01: Council of Tropical Affairs (Index 0) -->
-            <div class="case-file" data-index="0" id="case1">
-                <div class="case-tab">
-                    <svg width="199" height="29" viewBox="0 0 199 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0)">
-                            <path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/>
-                            <path d="M32.6572 0.5H195C196.795 0.5 198.25 1.95505 198.25 3.75V307.25C198.25 309.045 196.795 310.5 195 310.5H-112C-113.795 310.5 -115.25 309.045 -115.25 307.25V32.2842C-115.25 30.4784 -113.777 29.0188 -111.972 29.0342L-0.183594 29.9854C1.0904 29.9961 2.31499 29.4953 3.21582 28.5947L30.3584 1.45215C30.9676 0.842775 31.7958 0.5 32.6572 0.5Z" stroke="white" stroke-miterlimit="16"/>
-                        </g>
-                        <defs>
-                            <clipPath id="clip0">
-                                <rect width="199" height="29" fill="white"/>
-                            </clipPath>
-                        </defs>
-                    </svg>
-                </div>
-                <div class="case-number">CASE 01</div>
-                <div class="case-content">
-                    <div class="case-title">COUNCIL OF TROPICAL AFFAIRS</div>
-                    <div class="divider"></div>
-                    <div class="case-grid">
-                        <div class="network-image"></div>
-                        <div class="abstract-image"></div>
-                        <div class="case-description">Mustang Panda has targeted a government entity. (espionage)</div>
-                    </div>
-                    <div class="week-badge">WEEK 21</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right side: Arrow controls -->
-        <div class="arrow-controls">
-            <div class="position-indicator">
-                <div class="current-case-label" id="currentCaseDisplay">Case 03</div>
-                <div class="indicator-dots" id="dotIndicator">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
-                <div class="case-counter" id="caseCounter">3/3</div>
+    <!-- NAVIGATION BAR -->
+    <header>
+        <nav class="navbar glass">
+            <div class="logo">
+                <img src="LOGO.jpg" alt="Black Widow Logo">
             </div>
             
-            <button class="arrow-btn" id="prevBtn" disabled>
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 5v14M5 12l7-7 7 7"/>
-                </svg>
-            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
             
-            <button class="arrow-btn" id="nextBtn">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 19V5M5 12l7 7 7-7"/>
-                </svg>
-            </button>
+            <div class="hamburger" id="hamburger">
+                <i class="fa fa-bars"></i>
+            </div>
+        </nav>
+        
+        <!-- Sidebar (mobile only) -->
+        <div class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+        
+        <!-- Overlay -->
+        <div class="overlay" id="overlay"></div>
+    </header>
+
+    <!-- MAIN CONTENT WRAPPER - Pushes footer to bottom -->
+    <div class="main-content">
+        <div class="flipping-interface">
+            <!-- Stacked Case Files Container -->
+            <div class="case-stack" id="caseStack">
+                <!-- Case 03: Waifu University (Index 2 - Top by default) -->
+                <div class="case-file" data-index="2" id="case3">
+                    <div class="case-tab">
+                        <svg width="199" height="29" viewBox="0 0 199 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip2)">
+                                <path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/>
+                                <path d="M32.6572 0.5H195C196.795 0.5 198.25 1.95505 198.25 3.75V307.25C198.25 309.045 196.795 310.5 195 310.5H-112C-113.795 310.5 -115.25 309.045 -115.25 307.25V32.2842C-115.25 30.4784 -113.777 29.0188 -111.972 29.0342L-0.183594 29.9854C1.0904 29.9961 2.31499 29.4953 3.21582 28.5947L30.3584 1.45215C30.9676 0.842775 31.7958 0.5 32.6572 0.5Z" stroke="white" stroke-miterlimit="16"/>
+                            </g>
+                            <defs>
+                                <clipPath id="clip2">
+                                    <rect width="199" height="29" fill="white"/>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="case-number">CASE 03</div>
+                    <div class="case-content">
+                        <div class="case-title">WATELI UN</div>
+                        <div class="divider"></div>
+                        <div class="case-grid">
+                            <div class="network-image"></div>
+                            <div class="abstract-image"></div>
+                            <div class="case-description">AlphV (BlackCat) ransomware has hit the university's network.</div>
+                        </div>
+                        <div class="week-badge">WEEK 21</div>
+                    </div>
+                </div>
+
+                <!-- Case 02: Techtonik (Index 1) -->
+                <div class="case-file" data-index="1" id="case2">
+                    <div class="case-tab">
+                        <svg width="199" height="29" viewBox="0 0 199 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip1)">
+                                <path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/>
+                                <path d="M32.6572 0.5H195C196.795 0.5 198.25 1.95505 198.25 3.75V307.25C198.25 309.045 196.795 310.5 195 310.5H-112C-113.795 310.5 -115.25 309.045 -115.25 307.25V32.2842C-115.25 30.4784 -113.777 29.0188 -111.972 29.0342L-0.183594 29.9854C1.0904 29.9961 2.31499 29.4953 3.21582 28.5947L30.3584 1.45215C30.9676 0.842775 31.7958 0.5 32.6572 0.5Z" stroke="white" stroke-miterlimit="16"/>
+                            </g>
+                            <defs>
+                                <clipPath id="clip1">
+                                    <rect width="199" height="29" fill="white"/>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="case-number">CASE 02</div>
+                    <div class="case-content">
+                        <div class="case-title">TECHTONIK</div>
+                        <div class="divider"></div>
+                        <div class="case-grid">
+                            <div class="network-image"></div>
+                            <div class="abstract-image"></div>
+                            <div class="case-description">APT29 compromises a tech supply chain.</div>
+                        </div>
+                        <div class="week-badge">WEEK 21</div>
+                    </div>
+                </div>
+
+                <!-- Case 01: Council of Tropical Affairs (Index 0) -->
+                <div class="case-file" data-index="0" id="case1">
+                    <div class="case-tab">
+                        <svg width="199" height="29" viewBox="0 0 199 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0)">
+                                <path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/>
+                                <path d="M32.6572 0.5H195C196.795 0.5 198.25 1.95505 198.25 3.75V307.25C198.25 309.045 196.795 310.5 195 310.5H-112C-113.795 310.5 -115.25 309.045 -115.25 307.25V32.2842C-115.25 30.4784 -113.777 29.0188 -111.972 29.0342L-0.183594 29.9854C1.0904 29.9961 2.31499 29.4953 3.21582 28.5947L30.3584 1.45215C30.9676 0.842775 31.7958 0.5 32.6572 0.5Z" stroke="white" stroke-miterlimit="16"/>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0">
+                                    <rect width="199" height="29" fill="white"/>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="case-number">CASE 01</div>
+                    <div class="case-content">
+                        <div class="case-title">COUNCIL OF TROPICAL AFFAIRS</div>
+                        <div class="divider"></div>
+                        <div class="case-grid">
+                            <div class="network-image"></div>
+                            <div class="abstract-image"></div>
+                            <div class="case-description">Mustang Panda has targeted a government entity. (espionage)</div>
+                        </div>
+                        <div class="week-badge">WEEK 21</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right side: Arrow controls -->
+            <div class="arrow-controls">
+                <div class="position-indicator">
+                    <div class="current-case-label" id="currentCaseDisplay">Case 03</div>
+                    <div class="indicator-dots" id="dotIndicator">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <div class="case-counter" id="caseCounter">3/3</div>
+                </div>
+                
+                <button class="arrow-btn" id="prevBtn" disabled>
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 5v14M5 12l7-7 7 7"/>
+                    </svg>
+                </button>
+                
+                <button class="arrow-btn" id="nextBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 19V5M5 12l7 7 7-7"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
 
-
-    <!-- FOOTER -->
-      <footer class="footer glass-footer">
+    <!-- FOOTER - Always at bottom -->
+    <footer class="footer glass-footer">
         <p>Based in Melbourne, Australia</p>
-      </footer>
+    </footer>
 
     <!-- JAVASCRIPT -->
-      <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-      <script src="script.js"></script>
-
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
     
     <script>
         // GLASS NAVIGATION BAR
-        // GLASS NAVIGATION BAR (Updated with sound)
         const hamburger = document.getElementById('hamburger');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
         
         // Create audio element for hamburger menu sound
-        const menuSound = new Audio('menu.mp3'); // Change filename to match your sound file
+        const menuSound = new Audio('menu.mp3');
         
         hamburger.addEventListener('click', () => {
           sidebar.classList.toggle('active');
           overlay.classList.toggle('active');
           
-          // Play sound effect
-          menuSound.currentTime = 0; // Reset to start in case it's clicked multiple times quickly
-          menuSound.play().catch(() => {}); // Catch any playback errors silently
+          menuSound.currentTime = 0;
+          menuSound.play().catch(() => {});
         });
         
         overlay.addEventListener('click', () => {
           sidebar.classList.remove('active');
           overlay.classList.remove('active');
         });
-    
     
         // NAVIGATION LINKS SOUND EFFECT
         const navSound = new Audio('nav.mp3');
@@ -576,24 +631,19 @@
         
         allNavLinks.forEach(link => {
           link.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent immediate navigation
+            e.preventDefault();
             
             navSound.currentTime = 0;
             navSound.play().catch(() => {});
             
-            // Get the href before navigation
             const destination = link.getAttribute('href');
             
-            // Navigate after a short delay to allow sound to play
             setTimeout(() => {
               window.location.href = destination;
-            }, 150); // Adjust timing as needed (150ms is usually good)
+            }, 150);
           });
         });
 
-
-
-        
         // GUEST FILES
         const caseFiles = Array.from(document.querySelectorAll('.case-file'));
         const prevBtn = document.getElementById('prevBtn');
@@ -602,10 +652,9 @@
         const caseCounter = document.getElementById('caseCounter');
         const dots = document.querySelectorAll('.dot');
         
-        let currentIndex = 2; // Start with Case 03 (index 2)
+        let currentIndex = 2;
         const totalCases = caseFiles.length;
 
-        // Case names for display
         const caseNames = {
             0: 'Case 01',
             1: 'Case 02',
@@ -613,20 +662,16 @@
         };
 
         function updateStack(index) {
-            // Remove active class from all
             caseFiles.forEach(file => {
                 file.classList.remove('active');
             });
 
-            // Add active class to current file
             caseFiles[index].classList.add('active');
 
-            // Update positions and transforms based on current index
             caseFiles.forEach((file, i) => {
                 file.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
                 
                 if (i === index) {
-                    // Current card - front and center
                     file.style.transform = 'rotate(0deg) translateY(-15px)';
                     file.style.zIndex = '10';
                     file.style.top = '0';
@@ -634,7 +679,6 @@
                     file.style.opacity = '1';
                     file.style.filter = 'brightness(1)';
                 } else if (i < index) {
-                    // Cards below in stack (lower index)
                     const offset = (index - i) * 15;
                     file.style.transform = `rotate(${2 + (index - i)}deg) translateY(${offset}px) translateX(${offset}px)`;
                     file.style.zIndex = `${5 - (index - i)}`;
@@ -643,7 +687,6 @@
                     file.style.opacity = '0.9';
                     file.style.filter = 'brightness(0.8)';
                 } else {
-                    // Cards above in stack (higher index)
                     const offset = (i - index) * 15;
                     file.style.transform = `rotate(${-2 - (i - index)}deg) translateY(${offset}px) translateX(-${offset}px)`;
                     file.style.zIndex = `${5 - (i - index)}`;
@@ -654,11 +697,9 @@
                 }
             });
 
-            // Update display
             currentCaseDisplay.textContent = caseNames[index];
             caseCounter.textContent = `${index + 1}/${totalCases}`;
             
-            // Update dots
             dots.forEach((dot, i) => {
                 if (i === index) {
                     dot.classList.add('active');
@@ -667,12 +708,10 @@
                 }
             });
 
-            // Update button states
             prevBtn.disabled = index === 0;
             nextBtn.disabled = index === totalCases - 1;
         }
 
-        // Event listeners for arrows
         prevBtn.addEventListener('click', () => {
             if (currentIndex > 0) {
                 currentIndex--;
@@ -687,7 +726,6 @@
             }
         });
 
-        // Click on cards also navigates (optional)
         caseFiles.forEach((file, index) => {
             file.addEventListener('click', () => {
                 if (index !== currentIndex) {
@@ -697,10 +735,8 @@
             });
         });
 
-        // Initialize stack
         updateStack(currentIndex);
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowUp') {
                 e.preventDefault();
