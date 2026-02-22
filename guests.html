@@ -41,7 +41,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 8rem 2rem 2rem;
+            padding: 10rem 2rem 2rem; /* Increased top padding to lower the animation */
             width: 100%;
             min-height: calc(100vh - 5rem);
         }
@@ -54,7 +54,7 @@
             max-width: min(1200px, 95vw);
             width: 100%;
             justify-content: center;
-            margin: 0 auto;
+            margin: 2rem auto 0; /* Added top margin to lower it further */
             height: min(70vh, 600px);
         }
 
@@ -382,7 +382,7 @@
             margin-bottom: 5px;
         }
 
-        /* Footer */
+        /* Footer - restored to original font size */
         .footer {
             flex-shrink: 0;
             width: 100%;
@@ -390,7 +390,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: clamp(1.4rem, 2vw, 1.8rem);
+            font-size: 1.8rem; /* Restored to original size */
             text-align: center;
             color: #b74b4b;
             background: rgba(20, 20, 20, 0.4);
@@ -408,6 +408,7 @@
         @media (min-height: 900px) {
             .flipping-interface {
                 height: min(65vh, 650px);
+                margin-top: 3rem; /* Slightly more margin on tall screens */
             }
             
             .case-stack {
@@ -418,11 +419,12 @@
         /* TABLET LANDSCAPE */
         @media (max-width: 1024px) and (orientation: landscape) {
             .main-content {
-                padding: 7rem 2rem 1.5rem;
+                padding: 9rem 2rem 1.5rem; /* Adjusted for landscape */
             }
             
             .flipping-interface {
                 height: min(70vh, 500px);
+                margin-top: 1.5rem;
             }
             
             .case-stack {
@@ -434,13 +436,14 @@
         /* TABLET PORTRAIT & MOBILE */
         @media (max-width: 768px) {
             .main-content {
-                padding: 8rem 1.5rem 2rem;
+                padding: 10rem 1.5rem 2rem; /* Increased top padding */
             }
             
             .flipping-interface {
                 flex-direction: column;
                 height: auto;
                 gap: 2rem;
+                margin-top: 1rem; /* Adjusted for mobile */
             }
             
             .case-stack {
@@ -483,7 +486,7 @@
         /* SMALL MOBILE */
         @media (max-width: 480px) {
             .main-content {
-                padding: 7rem 1rem 1.5rem;
+                padding: 9rem 1rem 1.5rem; /* Adjusted for small mobile */
             }
             
             .case-stack {
@@ -524,7 +527,11 @@
         /* EXTRA SMALL HEIGHT SCREENS */
         @media (max-height: 600px) {
             .main-content {
-                padding: 6rem 1.5rem 1rem;
+                padding: 8rem 1.5rem 1rem; /* Adjusted for short screens */
+            }
+            
+            .flipping-interface {
+                margin-top: 0.5rem;
             }
             
             .case-stack {
@@ -556,6 +563,7 @@
         @media (min-height: 1000px) {
             .flipping-interface {
                 height: min(55vh, 600px);
+                margin-top: 4rem; /* More margin on very tall screens */
             }
             
             .case-stack {
