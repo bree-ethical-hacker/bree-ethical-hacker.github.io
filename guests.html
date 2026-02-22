@@ -464,7 +464,7 @@
         /* TABLET PORTRAIT & MOBILE - FIXED OVERLAPPING ISSUE */
         @media (max-width: 768px) {
             .main-content {
-                padding: 15rem 1.5rem 3rem; /* Increased from 11rem to 15rem */
+                padding: 17rem 1.5rem 3rem; /* Increased from 15rem to 17rem for even more space */
                 justify-content: flex-start; /* Start from top */
             }
             
@@ -538,7 +538,7 @@
         /* SMALL MOBILE */
         @media (max-width: 480px) {
             .main-content {
-                padding: 14rem 1rem 2rem; /* Increased from 10rem to 14rem */
+                padding: 16rem 1rem 2rem; /* Increased from 14rem to 16rem for even more space */
             }
             
             .case-stack {
@@ -644,6 +644,10 @@
 
         /* Fix for extremely small devices */
         @media (max-width: 360px) {
+            .main-content {
+                padding: 15rem 1rem 2rem; /* Adjusted for extremely small devices */
+            }
+            
             .case-stack {
                 width: min(240px, 90vw);
                 height: min(300px, 40vh);
@@ -961,8 +965,12 @@
             if (nextBtnBottom) nextBtnBottom.disabled = index === totalCases - 1;
         }
 
-        // Event listeners for buttons
+        // Event listeners for buttons with sound
         const handlePrevClick = () => {
+            // Play the same sound as back button
+            navSound.currentTime = 0;
+            navSound.play().catch(() => {});
+            
             if (currentIndex > 0) {
                 currentIndex--;
                 updateStack(currentIndex);
@@ -970,6 +978,10 @@
         };
 
         const handleNextClick = () => {
+            // Play the same sound as back button
+            navSound.currentTime = 0;
+            navSound.play().catch(() => {});
+            
             if (currentIndex < totalCases - 1) {
                 currentIndex++;
                 updateStack(currentIndex);
@@ -991,17 +1003,25 @@
             });
         });
 
-        // Keyboard navigation
+        // Keyboard navigation with sound
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowUp') {
                 e.preventDefault();
                 if (currentIndex > 0) {
+                    // Play the same sound as back button
+                    navSound.currentTime = 0;
+                    navSound.play().catch(() => {});
+                    
                     currentIndex--;
                     updateStack(currentIndex);
                 }
             } else if (e.key === 'ArrowDown') {
                 e.preventDefault();
                 if (currentIndex < totalCases - 1) {
+                    // Play the same sound as back button
+                    navSound.currentTime = 0;
+                    navSound.play().catch(() => {});
+                    
                     currentIndex++;
                     updateStack(currentIndex);
                 }
