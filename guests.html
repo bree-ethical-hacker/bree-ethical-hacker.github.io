@@ -958,8 +958,12 @@
             if (nextBtnBottom) nextBtnBottom.disabled = index === totalCases - 1;
         }
 
-        // Event listeners for buttons - NO SOUND
+        // Event listeners for buttons - WITH MENU SOUND
         const handlePrevClick = () => {
+            // Play menu.mp3 sound
+            menuSound.currentTime = 0;
+            menuSound.play().catch(() => {});
+            
             if (currentIndex > 0) {
                 currentIndex--;
                 updateStack(currentIndex);
@@ -967,6 +971,10 @@
         };
 
         const handleNextClick = () => {
+            // Play menu.mp3 sound
+            menuSound.currentTime = 0;
+            menuSound.play().catch(() => {});
+            
             if (currentIndex < totalCases - 1) {
                 currentIndex++;
                 updateStack(currentIndex);
@@ -986,17 +994,25 @@
             });
         });
 
-        // Keyboard navigation - NO SOUND
+        // Keyboard navigation - WITH MENU SOUND
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowUp') {
                 e.preventDefault();
                 if (currentIndex > 0) {
+                    // Play menu.mp3 sound
+                    menuSound.currentTime = 0;
+                    menuSound.play().catch(() => {});
+                    
                     currentIndex--;
                     updateStack(currentIndex);
                 }
             } else if (e.key === 'ArrowDown') {
                 e.preventDefault();
                 if (currentIndex < totalCases - 1) {
+                    // Play menu.mp3 sound
+                    menuSound.currentTime = 0;
+                    menuSound.play().catch(() => {});
+                    
                     currentIndex++;
                     updateStack(currentIndex);
                 }
