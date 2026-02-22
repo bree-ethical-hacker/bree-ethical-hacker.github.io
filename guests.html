@@ -965,9 +965,9 @@
             if (nextBtnBottom) nextBtnBottom.disabled = index === totalCases - 1;
         }
 
-        // Event listeners for buttons with sound
+        // Event listeners for buttons with nav.mp3 sound
         const handlePrevClick = () => {
-            // Play the same sound as back button
+            // Play the nav.mp3 sound
             navSound.currentTime = 0;
             navSound.play().catch(() => {});
             
@@ -978,7 +978,7 @@
         };
 
         const handleNextClick = () => {
-            // Play the same sound as back button
+            // Play the nav.mp3 sound
             navSound.currentTime = 0;
             navSound.play().catch(() => {});
             
@@ -1003,12 +1003,12 @@
             });
         });
 
-        // Keyboard navigation with sound
+        // Keyboard navigation with nav.mp3 sound
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowUp') {
                 e.preventDefault();
                 if (currentIndex > 0) {
-                    // Play the same sound as back button
+                    // Play the nav.mp3 sound
                     navSound.currentTime = 0;
                     navSound.play().catch(() => {});
                     
@@ -1018,7 +1018,7 @@
             } else if (e.key === 'ArrowDown') {
                 e.preventDefault();
                 if (currentIndex < totalCases - 1) {
-                    // Play the same sound as back button
+                    // Play the nav.mp3 sound
                     navSound.currentTime = 0;
                     navSound.play().catch(() => {});
                     
