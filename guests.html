@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guests</title>
     <!-- Font Awesome -->
@@ -42,7 +42,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 12rem 2rem 4rem; /* Increased top padding to clear navbar */
+            padding: 12rem 2rem 4rem;
             width: 100%;
             min-height: calc(100vh - 5rem);
         }
@@ -55,15 +55,15 @@
             max-width: min(1200px, 95vw);
             width: 100%;
             justify-content: center;
-            margin: 0 auto 2rem; /* Added bottom margin */
-            height: min(70vh, 550px); /* Slightly reduced height */
+            margin: 0 auto 2rem;
+            height: min(70vh, 550px);
         }
 
         /* Container for the stacked case files */
         .case-stack {
             position: relative;
             width: min(380px, 40vw);
-            height: min(500px, 55vh); /* Reduced from 60vh */
+            height: min(500px, 55vh);
             margin: 0;
             aspect-ratio: 380/500;
         }
@@ -289,7 +289,7 @@
 
         /* Position indicator - HIDE COMPLETELY */
         .position-indicator {
-            display: none !important; /* Completely hide the indicator */
+            display: none !important;
         }
 
         /* BOTTOM CONTROLS - IMPROVED SPACING */
@@ -297,8 +297,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 5rem; /* Increased from 4rem for better spacing */
-            margin-bottom: 2rem; /* Added bottom margin */
+            margin-top: 5rem;
+            margin-bottom: 2rem;
             width: 100%;
             max-width: min(1200px, 95vw);
             gap: 2rem;
@@ -310,7 +310,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 3rem; /* Increased gap */
+            gap: 3rem;
             flex-wrap: wrap;
         }
 
@@ -424,7 +424,7 @@
         /* LARGE DESKTOPS */
         @media (min-height: 900px) {
             .main-content {
-                padding-top: 14rem; /* More space on tall screens */
+                padding-top: 14rem;
             }
             
             .flipping-interface {
@@ -443,7 +443,7 @@
         /* TABLET LANDSCAPE */
         @media (max-width: 1024px) and (orientation: landscape) {
             .main-content {
-                padding: 11rem 2rem 3rem; /* Adjusted for landscape */
+                padding: 11rem 2rem 3rem;
             }
             
             .flipping-interface {
@@ -464,15 +464,15 @@
         /* TABLET PORTRAIT & MOBILE - FIXED OVERLAPPING ISSUE */
         @media (max-width: 768px) {
             .main-content {
-                padding: 17rem 1.5rem 3rem; /* Increased from 15rem to 17rem for even more space */
-                justify-content: flex-start; /* Start from top */
+                padding: 17rem 1.5rem 3rem;
+                justify-content: flex-start;
             }
             
             .flipping-interface {
                 flex-direction: column;
                 height: auto;
                 gap: 2rem;
-                margin-bottom: 3rem; /* More space before buttons */
+                margin-bottom: 3rem;
             }
             
             .case-stack {
@@ -481,12 +481,10 @@
                 margin-bottom: 1rem;
             }
             
-            /* Remove old arrow controls */
             .arrow-controls {
                 display: none;
             }
 
-            /* FIXED: Better spacing for bottom controls on mobile */
             .bottom-controls {
                 margin-top: 2rem;
                 margin-bottom: 3rem;
@@ -496,18 +494,18 @@
 
             .all-buttons-row {
                 flex-direction: column;
-                gap: 2rem; /* Increased gap */
+                gap: 2rem;
                 width: 100%;
             }
 
             .nav-buttons {
                 justify-content: center;
                 order: 1;
-                gap: 2rem; /* More gap between buttons */
+                gap: 2rem;
             }
 
             .nav-btn {
-                width: 5.5rem; /* Slightly larger for easier tapping */
+                width: 5.5rem;
                 height: 5.5rem;
             }
 
@@ -516,7 +514,7 @@
                 width: 100%;
                 max-width: 280px;
                 font-size: 1.6rem;
-                padding: 1.2rem 2rem; /* More padding */
+                padding: 1.2rem 2rem;
                 letter-spacing: 0.2rem;
             }
 
@@ -529,7 +527,6 @@
                 -webkit-line-clamp: 2;
             }
             
-            /* Ensure cards don't overlap with navbar */
             .case-file.active {
                 margin-top: 0;
             }
@@ -538,7 +535,7 @@
         /* SMALL MOBILE */
         @media (max-width: 480px) {
             .main-content {
-                padding: 16rem 1rem 2rem; /* Increased from 14rem to 16rem for even more space */
+                padding: 16rem 1rem 2rem;
             }
             
             .case-stack {
@@ -645,7 +642,7 @@
         /* Fix for extremely small devices */
         @media (max-width: 360px) {
             .main-content {
-                padding: 15rem 1rem 2rem; /* Adjusted for extremely small devices */
+                padding: 15rem 1rem 2rem;
             }
             
             .case-stack {
@@ -896,8 +893,6 @@
 
         // GUEST FILES ANIMATION
         const caseFiles = Array.from(document.querySelectorAll('.case-file'));
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
         const prevBtnBottom = document.getElementById('prevBtnBottom');
         const nextBtnBottom = document.getElementById('nextBtnBottom');
         const currentCaseDisplay = document.getElementById('currentCaseDisplay');
@@ -958,19 +953,13 @@
             if (currentCaseDisplay) currentCaseDisplay.textContent = caseNames[index];
             if (caseCounter) caseCounter.textContent = `${index + 1}/${totalCases}`;
 
-            // Update button states for both sets of buttons
-            if (prevBtn) prevBtn.disabled = index === 0;
-            if (nextBtn) nextBtn.disabled = index === totalCases - 1;
+            // Update button states
             if (prevBtnBottom) prevBtnBottom.disabled = index === 0;
             if (nextBtnBottom) nextBtnBottom.disabled = index === totalCases - 1;
         }
 
-        // Event listeners for buttons with nav.mp3 sound
+        // Event listeners for buttons - NO SOUND
         const handlePrevClick = () => {
-            // Play the nav.mp3 sound
-            navSound.currentTime = 0;
-            navSound.play().catch(() => {});
-            
             if (currentIndex > 0) {
                 currentIndex--;
                 updateStack(currentIndex);
@@ -978,18 +967,12 @@
         };
 
         const handleNextClick = () => {
-            // Play the nav.mp3 sound
-            navSound.currentTime = 0;
-            navSound.play().catch(() => {});
-            
             if (currentIndex < totalCases - 1) {
                 currentIndex++;
                 updateStack(currentIndex);
             }
         };
 
-        if (prevBtn) prevBtn.addEventListener('click', handlePrevClick);
-        if (nextBtn) nextBtn.addEventListener('click', handleNextClick);
         if (prevBtnBottom) prevBtnBottom.addEventListener('click', handlePrevClick);
         if (nextBtnBottom) nextBtnBottom.addEventListener('click', handleNextClick);
 
@@ -1003,25 +986,17 @@
             });
         });
 
-        // Keyboard navigation with nav.mp3 sound
+        // Keyboard navigation - NO SOUND
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowUp') {
                 e.preventDefault();
                 if (currentIndex > 0) {
-                    // Play the nav.mp3 sound
-                    navSound.currentTime = 0;
-                    navSound.play().catch(() => {});
-                    
                     currentIndex--;
                     updateStack(currentIndex);
                 }
             } else if (e.key === 'ArrowDown') {
                 e.preventDefault();
                 if (currentIndex < totalCases - 1) {
-                    // Play the nav.mp3 sound
-                    navSound.currentTime = 0;
-                    navSound.play().catch(() => {});
-                    
                     currentIndex++;
                     updateStack(currentIndex);
                 }
