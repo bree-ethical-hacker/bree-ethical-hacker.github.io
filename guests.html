@@ -35,14 +35,14 @@
             font-family: 'DM Sans', sans-serif;
         }
 
-        /* Main content wrapper */
+        /* Main content wrapper - FIXED SPACING FROM NAVBAR */
         .main-content {
             flex: 1 0 auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10rem 2rem 2rem;
+            padding: 12rem 2rem 4rem; /* Increased top padding to clear navbar */
             width: 100%;
             min-height: calc(100vh - 5rem);
         }
@@ -55,15 +55,15 @@
             max-width: min(1200px, 95vw);
             width: 100%;
             justify-content: center;
-            margin: 0 auto;
-            height: min(70vh, 600px);
+            margin: 0 auto 2rem; /* Added bottom margin */
+            height: min(70vh, 550px); /* Slightly reduced height */
         }
 
         /* Container for the stacked case files */
         .case-stack {
             position: relative;
             width: min(380px, 40vw);
-            height: min(500px, 60vh);
+            height: min(500px, 55vh); /* Reduced from 60vh */
             margin: 0;
             aspect-ratio: 380/500;
         }
@@ -279,7 +279,7 @@
             transform: translate(-50%, -50%) rotate(-90deg);
         }
 
-        /* Arrow controls */
+        /* Arrow controls - HIDE THE TEXT ELEMENTS */
         .arrow-controls {
             display: flex;
             flex-direction: column;
@@ -287,50 +287,18 @@
             order: 2;
         }
 
-        /* Position indicator */
+        /* Position indicator - HIDE COMPLETELY */
         .position-indicator {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: white;
-            font-family: 'DM Mono', monospace;
-            font-size: clamp(1.1rem, 1.8vh, 1.4rem);
-            gap: clamp(1rem, 2vh, 1.5rem);
-            background: rgba(0, 0, 0, 0.3);
-            padding: clamp(1rem, 2vh, 1.5rem) clamp(0.6rem, 1vh, 1rem);
-            border-radius: 40px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: none !important; /* Completely hide the indicator */
         }
 
-        /* Remove indicator dots */
-        .indicator-dots {
-            display: none;
-        }
-
-        /* Case counter */
-        .case-counter {
-            font-family: 'Space Mono', monospace;
-            font-size: clamp(1.1rem, 1.8vh, 1.4rem);
-            color: white;
-            text-align: center;
-            letter-spacing: 1px;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-        }
-
-        .current-case-label {
-            font-size: clamp(1rem, 1.5vh, 1.2rem);
-            opacity: 0.7;
-            margin-bottom: 5px;
-        }
-
-        /* BOTTOM CONTROLS - REDESIGNED TO MATCH INDEX.HTML */
+        /* BOTTOM CONTROLS - IMPROVED SPACING */
         .bottom-controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 4rem;
+            margin-top: 5rem; /* Increased from 4rem for better spacing */
+            margin-bottom: 2rem; /* Added bottom margin */
             width: 100%;
             max-width: min(1200px, 95vw);
             gap: 2rem;
@@ -342,7 +310,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 2rem;
+            gap: 3rem; /* Increased gap */
             flex-wrap: wrap;
         }
 
@@ -455,54 +423,62 @@
 
         /* LARGE DESKTOPS */
         @media (min-height: 900px) {
+            .main-content {
+                padding-top: 14rem; /* More space on tall screens */
+            }
+            
             .flipping-interface {
-                height: min(65vh, 650px);
+                height: min(65vh, 600px);
             }
             
             .case-stack {
-                height: min(550px, 65vh);
+                height: min(550px, 60vh);
             }
             
             .bottom-controls {
-                margin-top: 5rem;
+                margin-top: 6rem;
             }
         }
 
         /* TABLET LANDSCAPE */
         @media (max-width: 1024px) and (orientation: landscape) {
             .main-content {
-                padding: 9rem 2rem 1.5rem;
+                padding: 11rem 2rem 3rem; /* Adjusted for landscape */
             }
             
             .flipping-interface {
-                height: min(70vh, 500px);
+                height: min(65vh, 450px);
+                margin-bottom: 1rem;
             }
             
             .case-stack {
                 width: min(320px, 35vw);
-                height: min(450px, 65vh);
+                height: min(400px, 60vh);
             }
             
             .bottom-controls {
-                margin-top: 3.5rem;
+                margin-top: 4rem;
             }
         }
 
-        /* TABLET PORTRAIT & MOBILE */
+        /* TABLET PORTRAIT & MOBILE - FIXED OVERLAPPING ISSUE */
         @media (max-width: 768px) {
             .main-content {
-                padding: 10rem 1.5rem 2rem;
+                padding: 11rem 1.5rem 3rem; /* More top padding for mobile */
+                justify-content: flex-start; /* Start from top */
             }
             
             .flipping-interface {
                 flex-direction: column;
                 height: auto;
                 gap: 2rem;
+                margin-bottom: 3rem; /* More space before buttons */
             }
             
             .case-stack {
                 width: min(320px, 85vw);
-                height: min(420px, 55vh);
+                height: min(400px, 50vh);
+                margin-bottom: 1rem;
             }
             
             /* Remove old arrow controls */
@@ -510,19 +486,29 @@
                 display: none;
             }
 
+            /* FIXED: Better spacing for bottom controls on mobile */
             .bottom-controls {
-                margin-top: 3rem;
+                margin-top: 2rem;
+                margin-bottom: 3rem;
+                position: relative;
+                z-index: 5;
             }
 
             .all-buttons-row {
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 2rem; /* Increased gap */
                 width: 100%;
             }
 
             .nav-buttons {
                 justify-content: center;
                 order: 1;
+                gap: 2rem; /* More gap between buttons */
+            }
+
+            .nav-btn {
+                width: 5.5rem; /* Slightly larger for easier tapping */
+                height: 5.5rem;
             }
 
             .back-btn {
@@ -530,13 +516,8 @@
                 width: 100%;
                 max-width: 280px;
                 font-size: 1.6rem;
-                padding: 1rem 2rem;
+                padding: 1.2rem 2rem; /* More padding */
                 letter-spacing: 0.2rem;
-            }
-
-            .case-counter {
-                writing-mode: horizontal-tb;
-                transform: none;
             }
 
             .case-title {
@@ -548,53 +529,54 @@
                 -webkit-line-clamp: 2;
             }
             
-            /* Hide position indicator on mobile */
-            .position-indicator {
-                display: none;
+            /* Ensure cards don't overlap with navbar */
+            .case-file.active {
+                margin-top: 0;
             }
         }
 
         /* SMALL MOBILE */
         @media (max-width: 480px) {
             .main-content {
-                padding: 9rem 1rem 1.5rem;
+                padding: 10rem 1rem 2rem;
             }
             
             .case-stack {
-                width: min(280px, 90vw);
-                height: min(380px, 50vh);
+                width: min(260px, 90vw);
+                height: min(340px, 45vh);
             }
 
             .case-title {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
 
             .case-description {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 -webkit-line-clamp: 2;
             }
 
             .week-badge {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
 
             .nav-btn {
-                width: 4.5rem;
-                height: 4.5rem;
+                width: 5rem;
+                height: 5rem;
                 font-size: 1.8rem;
             }
             
             .bottom-controls {
-                margin-top: 2.5rem;
+                margin-top: 1.5rem;
+                margin-bottom: 2.5rem;
             }
             
             .all-buttons-row {
-                gap: 1rem;
+                gap: 1.5rem;
             }
             
             .back-btn {
                 font-size: 1.4rem;
-                padding: 0.9rem 1.8rem;
+                padding: 1rem 1.8rem;
                 max-width: 240px;
                 letter-spacing: 0.15rem;
             }
@@ -603,11 +585,11 @@
         /* EXTRA SMALL HEIGHT SCREENS */
         @media (max-height: 600px) {
             .main-content {
-                padding: 8rem 1.5rem 1rem;
+                padding: 9rem 1.5rem 1.5rem;
             }
             
             .case-stack {
-                height: min(350px, 45vh);
+                height: min(300px, 40vh);
             }
             
             .case-content {
@@ -616,37 +598,65 @@
             }
             
             .case-title {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
                 margin-top: 2px;
             }
             
             .case-description {
                 -webkit-line-clamp: 2;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
             
             .week-badge {
-                font-size: 1rem;
+                font-size: 0.9rem;
                 padding-top: 3px;
             }
             
             .bottom-controls {
                 margin-top: 2rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .nav-btn {
+                width: 4.5rem;
+                height: 4.5rem;
             }
         }
 
         /* VERY TALL SCREENS */
         @media (min-height: 1000px) {
+            .main-content {
+                padding-top: 15rem;
+            }
+            
             .flipping-interface {
-                height: min(55vh, 600px);
+                height: min(50vh, 550px);
             }
             
             .case-stack {
-                height: min(500px, 50vh);
+                height: min(500px, 45vh);
             }
             
             .bottom-controls {
-                margin-top: 6rem;
+                margin-top: 7rem;
+            }
+        }
+
+        /* Fix for extremely small devices */
+        @media (max-width: 360px) {
+            .case-stack {
+                width: min(240px, 90vw);
+                height: min(300px, 40vh);
+            }
+            
+            .nav-btn {
+                width: 4.2rem;
+                height: 4.2rem;
+            }
+            
+            .back-btn {
+                font-size: 1.3rem;
+                padding: 0.9rem 1.5rem;
             }
         }
     </style>
@@ -775,7 +785,7 @@
                 </div>
             </div>
 
-            <!-- Right side: Position indicator -->
+            <!-- Right side: Position indicator - HIDDEN VIA CSS -->
             <div class="arrow-controls">
                 <div class="position-indicator">
                     <div class="current-case-label" id="currentCaseDisplay">Case 03</div>
@@ -785,16 +795,16 @@
             </div>
         </div>
 
-        <!-- Bottom controls - ALL BUTTONS IN ONE ROW WITH INDEX.HTML STYLING -->
+        <!-- Bottom controls - IMPROVED SPACING -->
         <div class="bottom-controls">
             <div class="all-buttons-row">
-                <!-- Back button - styled like .btn from index.html -->
+                <!-- Back button -->
                 <a href="index.html" class="back-btn" id="backBtn">
                     <i class="fas fa-arrow-left"></i>
                     <span>Back to Projects</span>
                 </a>
                 
-                <!-- Navigation buttons - styled like social icons from index.html -->
+                <!-- Navigation buttons -->
                 <div class="nav-buttons">
                     <button class="nav-btn" id="prevBtnBottom" disabled>
                         <svg viewBox="0 0 24 24">
@@ -940,9 +950,9 @@
                 }
             });
 
-            // Update UI elements
-            currentCaseDisplay.textContent = caseNames[index];
-            caseCounter.textContent = `${index + 1}/${totalCases}`;
+            // Update UI elements (though they're hidden now)
+            if (currentCaseDisplay) currentCaseDisplay.textContent = caseNames[index];
+            if (caseCounter) caseCounter.textContent = `${index + 1}/${totalCases}`;
 
             // Update button states for both sets of buttons
             if (prevBtn) prevBtn.disabled = index === 0;
