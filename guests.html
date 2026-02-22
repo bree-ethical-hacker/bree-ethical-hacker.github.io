@@ -35,18 +35,19 @@
             font-family: 'DM Sans', sans-serif;
         }
 
-        /* Main content wrapper - dynamically adjusts to fill available space */
+        /* Main content wrapper */
         .main-content {
             flex: 1 0 auto;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10rem 2rem 2rem; /* Increased top padding to lower the animation */
+            padding: 10rem 2rem 2rem;
             width: 100%;
             min-height: calc(100vh - 5rem);
         }
 
-        /* Main container with side arrows - uses viewport height for scaling */
+        /* Main container */
         .flipping-interface {
             display: flex;
             align-items: center;
@@ -54,11 +55,11 @@
             max-width: min(1200px, 95vw);
             width: 100%;
             justify-content: center;
-            margin: 2rem auto 0; /* Added top margin to lower it further */
+            margin: 0 auto;
             height: min(70vh, 600px);
         }
 
-        /* Container for the stacked case files - scales with viewport */
+        /* Container for the stacked case files */
         .case-stack {
             position: relative;
             width: min(380px, 40vw);
@@ -84,7 +85,7 @@
             z-index: 10;
         }
 
-        /* Folder tab at the top - scales proportionally */
+        /* Folder tab at the top */
         .case-tab {
             position: absolute;
             top: -29px;
@@ -118,7 +119,7 @@
             position: relative;
         }
 
-        /* Case number - scales with card */
+        /* Case number */
         .case-number {
             position: absolute;
             top: -26px;
@@ -154,7 +155,7 @@
             margin: 4px 0;
         }
 
-        /* Grid layout for images and description - scales proportionally */
+        /* Grid layout */
         .case-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -286,49 +287,6 @@
             order: 2;
         }
 
-        .arrow-btn {
-            width: clamp(4rem, 6vh, 6rem);
-            height: clamp(4rem, 6vh, 6rem);
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(4px);
-            font-size: clamp(1.8rem, 2.5vh, 2.4rem);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .arrow-btn:hover:not(:disabled) {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.6);
-            transform: scale(1.1);
-        }
-
-        .arrow-btn:active:not(:disabled) {
-            transform: scale(0.95);
-        }
-
-        .arrow-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .arrow-btn svg {
-            width: 70%;
-            height: 70%;
-            fill: none;
-            stroke: white;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
         /* Position indicator */
         .position-indicator {
             display: flex;
@@ -345,24 +303,9 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* Remove indicator dots */
         .indicator-dots {
-            display: flex;
-            flex-direction: column;
-            gap: clamp(0.8rem, 1.5vh, 1.2rem);
-        }
-
-        .dot {
-            width: clamp(0.6rem, 1vh, 0.8rem);
-            height: clamp(0.6rem, 1vh, 0.8rem);
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: white;
-            transform: scale(1.5);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            display: none;
         }
 
         /* Case counter */
@@ -382,7 +325,113 @@
             margin-bottom: 5px;
         }
 
-        /* Footer - restored to original font size */
+        /* BOTTOM CONTROLS - REDESIGNED TO MATCH INDEX.HTML */
+        .bottom-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 4rem;
+            width: 100%;
+            max-width: min(1200px, 95vw);
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* All buttons row */
+        .all-buttons-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* BACK BUTTON - MATCHING INDEX.HTML .btn STYLE */
+        .back-btn {
+            display: inline-block;
+            padding: 1rem 2.8rem;
+            background-color: transparent;
+            border-radius: 4rem;
+            font-size: 1.6rem;
+            color: #b74b4b;
+            letter-spacing: 0.3rem;
+            font-weight: 600;
+            border: 2px solid #b74b4b;
+            transition: 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .back-btn i {
+            font-size: 1.8rem;
+            color: #b74b4b;
+            transition: transform 0.3s ease;
+            margin-right: 0.5rem;
+        }
+
+        .back-btn:hover {
+            transform: scale3d(1.03, 1.03, 1.03);
+            background-color: #b74b4b;
+            color: black;
+            box-shadow: 0 0 25px #b74b4b;
+        }
+
+        .back-btn:hover i {
+            color: black;
+        }
+
+        /* NAVIGATION BUTTONS - MATCHING INDEX.HTML SOCIAL ICONS STYLE */
+        .nav-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-btn {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 2px solid #b74b4b;
+            color: #b74b4b;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s ease;
+            font-size: 2rem;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            color: black;
+            transform: scale(1.1) translateY(-3px);
+            background-color: #b74b4b;
+            box-shadow: 0 0 25px #b74b4b;
+        }
+
+        .nav-btn:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: rgba(183, 75, 75, 0.3);
+            color: rgba(183, 75, 75, 0.3);
+        }
+
+        .nav-btn svg {
+            width: 60%;
+            height: 60%;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Footer */
         .footer {
             flex-shrink: 0;
             width: 100%;
@@ -390,7 +439,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.8rem; /* Restored to original size */
+            font-size: 1.8rem;
             text-align: center;
             color: #b74b4b;
             background: rgba(20, 20, 20, 0.4);
@@ -408,42 +457,47 @@
         @media (min-height: 900px) {
             .flipping-interface {
                 height: min(65vh, 650px);
-                margin-top: 3rem; /* Slightly more margin on tall screens */
             }
             
             .case-stack {
                 height: min(550px, 65vh);
+            }
+            
+            .bottom-controls {
+                margin-top: 5rem;
             }
         }
 
         /* TABLET LANDSCAPE */
         @media (max-width: 1024px) and (orientation: landscape) {
             .main-content {
-                padding: 9rem 2rem 1.5rem; /* Adjusted for landscape */
+                padding: 9rem 2rem 1.5rem;
             }
             
             .flipping-interface {
                 height: min(70vh, 500px);
-                margin-top: 1.5rem;
             }
             
             .case-stack {
                 width: min(320px, 35vw);
                 height: min(450px, 65vh);
             }
+            
+            .bottom-controls {
+                margin-top: 3.5rem;
+            }
         }
 
         /* TABLET PORTRAIT & MOBILE */
         @media (max-width: 768px) {
             .main-content {
-                padding: 10rem 1.5rem 2rem; /* Increased top padding */
+                padding: 10rem 1.5rem 2rem;
             }
             
             .flipping-interface {
                 flex-direction: column;
                 height: auto;
                 gap: 2rem;
-                margin-top: 1rem; /* Adjusted for mobile */
             }
             
             .case-stack {
@@ -451,21 +505,33 @@
                 height: min(420px, 55vh);
             }
             
+            /* Remove old arrow controls */
             .arrow-controls {
-                flex-direction: row;
-                order: 0;
-                margin-bottom: 1rem;
-                gap: 1.5rem;
+                display: none;
             }
 
-            .position-indicator {
-                flex-direction: row;
-                padding: 0.8rem 1.5rem;
-                gap: 1.5rem;
+            .bottom-controls {
+                margin-top: 3rem;
             }
 
-            .indicator-dots {
-                flex-direction: row;
+            .all-buttons-row {
+                flex-direction: column;
+                gap: 1.5rem;
+                width: 100%;
+            }
+
+            .nav-buttons {
+                justify-content: center;
+                order: 1;
+            }
+
+            .back-btn {
+                order: 2;
+                width: 100%;
+                max-width: 280px;
+                font-size: 1.6rem;
+                padding: 1rem 2rem;
+                letter-spacing: 0.2rem;
             }
 
             .case-counter {
@@ -481,12 +547,17 @@
                 font-size: clamp(1rem, 1.8vh, 1.1rem);
                 -webkit-line-clamp: 2;
             }
+            
+            /* Hide position indicator on mobile */
+            .position-indicator {
+                display: none;
+            }
         }
 
         /* SMALL MOBILE */
         @media (max-width: 480px) {
             .main-content {
-                padding: 9rem 1rem 1.5rem; /* Adjusted for small mobile */
+                padding: 9rem 1rem 1.5rem;
             }
             
             .case-stack {
@@ -507,31 +578,32 @@
                 font-size: 1rem;
             }
 
-            .arrow-btn {
+            .nav-btn {
                 width: 4.5rem;
                 height: 4.5rem;
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
-
-            .position-indicator {
-                padding: 0.6rem 1.2rem;
+            
+            .bottom-controls {
+                margin-top: 2.5rem;
+            }
+            
+            .all-buttons-row {
                 gap: 1rem;
             }
             
-            .dot {
-                width: 0.6rem;
-                height: 0.6rem;
+            .back-btn {
+                font-size: 1.4rem;
+                padding: 0.9rem 1.8rem;
+                max-width: 240px;
+                letter-spacing: 0.15rem;
             }
         }
 
         /* EXTRA SMALL HEIGHT SCREENS */
         @media (max-height: 600px) {
             .main-content {
-                padding: 8rem 1.5rem 1rem; /* Adjusted for short screens */
-            }
-            
-            .flipping-interface {
-                margin-top: 0.5rem;
+                padding: 8rem 1.5rem 1rem;
             }
             
             .case-stack {
@@ -557,17 +629,24 @@
                 font-size: 1rem;
                 padding-top: 3px;
             }
+            
+            .bottom-controls {
+                margin-top: 2rem;
+            }
         }
 
         /* VERY TALL SCREENS */
         @media (min-height: 1000px) {
             .flipping-interface {
                 height: min(55vh, 600px);
-                margin-top: 4rem; /* More margin on very tall screens */
             }
             
             .case-stack {
                 height: min(500px, 50vh);
+            }
+            
+            .bottom-controls {
+                margin-top: 6rem;
             }
         }
     </style>
@@ -696,29 +775,39 @@
                 </div>
             </div>
 
-            <!-- Right side: Arrow controls -->
+            <!-- Right side: Position indicator -->
             <div class="arrow-controls">
                 <div class="position-indicator">
                     <div class="current-case-label" id="currentCaseDisplay">Case 03</div>
-                    <div class="indicator-dots" id="dotIndicator">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
+                    <div class="indicator-dots" id="dotIndicator" style="display: none;"></div>
                     <div class="case-counter" id="caseCounter">3/3</div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Bottom controls - ALL BUTTONS IN ONE ROW WITH INDEX.HTML STYLING -->
+        <div class="bottom-controls">
+            <div class="all-buttons-row">
+                <!-- Back button - styled like .btn from index.html -->
+                <a href="projects.html" class="back-btn" id="backBtn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Projects</span>
+                </a>
                 
-                <button class="arrow-btn" id="prevBtn" disabled>
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 5v14M5 12l7-7 7 7"/>
-                    </svg>
-                </button>
-                
-                <button class="arrow-btn" id="nextBtn">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 19V5M5 12l7 7 7-7"/>
-                    </svg>
-                </button>
+                <!-- Navigation buttons - styled like social icons from index.html -->
+                <div class="nav-buttons">
+                    <button class="nav-btn" id="prevBtnBottom" disabled>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 5v14M5 12l7-7 7 7"/>
+                        </svg>
+                    </button>
+                    
+                    <button class="nav-btn" id="nextBtnBottom">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 19V5M5 12l7 7 7-7"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -774,13 +863,31 @@
             });
         });
 
+        // BACK BUTTON SOUND EFFECT
+        const backBtn = document.getElementById('backBtn');
+        if (backBtn) {
+            backBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                navSound.currentTime = 0;
+                navSound.play().catch(() => {});
+                
+                const destination = backBtn.getAttribute('href');
+                
+                setTimeout(() => {
+                    window.location.href = destination;
+                }, 150);
+            });
+        }
+
         // GUEST FILES ANIMATION
         const caseFiles = Array.from(document.querySelectorAll('.case-file'));
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
+        const prevBtnBottom = document.getElementById('prevBtnBottom');
+        const nextBtnBottom = document.getElementById('nextBtnBottom');
         const currentCaseDisplay = document.getElementById('currentCaseDisplay');
         const caseCounter = document.getElementById('caseCounter');
-        const dots = document.querySelectorAll('.dot');
         
         let currentIndex = 2; // Start with Case 03 (index 2)
         const totalCases = caseFiles.length;
@@ -836,35 +943,33 @@
             // Update UI elements
             currentCaseDisplay.textContent = caseNames[index];
             caseCounter.textContent = `${index + 1}/${totalCases}`;
-            
-            // Update dots
-            dots.forEach((dot, i) => {
-                if (i === index) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
 
-            // Update button states
-            prevBtn.disabled = index === 0;
-            nextBtn.disabled = index === totalCases - 1;
+            // Update button states for both sets of buttons
+            if (prevBtn) prevBtn.disabled = index === 0;
+            if (nextBtn) nextBtn.disabled = index === totalCases - 1;
+            if (prevBtnBottom) prevBtnBottom.disabled = index === 0;
+            if (nextBtnBottom) nextBtnBottom.disabled = index === totalCases - 1;
         }
 
         // Event listeners for buttons
-        prevBtn.addEventListener('click', () => {
+        const handlePrevClick = () => {
             if (currentIndex > 0) {
                 currentIndex--;
                 updateStack(currentIndex);
             }
-        });
+        };
 
-        nextBtn.addEventListener('click', () => {
+        const handleNextClick = () => {
             if (currentIndex < totalCases - 1) {
                 currentIndex++;
                 updateStack(currentIndex);
             }
-        });
+        };
+
+        if (prevBtn) prevBtn.addEventListener('click', handlePrevClick);
+        if (nextBtn) nextBtn.addEventListener('click', handleNextClick);
+        if (prevBtnBottom) prevBtnBottom.addEventListener('click', handlePrevClick);
+        if (nextBtnBottom) nextBtnBottom.addEventListener('click', handleNextClick);
 
         // Click on cards to navigate
         caseFiles.forEach((file, index) => {
@@ -896,7 +1001,7 @@
         // Initialize
         updateStack(currentIndex);
 
-        // Handle window resize to ensure proper positioning
+        // Handle window resize
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
