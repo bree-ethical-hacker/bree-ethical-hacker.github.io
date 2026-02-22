@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guests</title>
     <!-- Font Awesome -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-      <!-- Main CSS --> 
-      <link rel="stylesheet" href="style.css">
-      <link rel="icon" type="image/x-icon" href="./icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Main CSS --> 
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="./icon.png">
     
     <style>
         /* Font imports */
@@ -24,6 +24,7 @@
             height: 100%;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
 
         body {
@@ -34,33 +35,36 @@
             font-family: 'DM Sans', sans-serif;
         }
 
-        /* Main content wrapper - pushes footer to bottom */
+        /* Main content wrapper - dynamically adjusts to fill available space */
         .main-content {
             flex: 1 0 auto;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 80px 20px 40px; /* Top padding for navbar, bottom spacing */
+            padding: 8rem 2rem 2rem;
             width: 100%;
+            min-height: calc(100vh - 5rem);
         }
 
-        /* Main container with side arrows */
+        /* Main container with side arrows - uses viewport height for scaling */
         .flipping-interface {
             display: flex;
             align-items: center;
-            gap: 30px;
-            max-width: 1200px;
+            gap: clamp(1rem, 3vw, 3rem);
+            max-width: min(1200px, 95vw);
             width: 100%;
             justify-content: center;
             margin: 0 auto;
+            height: min(70vh, 600px);
         }
 
-        /* Container for the stacked case files */
+        /* Container for the stacked case files - scales with viewport */
         .case-stack {
             position: relative;
-            width: 380px;
-            height: 500px;
+            width: min(380px, 40vw);
+            height: min(500px, 60vh);
             margin: 0;
+            aspect-ratio: 380/500;
         }
 
         /* Individual case file - stacked */
@@ -80,12 +84,12 @@
             z-index: 10;
         }
 
-        /* Folder tab at the top */
+        /* Folder tab at the top - scales proportionally */
         .case-tab {
             position: absolute;
             top: -29px;
             right: 0;
-            width: 199px;
+            width: min(199px, 52%);
             height: 29px;
             filter: drop-shadow(0 -9px 7px rgba(0, 0, 0, 0.1));
             z-index: 2;
@@ -105,37 +109,43 @@
             border: 1px solid #ffffff;
             border-radius: 8px;
             border-top-right-radius: 0;
-            padding: 20px;
+            padding: clamp(1.2rem, 3vh, 2rem);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: clamp(0.6rem, 1.5vh, 1.2rem);
             backdrop-filter: blur(4px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
             position: relative;
         }
 
-        /* Case number - positioned over the tab */
+        /* Case number - scales with card */
         .case-number {
             position: absolute;
             top: -26px;
             right: 0;
-            width: 180px;
+            width: min(180px, 47%);
             text-align: center;
             font-family: 'Space Mono', 'DM Mono', monospace;
-            font-size: 16px;
+            font-size: clamp(1.2rem, 1.8vh, 1.6rem);
             color: #000000;
             z-index: 3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .case-title {
             font-family: 'DM Mono', monospace;
-            font-size: 18px;
+            font-size: clamp(1.4rem, 2.2vh, 1.8rem);
             letter-spacing: 0.025em;
             text-transform: uppercase;
             color: #000000;
             font-weight: 500;
             margin-top: 4px;
             line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .divider {
@@ -144,13 +154,14 @@
             margin: 4px 0;
         }
 
-        /* Grid layout for images and description */
+        /* Grid layout for images and description - scales proportionally */
         .case-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr auto;
-            gap: 12px;
+            gap: clamp(0.6rem, 1.5vh, 1.2rem);
             flex: 1;
+            min-height: 0;
         }
 
         .network-image {
@@ -159,7 +170,7 @@
             background-position: center;
             background-repeat: no-repeat;
             border-radius: 4px;
-            min-height: 100px;
+            min-height: 50px;
         }
 
         .abstract-image {
@@ -169,28 +180,35 @@
             background-position: center;
             background-repeat: no-repeat;
             border-radius: 4px;
-            min-height: 200px;
+            min-height: 100px;
         }
 
         .case-description {
             font-family: 'DM Mono', monospace;
-            font-size: 12px;
+            font-size: clamp(0.9rem, 1.5vh, 1.2rem);
             color: #000000;
             line-height: 1.5;
             letter-spacing: 0.01em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
         }
 
         .week-badge {
             font-family: 'Space Mono', monospace;
-            font-size: 14px;
+            font-size: clamp(1.1rem, 1.8vh, 1.4rem);
             color: #666;
-            margin-top: 8px;
+            margin-top: 4px;
             text-align: right;
             border-top: 1px dashed #ccc;
-            padding-top: 8px;
+            padding-top: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* All cases now use the Case 03 gradient style */
+        /* Gradient styles */
         .network-image {
             background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
             opacity: 0.9;
@@ -206,7 +224,7 @@
             transform: translate(-50%, -50%);
             color: white;
             font-family: 'DM Mono', monospace;
-            font-size: 10px;
+            font-size: clamp(0.8rem, 1.2vh, 1rem);
             opacity: 0.5;
             white-space: nowrap;
         }
@@ -226,7 +244,7 @@
             transform: translate(-50%, -50%) rotate(-90deg);
             color: white;
             font-family: 'DM Mono', monospace;
-            font-size: 10px;
+            font-size: clamp(0.8rem, 1.2vh, 1rem);
             opacity: 0.5;
             white-space: nowrap;
         }
@@ -239,7 +257,7 @@
         .case-file[data-index="0"] .abstract-image::after {
             content: "CT AFFAIRS";
             transform: translate(-50%, -50%) rotate(-90deg);
-            font-size: 9px;
+            font-size: clamp(0.7rem, 1vh, 0.9rem);
         }
 
         .case-file[data-index="1"] .network-image::after {
@@ -260,17 +278,17 @@
             transform: translate(-50%, -50%) rotate(-90deg);
         }
 
-        /* Arrow controls - now on the right */
+        /* Arrow controls */
         .arrow-controls {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 2rem;
             order: 2;
         }
 
         .arrow-btn {
-            width: 60px;
-            height: 60px;
+            width: clamp(4rem, 6vh, 6rem);
+            height: clamp(4rem, 6vh, 6rem);
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -281,7 +299,7 @@
             justify-content: center;
             transition: all 0.3s ease;
             backdrop-filter: blur(4px);
-            font-size: 24px;
+            font-size: clamp(1.8rem, 2.5vh, 2.4rem);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -302,8 +320,8 @@
         }
 
         .arrow-btn svg {
-            width: 30px;
-            height: 30px;
+            width: 70%;
+            height: 70%;
             fill: none;
             stroke: white;
             stroke-width: 2;
@@ -311,17 +329,17 @@
             stroke-linejoin: round;
         }
 
-        /* Position indicator - now vertical on the right */
+        /* Position indicator */
         .position-indicator {
             display: flex;
             flex-direction: column;
             align-items: center;
             color: white;
             font-family: 'DM Mono', monospace;
-            font-size: 14px;
-            gap: 15px;
+            font-size: clamp(1.1rem, 1.8vh, 1.4rem);
+            gap: clamp(1rem, 2vh, 1.5rem);
             background: rgba(0, 0, 0, 0.3);
-            padding: 15px 10px;
+            padding: clamp(1rem, 2vh, 1.5rem) clamp(0.6rem, 1vh, 1rem);
             border-radius: 40px;
             backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -330,12 +348,12 @@
         .indicator-dots {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: clamp(0.8rem, 1.5vh, 1.2rem);
         }
 
         .dot {
-            width: 8px;
-            height: 8px;
+            width: clamp(0.6rem, 1vh, 0.8rem);
+            height: clamp(0.6rem, 1vh, 0.8rem);
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
@@ -350,7 +368,7 @@
         /* Case counter */
         .case-counter {
             font-family: 'Space Mono', monospace;
-            font-size: 14px;
+            font-size: clamp(1.1rem, 1.8vh, 1.4rem);
             color: white;
             text-align: center;
             letter-spacing: 1px;
@@ -359,7 +377,7 @@
         }
 
         .current-case-label {
-            font-size: 12px;
+            font-size: clamp(1rem, 1.5vh, 1.2rem);
             opacity: 0.7;
             margin-bottom: 5px;
         }
@@ -372,7 +390,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.8rem;
+            font-size: clamp(1.4rem, 2vw, 1.8rem);
             text-align: center;
             color: #b74b4b;
             background: rgba(20, 20, 20, 0.4);
@@ -386,21 +404,61 @@
             backdrop-filter: blur(10px);
         }
 
-        /* Responsive */
+        /* LARGE DESKTOPS */
+        @media (min-height: 900px) {
+            .flipping-interface {
+                height: min(65vh, 650px);
+            }
+            
+            .case-stack {
+                height: min(550px, 65vh);
+            }
+        }
+
+        /* TABLET LANDSCAPE */
+        @media (max-width: 1024px) and (orientation: landscape) {
+            .main-content {
+                padding: 7rem 2rem 1.5rem;
+            }
+            
+            .flipping-interface {
+                height: min(70vh, 500px);
+            }
+            
+            .case-stack {
+                width: min(320px, 35vw);
+                height: min(450px, 65vh);
+            }
+        }
+
+        /* TABLET PORTRAIT & MOBILE */
         @media (max-width: 768px) {
+            .main-content {
+                padding: 8rem 1.5rem 2rem;
+            }
+            
             .flipping-interface {
                 flex-direction: column;
+                height: auto;
+                gap: 2rem;
+            }
+            
+            .case-stack {
+                width: min(320px, 85vw);
+                height: min(420px, 55vh);
             }
             
             .arrow-controls {
                 flex-direction: row;
                 order: 0;
-                margin-bottom: 20px;
+                margin-bottom: 1rem;
+                gap: 1.5rem;
             }
 
             .position-indicator {
                 flex-direction: row;
-                padding: 10px 15px;
+                padding: 0.8rem 1.5rem;
+                gap: 1.5rem;
             }
 
             .indicator-dots {
@@ -412,33 +470,96 @@
                 transform: none;
             }
 
-            .case-stack {
-                width: 320px;
-                height: 450px;
-            }
-
-            .main-content {
-                padding: 100px 20px 30px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .case-stack {
-                width: 280px;
-                height: 420px;
-            }
-
             .case-title {
-                font-size: 16px;
+                font-size: clamp(1.4rem, 2.5vh, 1.6rem);
             }
 
             .case-description {
-                font-size: 11px;
+                font-size: clamp(1rem, 1.8vh, 1.1rem);
+                -webkit-line-clamp: 2;
+            }
+        }
+
+        /* SMALL MOBILE */
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 7rem 1rem 1.5rem;
+            }
+            
+            .case-stack {
+                width: min(280px, 90vw);
+                height: min(380px, 50vh);
+            }
+
+            .case-title {
+                font-size: 1.4rem;
+            }
+
+            .case-description {
+                font-size: 0.9rem;
+                -webkit-line-clamp: 2;
+            }
+
+            .week-badge {
+                font-size: 1rem;
             }
 
             .arrow-btn {
-                width: 50px;
-                height: 50px;
+                width: 4.5rem;
+                height: 4.5rem;
+                font-size: 2rem;
+            }
+
+            .position-indicator {
+                padding: 0.6rem 1.2rem;
+                gap: 1rem;
+            }
+            
+            .dot {
+                width: 0.6rem;
+                height: 0.6rem;
+            }
+        }
+
+        /* EXTRA SMALL HEIGHT SCREENS */
+        @media (max-height: 600px) {
+            .main-content {
+                padding: 6rem 1.5rem 1rem;
+            }
+            
+            .case-stack {
+                height: min(350px, 45vh);
+            }
+            
+            .case-content {
+                padding: 1rem;
+                gap: 0.5rem;
+            }
+            
+            .case-title {
+                font-size: 1.4rem;
+                margin-top: 2px;
+            }
+            
+            .case-description {
+                -webkit-line-clamp: 2;
+                font-size: 0.9rem;
+            }
+            
+            .week-badge {
+                font-size: 1rem;
+                padding-top: 3px;
+            }
+        }
+
+        /* VERY TALL SCREENS */
+        @media (min-height: 1000px) {
+            .flipping-interface {
+                height: min(55vh, 600px);
+            }
+            
+            .case-stack {
+                height: min(500px, 50vh);
             }
         }
     </style>
@@ -453,7 +574,7 @@
             </div>
             
             <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -468,7 +589,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
         
@@ -476,7 +597,7 @@
         <div class="overlay" id="overlay"></div>
     </header>
 
-    <!-- MAIN CONTENT WRAPPER - Pushes footer to bottom -->
+    <!-- MAIN CONTENT WRAPPER -->
     <div class="main-content">
         <div class="flipping-interface">
             <!-- Stacked Case Files Container -->
@@ -594,7 +715,7 @@
         </div>
     </div>
 
-    <!-- FOOTER - Always at bottom -->
+    <!-- FOOTER -->
     <footer class="footer glass-footer">
         <p>Based in Melbourne, Australia</p>
     </footer>
@@ -613,39 +734,39 @@
         const menuSound = new Audio('menu.mp3');
         
         hamburger.addEventListener('click', () => {
-          sidebar.classList.toggle('active');
-          overlay.classList.toggle('active');
-          
-          menuSound.currentTime = 0;
-          menuSound.play().catch(() => {});
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            menuSound.currentTime = 0;
+            menuSound.play().catch(() => {});
         });
         
         overlay.addEventListener('click', () => {
-          sidebar.classList.remove('active');
-          overlay.classList.remove('active');
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
         });
-    
+
         // NAVIGATION LINKS SOUND EFFECT
         const navSound = new Audio('nav.mp3');
         
         const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
         
         allNavLinks.forEach(link => {
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            navSound.currentTime = 0;
-            navSound.play().catch(() => {});
-            
-            const destination = link.getAttribute('href');
-            
-            setTimeout(() => {
-              window.location.href = destination;
-            }, 150);
-          });
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                navSound.currentTime = 0;
+                navSound.play().catch(() => {});
+                
+                const destination = link.getAttribute('href');
+                
+                setTimeout(() => {
+                    window.location.href = destination;
+                }, 150);
+            });
         });
 
-        // GUEST FILES
+        // GUEST FILES ANIMATION
         const caseFiles = Array.from(document.querySelectorAll('.case-file'));
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -653,7 +774,7 @@
         const caseCounter = document.getElementById('caseCounter');
         const dots = document.querySelectorAll('.dot');
         
-        let currentIndex = 2;
+        let currentIndex = 2; // Start with Case 03 (index 2)
         const totalCases = caseFiles.length;
 
         const caseNames = {
@@ -663,16 +784,20 @@
         };
 
         function updateStack(index) {
+            // Remove active class from all files
             caseFiles.forEach(file => {
                 file.classList.remove('active');
             });
 
+            // Add active class to current file
             caseFiles[index].classList.add('active');
 
+            // Update positions of all files
             caseFiles.forEach((file, i) => {
                 file.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
                 
                 if (i === index) {
+                    // Active card (front)
                     file.style.transform = 'rotate(0deg) translateY(-15px)';
                     file.style.zIndex = '10';
                     file.style.top = '0';
@@ -680,6 +805,7 @@
                     file.style.opacity = '1';
                     file.style.filter = 'brightness(1)';
                 } else if (i < index) {
+                    // Cards above (older)
                     const offset = (index - i) * 15;
                     file.style.transform = `rotate(${2 + (index - i)}deg) translateY(${offset}px) translateX(${offset}px)`;
                     file.style.zIndex = `${5 - (index - i)}`;
@@ -688,6 +814,7 @@
                     file.style.opacity = '0.9';
                     file.style.filter = 'brightness(0.8)';
                 } else {
+                    // Cards below (newer)
                     const offset = (i - index) * 15;
                     file.style.transform = `rotate(${-2 - (i - index)}deg) translateY(${offset}px) translateX(-${offset}px)`;
                     file.style.zIndex = `${5 - (i - index)}`;
@@ -698,9 +825,11 @@
                 }
             });
 
+            // Update UI elements
             currentCaseDisplay.textContent = caseNames[index];
             caseCounter.textContent = `${index + 1}/${totalCases}`;
             
+            // Update dots
             dots.forEach((dot, i) => {
                 if (i === index) {
                     dot.classList.add('active');
@@ -709,10 +838,12 @@
                 }
             });
 
+            // Update button states
             prevBtn.disabled = index === 0;
             nextBtn.disabled = index === totalCases - 1;
         }
 
+        // Event listeners for buttons
         prevBtn.addEventListener('click', () => {
             if (currentIndex > 0) {
                 currentIndex--;
@@ -727,6 +858,7 @@
             }
         });
 
+        // Click on cards to navigate
         caseFiles.forEach((file, index) => {
             file.addEventListener('click', () => {
                 if (index !== currentIndex) {
@@ -736,8 +868,7 @@
             });
         });
 
-        updateStack(currentIndex);
-
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowUp') {
                 e.preventDefault();
@@ -752,6 +883,18 @@
                     updateStack(currentIndex);
                 }
             }
+        });
+
+        // Initialize
+        updateStack(currentIndex);
+
+        // Handle window resize to ensure proper positioning
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                updateStack(currentIndex);
+            }, 100);
         });
     </script>
 </body>
