@@ -11,7 +11,107 @@
   <!-- Main CSS -->
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
-  
+
+  <style>
+    /* ── PROJECT BOX OVERRIDE: allow scrollable long content ── */
+    .project-detail {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;       /* top-align so tall content doesn't get clipped */
+      padding: 12rem 2rem 8rem;
+      min-height: 100vh;
+    }
+
+    /* On large screens don't force a fixed height - let the box grow */
+    @media (min-width: 1025px) {
+      .project-detail {
+        height: auto !important;
+        padding: 12rem 4rem 8rem;
+      }
+
+      .project-box {
+        max-height: none !important;   /* remove the 100vh cap from style.css */
+        margin: 0 auto 6rem;
+      }
+    }
+
+    /* ── BOX ── */
+    .project-box {
+      max-width: 860px;
+      width: 100%;
+      text-align: left;              /* left-align all prose */
+    }
+
+    /* ── HEADINGS ── */
+    .project-box h1 {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── PARAGRAPHS ── */
+    .project-box p {
+      max-width: 100%;               /* don't restrict to 80% on a content-heavy page */
+      font-size: clamp(1.4rem, 1.7vw, 1.8rem);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    /* ── STEP HEADINGS ── */
+    .project-box .step-heading {
+      font-size: clamp(1.6rem, 2vw, 2rem);
+      font-weight: 700;
+      color: #b74b4b;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── IMAGES ── */
+    .project-box img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 1rem;
+      border: 1px solid #b74b4b33;
+      margin: 1.5rem 0;
+      object-fit: contain;
+    }
+
+    /* ── SPACER ── */
+    .spacer { height: 2rem; }
+
+    /* ── AUDIO CARD FULL WIDTH INSIDE BOX ── */
+    .ai-audio-card {
+      max-width: 100%;
+      margin: 0 0 3rem 0;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .project-detail {
+        padding: 10rem 1.5rem 6rem;
+      }
+
+      .project-box {
+        padding: 2.5rem 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .project-detail {
+        padding: 9rem 1rem 5rem;
+      }
+
+      .project-box {
+        padding: 2rem 1.4rem;
+        border-radius: 1.4rem;
+      }
+
+      .project-box h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
 </head>
 
 
@@ -51,237 +151,197 @@
     <div class="overlay" id="overlay"></div>
   </header>
 
-  <!-- WORDINGS -->
+  <!-- CONTENT -->
   <section class="project-detail">
-  <div class="project-box">
+    <div class="project-box">
 
-    <!-- AI Conversation Playback Card -->
+      <!-- AI Conversation Playback Card -->
       <div class="ai-audio-card">
-        
         <button id="ai-play-btn" class="play-btn">
           <i class="fa-solid fa-play"></i>
         </button>
-        
         <div class="audio-info">
           <div class="progress-container">
             <div id="ai-progress-bar" class="progress-bar"></div>
           </div>
-          
           <div class="time">
             <span id="ai-current-time">0:00</span>
             <span id="ai-duration">--</span>
           </div>
         </div>
-        
         <audio id="ai-audio" src="conversation.mp3"></audio>
       </div>
 
-      <!-- PROJECT WORDINGS -->
-    <h1>Following Digital Breadcrumbs</h1>
+      <!-- TITLE -->
+      <h1>Following Digital Breadcrumbs</h1>
 
-    <p>In this article, we’re going to look at firewall logs. Think of a firewall like a security guard at the door of a network, keeping track of every conversation that enters or leaves. Every time a computer inside the network talks to a computer on the outside, the firewall writes down a little note: who talked, when, where they went, and how long they talked.</p>
-    
-    <p>Our job is to install two special tools that help us read those notes, and then analyze what happened in a real network, essentially following the digital breadcrumbs.</p>
-    <br>
+      <!-- INTRO -->
+      <p>In this article, we're going to look at firewall logs. Think of a firewall like a security guard at the door of a network, keeping track of every conversation that enters or leaves. Every time a computer inside the network talks to a computer on the outside, the firewall writes down a little note: who talked, when, where they went, and how long they talked.</p>
 
-    
-    <p><strong><span style="color: #b74b4b;">What Are We Actually Doing?</span></strong></p>
-    <br>
-    
-    <p>We have a set of logs from a Cisco ASA firewall (a very common type of corporate firewall). These logs are stored in a special format called NetFlow NSEL. To read them, we need two tools:</p>
+      <p>Our job is to install two special tools that help us read those notes, and then analyze what happened in a real network, essentially following the digital breadcrumbs.</p>
 
-    <p>1. <strong><span style="color: #b74b4b;">nfdump:</span></strong> a tool that reads and summarises flow records (those little notes the firewall writes).</p>
-    <p>2. <strong><span style="color: #b74b4b;">Argus:</span></strong> another tool that does similar things but from a slightly different angle.</p>
-    
-    <p>The catch? The version of nfdump we need isn’t the standard one. It’s a custom version called nfdump-1.5.8-NSEL, and we have to compile it ourselves (like baking a cake from scratch instead of buying it pre-made).</p>
-    <br>
+      <div class="spacer"></div>
 
-    
-    <p><strong><span style="color: #b74b4b;">Step 1: Setting Up the Playground</span></strong></p>
-    <br>
+      <!-- WHAT ARE WE DOING -->
+      <p class="step-heading">What Are We Actually Doing?</p>
 
-    <p>We started by creating an isolated environment inside a VirtualBox, remember we don't want anything actually touching the real world. Hopefully you read the DISCLAIMER before opening the projects. We then run Kali Linux (an operating system like Windows but this one is a special one used for security and forensics work). Think of it like a detective’s toolkit pre-installed on a laptop.</p>
+      <p>We have a set of logs from a Cisco ASA firewall (a very common type of corporate firewall). These logs are stored in a special format called NetFlow NSEL. To read them, we need two tools:</p>
 
-    <p>Inside Kali, we created a folder on the desktop to keep all our files organised. This is where the firewall logs and tools would live.</p>
-    <br>
+      <p>1. <strong><span style="color: #b74b4b;">nfdump:</span></strong> a tool that reads and summarises flow records (those little notes the firewall writes).</p>
+      <p>2. <strong><span style="color: #b74b4b;">Argus:</span></strong> another tool that does similar things but from a slightly different angle.</p>
 
-    
-    <p><strong><span style="color: #b74b4b;">Step 2: Getting the First Tool (nfdump)</span></strong></p>
-    <br>
+      <p>The catch? The version of nfdump we need isn't the standard one. It's a custom version called nfdump-1.5.8-NSEL, and we have to compile it ourselves (like baking a cake from scratch instead of buying it pre-made).</p>
 
-    <p>The first tool we needed is called <strong>nfdump</strong>. It's like a pair of glasses that lets you read firewall logs in a human-friendly way.</p>
+      <div class="spacer"></div>
 
-    <p>But here's the catch: the normal version of nfdump doesn't understand the specific log format used by Cisco ASA firewalls (called <strong>NSEL</strong>). So we needed a special custom version: <strong><span style="color: #b74b4b;">nfdump-1.5.8-NSEL</span></strong>.</p>
+      <!-- STEP 1 -->
+      <p class="step-heading">Step 1: Setting Up the Playground</p>
 
-    <p>We downloaded it from the internet (from a website called SourceForge), then extracted the files — like unzipping a folder.</p>
+      <p>We started by creating an isolated environment inside a VirtualBox, remember we don't want anything actually touching the real world. Hopefully you read the DISCLAIMER before opening the projects. We then run Kali Linux (an operating system like Windows but this one is a special one used for security and forensics work). Think of it like a detective's toolkit pre-installed on a laptop.</p>
 
-    <!-- SCREENSHOT 1 -->
-    <div class="screenshot-placeholder">
+      <p>Inside Kali, we created a folder on the desktop to keep all our files organised. This is where the firewall logs and tools would live.</p>
+
+      <div class="spacer"></div>
+
+      <!-- STEP 2 -->
+      <p class="step-heading">Step 2: Getting the First Tool (nfdump)</p>
+
+      <p>The first tool we needed is called <strong>nfdump</strong>. It's like a pair of glasses that lets you read firewall logs in a human-friendly way.</p>
+
+      <p>But here's the catch: the normal version of nfdump doesn't understand the specific log format used by Cisco ASA firewalls (called <strong>NSEL</strong>). So we needed a special custom version: <strong><span style="color: #b74b4b;">nfdump-1.5.8-NSEL</span></strong>.</p>
+
+      <p>We downloaded it from the internet (from a website called SourceForge), then extracted the files — like unzipping a folder.</p>
+
       <img src="PROJECTS/project4/1.png" alt="Screenshot 1 — Downloading and extracting nfdump-1.5.8-NSEL using wget and tar">
-    </div>
-    <br>
 
+      <div class="spacer"></div>
 
-    <p><strong><span style="color: #b74b4b;">Step 3: Swapping in Some Modified Files</span></strong></p>
-    <br>
+      <!-- STEP 3 -->
+      <p class="step-heading">Step 3: Swapping in Some Modified Files</p>
 
-    <p>The custom version we downloaded wasn't quite ready to use. The task gave us a set of <strong>replacement files</strong> (with names ending in <strong><span style="color: #b74b4b;">.c</span></strong> and <strong><span style="color: #b74b4b;">.h</span></strong> — these are source code files). We copied these into the nfdump folder, overwriting the old ones.</p>
+      <p>The custom version we downloaded wasn't quite ready to use. The task gave us a set of <strong>replacement files</strong> (with names ending in <strong><span style="color: #b74b4b;">.c</span></strong> and <strong><span style="color: #b74b4b;">.h</span></strong> — these are source code files). We copied these into the nfdump folder, overwriting the old ones.</p>
 
-    <p>Why? Because the original files had tiny errors that would cause the compilation to fail. Swapping them fixed those errors in advance.</p>
+      <p>Why? Because the original files had tiny errors that would cause the compilation to fail. Swapping them fixed those errors in advance.</p>
 
-    <!-- SCREENSHOT 2 -->
-    <div class="screenshot-placeholder">
       <img src="PROJECTS/project4/2.png" alt="Screenshot 2 — Copying the modified .c and .h replacement files into the nfdump directory">
-    </div>
-    <br>
 
+      <div class="spacer"></div>
 
-    <p><strong><span style="color: #b74b4b;">Step 4: Installing the Ingredients (Dependencies)</span></strong></p>
-    <br>
+      <!-- STEP 4 -->
+      <p class="step-heading">Step 4: Installing the Ingredients (Dependencies)</p>
 
-    <p>Before we could cook (compile) the tool, we needed to install some <strong>ingredients</strong> — the technical term for these is dependencies. These are small helper libraries that nfdump relies on to function properly.</p>
+      <p>Before we could cook (compile) the tool, we needed to install some <strong>ingredients</strong> — the technical term for these is dependencies. These are small helper libraries that nfdump relies on to function properly.</p>
 
-    <p>We installed:</p>
-    <p>1. <strong><span style="color: #b74b4b;">bison</span></strong> and <strong><span style="color: #b74b4b;">flex</span></strong> — tools for reading configuration files.</p>
-    <p>2. <strong><span style="color: #b74b4b;">rrdtool</span></strong> and <strong><span style="color: #b74b4b;">librrd-dev</span></strong> — for working with time-based data.</p>
-    <p>3. <strong><span style="color: #b74b4b;">libreadline-dev</span></strong> — for handling text input in the terminal.</p>
+      <p>We installed:</p>
+      <p>1. <strong><span style="color: #b74b4b;">bison</span></strong> and <strong><span style="color: #b74b4b;">flex</span></strong> — tools for reading configuration files.</p>
+      <p>2. <strong><span style="color: #b74b4b;">rrdtool</span></strong> and <strong><span style="color: #b74b4b;">librrd-dev</span></strong> — for working with time-based data.</p>
+      <p>3. <strong><span style="color: #b74b4b;">libreadline-dev</span></strong> — for handling text input in the terminal.</p>
 
-    <p>Most of these were already on our Kali system, so we just checked they were up to date.</p>
+      <p>Most of these were already on our Kali system, so we just checked they were up to date.</p>
 
-    <!-- SCREENSHOT 3 -->
-    <div class="screenshot-placeholder">
       <img src="PROJECTS/project4/3.png" alt="Screenshot 3 — Installing bison, flex, rrdtool and librrd-dev dependencies">
-    </div>
-
-    <!-- SCREENSHOT 4 -->
-    <div class="screenshot-placeholder">
       <img src="PROJECTS/project4/4.png" alt="Screenshot 4 — Installing libreadline-dev dependency">
-    </div>
-    <br>
 
+      <div class="spacer"></div>
 
-    <p><strong><span style="color: #b74b4b;">Step 5: Getting the Second Tool (Argus)</span></strong></p>
-    <br>
+      <!-- STEP 5 -->
+      <p class="step-heading">Step 5: Getting the Second Tool (Argus)</p>
 
-    <p>The second tool we needed is called <strong>Argus</strong>. It does something similar to nfdump but from a different angle — it generates audit records of network activity, giving us another perspective on the same firewall data.</p>
+      <p>The second tool we needed is called <strong>Argus</strong>. It does something similar to nfdump but from a different angle — it generates audit records of network activity, giving us another perspective on the same firewall data.</p>
 
-    <p>We downloaded Argus directly from <strong>GitHub</strong> (a website where developers share code), then ran its setup script. This also required the <strong><span style="color: #b74b4b;">libreadline-dev</span></strong> ingredient we installed in the previous step.</p>
+      <p>We downloaded Argus directly from <strong>GitHub</strong> (a website where developers share code), then ran its setup script. This also required the <strong><span style="color: #b74b4b;">libreadline-dev</span></strong> ingredient we installed in the previous step.</p>
 
-    <!-- SCREENSHOT 5 -->
-    <div class="screenshot-placeholder">
       <img src="PROJECTS/project4/5.png" alt="Screenshot 5 — Cloning the Argus repository and running ./configure">
-    </div>
-    <br>
 
+      <div class="spacer"></div>
 
-    <p><strong><span style="color: #b74b4b;">Step 6: Compiling and Installing nfdump</span></strong></p>
-    <br>
+      <!-- STEP 6 -->
+      <p class="step-heading">Step 6: Compiling and Installing nfdump</p>
 
-    <p>Now came the tricky part: <strong>compiling</strong> nfdump. Compiling means turning the human-readable source code into a program the computer can actually run. Think of it like translating a recipe written in French into English before you can cook it.</p>
+      <p>Now came the tricky part: <strong>compiling</strong> nfdump. Compiling means turning the human-readable source code into a program the computer can actually run. Think of it like translating a recipe written in French into English before you can cook it.</p>
 
-    <p>We ran three commands in sequence:</p>
-    <p>1. <strong><span style="color: #b74b4b;">./configure</span></strong> — this checked that all ingredients were present.</p>
-    <p>2. <strong><span style="color: #b74b4b;">make</span></strong> — this did the actual compilation.</p>
-    <p>3. <strong><span style="color: #b74b4b;">sudo make install</span></strong> — this placed the finished program into the system so we could run it from anywhere.</p>
+      <p>We ran three commands in sequence:</p>
+      <p>1. <strong><span style="color: #b74b4b;">./configure</span></strong> — this checked that all ingredients were present.</p>
+      <p>2. <strong><span style="color: #b74b4b;">make</span></strong> — this did the actual compilation.</p>
+      <p>3. <strong><span style="color: #b74b4b;">sudo make install</span></strong> — this placed the finished program into the system so we could run it from anywhere.</p>
 
-    <p>The compilation produced some warnings (like a chef saying "this might not be perfect"), but no fatal errors. It worked.</p>
+      <p>The compilation produced some warnings (like a chef saying "this might not be perfect"), but no fatal errors. It worked.</p>
 
-    <!-- SCREENSHOT 6 -->
-    <div class="screenshot-placeholder">
       <img src="PROJECTS/project4/6.png" alt="Screenshot 6 — Running ./configure on nfdump-1.5.8-NSEL — all required tools and libraries detected">
-    </div>
-
-    <!-- SCREENSHOT 7 -->
-    <div class="screenshot-placeholder">
       <img src="PROJECTS/project4/7.png" alt="Screenshot 7 — Running sudo make install, compilation completed with warnings but no fatal errors">
-    </div>
-    <br>
 
+      <div class="spacer"></div>
 
-    <p><strong><span style="color: #b74b4b;">Step 7: Fixing Problems Along the Way</span></strong></p>
-    <br>
+      <!-- STEP 7 -->
+      <p class="step-heading">Step 7: Fixing Problems Along the Way</p>
 
-    <p>Nothing in forensics goes perfectly the first time. We hit a few bumps along the road.</p>
+      <p>Nothing in forensics goes perfectly the first time. We hit a few bumps along the road.</p>
 
-    <p><strong><span style="color: #b74b4b;">Problem 1:</span></strong> The system had automatically installed a newer version of nfdump (1.7.6) without asking us. This conflicted with our custom version.</p>
-    <p><strong>Fix:</strong> We removed the auto-installed version using <strong><span style="color: #b74b4b;">sudo apt remove nfdump</span></strong>, then compiled our custom version manually.</p>
+      <p><strong><span style="color: #b74b4b;">Problem 1:</span></strong> The system had automatically installed a newer version of nfdump (1.7.6) without asking us. This conflicted with our custom version.</p>
+      <p><strong>Fix:</strong> We removed the auto-installed version using <strong><span style="color: #b74b4b;">sudo apt remove nfdump</span></strong>, then compiled our custom version manually.</p>
 
-    <p><strong><span style="color: #b74b4b;">Problem 2:</span></strong> During compilation, the computer complained about missing <strong>const</strong> keywords in two files: <strong><span style="color: #b74b4b;">profile.c</span></strong> (line 388) and <strong><span style="color: #b74b4b;">nsel_rrd.c</span></strong> (four places). A <strong>const</strong> is a tiny word in the C programming language that tells the computer "this value won't change."</p>
-    <p><strong>Fix:</strong> We opened each file with a text editor and added the word <strong><span style="color: #b74b4b;">const</span></strong> at the start of those lines. Saved. Recompiled.</p>
+      <p><strong><span style="color: #b74b4b;">Problem 2:</span></strong> During compilation, the computer complained about missing <strong>const</strong> keywords in two files: <strong><span style="color: #b74b4b;">profile.c</span></strong> (line 388) and <strong><span style="color: #b74b4b;">nsel_rrd.c</span></strong> (four places). A <strong>const</strong> is a tiny word in the C programming language that tells the computer "this value won't change."</p>
+      <p><strong>Fix:</strong> We opened each file with a text editor and added the word <strong><span style="color: #b74b4b;">const</span></strong> at the start of those lines. Saved. Recompiled.</p>
 
-    <p><strong><span style="color: #b74b4b;">Problem 3:</span></strong> Argus failed to configure because it was missing <strong>libreadline-dev</strong>.</p>
-    <p><strong>Fix:</strong> We installed it with <strong><span style="color: #b74b4b;">sudo apt install libreadline-dev</span></strong>, then ran Argus's setup again.</p>
-    <br>
+      <p><strong><span style="color: #b74b4b;">Problem 3:</span></strong> Argus failed to configure because it was missing <strong>libreadline-dev</strong>.</p>
+      <p><strong>Fix:</strong> We installed it with <strong><span style="color: #b74b4b;">sudo apt install libreadline-dev</span></strong>, then ran Argus's setup again.</p>
 
+      <div class="spacer"></div>
 
-    <p><strong><span style="color: #b74b4b;">Step 8: Verifying Everything Worked</span></strong></p>
-    <br>
+      <!-- STEP 8 -->
+      <p class="step-heading">Step 8: Verifying Everything Worked</p>
 
-    <p>We checked that both tools were installed correctly by asking each one to report its version number — a quick and reliable way to confirm a successful installation.</p>
+      <p>We checked that both tools were installed correctly by asking each one to report its version number — a quick and reliable way to confirm a successful installation.</p>
 
-    <p>1. <strong><span style="color: #b74b4b;">nfdump -V</span></strong> showed version <strong>1.5.8-NSEL</strong> — success.</p>
-    <p>2. <strong><span style="color: #b74b4b;">ra -h</span></strong> (the Argus command) showed help information for version <strong>5.0.3</strong> — success.</p>
+      <p>1. <strong><span style="color: #b74b4b;">nfdump -V</span></strong> showed version <strong>1.5.8-NSEL</strong> — success.</p>
+      <p>2. <strong><span style="color: #b74b4b;">ra -h</span></strong> (the Argus command) showed help information for version <strong>5.0.3</strong> — success.</p>
 
-    <p>Both tools were in place and ready to go.</p>
+      <p>Both tools were in place and ready to go.</p>
 
-    <!-- SCREENSHOT 8 -->
-    <div class="screenshot-placeholder">
       <img src="PROJECTS/project4/8.png" alt="Screenshot 8 — nfdump -V showing version 1.5.8-NSEL">
-    </div>
-
-    <!-- SCREENSHOT 9 -->
-    <div class="screenshot-placeholder">
       <img src="PROJECTS/project4/9.png" alt="Screenshot 9 — ra -h output confirming Argus Ra Version 5.0.3 is installed and functional">
-    </div>
-    <br>
 
+      <div class="spacer"></div>
 
-    <p><strong><span style="color: #b74b4b;">Step 9: Reading the Firewall Logs</span></strong></p>
-    <br>
+      <!-- STEP 9 -->
+      <p class="step-heading">Step 9: Reading the Firewall Logs</p>
 
-    <p>Finally, we pointed nfdump at the Cisco ASA log folder using the command <strong><span style="color: #b74b4b;">nfdump -R cisco-asa-nfcapd/</span></strong>. The tool printed out a list of <strong>network flows</strong> — each line representing one conversation between two computers.</p>
+      <p>Finally, we pointed nfdump at the Cisco ASA log folder using the command <strong><span style="color: #b74b4b;">nfdump -R cisco-asa-nfcapd/</span></strong>. The tool printed out a list of <strong>network flows</strong> — each line representing one conversation between two computers.</p>
 
-    <p>We saw:</p>
-    <p>1. <strong><span style="color: #b74b4b;">Timestamps</span></strong> — when each conversation happened.</p>
-    <p>2. <strong><span style="color: #b74b4b;">Protocols</span></strong> — mostly UDP traffic.</p>
-    <p>3. <strong><span style="color: #b74b4b;">Ports</span></strong> — port 53, which means DNS traffic (the internet's phonebook system).</p>
-    <p>4. <strong><span style="color: #b74b4b;">Source and destination IP addresses</span></strong> — who was talking to whom.</p>
-    <p>5. <strong><span style="color: #b74b4b;">Event types</span></strong> — CREATE (conversation started) and DELETE (conversation ended).</p>
-    <p>6. <strong><span style="color: #b74b4b;">Byte counts</span></strong> — how much data was sent in each conversation.</p>
+      <p>We saw:</p>
+      <p>1. <strong><span style="color: #b74b4b;">Timestamps</span></strong> — when each conversation happened.</p>
+      <p>2. <strong><span style="color: #b74b4b;">Protocols</span></strong> — mostly UDP traffic.</p>
+      <p>3. <strong><span style="color: #b74b4b;">Ports</span></strong> — port 53, which means DNS traffic (the internet's phonebook system).</p>
+      <p>4. <strong><span style="color: #b74b4b;">Source and destination IP addresses</span></strong> — who was talking to whom.</p>
+      <p>5. <strong><span style="color: #b74b4b;">Event types</span></strong> — CREATE (conversation started) and DELETE (conversation ended).</p>
+      <p>6. <strong><span style="color: #b74b4b;">Byte counts</span></strong> — how much data was sent in each conversation.</p>
 
-    <p>The summary at the bottom showed <strong>14,093 flows</strong> over about <strong>26 minutes</strong>, totalling <strong>14.3 MB</strong> of data.</p>
+      <p>The summary at the bottom showed <strong>14,093 flows</strong> over about <strong>26 minutes</strong>, totalling <strong>14.3 MB</strong> of data.</p>
 
-    <!-- SCREENSHOT 10 -->
-    <div class="screenshot-placeholder">
       <img src="PROJECTS/project4/10.png" alt="Screenshot 10 — nfdump firewall log output showing Cisco ASA NetFlow NSEL records">
-    </div>
-
-    <!-- SCREENSHOT 11 -->
-    <div class="screenshot-placeholder">
       <img src="PROJECTS/project4/11.png" alt="Screenshot 11 — Additional nfdump firewall log records showing flow summary statistics">
+
+      <div class="spacer"></div>
+
+      <!-- STEP 10 -->
+      <p class="step-heading">Step 10: What We Learned From the Logs</p>
+
+      <p>Most of the traffic was <strong>DNS lookups</strong> — the internet's phonebook system that translates website names (like google.com) into IP addresses that computers can actually connect to. Each lookup created a very short conversation: CREATE followed almost immediately by DELETE.</p>
+
+      <p>The high number of flows (over 14,000 in just 26 minutes) suggests a lot of automated DNS activity — possibly normal background traffic, possibly something more suspicious. In a real investigation, that kind of volume would be a clue worth digging into further. It's one of those things that doesn't scream "problem" immediately, but raises enough of an eyebrow to warrant a second look.</p>
+
+      <p>That's exactly what digital forensics is: following the breadcrumbs, one log line at a time.</p>
+
+      <div class="spacer"></div>
+
+      <!-- BUTTONS -->
+      <div class="project-buttons">
+        <a href="projects.html?slide=3" class="btn" data-sound="locked">Back to Projects</a>
+        <button class="btn" data-sound="error" data-shake>Coming Soon</button>
+      </div>
+
     </div>
-    <br>
-
-
-    <p><strong><span style="color: #b74b4b;">Step 10: What We Learned From the Logs</span></strong></p>
-    <br>
-
-    <p>Most of the traffic was <strong>DNS lookups</strong> — the internet's phonebook system that translates website names (like google.com) into IP addresses that computers can actually connect to. Each lookup created a very short conversation: CREATE followed almost immediately by DELETE.</p>
-
-    <p>The high number of flows (over 14,000 in just 26 minutes) suggests a lot of automated DNS activity — possibly normal background traffic, possibly something more suspicious. In a real investigation, that kind of volume would be a clue worth digging into further. It's one of those things that doesn't scream "problem" immediately, but raises enough of an eyebrow to warrant a second look.</p>
-
-    <p>That's exactly what digital forensics is: following the breadcrumbs, one log line at a time.</p>
-    <br>
-
-
-    <!-- BUTTONS -->
-    <div class="project-buttons">
-      <a href="projects.html?slide=3" class="btn" data-sound="locked">Back to Projects</a>
-      <button class="btn" data-sound="error" data-shake>Coming Soon</button>
-    </div>
-    
-  </div>
-</section>
+  </section>
 
 
   <!-- FOOTER -->
@@ -296,21 +356,17 @@
   <!-- GLASS NAVIGATION BAR -->
   <script>
     
-    // GLASS NAVIGATION BAR (Updated with sound)
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     
-    // Create audio element for hamburger menu sound
-    const menuSound = new Audio('menu.mp3'); // Change filename to match your sound file
+    const menuSound = new Audio('menu.mp3');
     
     hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
-      
-      // Play sound effect
-      menuSound.currentTime = 0; // Reset to start in case it's clicked multiple times quickly
-      menuSound.play().catch(() => {}); // Catch any playback errors silently
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
     });
     
     overlay.addEventListener('click', () => {
@@ -318,26 +374,19 @@
       overlay.classList.remove('active');
     });
 
-
-    // NAVIGATION LINKS SOUND EFFECT
     const navSound = new Audio('nav.mp3');
     
     const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
     
     allNavLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent immediate navigation
-        
+        e.preventDefault();
         navSound.currentTime = 0;
         navSound.play().catch(() => {});
-        
-        // Get the href before navigation
         const destination = link.getAttribute('href');
-        
-        // Navigate after a short delay to allow sound to play
         setTimeout(() => {
           window.location.href = destination;
-        }, 150); // Adjust timing as needed (150ms is usually good)
+        }, 150);
       });
     });
     
