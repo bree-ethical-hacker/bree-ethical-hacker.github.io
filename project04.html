@@ -237,7 +237,7 @@
       <p>2. <strong><span style="color: #b74b4b;">rrdtool</span></strong> and <strong><span style="color: #b74b4b;">librrd-dev</span></strong>: for working with time-based data.</p>
       <p>3. <strong><span style="color: #b74b4b;">libreadline-dev</span></strong>: for handling text input in the terminal.</p>
 
-      <p>Most of these were already on our Kali system, so we just checked they were up to date. The 2 screenshots below just show Kali confirming this tools exist.</p>
+      <p>Most of these were already on our Kali system, so we just checked they were up to date. The 2 screenshots below just show Kali confirming this tool dependencies exist.</p>
 
       <img src="PROJECTS/project4/3.png" alt="Screenshot 3 — Installing bison, flex, rrdtool and librrd-dev dependencies">
       <img src="PROJECTS/project4/4.png" alt="Screenshot 4 — Installing libreadline-dev dependency">
@@ -280,7 +280,7 @@
       <p><strong><span style="color: #b74b4b;">Problem 1:</span></strong> The system had automatically installed a newer version of nfdump (1.7.6) without asking us. This conflicted with our custom version <strong><span style="color: #b74b4b;">nfdump-1.5.8-NSEL</span></strong> that we mentioned at the beginning .</p>
       <p><strong>Fix:</strong> We removed the auto-installed version using <strong><span style="color: #b74b4b;">sudo apt remove nfdump</span></strong>, then compiled our custom version manually.</p>
 
-      <p><strong><span style="color: #b74b4b;">Problem 2:</span></strong> During compilation, the computer complained about missing <strong>const</strong> keywords in two files: <strong><span style="color: #b74b4b;">profile.c</span></strong> (line 388) and <strong><span style="color: #b74b4b;">nsel_rrd.c</span></strong> (four places). A <strong>const</strong> is a tiny word in the C programming language that tells the computer "this value won't change."</p>
+      <p><strong><span style="color: #b74b4b;">Problem 2:</span></strong> During compilation, the computer complained about missing <strong>const</strong> keywords, I found this problem funny because inside thousands and thousands of code lines 1 missing word caused the whole program to crash. In two files: <strong><span style="color: #b74b4b;">profile.c</span></strong> (line 388) and <strong><span style="color: #b74b4b;">nsel_rrd.c</span></strong> (four places). A <strong>const</strong> is a tiny word in the C programming language that tells the computer "this value won't change."</p>
       <p><strong>Fix:</strong> We opened each file with a text editor and added the word <strong><span style="color: #b74b4b;">const</span></strong> at the start of those lines. Saved. Recompiled.</p>
 
       <p><strong><span style="color: #b74b4b;">Problem 3:</span></strong> Argus failed to configure because it was missing <strong>libreadline-dev</strong>.</p>
@@ -291,12 +291,12 @@
       <!-- STEP 8 -->
       <p class="step-heading">Step 8: Verifying Everything Worked</p>
 
-      <p>We checked that both tools were installed correctly by asking each one to report its version number — a quick and reliable way to confirm a successful installation.</p>
+      <p>We checked that both tools were installed correctly by asking each one to report its version number, a quick and reliable way to confirm a successful installation.</p>
 
-      <p>1. <strong><span style="color: #b74b4b;">nfdump -V</span></strong> showed version <strong>1.5.8-NSEL</strong> — success.</p>
-      <p>2. <strong><span style="color: #b74b4b;">ra -h</span></strong> (the Argus command) showed help information for version <strong>5.0.3</strong> — success.</p>
+      <p>1. <strong><span style="color: #b74b4b;">nfdump -V</span></strong> showed version <strong>1.5.8-NSEL</strong>, success.</p>
+      <p>2. <strong><span style="color: #b74b4b;">ra -h</span></strong> (the Argus command) showed help information for version <strong>5.0.3</strong>, success.</p>
 
-      <p>Both tools were in place and ready to go.</p>
+      <p>Both tools were in place and ready to go. Screenshots below display the version numbers of the 2 tools we we're supposed to install indicating a successful install.</p>
 
       <img src="PROJECTS/project4/8.png" alt="Screenshot 8 — nfdump -V showing version 1.5.8-NSEL">
       <img src="PROJECTS/project4/9.png" alt="Screenshot 9 — ra -h output confirming Argus Ra Version 5.0.3 is installed and functional">
@@ -306,17 +306,17 @@
       <!-- STEP 9 -->
       <p class="step-heading">Step 9: Reading the Firewall Logs</p>
 
-      <p>Finally, we pointed nfdump at the Cisco ASA log folder using the command <strong><span style="color: #b74b4b;">nfdump -R cisco-asa-nfcapd/</span></strong>. The tool printed out a list of <strong>network flows</strong> — each line representing one conversation between two computers.</p>
+      <p>Finally, we pointed nfdump at the Cisco ASA log folder using the command <strong><span style="color: #b74b4b;">nfdump -R cisco-asa-nfcapd/</span></strong>. The tool printed out a list of <strong>network flows</strong>, each line representing one conversation between two computers.</p>
 
       <p>We saw:</p>
-      <p>1. <strong><span style="color: #b74b4b;">Timestamps</span></strong> — when each conversation happened.</p>
-      <p>2. <strong><span style="color: #b74b4b;">Protocols</span></strong> — mostly UDP traffic.</p>
-      <p>3. <strong><span style="color: #b74b4b;">Ports</span></strong> — port 53, which means DNS traffic (the internet's phonebook system).</p>
-      <p>4. <strong><span style="color: #b74b4b;">Source and destination IP addresses</span></strong> — who was talking to whom.</p>
-      <p>5. <strong><span style="color: #b74b4b;">Event types</span></strong> — CREATE (conversation started) and DELETE (conversation ended).</p>
-      <p>6. <strong><span style="color: #b74b4b;">Byte counts</span></strong> — how much data was sent in each conversation.</p>
+      <p>1. <strong><span style="color: #b74b4b;">Timestamps</span></strong>: when each conversation happened.</p>
+      <p>2. <strong><span style="color: #b74b4b;">Protocols</span></strong>: mostly UDP traffic.</p>
+      <p>3. <strong><span style="color: #b74b4b;">Ports</span></strong>: port 53, which means DNS traffic (the internet's phonebook system).</p>
+      <p>4. <strong><span style="color: #b74b4b;">Source and destination IP addresses</span></strong>: who was talking to whom.</p>
+      <p>5. <strong><span style="color: #b74b4b;">Event types</span></strong>: CREATE (conversation started) and DELETE (conversation ended).</p>
+      <p>6. <strong><span style="color: #b74b4b;">Byte counts</span></strong>: how much data was sent in each conversation.</p>
 
-      <p>The summary at the bottom showed <strong>14,093 flows</strong> over about <strong>26 minutes</strong>, totalling <strong>14.3 MB</strong> of data.</p>
+      <p>Screenshots below show the interaction between computers, kind of like observing a conversation between people. The summary at the bottom showed <strong>14,093 flows</strong> over about <strong>26 minutes</strong>, totalling <strong>14.3 MB</strong> of data.</p>
 
       <img src="PROJECTS/project4/10.png" alt="Screenshot 10 — nfdump firewall log output showing Cisco ASA NetFlow NSEL records">
       <img src="PROJECTS/project4/11.png" alt="Screenshot 11 — Additional nfdump firewall log records showing flow summary statistics">
@@ -326,9 +326,9 @@
       <!-- STEP 10 -->
       <p class="step-heading">Step 10: What We Learned From the Logs</p>
 
-      <p>Most of the traffic was <strong>DNS lookups</strong> — the internet's phonebook system that translates website names (like google.com) into IP addresses that computers can actually connect to. Each lookup created a very short conversation: CREATE followed almost immediately by DELETE.</p>
+      <p>Most of the traffic was <strong>DNS lookups</strong>, the internet's phonebook system that translates website names (like google.com) into numbers computers can actually understand. Each lookup created a very short conversation: CREATE (the start of the conversation) followed almost immediately by DELETE (the end of the conversation).</p>
 
-      <p>The high number of flows (over 14,000 in just 26 minutes) suggests a lot of automated DNS activity — possibly normal background traffic, possibly something more suspicious. In a real investigation, that kind of volume would be a clue worth digging into further. It's one of those things that doesn't scream "problem" immediately, but raises enough of an eyebrow to warrant a second look.</p>
+      <p>The high number of flows (over 14,000 in just 26 minutes) suggests a lot of automated DNS activity, possibly normal background traffic, possibly something more suspicious. In a real investigation, that kind of volume would be a clue worth digging into further. It's one of those things that doesn't scream "problem" immediately, but raises enough of an eyebrow to warrant a second look.</p>
 
       <p>That's exactly what digital forensics is: following the breadcrumbs, one log line at a time.</p>
 
