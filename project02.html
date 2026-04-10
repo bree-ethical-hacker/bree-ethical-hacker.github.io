@@ -11,6 +11,122 @@
   <!-- Main CSS -->
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
+
+  <style>
+    /* ── PROJECT BOX OVERRIDE: allow scrollable long content ── */
+    .project-detail {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;       /* top-align so tall content doesn't get clipped */
+      padding: 12rem 2rem 8rem;
+      min-height: 100vh;
+    }
+
+    /* On large screens don't force a fixed height - let the box grow */
+    @media (min-width: 1025px) {
+      .project-detail {
+        height: auto !important;
+        padding: 12rem 4rem 8rem;
+      }
+
+      .project-box {
+        max-height: none !important;   /* remove the 100vh cap from style.css */
+        margin: 0 auto 6rem;
+      }
+    }
+
+    /* ── BOX ── */
+    .project-box {
+      max-width: 860px;
+      width: 100%;
+      text-align: left;              /* left-align all prose */
+    }
+
+    /* ── HEADINGS ── */
+    .project-box h1 {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── PARAGRAPHS ── */
+    .project-box p {
+      max-width: 100%;               /* don't restrict to 80% on a content-heavy page */
+      font-size: clamp(1.4rem, 1.7vw, 1.8rem);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    /* ── STEP HEADINGS ── */
+    .project-box .step-heading {
+      font-size: clamp(1.6rem, 2vw, 2rem);
+      font-weight: 700;
+      color: #b74b4b;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── IMAGES ── */
+    .project-box img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 1rem;
+      border: 1px solid #b74b4b33;
+      margin: 1.5rem 0;
+      object-fit: contain;
+    }
+
+    /* ── CAPTION LABELS (BEFORE / AFTER) ── */
+    .project-box .img-label {
+      font-size: 1.4rem;
+      color: #aaa;
+      margin-bottom: 0.4rem;
+      margin-top: 1.2rem;
+    }
+
+    /* ── ANSWER / HIGHLIGHT LINE ── */
+    .project-box .answer-line {
+      font-size: clamp(1.6rem, 2vw, 2rem);
+      font-weight: 600;
+      margin: 2rem 0 0.5rem;
+    }
+
+    /* ── SPACER ── */
+    .spacer { height: 2rem; }
+
+    /* ── AUDIO CARD FULL WIDTH INSIDE BOX ── */
+    .ai-audio-card {
+      max-width: 100%;
+      margin: 0 0 3rem 0;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .project-detail {
+        padding: 10rem 1.5rem 6rem;
+      }
+
+      .project-box {
+        padding: 2.5rem 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .project-detail {
+        padding: 9rem 1rem 5rem;
+      }
+
+      .project-box {
+        padding: 2rem 1.4rem;
+        border-radius: 1.4rem;
+      }
+
+      .project-box h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
 </head>
 
   
@@ -50,86 +166,90 @@
   </header>
 
   
-  <!-- WORDINGS -->
+  <!-- CONTENT -->
   <section class="project-detail">
     
     <div class="project-box">
 
       <!-- AI Conversation Playback Card -->
       <div class="ai-audio-card">
-        
         <button id="ai-play-btn" class="play-btn">
           <i class="fa-solid fa-play"></i>
         </button>
-        
         <div class="audio-info">
           <div class="progress-container">
             <div id="ai-progress-bar" class="progress-bar"></div>
           </div>
-          
           <div class="time">
             <span id="ai-current-time">0:00</span>
             <span id="ai-duration">--</span>
           </div>
         </div>
-        
         <audio id="ai-audio" src="conversation.mp3"></audio>
       </div>
 
-      <!-- PROJECT WORDINGS -->
+      <!-- TITLE -->
       <h1>Finding a Hidden Username</h1>
-  
-      <p>If you’ve ever used WhatsApp, Messenger, or iMessage, you’re used to your messages being private and end-to-end. But the internet wasn’t always that way. A long time ago, people chatted using protocols that sent everything including usernames, passwords, and messages, in plain view. No encryption. Nothing. Everything was visible to everyone.</p>
-      <br>
-      <p>In this article, we’re going to look at a small piece of internet history: a chat system called AIM (AOL Instant Messenger). Our goal is simple: find out what username was used by someone in a recorded chat session.</p>
-      <br>
-      <p>We have a file, called a “pcap” (short for packet capture). Think of it like a recording of everything that happened on a network for a short period of time. Every time two computers talked to each other, that conversation was saved in this file. Our job is to look through that recording and find the username someone typed when they logged into AIM (AOL Instant Messenger).</p>
-      <br>
 
-      
-      <p><strong><span style="color: #b74b4b;">Step 1: Open the Recording</span></strong></p>
-      <br>
-      <p>We started with a file called evidence01.pcap. Remember the "pcap" file we mentioned above. Think of it like a video recording of everything two computers said to each other over the network. We opened this file in a free tool called Wireshark, a special magnifying glass that lets you look inside network conversations.</p>
-      <br>
-      <img src="/PROJECTS/project2/1.png" alt="Project Screenshot">
-      <br>
+      <!-- INTRO -->
+      <p>If you've ever used WhatsApp, Messenger, or iMessage, you're used to your messages being private and end-to-end. But the internet wasn't always that way. A long time ago, people chatted using protocols that sent everything — usernames, passwords, and messages — in plain view. No encryption. Nothing. Everything was visible to everyone.</p>
 
-      
-      <p><strong><span style="color: #b74b4b;">Step 2: Teach Wireshark Where to Look</span></strong></p>
-      <br>
-      <p>AIM (AOL Instant Messenger) normally talks through a specific “door” (technical term: port 5190). But in this recording, AIM (AOL Instant Messenger) was using a different door: port 443 (the same door that modern secure websites use). Wireshark didn’t know that so at first, it ignored the AIM traffic on port 443. We fixed this by going into Wireshark’s settings (Preferences - Protocols - AIM) and telling it: “Hey, also check port 443 for AIM traffic.”</p>
-      <br>
-      <p>BEFORE:</p>
-      <img src="/PROJECTS/project2/2.png" alt="Project Screenshot">
-      <br>
-      <p>AFTER:</p>
-      <img src="/PROJECTS/project2/3.png" alt="Project Screenshot">
-      <br>
+      <p>In this article, we're going to look at a small piece of internet history: a chat system called AIM (AOL Instant Messenger). Our goal is simple: find out what username was used by someone in a recorded chat session.</p>
 
-      
-      <p><strong><span style="color: #b74b4b;">Step 3: Find the Username</span></strong></p>
-      <br>
-      <p>Once we made that change, Wireshark immediately started labeling the AIM messages correctly. We scrolled through the list of conversations and found packet number 25. In plain English, Wireshark showed:</p>
-      <p><span style="color: #b74b4b;">“AIM Messaging, Outgoing to: Sec558user1”</span></p>
-      <p>We clicked on that packet, expanded the details, and there it was, the username Sec558user1, completely visible in plain text. Even the message that was sent was readable.</p>
-      <br>
-      <img src="/PROJECTS/project2/4.png" alt="Project Screenshot">
-      <br>
+      <p>We have a file, called a "pcap" (short for packet capture). Think of it like a recording of everything that happened on a network for a short period of time. Every time two computers talked to each other, that conversation was saved in this file. Our job is to look through that recording and find the username someone typed when they logged into AIM (AOL Instant Messenger).</p>
 
-      
-      <p>The Answer: <span style="color: #b74b4b;">Sec558user1</span></p>
-      <br>
+      <div class="spacer"></div>
 
-      
-      <p><strong><span style="color: #b74b4b;">Why This Matters</span></strong></p>
-      <p>This wasn’t just about finding a name. It showed how unencrypted chat works and why it’s dangerous. Everything was wide open: usernames, who you were talking to, even the message itself. No locks, no privacy. That’s why modern apps encrypt everything. </p>
-        
-      
-      
-      <!-- BUTTONS  -->
+      <!-- STEP 1 -->
+      <p class="step-heading">Step 1: Open the Recording</p>
+
+      <p>We started with a file called <strong>evidence01.pcap</strong>. Remember the "pcap" file we mentioned above — think of it like a video recording of everything two computers said to each other over the network. We opened this file in a free tool called <strong>Wireshark</strong>, a special magnifying glass that lets you look inside network conversations.</p>
+
+      <img src="/PROJECTS/project2/1.png" alt="Wireshark - opening the pcap file">
+
+      <div class="spacer"></div>
+
+      <!-- STEP 2 -->
+      <p class="step-heading">Step 2: Teach Wireshark Where to Look</p>
+
+      <p>AIM (AOL Instant Messenger) normally talks through a specific "door" (technical term: port 5190). But in this recording, AIM was using a different door: port 443 — the same door that modern secure websites use. Wireshark didn't know that, so at first it ignored the AIM traffic on port 443. We fixed this by going into Wireshark's settings <em>(Preferences → Protocols → AIM)</em> and telling it: "Hey, also check port 443 for AIM traffic."</p>
+
+      <p class="img-label">BEFORE:</p>
+      <img src="/PROJECTS/project2/2.png" alt="Wireshark settings before change">
+
+      <p class="img-label">AFTER:</p>
+      <img src="/PROJECTS/project2/3.png" alt="Wireshark settings after change">
+
+      <div class="spacer"></div>
+
+      <!-- STEP 3 -->
+      <p class="step-heading">Step 3: Find the Username</p>
+
+      <p>Once we made that change, Wireshark immediately started labelling the AIM messages correctly. We scrolled through the list of conversations and found packet number 25. In plain English, Wireshark showed:</p>
+
+      <p><span style="color: #b74b4b;">"AIM Messaging, Outgoing to: Sec558user1"</span></p>
+
+      <p>We clicked on that packet, expanded the details, and there it was — the username <strong>Sec558user1</strong>, completely visible in plain text. Even the message that was sent was readable.</p>
+
+      <img src="/PROJECTS/project2/4.png" alt="Packet 25 showing the username Sec558user1">
+
+      <div class="spacer"></div>
+
+      <!-- ANSWER -->
+      <p class="answer-line">The Answer: <span style="color: #b74b4b;">Sec558user1</span></p>
+
+      <div class="spacer"></div>
+
+      <!-- WHY THIS MATTERS -->
+      <p class="step-heading">Why This Matters</p>
+
+      <p>This wasn't just about finding a name. It showed how unencrypted chat works — and why it's dangerous. Everything was wide open: usernames, who you were talking to, even the message itself. No locks, no privacy. That's why modern apps encrypt everything.</p>
+
+      <!-- BUTTONS -->
       <div class="project-buttons">
         <a href="projects.html?slide=1" class="btn" data-sound="locked">Back to Projects</a>
       </div>
+
     </div>
   </section>
 
@@ -147,21 +267,17 @@
   <!-- GLASS NAVIGATION BAR -->
   <script>
     
-    // GLASS NAVIGATION BAR (Updated with sound)
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     
-    // Create audio element for hamburger menu sound
-    const menuSound = new Audio('menu.mp3'); // Change filename to match your sound file
+    const menuSound = new Audio('menu.mp3');
     
     hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
-      
-      // Play sound effect
-      menuSound.currentTime = 0; // Reset to start in case it's clicked multiple times quickly
-      menuSound.play().catch(() => {}); // Catch any playback errors silently
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
     });
     
     overlay.addEventListener('click', () => {
@@ -169,25 +285,19 @@
       overlay.classList.remove('active');
     });
 
-    // NAVIGATION LINKS SOUND EFFECT
     const navSound = new Audio('nav.mp3');
     
     const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
     
     allNavLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent immediate navigation
-        
+        e.preventDefault();
         navSound.currentTime = 0;
         navSound.play().catch(() => {});
-        
-        // Get the href before navigation
         const destination = link.getAttribute('href');
-        
-        // Navigate after a short delay to allow sound to play
         setTimeout(() => {
           window.location.href = destination;
-        }, 150); // Adjust timing as needed (150ms is usually good)
+        }, 150);
       });
     });
     
@@ -195,4 +305,3 @@
   
 </body>
 </html>
-
