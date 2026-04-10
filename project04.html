@@ -114,6 +114,11 @@
     <p>But here's the catch: the normal version of nfdump doesn't understand the specific log format used by Cisco ASA firewalls (called <strong>NSEL</strong>). So we needed a special custom version: <strong><span style="color: #b74b4b;">nfdump-1.5.8-NSEL</span></strong>.</p>
 
     <p>We downloaded it from the internet (from a website called SourceForge), then extracted the files — like unzipping a folder.</p>
+
+    <!-- SCREENSHOT 1 -->
+    <div class="screenshot-placeholder">
+      <img src="screenshot01.png" alt="Screenshot 1 — Downloading and extracting nfdump-1.5.8-NSEL using wget and tar">
+    </div>
     <br>
 
 
@@ -123,6 +128,11 @@
     <p>The custom version we downloaded wasn't quite ready to use. The task gave us a set of <strong>replacement files</strong> (with names ending in <strong><span style="color: #b74b4b;">.c</span></strong> and <strong><span style="color: #b74b4b;">.h</span></strong> — these are source code files). We copied these into the nfdump folder, overwriting the old ones.</p>
 
     <p>Why? Because the original files had tiny errors that would cause the compilation to fail. Swapping them fixed those errors in advance.</p>
+
+    <!-- SCREENSHOT 2 -->
+    <div class="screenshot-placeholder">
+      <img src="screenshot02.png" alt="Screenshot 2 — Copying the modified .c and .h replacement files into the nfdump directory">
+    </div>
     <br>
 
 
@@ -137,6 +147,16 @@
     <p>3. <strong><span style="color: #b74b4b;">libreadline-dev</span></strong> — for handling text input in the terminal.</p>
 
     <p>Most of these were already on our Kali system, so we just checked they were up to date.</p>
+
+    <!-- SCREENSHOT 3 -->
+    <div class="screenshot-placeholder">
+      <img src="screenshot03.png" alt="Screenshot 3 — Installing bison, flex, rrdtool and librrd-dev dependencies">
+    </div>
+
+    <!-- SCREENSHOT 4 -->
+    <div class="screenshot-placeholder">
+      <img src="screenshot04.png" alt="Screenshot 4 — Installing libreadline-dev dependency">
+    </div>
     <br>
 
 
@@ -146,6 +166,11 @@
     <p>The second tool we needed is called <strong>Argus</strong>. It does something similar to nfdump but from a different angle — it generates audit records of network activity, giving us another perspective on the same firewall data.</p>
 
     <p>We downloaded Argus directly from <strong>GitHub</strong> (a website where developers share code), then ran its setup script. This also required the <strong><span style="color: #b74b4b;">libreadline-dev</span></strong> ingredient we installed in the previous step.</p>
+
+    <!-- SCREENSHOT 5 -->
+    <div class="screenshot-placeholder">
+      <img src="screenshot05.png" alt="Screenshot 5 — Cloning the Argus repository and running ./configure">
+    </div>
     <br>
 
 
@@ -160,6 +185,16 @@
     <p>3. <strong><span style="color: #b74b4b;">sudo make install</span></strong> — this placed the finished program into the system so we could run it from anywhere.</p>
 
     <p>The compilation produced some warnings (like a chef saying "this might not be perfect"), but no fatal errors. It worked.</p>
+
+    <!-- SCREENSHOT 6 -->
+    <div class="screenshot-placeholder">
+      <img src="screenshot06.png" alt="Screenshot 6 — Running ./configure on nfdump-1.5.8-NSEL — all required tools and libraries detected">
+    </div>
+
+    <!-- SCREENSHOT 7 -->
+    <div class="screenshot-placeholder">
+      <img src="screenshot07.png" alt="Screenshot 7 — Running sudo make install, compilation completed with warnings but no fatal errors">
+    </div>
     <br>
 
 
@@ -188,6 +223,16 @@
     <p>2. <strong><span style="color: #b74b4b;">ra -h</span></strong> (the Argus command) showed help information for version <strong>5.0.3</strong> — success.</p>
 
     <p>Both tools were in place and ready to go.</p>
+
+    <!-- SCREENSHOT 8 -->
+    <div class="screenshot-placeholder">
+      <img src="screenshot08.png" alt="Screenshot 8 — nfdump -V showing version 1.5.8-NSEL">
+    </div>
+
+    <!-- SCREENSHOT 9 -->
+    <div class="screenshot-placeholder">
+      <img src="screenshot09.png" alt="Screenshot 9 — ra -h output confirming Argus Ra Version 5.0.3 is installed and functional">
+    </div>
     <br>
 
 
@@ -205,6 +250,16 @@
     <p>6. <strong><span style="color: #b74b4b;">Byte counts</span></strong> — how much data was sent in each conversation.</p>
 
     <p>The summary at the bottom showed <strong>14,093 flows</strong> over about <strong>26 minutes</strong>, totalling <strong>14.3 MB</strong> of data.</p>
+
+    <!-- SCREENSHOT 10 -->
+    <div class="screenshot-placeholder">
+      <img src="screenshot10.png" alt="Screenshot 10 — nfdump firewall log output showing Cisco ASA NetFlow NSEL records">
+    </div>
+
+    <!-- SCREENSHOT 11 -->
+    <div class="screenshot-placeholder">
+      <img src="screenshot11.png" alt="Screenshot 11 — Additional nfdump firewall log records showing flow summary statistics">
+    </div>
     <br>
 
 
