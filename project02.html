@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project 1 – Mapping Digital Footprints</title>
+  <title>Finding a Hidden Username</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <!-- Main CSS -->
@@ -85,24 +85,38 @@
       <br>
       <p>We have a file, called a “pcap” (short for packet capture). Think of it like a recording of everything that happened on a network for a short period of time. Every time two computers talked to each other, that conversation was saved in this file. Our job is to look through that recording and find the username someone typed when they logged into AIM (AOL Instant Messenger).</p>
       <br>
-      <p><span style="color: #b74b4b;">Step 1: Open the Recording</span></p>
+
+      
+      <p><strong><span style="color: #b74b4b;">Step 1: Open the Recording</span></strong></p>
       <br>
       <p>We started with a file called evidence01.pcap. Remember the "pcap" file we mentioned above. Think of it like a video recording of everything two computers said to each other over the network. We opened this file in a free tool called Wireshark, a special magnifying glass that lets you look inside network conversations.</p>
       <br>
-      <p>Screenshot1</p>
+      <img src="/PROJECTS/project2/1.png" alt="Project Screenshot">
       <br>
-      <p><span style="color: #b74b4b;">Step 2: Teach Wireshark Where to Look</span></p>
+
+      
+      <p><strong><span style="color: #b74b4b;">Step 2: Teach Wireshark Where to Look</span></strong></p>
       <br>
       <p>AIM (AOL Instant Messenger) normally talks through a specific “door” (technical term: port 5190). But in this recording, AIM (AOL Instant Messenger) was using a different door: port 443 (the same door that modern secure websites use). Wireshark didn’t know that so at first, it ignored the AIM traffic on port 443. We fixed this by going into Wireshark’s settings (Preferences - Protocols - AIM) and telling it: “Hey, also check port 443 for AIM traffic.”</p>
       <br>
-      <p>Screenshot</p>
+      <p>BEFORE:</p>
+      <img src="/PROJECTS/project2/2.png" alt="Project Screenshot">
       <br>
-      <p><span style="color: #b74b4b;">Step 3: Find the Username</span></p>
+      <p>AFTER:</p>
+      <img src="/PROJECTS/project2/3.png" alt="Project Screenshot">
+      <br>
+
+      
+      <p><strong><span style="color: #b74b4b;">Step 3: Find the Username</span></strong></p>
       <br>
       <p>Once we made that change, Wireshark immediately started labeling the AIM messages correctly. We scrolled through the list of conversations and found packet number 25. In plain English, Wireshark showed:</p>
       <p><span style="color: #b74b4b;">“AIM Messaging, Outgoing to: Sec558user1”</span></p>
       <p>We clicked on that packet, expanded the details, and there it was, the username Sec558user1, completely visible in plain text. Even the message that was sent was readable.</p>
       <br>
+      <img src="/PROJECTS/project2/4.png" alt="Project Screenshot">
+      <br>
+
+      
       <p>The Answer: <span style="color: #b74b4b;">Sec558user1</span></p>
       <br>
       <p><span style="color: #b74b4b;">Why This Matters</span></p>
@@ -113,7 +127,6 @@
       <!-- BUTTONS  -->
       <div class="project-buttons">
         <a href="projects.html?slide=1" class="btn" data-sound="locked">Back to Projects</a>
-        <a href="#" class="btn" data-sound="click" target="_blank">Open Write-Up</a>
       </div>
     </div>
   </section>
