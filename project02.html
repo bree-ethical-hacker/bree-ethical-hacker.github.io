@@ -192,7 +192,7 @@
       <h1>Finding a Hidden Username</h1>
 
       <!-- INTRO -->
-      <p>If you've ever used WhatsApp, Messenger, or iMessage, you're used to your messages being private and end-to-end. But the internet wasn't always that way. A long time ago, people chatted using protocols that sent everything — usernames, passwords, and messages — in plain view. No encryption. Nothing. Everything was visible to everyone.</p>
+      <p>If you've ever used WhatsApp, Messenger, or iMessage, you're used to your messages being private and end-to-end encrypted. But the internet wasn't always that way. A long time ago, people chatted using protocols that sent everything usernames, passwords, and messages in plain view. No encryption. Nothing. Everything was visible to everyone.</p>
 
       <p>In this article, we're going to look at a small piece of internet history: a chat system called AIM (AOL Instant Messenger). Our goal is simple: find out what username was used by someone in a recorded chat session.</p>
 
@@ -203,7 +203,7 @@
       <!-- STEP 1 -->
       <p class="step-heading">Step 1: Open the Recording</p>
 
-      <p>We started with a file called <strong>evidence01.pcap</strong>. Remember the "pcap" file we mentioned above — think of it like a video recording of everything two computers said to each other over the network. We opened this file in a free tool called <strong>Wireshark</strong>, a special magnifying glass that lets you look inside network conversations.</p>
+      <p>We started with a file called <strong>evidence01.pcap</strong>. Remember the "pcap" file we mentioned above, think of it like a video recording of everything two computers said to each other over the network. We opened this file in a free tool called <strong>Wireshark</strong>, a special magnifying glass that lets you look inside network conversations. All we've done is open it, nothing else. Don't get to confused by the screenshot below.</p>
 
       <img src="/PROJECTS/project2/1.png" alt="Wireshark - opening the pcap file">
 
@@ -212,12 +212,14 @@
       <!-- STEP 2 -->
       <p class="step-heading">Step 2: Teach Wireshark Where to Look</p>
 
-      <p>AIM (AOL Instant Messenger) normally talks through a specific "door" (technical term: port 5190). But in this recording, AIM was using a different door: port 443 — the same door that modern secure websites use. Wireshark didn't know that, so at first it ignored the AIM traffic on port 443. We fixed this by going into Wireshark's settings <em>(Preferences → Protocols → AIM)</em> and telling it: "Hey, also check port 443 for AIM traffic."</p>
+      <p>AIM (AOL Instant Messenger) normally talks through a specific "door" (technical term: port 5190). But in this recording, AIM was using a different door: port 443, the same door that modern secure websites use. Wireshark didn't know that, so at first it ignored the AIM traffic on port 443. We fixed this by going into Wireshark's settings <em>(Preferences → Protocols → AIM)</em> and telling it: "Hey, also check port 443 for AIM traffic."</p>
 
-      <p class="img-label">BEFORE:</p>
+      <p>PS: I swear, just because I've used those arrows (→ this ones →) in my text, doesn't mean I've used AI. They exist to help you understand the settings I kept. LOL.</p>
+      
+      <p class="img-label" class="step-heading">BEFORE:</p>
       <img src="/PROJECTS/project2/2.png" alt="Wireshark settings before change">
 
-      <p class="img-label">AFTER:</p>
+      <p class="img-label" class="step-heading">AFTER:</p>
       <img src="/PROJECTS/project2/3.png" alt="Wireshark settings after change">
 
       <div class="spacer"></div>
@@ -225,11 +227,11 @@
       <!-- STEP 3 -->
       <p class="step-heading">Step 3: Find the Username</p>
 
-      <p>Once we made that change, Wireshark immediately started labelling the AIM messages correctly. We scrolled through the list of conversations and found packet number 25. In plain English, Wireshark showed:</p>
+      <p>Once we made that change, Wireshark immediately started labelling the AIM messages correctly. We scrolled through the list of conversations and found packet number 25, the one at the top highlighted in blue in the screenshot below. In plain English, Wireshark showed:</p>
 
       <p><span style="color: #b74b4b;">"AIM Messaging, Outgoing to: Sec558user1"</span></p>
 
-      <p>We clicked on that packet, expanded the details, and there it was — the username <strong>Sec558user1</strong>, completely visible in plain text. Even the message that was sent was readable.</p>
+      <p>We clicked on that packet, expanded the details, and there it was, the username <strong>Sec558user1</strong>, completely visible in plain text. Even the message that was sent was readable.</p>
 
       <img src="/PROJECTS/project2/4.png" alt="Packet 25 showing the username Sec558user1">
 
