@@ -77,17 +77,37 @@
       </div>
 
       <!-- PROJECT WORDINGS -->
-      <h1>Pretending To Be Someone Else Online</h1>
+      <h1>Finding a Hidden Username</h1>
   
-      <p>This project demonstrates a DNS Hijacking and ARP Poisoning Attack and translates it into the business risk of stolen or misdirected data, showing that 88% of organizations face at least one DNS-based attack every year. It reveals how attackers can trick a device so it sends data to themselves instead of the real person or service, this data can then be read or changed. The write-up will help you understand these attacks and help security teams spot, respond to, and prevent them in real networks.</p>
-      
-      <p>
-        <span style="color: #b74b4b;">Average Cost Of DNS Hijack Attack:</span>
-        <br>
-        <strong>
-          <span style="color: #b74b4b;">- $942,000 AUD per incident</span>
-        </strong>
-      </p>
+      <p>If you’ve ever used WhatsApp, Messenger, or iMessage, you’re used to your messages being private and end-to-end. But the internet wasn’t always that way. A long time ago, people chatted using protocols that sent everything including usernames, passwords, and messages, in plain view. No encryption. Nothing. Everything was visible to everyone.</p>
+      <br>
+      <p>In this article, we’re going to look at a small piece of internet history: a chat system called AIM (AOL Instant Messenger). Our goal is simple: find out what username was used by someone in a recorded chat session.</p>
+      <br>
+      <p>We have a file, called a “pcap” (short for packet capture). Think of it like a recording of everything that happened on a network for a short period of time. Every time two computers talked to each other, that conversation was saved in this file. Our job is to look through that recording and find the username someone typed when they logged into AIM (AOL Instant Messenger).</p>
+      <br>
+      <p><span style="color: #b74b4b;">Step 1: Open the Recording</span></p>
+      <br>
+      <p>We started with a file called evidence01.pcap. Remember the "pcap" file we mentioned above. Think of it like a video recording of everything two computers said to each other over the network. We opened this file in a free tool called Wireshark, a special magnifying glass that lets you look inside network conversations.</p>
+      <br>
+      <p>Screenshot1</p>
+      <br>
+      <p><span style="color: #b74b4b;">Step 2: Teach Wireshark Where to Look</span></p>
+      <br>
+      <p>AIM (AOL Instant Messenger) normally talks through a specific “door” (technical term: port 5190). But in this recording, AIM (AOL Instant Messenger) was using a different door: port 443 (the same door that modern secure websites use). Wireshark didn’t know that so at first, it ignored the AIM traffic on port 443. We fixed this by going into Wireshark’s settings (Preferences - Protocols - AIM) and telling it: “Hey, also check port 443 for AIM traffic.”</p>
+      <br>
+      <p>Screenshot</p>
+      <br>
+      <p><span style="color: #b74b4b;">Step 3: Find the Username</span></p>
+      <br>
+      <p>Once we made that change, Wireshark immediately started labeling the AIM messages correctly. We scrolled through the list of conversations and found packet number 25. In plain English, Wireshark showed:</p>
+      <p><span style="color: #b74b4b;">“AIM Messaging, Outgoing to: Sec558user1”</span></p>
+      <p>We clicked on that packet, expanded the details, and there it was, the username Sec558user1, completely visible in plain text. Even the message that was sent was readable.</p>
+      <br>
+      <p>The Answer: <span style="color: #b74b4b;">Sec558user1</span></p>
+      <br>
+      <p><span style="color: #b74b4b;">Why This Matters</span></p>
+      <p>This wasn’t just about finding a name. It showed how unencrypted chat works and why it’s dangerous. Everything was wide open: usernames, who you were talking to, even the message itself. No locks, no privacy. That’s why modern apps encrypt everything. </p>
+        
       
       
       <!-- BUTTONS  -->
