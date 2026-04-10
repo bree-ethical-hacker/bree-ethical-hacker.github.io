@@ -108,7 +108,116 @@
     
     <p><strong><span style="color: #b74b4b;">Step 2: Getting the First Tool (nfdump)</span></strong></p>
     <br>
-    
+
+    <p>The first tool we needed is called <strong>nfdump</strong>. It's like a pair of glasses that lets you read firewall logs in a human-friendly way.</p>
+
+    <p>But here's the catch: the normal version of nfdump doesn't understand the specific log format used by Cisco ASA firewalls (called <strong>NSEL</strong>). So we needed a special custom version: <strong><span style="color: #b74b4b;">nfdump-1.5.8-NSEL</span></strong>.</p>
+
+    <p>We downloaded it from the internet (from a website called SourceForge), then extracted the files — like unzipping a folder.</p>
+    <br>
+
+
+    <p><strong><span style="color: #b74b4b;">Step 3: Swapping in Some Modified Files</span></strong></p>
+    <br>
+
+    <p>The custom version we downloaded wasn't quite ready to use. The task gave us a set of <strong>replacement files</strong> (with names ending in <strong><span style="color: #b74b4b;">.c</span></strong> and <strong><span style="color: #b74b4b;">.h</span></strong> — these are source code files). We copied these into the nfdump folder, overwriting the old ones.</p>
+
+    <p>Why? Because the original files had tiny errors that would cause the compilation to fail. Swapping them fixed those errors in advance.</p>
+    <br>
+
+
+    <p><strong><span style="color: #b74b4b;">Step 4: Installing the Ingredients (Dependencies)</span></strong></p>
+    <br>
+
+    <p>Before we could cook (compile) the tool, we needed to install some <strong>ingredients</strong> — the technical term for these is dependencies. These are small helper libraries that nfdump relies on to function properly.</p>
+
+    <p>We installed:</p>
+    <p>1. <strong><span style="color: #b74b4b;">bison</span></strong> and <strong><span style="color: #b74b4b;">flex</span></strong> — tools for reading configuration files.</p>
+    <p>2. <strong><span style="color: #b74b4b;">rrdtool</span></strong> and <strong><span style="color: #b74b4b;">librrd-dev</span></strong> — for working with time-based data.</p>
+    <p>3. <strong><span style="color: #b74b4b;">libreadline-dev</span></strong> — for handling text input in the terminal.</p>
+
+    <p>Most of these were already on our Kali system, so we just checked they were up to date.</p>
+    <br>
+
+
+    <p><strong><span style="color: #b74b4b;">Step 5: Getting the Second Tool (Argus)</span></strong></p>
+    <br>
+
+    <p>The second tool we needed is called <strong>Argus</strong>. It does something similar to nfdump but from a different angle — it generates audit records of network activity, giving us another perspective on the same firewall data.</p>
+
+    <p>We downloaded Argus directly from <strong>GitHub</strong> (a website where developers share code), then ran its setup script. This also required the <strong><span style="color: #b74b4b;">libreadline-dev</span></strong> ingredient we installed in the previous step.</p>
+    <br>
+
+
+    <p><strong><span style="color: #b74b4b;">Step 6: Compiling and Installing nfdump</span></strong></p>
+    <br>
+
+    <p>Now came the tricky part: <strong>compiling</strong> nfdump. Compiling means turning the human-readable source code into a program the computer can actually run. Think of it like translating a recipe written in French into English before you can cook it.</p>
+
+    <p>We ran three commands in sequence:</p>
+    <p>1. <strong><span style="color: #b74b4b;">./configure</span></strong> — this checked that all ingredients were present.</p>
+    <p>2. <strong><span style="color: #b74b4b;">make</span></strong> — this did the actual compilation.</p>
+    <p>3. <strong><span style="color: #b74b4b;">sudo make install</span></strong> — this placed the finished program into the system so we could run it from anywhere.</p>
+
+    <p>The compilation produced some warnings (like a chef saying "this might not be perfect"), but no fatal errors. It worked.</p>
+    <br>
+
+
+    <p><strong><span style="color: #b74b4b;">Step 7: Fixing Problems Along the Way</span></strong></p>
+    <br>
+
+    <p>Nothing in forensics goes perfectly the first time. We hit a few bumps along the road.</p>
+
+    <p><strong><span style="color: #b74b4b;">Problem 1:</span></strong> The system had automatically installed a newer version of nfdump (1.7.6) without asking us. This conflicted with our custom version.</p>
+    <p><strong>Fix:</strong> We removed the auto-installed version using <strong><span style="color: #b74b4b;">sudo apt remove nfdump</span></strong>, then compiled our custom version manually.</p>
+
+    <p><strong><span style="color: #b74b4b;">Problem 2:</span></strong> During compilation, the computer complained about missing <strong>const</strong> keywords in two files: <strong><span style="color: #b74b4b;">profile.c</span></strong> (line 388) and <strong><span style="color: #b74b4b;">nsel_rrd.c</span></strong> (four places). A <strong>const</strong> is a tiny word in the C programming language that tells the computer "this value won't change."</p>
+    <p><strong>Fix:</strong> We opened each file with a text editor and added the word <strong><span style="color: #b74b4b;">const</span></strong> at the start of those lines. Saved. Recompiled.</p>
+
+    <p><strong><span style="color: #b74b4b;">Problem 3:</span></strong> Argus failed to configure because it was missing <strong>libreadline-dev</strong>.</p>
+    <p><strong>Fix:</strong> We installed it with <strong><span style="color: #b74b4b;">sudo apt install libreadline-dev</span></strong>, then ran Argus's setup again.</p>
+    <br>
+
+
+    <p><strong><span style="color: #b74b4b;">Step 8: Verifying Everything Worked</span></strong></p>
+    <br>
+
+    <p>We checked that both tools were installed correctly by asking each one to report its version number — a quick and reliable way to confirm a successful installation.</p>
+
+    <p>1. <strong><span style="color: #b74b4b;">nfdump -V</span></strong> showed version <strong>1.5.8-NSEL</strong> — success.</p>
+    <p>2. <strong><span style="color: #b74b4b;">ra -h</span></strong> (the Argus command) showed help information for version <strong>5.0.3</strong> — success.</p>
+
+    <p>Both tools were in place and ready to go.</p>
+    <br>
+
+
+    <p><strong><span style="color: #b74b4b;">Step 9: Reading the Firewall Logs</span></strong></p>
+    <br>
+
+    <p>Finally, we pointed nfdump at the Cisco ASA log folder using the command <strong><span style="color: #b74b4b;">nfdump -R cisco-asa-nfcapd/</span></strong>. The tool printed out a list of <strong>network flows</strong> — each line representing one conversation between two computers.</p>
+
+    <p>We saw:</p>
+    <p>1. <strong><span style="color: #b74b4b;">Timestamps</span></strong> — when each conversation happened.</p>
+    <p>2. <strong><span style="color: #b74b4b;">Protocols</span></strong> — mostly UDP traffic.</p>
+    <p>3. <strong><span style="color: #b74b4b;">Ports</span></strong> — port 53, which means DNS traffic (the internet's phonebook system).</p>
+    <p>4. <strong><span style="color: #b74b4b;">Source and destination IP addresses</span></strong> — who was talking to whom.</p>
+    <p>5. <strong><span style="color: #b74b4b;">Event types</span></strong> — CREATE (conversation started) and DELETE (conversation ended).</p>
+    <p>6. <strong><span style="color: #b74b4b;">Byte counts</span></strong> — how much data was sent in each conversation.</p>
+
+    <p>The summary at the bottom showed <strong>14,093 flows</strong> over about <strong>26 minutes</strong>, totalling <strong>14.3 MB</strong> of data.</p>
+    <br>
+
+
+    <p><strong><span style="color: #b74b4b;">Step 10: What We Learned From the Logs</span></strong></p>
+    <br>
+
+    <p>Most of the traffic was <strong>DNS lookups</strong> — the internet's phonebook system that translates website names (like google.com) into IP addresses that computers can actually connect to. Each lookup created a very short conversation: CREATE followed almost immediately by DELETE.</p>
+
+    <p>The high number of flows (over 14,000 in just 26 minutes) suggests a lot of automated DNS activity — possibly normal background traffic, possibly something more suspicious. In a real investigation, that kind of volume would be a clue worth digging into further. It's one of those things that doesn't scream "problem" immediately, but raises enough of an eyebrow to warrant a second look.</p>
+
+    <p>That's exactly what digital forensics is: following the breadcrumbs, one log line at a time.</p>
+    <br>
+
 
     <!-- BUTTONS -->
     <div class="project-buttons">
