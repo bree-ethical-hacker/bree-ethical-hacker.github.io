@@ -79,15 +79,35 @@
       <!-- PROJECT WORDINGS -->
     <h1>Following Digital Breadcrumbs</h1>
 
-    <p>This project shows how to use one computer you control to reach another computer you can’t reach directly. By finding weak spots before attackers do, it helps reduce the risk of damaging breaches and service downtime. Undetected threats and operational strain resulted in 92% of organizations experiencing security incidents. The write‑up explains exactly how this is done and shows clear, practical steps to prevent this, so security teams can fix weaknesses before real attackers exploit them.</p>
+    <p>In this article, we’re going to look at firewall logs. Think of a firewall like a security guard at the door of a network, keeping track of every conversation that enters or leaves. Every time a computer inside the network talks to a computer on the outside, the firewall writes down a little note: who talked, when, where they went, and how long they talked.</p>
     
-    <p>
-      <span style="color: #b74b4b;">Businesses Destroyed 6 months After Cyber Attack:</span>
-      <br>
-      <strong>
-        <span style="color: #b74b4b;">60%</span>
-      </strong>
-    </p>
+    <p>Our job is to install two special tools that help us read those notes, and then analyze what happened in a real network, essentially following the digital breadcrumbs.</p>
+    <br>
+
+    
+    <p><strong><span style="color: #b74b4b;">What Are We Actually Doing?</span></strong></p>
+    <br>
+    
+    <p>We have a set of logs from a Cisco ASA firewall (a very common type of corporate firewall). These logs are stored in a special format called NetFlow NSEL. To read them, we need two tools:</p>
+
+    <p>1. <strong><span style="color: #b74b4b;">nfdump:</span></strong> a tool that reads and summarises flow records (those little notes the firewall writes).</p>
+    <p>2. <strong><span style="color: #b74b4b;">Argus:</span></strong> another tool that does similar things but from a slightly different angle.</p>
+    
+    <p>The catch? The version of nfdump we need isn’t the standard one. It’s a custom version called nfdump-1.5.8-NSEL, and we have to compile it ourselves (like baking a cake from scratch instead of buying it pre-made).</p>
+    <br>
+
+    
+    <p><strong><span style="color: #b74b4b;">Step 1: Setting Up the Playground</span></strong></p>
+    <br>
+
+    <p>We started by creating an isolated environment inside a VirtualBox, remember we don't want anything actually touching the real world. Hopefully you read the DISCLAIMER before opening the projects. We then run Kali Linux (an operating system like Windows but this one is a special one used for security and forensics work). Think of it like a detective’s toolkit pre-installed on a laptop.</p>
+
+    <p>Inside Kali, we created a folder on the desktop to keep all our files organised. This is where the firewall logs and tools would live.</p>
+    <br>
+
+    
+    <p><strong><span style="color: #b74b4b;">Step 2: Getting the First Tool (nfdump)</span></strong></p>
+    <br>
     
 
     <!-- BUTTONS -->
