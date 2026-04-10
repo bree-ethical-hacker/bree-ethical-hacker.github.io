@@ -188,7 +188,7 @@
       <p>We have a set of logs from a Cisco ASA firewall (a very common type of corporate firewall). These logs are stored in a special format called NetFlow NSEL. To read them, we need two tools:</p>
 
       <p>1. <strong><span style="color: #b74b4b;">nfdump:</span></strong> a tool that reads and summarises flow records (those little notes the firewall writes).</p>
-      <p>2. <strong><span style="color: #b74b4b;">Argus:</span></strong> another tool that does similar things but from a slightly different angle.</p>
+      <p>2. <strong><span style="color: #b74b4b;">Argus:</span></strong> another tool that does similar things but from a slightly different angle (I'll explain more on this later).</p>
 
       <p>The catch? The version of nfdump we need isn't the standard one. It's a custom version called nfdump-1.5.8-NSEL, and we have to compile it ourselves (like baking a cake from scratch instead of buying it pre-made).</p>
 
@@ -199,7 +199,7 @@
 
       <p>We started by creating an isolated environment inside a VirtualBox, remember we don't want anything actually touching the real world. Hopefully you read the DISCLAIMER before opening the projects. We then run Kali Linux (an operating system like Windows but this one is a special one used for security and forensics work). Think of it like a detective's toolkit pre-installed on a laptop.</p>
 
-      <p>Inside Kali, we created a folder on the desktop to keep all our files organised. This is where the firewall logs and tools would live.</p>
+      <p>Inside Kali, we created a folder on the desktop to keep all our files organised. This is where the firewall logs and tools will be stored.</p>
 
       <div class="spacer"></div>
 
@@ -210,7 +210,7 @@
 
       <p>But here's the catch: the normal version of nfdump doesn't understand the specific log format used by Cisco ASA firewalls (called <strong>NSEL</strong>). So we needed a special custom version: <strong><span style="color: #b74b4b;">nfdump-1.5.8-NSEL</span></strong>.</p>
 
-      <p>We downloaded it from the internet (from a website called SourceForge), then extracted the files — like unzipping a folder.</p>
+      <p>We downloaded it from the internet (from a website called SourceForge), then extracted the files, like unzipping a folder. The screenshot below just shows us installing nfdump, the tool we need.</p>
 
       <img src="PROJECTS/project4/1.png" alt="Screenshot 1 — Downloading and extracting nfdump-1.5.8-NSEL using wget and tar">
 
@@ -219,9 +219,9 @@
       <!-- STEP 3 -->
       <p class="step-heading">Step 3: Swapping in Some Modified Files</p>
 
-      <p>The custom version we downloaded wasn't quite ready to use. The task gave us a set of <strong>replacement files</strong> (with names ending in <strong><span style="color: #b74b4b;">.c</span></strong> and <strong><span style="color: #b74b4b;">.h</span></strong> — these are source code files). We copied these into the nfdump folder, overwriting the old ones.</p>
+      <p>The version we downloaded wasn't quite ready to use. The task gave us a set of <strong>replacement files</strong> (with names ending in <strong><span style="color: #b74b4b;">.c</span></strong> and <strong><span style="color: #b74b4b;">.h</span></strong>, these are source code files). We copied these into the nfdump folder, overwriting the old ones.</p>
 
-      <p>Why? Because the original files had tiny errors that would cause the compilation to fail. Swapping them fixed those errors in advance.</p>
+      <p>Why? Because the original files had tiny errors that would cause the compilation to fail. Swapping them fixed those errors in advance. Screenshot below is us just replacing all the <strong><span style="color: #b74b4b;">.c</span></strong> and <strong><span style="color: #b74b4b;">.h</span></strong> files.</p>
 
       <img src="PROJECTS/project4/2.png" alt="Screenshot 2 — Copying the modified .c and .h replacement files into the nfdump directory">
 
@@ -230,14 +230,14 @@
       <!-- STEP 4 -->
       <p class="step-heading">Step 4: Installing the Ingredients (Dependencies)</p>
 
-      <p>Before we could cook (compile) the tool, we needed to install some <strong>ingredients</strong> — the technical term for these is dependencies. These are small helper libraries that nfdump relies on to function properly.</p>
+      <p>For better understanding I'm going to use my "baking a cake" analogy that I had mentioned at the beginning. Before we could cook (compile) the tool, we needed to install some <strong>ingredients</strong>, the technical term for these is dependencies. These are small helper libraries that nfdump relies on to function properly, without them nfdump just won't work. Like trying to bake a cake without sugar. Gross!!!</p>
 
       <p>We installed:</p>
-      <p>1. <strong><span style="color: #b74b4b;">bison</span></strong> and <strong><span style="color: #b74b4b;">flex</span></strong> — tools for reading configuration files.</p>
-      <p>2. <strong><span style="color: #b74b4b;">rrdtool</span></strong> and <strong><span style="color: #b74b4b;">librrd-dev</span></strong> — for working with time-based data.</p>
-      <p>3. <strong><span style="color: #b74b4b;">libreadline-dev</span></strong> — for handling text input in the terminal.</p>
+      <p>1. <strong><span style="color: #b74b4b;">bison</span></strong> and <strong><span style="color: #b74b4b;">flex</span></strong>: tools for reading configuration files.</p>
+      <p>2. <strong><span style="color: #b74b4b;">rrdtool</span></strong> and <strong><span style="color: #b74b4b;">librrd-dev</span></strong>: for working with time-based data.</p>
+      <p>3. <strong><span style="color: #b74b4b;">libreadline-dev</span></strong>: for handling text input in the terminal.</p>
 
-      <p>Most of these were already on our Kali system, so we just checked they were up to date.</p>
+      <p>Most of these were already on our Kali system, so we just checked they were up to date. The 2 screenshots below just show Kali confirming this tools exist.</p>
 
       <img src="PROJECTS/project4/3.png" alt="Screenshot 3 — Installing bison, flex, rrdtool and librrd-dev dependencies">
       <img src="PROJECTS/project4/4.png" alt="Screenshot 4 — Installing libreadline-dev dependency">
@@ -247,9 +247,9 @@
       <!-- STEP 5 -->
       <p class="step-heading">Step 5: Getting the Second Tool (Argus)</p>
 
-      <p>The second tool we needed is called <strong>Argus</strong>. It does something similar to nfdump but from a different angle — it generates audit records of network activity, giving us another perspective on the same firewall data.</p>
+      <p>The second tool we needed is called <strong>Argus</strong>. It does something similar to nfdump but from a different angle, it generates audit records of network activity, giving us another perspective on the same firewall data.</p>
 
-      <p>We downloaded Argus directly from <strong>GitHub</strong> (a website where developers share code), then ran its setup script. This also required the <strong><span style="color: #b74b4b;">libreadline-dev</span></strong> ingredient we installed in the previous step.</p>
+      <p>We downloaded Argus directly from <strong>GitHub</strong> (a website where developers share code), then ran its setup script. This also required the <strong><span style="color: #b74b4b;">libreadline-dev</span></strong> ingredients we installed in the previous step. Screenshot displays us trying to install our second tool.</p>
 
       <img src="PROJECTS/project4/5.png" alt="Screenshot 5 — Cloning the Argus repository and running ./configure">
 
@@ -258,14 +258,14 @@
       <!-- STEP 6 -->
       <p class="step-heading">Step 6: Compiling and Installing nfdump</p>
 
-      <p>Now came the tricky part: <strong>compiling</strong> nfdump. Compiling means turning the human-readable source code into a program the computer can actually run. Think of it like translating a recipe written in French into English before you can cook it.</p>
+      <p>Now came the tricky part: <strong>compiling</strong> nfdump. Compiling means turning the human-readable source code into a program the computer can understand and actually run. Think of it like translating a recipe written in French into English before you can cook it.</p>
 
       <p>We ran three commands in sequence:</p>
-      <p>1. <strong><span style="color: #b74b4b;">./configure</span></strong> — this checked that all ingredients were present.</p>
-      <p>2. <strong><span style="color: #b74b4b;">make</span></strong> — this did the actual compilation.</p>
-      <p>3. <strong><span style="color: #b74b4b;">sudo make install</span></strong> — this placed the finished program into the system so we could run it from anywhere.</p>
+      <p>1. <strong><span style="color: #b74b4b;">./configure</span></strong>: this checked that all ingredients were present.</p>
+      <p>2. <strong><span style="color: #b74b4b;">make</span></strong>: this did the actual compilation.</p>
+      <p>3. <strong><span style="color: #b74b4b;">sudo make install</span></strong>: this placed the finished program into the system so we could run it from anywhere.</p>
 
-      <p>The compilation produced some warnings (like a chef saying "this might not be perfect"), but no fatal errors. It worked.</p>
+      <p>The compilation produced some warnings (like a chef saying "you put too much whipped cream, but the guests won't notice"), as long as their no fatal errors that's good enough for me. It worked. Screenshots below just show us trying to compile.</p>
 
       <img src="PROJECTS/project4/6.png" alt="Screenshot 6 — Running ./configure on nfdump-1.5.8-NSEL — all required tools and libraries detected">
       <img src="PROJECTS/project4/7.png" alt="Screenshot 7 — Running sudo make install, compilation completed with warnings but no fatal errors">
@@ -277,7 +277,7 @@
 
       <p>Nothing in forensics goes perfectly the first time. We hit a few bumps along the road.</p>
 
-      <p><strong><span style="color: #b74b4b;">Problem 1:</span></strong> The system had automatically installed a newer version of nfdump (1.7.6) without asking us. This conflicted with our custom version.</p>
+      <p><strong><span style="color: #b74b4b;">Problem 1:</span></strong> The system had automatically installed a newer version of nfdump (1.7.6) without asking us. This conflicted with our custom version <strong><span style="color: #b74b4b;">nfdump-1.5.8-NSEL</span></strong> that we mentioned at the beginning .</p>
       <p><strong>Fix:</strong> We removed the auto-installed version using <strong><span style="color: #b74b4b;">sudo apt remove nfdump</span></strong>, then compiled our custom version manually.</p>
 
       <p><strong><span style="color: #b74b4b;">Problem 2:</span></strong> During compilation, the computer complained about missing <strong>const</strong> keywords in two files: <strong><span style="color: #b74b4b;">profile.c</span></strong> (line 388) and <strong><span style="color: #b74b4b;">nsel_rrd.c</span></strong> (four places). A <strong>const</strong> is a tiny word in the C programming language that tells the computer "this value won't change."</p>
@@ -337,7 +337,6 @@
       <!-- BUTTONS -->
       <div class="project-buttons">
         <a href="projects.html?slide=3" class="btn" data-sound="locked">Back to Projects</a>
-        <button class="btn" data-sound="error" data-shake>Coming Soon</button>
       </div>
 
     </div>
