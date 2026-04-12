@@ -180,16 +180,14 @@
 
       <p>Have you ever wondered: Where do those names actually come from?</p>
 
-      <p>Here's the secret: Every few seconds, a device called a wireless access point (the box in your house that creates a WiFi network) shouts out a little message into the air. That message says: <em>"Hello! I'm here! My name is blahblahblah! Come connect to me!"</em></p>
-
-      <p>These shouts are called <strong>beacon frames</strong>. They're invisible to human ears, but computers can hear them just fine.</p>
+      <p>Here's the secret: Every few seconds, a device called a wireless access point (the box in your house that creates a WiFi network) shouts out a little message into the air. That message says: <em>"Hello! I'm here! My name is blahblahblah! Come connect to me!"</em>. These shouts are called <strong>beacon frames</strong>. They're invisible to human ears, but computers can hear them just fine.</p>
 
       <p>In this article, we're going to listen to those signals. We will have an examination of a WiFi network that was attacked by someone malicious. The signals were captured for us to analyze (like a tape recording of the airwaves). Our job is to find two specific pieces of information from that recording:</p>
 
       <p>1. <strong><span style="color: #b74b4b;">The MAC address of the access point</span></strong>: think of this like a fingerprint or a serial number. Every WiFi device has a unique one.</p>
       <p>2. <strong><span style="color: #b74b4b;">The SSID</span></strong>: this is the fancy technical name for the human-readable network name you'd see on your phone (like "Starbucks WiFi").</p>
 
-      <p>We have no idea what the WiFi network name is or what its unique number is. Yet!</p>
+      <p>We have no idea what the WiFi name is or its unique number. Yet!</p>
 
       <div class="spacer"></div>
 
@@ -205,14 +203,14 @@
       <!-- STEP 1 -->
       <p class="step-heading">Step 1: The Recording</p>
 
-      <p>We started with a file called <strong><span style="color: #b74b4b;">wifi.pcap</span></strong>. This file is the recording of the real WiFi traffic that was attacked — someone captured it from the air using special tools. Think of it like a voice recorder left in a room, capturing everything that was said.</p>
+      <p>We started with a file called <strong><span style="color: #b74b4b;">wifi.pcap</span></strong>. This file is the recording of the real WiFi traffic that was attacked, someone captured it from the air using special tools. Think of it like a voice recorder left in a room, capturing everything that was said.</p>
 
       <p>We didn't capture it ourselves. Someone gave it to us. Our job is to analyse it.</p>
 
       <div class="spacer"></div>
 
       <!-- STEP 2 -->
-      <p class="step-heading">Step 2: The First Tool — tcpdump</p>
+      <p class="step-heading">Step 2: The First Tool: tcpdump</p>
 
       <p>To look inside the recording, we used a tool called <strong>tcpdump</strong>. It's a simple program that reads network recordings and shows you what's inside.</p>
 
@@ -220,14 +218,14 @@
 
       <p><strong><span style="color: #b74b4b;">tcpdump -nne -r wifi.pcap 'wlan[0]=0x80'</span></strong></p>
 
-      <p>That looks scary, but here's what each part means in plain English:</p>
+      <p>I know, I know. That looks scary, but here's what each part means in plain English:</p>
 
-      <p>1. <strong><span style="color: #b74b4b;">tcpdump</span></strong> — Hey computer, run the tcpdump program.</p>
-      <p>2. <strong><span style="color: #b74b4b;">-nne</span></strong> — Don't bother converting numbers to names, just show me the raw data.</p>
-      <p>3. <strong><span style="color: #b74b4b;">-r wifi.pcap</span></strong> — Read from the file called wifi.pcap.</p>
-      <p>4. <strong><span style="color: #b74b4b;">'wlan[0]=0x80'</span></strong> — Only show me beacon frames (the "I'm here!" messages).</p>
+      <p>1. <strong><span style="color: #b74b4b;">tcpdump</span></strong>: Hey computer, run the tcpdump program.</p>
+      <p>2. <strong><span style="color: #b74b4b;">-nne</span></strong>: Don't bother converting numbers to names, just show me the raw data.</p>
+      <p>3. <strong><span style="color: #b74b4b;">-r wifi.pcap</span></strong>: Read from the file called wifi.pcap.</p>
+      <p>4. <strong><span style="color: #b74b4b;">'wlan[0]=0x80'</span></strong>: Only show me beacon frames (the "I'm here!" messages).</p>
 
-      <p>When we ran this, the computer printed out several lines of information. Each line was one beacon frame — one shout from a WiFi access point.</p>
+      <p>When we ran this, the computer printed out several lines of information. Each line was one beacon frame, one shout from a WiFi access point.</p>
 
       <img src="PROJECTS/project5/1.png" alt="Screenshot 1 — tcpdump command output showing beacon frames">
 
@@ -242,9 +240,9 @@
 
       <p>Let me translate:</p>
 
-      <p>1. <strong><span style="color: #b74b4b;">BSSID:00:23:69:61:00:d0</span></strong> — This is the MAC address (the unique number) of the access point.</p>
-      <p>2. <strong><span style="color: #b74b4b;">DA:ff:ff:ff:ff:ff:ff</span></strong> — This means "destination address = everyone" (broadcast to everyone).</p>
-      <p>3. <strong><span style="color: #b74b4b;">Beacon (Ment0rNet)</span></strong> — This is the network name (SSID); the access point is called "Ment0rNet."</p>
+      <p>1. <strong><span style="color: #b74b4b;">BSSID:00:23:69:61:00:d0</span></strong>: This is the MAC address (the unique number) of the access point.</p>
+      <p>2. <strong><span style="color: #b74b4b;">DA:ff:ff:ff:ff:ff:ff</span></strong>: This means "destination address = everyone" (broadcast to everyone).</p>
+      <p>3. <strong><span style="color: #b74b4b;">Beacon (Ment0rNet)</span></strong>: This is the network name (SSID); the access point is called "Ment0rNet."</p>
 
       <p>Right there, in plain sight, we found both things we were looking for:</p>
 
@@ -254,7 +252,7 @@
       <div class="spacer"></div>
 
       <!-- STEP 4 -->
-      <p class="step-heading">Step 4: Double-Checking with a Second Tool — tshark</p>
+      <p class="step-heading">Step 4: Double-Checking with a Second Tool: tshark</p>
 
       <p>In detective work, you never trust just one source. So we used a second tool called <strong>tshark</strong> to confirm what we found.</p>
 
@@ -266,11 +264,11 @@
 
       <p>Here's the plain English breakdown:</p>
 
-      <p>1. <strong><span style="color: #b74b4b;">tshark</span></strong> — Run the tshark program.</p>
-      <p>2. <strong><span style="color: #b74b4b;">-nn</span></strong> — Don't convert numbers to names.</p>
-      <p>3. <strong><span style="color: #b74b4b;">-r wifi.pcap</span></strong> — Read from the file wifi.pcap.</p>
-      <p>4. <strong><span style="color: #b74b4b;">-Y '...'</span></strong> — Only show me beacon frames (0x08) and probe response frames (0x05).</p>
-      <p>5. <strong><span style="color: #b74b4b;">-T fields -e wlan.bssid -e wlan.ssid</span></strong> — Just show me the MAC address and the network name. Nothing else.</p>
+      <p>1. <strong><span style="color: #b74b4b;">tshark</span></strong>: Run the tshark program.</p>
+      <p>2. <strong><span style="color: #b74b4b;">-nn</span></strong>: Don't convert numbers to names.</p>
+      <p>3. <strong><span style="color: #b74b4b;">-r wifi.pcap</span></strong>: Read from the file wifi.pcap.</p>
+      <p>4. <strong><span style="color: #b74b4b;">-Y '...'</span></strong>: Only show me beacon frames (0x08) and probe response frames (0x05).</p>
+      <p>5. <strong><span style="color: #b74b4b;">-T fields -e wlan.bssid -e wlan.ssid</span></strong>: Just show me the MAC address and the network name. Nothing else.</p>
 
       <p>This command gave us a much cleaner output, just two columns of data:</p>
 
@@ -287,13 +285,15 @@
 
       <p><strong><span style="color: #b74b4b;">4d656e7430724e6574</span></strong></p>
 
-      <p>That's called <strong>hexadecimal</strong> — a way computers represent text using numbers and letters. We translated it back to normal text using a tiny command:</p>
+      <p>That's called <strong>hexadecimal</strong>, a way computers represent text using numbers and letters. We translated it back to normal text using a tiny command:</p>
 
       <p><strong><span style="color: #b74b4b;">echo 4d656e7430724e6574 | xxd -r -p</span></strong></p>
 
       <p>And it printed: <strong><span style="color: #b74b4b;">Ment0rNet</span></strong></p>
 
       <p>So everything matched.</p>
+
+      <img src="PROJECTS/project5/1.png" alt="Screenshot 1 — tcpdump command output showing beacon frames">
 
       <div class="spacer"></div>
 
@@ -313,9 +313,9 @@
       <p>This little exercise taught us a few important things:</p>
 
       <p>1. <strong><span style="color: #b74b4b;">WiFi networks announce themselves constantly</span></strong> using beacon frames. That's how your phone knows what networks are nearby.</p>
-      <p>2. <strong><span style="color: #b74b4b;">WiFi signals are completely open</span></strong> — anyone with the right tools can listen to them. That's not a security flaw; it's just how WiFi was designed.</p>
+      <p>2. <strong><span style="color: #b74b4b;">WiFi signals are completely open</span></strong>, anyone with the right tools can listen to them. That's not a security flaw; it's just how WiFi was designed.</p>
       <p>3. <strong><span style="color: #b74b4b;">tcpdump</span></strong> is a great tool for quickly looking at network traffic. It's simple and fast.</p>
-      <p>4. <strong><span style="color: #b74b4b;">tshark</span></strong> is more precise — it lets us pull out exactly the fields we want, nothing more.</p>
+      <p>4. <strong><span style="color: #b74b4b;">tshark</span></strong> is more precise, it lets us pull out exactly the fields we want, nothing more.</p>
       <p>5. <strong><span style="color: #b74b4b;">Always double-check your findings</span></strong> with a second tool or method. That's the heart of digital forensics.</p>
 
       <div class="spacer"></div>
