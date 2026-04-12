@@ -11,15 +11,114 @@
   <!-- Main CSS -->
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
-  
+
+  <style>
+    /* ── PROJECT BOX OVERRIDE: allow scrollable long content ── */
+    .project-detail {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 12rem 2rem 8rem;
+      min-height: 100vh;
+    }
+
+    /* On large screens don't force a fixed height - let the box grow */
+    @media (min-width: 1025px) {
+      .project-detail {
+        height: auto !important;
+        padding: 12rem 4rem 8rem;
+      }
+
+      .project-box {
+        max-height: none !important;
+        margin: 0 auto 6rem;
+      }
+    }
+
+    /* ── BOX ── */
+    .project-box {
+      max-width: 860px;
+      width: 100%;
+      text-align: left;
+    }
+
+    /* ── HEADINGS ── */
+    .project-box h1 {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── PARAGRAPHS ── */
+    .project-box p {
+      max-width: 100%;
+      font-size: clamp(1.4rem, 1.7vw, 1.8rem);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    /* ── STEP HEADINGS ── */
+    .project-box .step-heading {
+      font-size: clamp(1.6rem, 2vw, 2rem);
+      font-weight: 700;
+      color: #b74b4b;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── IMAGES ── */
+    .project-box img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 1rem;
+      border: 1px solid #b74b4b33;
+      margin: 1.5rem 0;
+      object-fit: contain;
+    }
+
+    /* ── SPACER ── */
+    .spacer { height: 2rem; }
+
+    /* ── AUDIO CARD FULL WIDTH INSIDE BOX ── */
+    .ai-audio-card {
+      max-width: 100%;
+      margin: 0 0 3rem 0;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .project-detail {
+        padding: 10rem 1.5rem 6rem;
+      }
+
+      .project-box {
+        padding: 2.5rem 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .project-detail {
+        padding: 9rem 1rem 5rem;
+      }
+
+      .project-box {
+        padding: 2rem 1.4rem;
+        border-radius: 1.4rem;
+      }
+
+      .project-box h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
 </head>
 
 
 <!-- PROJECT BODY -->
 <body>
-  
+
   <!-- NAVIGATION BAR -->
-  
   <header>
     <nav class="navbar glass">
             
@@ -51,112 +150,232 @@
     <div class="overlay" id="overlay"></div>
   </header>
 
-  
-  <!-- WORDINGS -->
-  <section class="project-detail">
-  <div class="project-box">
 
-    <!-- AI Conversation Playback Card -->
+  <!-- CONTENT -->
+  <section class="project-detail">
+    <div class="project-box">
+
+      <!-- AI Conversation Playback Card -->
       <div class="ai-audio-card">
-        
         <button id="ai-play-btn" class="play-btn">
           <i class="fa-solid fa-play"></i>
         </button>
-        
         <div class="audio-info">
           <div class="progress-container">
             <div id="ai-progress-bar" class="progress-bar"></div>
           </div>
-          
           <div class="time">
             <span id="ai-current-time">0:00</span>
             <span id="ai-duration">--</span>
           </div>
         </div>
-        
         <audio id="ai-audio" src="conversation.mp3"></audio>
       </div>
 
-      <!-- PROJECT WORDINGS -->
-    <h1>Analyzing Malicious WiFi Signals</h1>
+      <!-- TITLE -->
+      <h1>Analyzing Malicious WiFi Signals</h1>
 
-    <p>This project demonstrates a DDoS Attack, when successful, it can cause outages that stop customers from using your site, hurting sales and reputation. Attackers flood the site with fake visitors or keep lots of sessions open so real paying customers can’t use your site. A single attack can cause hours or days of downtime. The write-up shows how to spot these attacks early and gives simple steps to detect, stop, and recover from them.</p>
-    
-    <p>
-      <span style="color: #b74b4b;">Average Cost Of DDoS Attack:</span>
-      <br>
-      <strong>
-        <span style="color: #b74b4b;">- $6,000 AUD per minute</span>
-      </strong>
-    </p>
-    
+      <!-- INTRO -->
+      <p>Have you ever opened your phone or laptop to connect to WiFi, and seen a list of network names appear? Names like "Coffee Shop WiFi" or "DavidsHotspot" or "HomeNetwork."</p>
 
-    <!-- BUTTONS -->
-    <div class="project-buttons">
-      <a href="projects.html?slide=4" class="btn" data-sound="locked">Back to Projects</a>
-      <button class="btn" data-sound="error" data-shake>Coming Soon</button>
+      <p>Have you ever wondered: Where do those names actually come from?</p>
+
+      <p>Here's the secret: Every few seconds, a device called a wireless access point (the box in your house that creates a WiFi network) shouts out a little message into the air. That message says: <em>"Hello! I'm here! My name is blahblahblah! Come connect to me!"</em></p>
+
+      <p>These shouts are called <strong>beacon frames</strong>. They're invisible to human ears, but computers can hear them just fine.</p>
+
+      <p>In this article, we're going to listen to those signals. We will have an examination of a WiFi network that was attacked by someone malicious. The signals were captured for us to analyze (like a tape recording of the airwaves). Our job is to find two specific pieces of information from that recording:</p>
+
+      <p>1. <strong><span style="color: #b74b4b;">The MAC address of the access point</span></strong>: think of this like a fingerprint or a serial number. Every WiFi device has a unique one.</p>
+      <p>2. <strong><span style="color: #b74b4b;">The SSID</span></strong>: this is the fancy technical name for the human-readable network name you'd see on your phone (like "Starbucks WiFi").</p>
+
+      <p>We have no idea what the WiFi network name is or what its unique number is. Yet!</p>
+
+      <div class="spacer"></div>
+
+      <!-- WHY -->
+      <p class="step-heading">Why Would Anyone Do This?</p>
+
+      <p>In the real world, digital detectives and security analysts need to find hidden or fake WiFi networks. Sometimes attackers set up evil "fake" WiFi hotspots to steal passwords. Being able to read beacon frames helps you spot those fake WiFi hotspots and take them down to prevent cyber crime.</p>
+
+      <p>Plus, it's also just cool to see how this works.</p>
+
+      <div class="spacer"></div>
+
+      <!-- STEP 1 -->
+      <p class="step-heading">Step 1: The Recording</p>
+
+      <p>We started with a file called <strong><span style="color: #b74b4b;">wifi.pcap</span></strong>. This file is the recording of the real WiFi traffic that was attacked — someone captured it from the air using special tools. Think of it like a voice recorder left in a room, capturing everything that was said.</p>
+
+      <p>We didn't capture it ourselves. Someone gave it to us. Our job is to analyse it.</p>
+
+      <div class="spacer"></div>
+
+      <!-- STEP 2 -->
+      <p class="step-heading">Step 2: The First Tool — tcpdump</p>
+
+      <p>To look inside the recording, we used a tool called <strong>tcpdump</strong>. It's a simple program that reads network recordings and shows you what's inside.</p>
+
+      <p>We ran this command:</p>
+
+      <p><strong><span style="color: #b74b4b;">tcpdump -nne -r wifi.pcap 'wlan[0]=0x80'</span></strong></p>
+
+      <p>That looks scary, but here's what each part means in plain English:</p>
+
+      <p>1. <strong><span style="color: #b74b4b;">tcpdump</span></strong> — Hey computer, run the tcpdump program.</p>
+      <p>2. <strong><span style="color: #b74b4b;">-nne</span></strong> — Don't bother converting numbers to names, just show me the raw data.</p>
+      <p>3. <strong><span style="color: #b74b4b;">-r wifi.pcap</span></strong> — Read from the file called wifi.pcap.</p>
+      <p>4. <strong><span style="color: #b74b4b;">'wlan[0]=0x80'</span></strong> — Only show me beacon frames (the "I'm here!" messages).</p>
+
+      <p>When we ran this, the computer printed out several lines of information. Each line was one beacon frame — one shout from a WiFi access point.</p>
+
+      <img src="PROJECTS/project5/1.png" alt="Screenshot 1 — tcpdump command output showing beacon frames">
+
+      <div class="spacer"></div>
+
+      <!-- STEP 3 -->
+      <p class="step-heading">Step 3: Reading What tcpdump Showed Us</p>
+
+      <p>Looking at the output, we saw a line that looked something like this (simplified version):</p>
+
+      <p><strong><span style="color: #b74b4b;">BSSID:00:23:69:61:00:d0 DA:ff:ff:ff:ff:ff:ff Beacon (Ment0rNet)</span></strong></p>
+
+      <p>Let me translate:</p>
+
+      <p>1. <strong><span style="color: #b74b4b;">BSSID:00:23:69:61:00:d0</span></strong> — This is the MAC address (the unique number) of the access point.</p>
+      <p>2. <strong><span style="color: #b74b4b;">DA:ff:ff:ff:ff:ff:ff</span></strong> — This means "destination address = everyone" (broadcast to everyone).</p>
+      <p>3. <strong><span style="color: #b74b4b;">Beacon (Ment0rNet)</span></strong> — This is the network name (SSID); the access point is called "Ment0rNet."</p>
+
+      <p>Right there, in plain sight, we found both things we were looking for:</p>
+
+      <p>1. <strong><span style="color: #b74b4b;">MAC address:</span></strong> 00:23:69:61:00:d0</p>
+      <p>2. <strong><span style="color: #b74b4b;">Network name:</span></strong> Ment0rNet</p>
+
+      <div class="spacer"></div>
+
+      <!-- STEP 4 -->
+      <p class="step-heading">Step 4: Double-Checking with a Second Tool — tshark</p>
+
+      <p>In detective work, you never trust just one source. So we used a second tool called <strong>tshark</strong> to confirm what we found.</p>
+
+      <p>tshark is like the command-line cousin of Wireshark (a popular network analysis program). It's more precise than tcpdump.</p>
+
+      <p>We ran this command:</p>
+
+      <p><strong><span style="color: #b74b4b;">tshark -nn -r wifi.pcap -Y '((wlan.fc.type_subtype == 0x08) || (wlan.fc.type_subtype == 0x05))' -T fields -e wlan.bssid -e wlan.ssid</span></strong></p>
+
+      <p>Here's the plain English breakdown:</p>
+
+      <p>1. <strong><span style="color: #b74b4b;">tshark</span></strong> — Run the tshark program.</p>
+      <p>2. <strong><span style="color: #b74b4b;">-nn</span></strong> — Don't convert numbers to names.</p>
+      <p>3. <strong><span style="color: #b74b4b;">-r wifi.pcap</span></strong> — Read from the file wifi.pcap.</p>
+      <p>4. <strong><span style="color: #b74b4b;">-Y '...'</span></strong> — Only show me beacon frames (0x08) and probe response frames (0x05).</p>
+      <p>5. <strong><span style="color: #b74b4b;">-T fields -e wlan.bssid -e wlan.ssid</span></strong> — Just show me the MAC address and the network name. Nothing else.</p>
+
+      <p>This command gave us a much cleaner output, just two columns of data:</p>
+
+      <p><strong><span style="color: #b74b4b;">00:23:69:61:00:d0 &nbsp;&nbsp;&nbsp; 4d656e7430724e6574</span></strong></p>
+
+      <img src="PROJECTS/project5/2.png" alt="Screenshot 2 — tshark command output showing BSSID and SSID">
+
+      <div class="spacer"></div>
+
+      <!-- STEP 5 -->
+      <p class="step-heading">Step 5: What is 4d656e7430724e6574?</p>
+
+      <p>When we ran tshark, sometimes the network name showed up as a code or numbers instead of plain text. For example, instead of "Ment0rNet", we saw:</p>
+
+      <p><strong><span style="color: #b74b4b;">4d656e7430724e6574</span></strong></p>
+
+      <p>That's called <strong>hexadecimal</strong> — a way computers represent text using numbers and letters. We translated it back to normal text using a tiny command:</p>
+
+      <p><strong><span style="color: #b74b4b;">echo 4d656e7430724e6574 | xxd -r -p</span></strong></p>
+
+      <p>And it printed: <strong><span style="color: #b74b4b;">Ment0rNet</span></strong></p>
+
+      <p>So everything matched.</p>
+
+      <div class="spacer"></div>
+
+      <!-- FINAL ANSWERS -->
+      <p class="step-heading">The Final Answers</p>
+
+      <p>After all this listening and double-checking, here's what we found hidden inside the WiFi recording:</p>
+
+      <p>1. <strong><span style="color: #b74b4b;">The WiFi's unique number (MAC address):</span></strong> 00:23:69:61:00:d0</p>
+      <p>2. <strong><span style="color: #b74b4b;">The WiFi's name (SSID):</span></strong> Ment0rNet</p>
+
+      <div class="spacer"></div>
+
+      <!-- WHAT WE LEARNED -->
+      <p class="step-heading">What Did We Learn?</p>
+
+      <p>This little exercise taught us a few important things:</p>
+
+      <p>1. <strong><span style="color: #b74b4b;">WiFi networks announce themselves constantly</span></strong> using beacon frames. That's how your phone knows what networks are nearby.</p>
+      <p>2. <strong><span style="color: #b74b4b;">WiFi signals are completely open</span></strong> — anyone with the right tools can listen to them. That's not a security flaw; it's just how WiFi was designed.</p>
+      <p>3. <strong><span style="color: #b74b4b;">tcpdump</span></strong> is a great tool for quickly looking at network traffic. It's simple and fast.</p>
+      <p>4. <strong><span style="color: #b74b4b;">tshark</span></strong> is more precise — it lets us pull out exactly the fields we want, nothing more.</p>
+      <p>5. <strong><span style="color: #b74b4b;">Always double-check your findings</span></strong> with a second tool or method. That's the heart of digital forensics.</p>
+
+      <div class="spacer"></div>
+
+      <!-- BUTTONS -->
+      <div class="project-buttons">
+        <a href="projects.html?slide=4" class="btn" data-sound="locked">Back to Projects</a>
+        <button class="btn" data-sound="error" data-shake>Coming Soon</button>
+      </div>
+
     </div>
-  </div>
-</section>
+  </section>
 
 
   <!-- FOOTER -->
   <footer class="footer glass-footer">
     <p>Based in Melbourne, Australia</p>
   </footer>
-  
+
 
   <!-- JAVASCRIPT -->
   <script src="script.js"></script>
 
   <!-- GLASS NAVIGATION BAR -->
   <script>
-    
-    // GLASS NAVIGATION BAR (Updated with sound)
+
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
-    
-    // Create audio element for hamburger menu sound
-    const menuSound = new Audio('menu.mp3'); // Change filename to match your sound file
-    
+
+    const menuSound = new Audio('menu.mp3');
+
     hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
-      
-      // Play sound effect
-      menuSound.currentTime = 0; // Reset to start in case it's clicked multiple times quickly
-      menuSound.play().catch(() => {}); // Catch any playback errors silently
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
     });
-    
+
     overlay.addEventListener('click', () => {
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
     });
 
-
-    // NAVIGATION LINKS SOUND EFFECT
     const navSound = new Audio('nav.mp3');
-    
+
     const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
-    
+
     allNavLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent immediate navigation
-        
+        e.preventDefault();
         navSound.currentTime = 0;
         navSound.play().catch(() => {});
-        
-        // Get the href before navigation
         const destination = link.getAttribute('href');
-        
-        // Navigate after a short delay to allow sound to play
         setTimeout(() => {
           window.location.href = destination;
-        }, 150); // Adjust timing as needed (150ms is usually good)
+        }, 150);
       });
     });
-    
+
   </script>
 </body>
 </html>
