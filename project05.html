@@ -236,11 +236,11 @@
       <!-- STEP 3 -->
       <p class="step-heading">Step 3: Reading What tcpdump Showed Us</p>
 
-      <p>Looking at the output, we saw a line that looked something like this (simplified version):</p>
+      <p>Looking at the output in the screenshot above, we saw a line that looked something like this (simplified version):</p>
 
       <p><strong><span style="color: #b74b4b;">BSSID:00:23:69:61:00:d0 DA:ff:ff:ff:ff:ff:ff Beacon (Ment0rNet)</span></strong></p>
 
-      <p>Let me translate:</p>
+      <p>Don't worry. Let me translate:</p>
 
       <p>1. <strong><span style="color: #b74b4b;">BSSID:00:23:69:61:00:d0</span></strong>: This is the MAC address (the unique number) of the access point.</p>
       <p>2. <strong><span style="color: #b74b4b;">DA:ff:ff:ff:ff:ff:ff</span></strong>: This means "destination address = everyone" (broadcast to everyone).</p>
@@ -248,8 +248,8 @@
 
       <p>Right there, in plain sight, we found both things we were looking for:</p>
 
-      <p>1. <strong><span style="color: #b74b4b;">MAC address:</span></strong> 00:23:69:61:00:d0</p>
-      <p>2. <strong><span style="color: #b74b4b;">Network name:</span></strong> Ment0rNet</p>
+      <p>1. <strong><span style="color: #b74b4b;">Unique number:</span></strong> 00:23:69:61:00:d0</p>
+      <p>2. <strong><span style="color: #b74b4b;">WiFi name:</span></strong> Ment0rNet</p>
 
       <div class="spacer"></div>
 
@@ -264,7 +264,7 @@
 
       <p><strong><span style="color: #b74b4b;">tshark -nn -r wifi.pcap -Y '((wlan.fc.type_subtype == 0x08) || (wlan.fc.type_subtype == 0x05))' -T fields -e wlan.bssid -e wlan.ssid</span></strong></p>
 
-      <p>Here's the plain English breakdown:</p>
+      <p>Let me give you the plain English breakdown and remove the alien talk:</p>
 
       <p>1. <strong><span style="color: #b74b4b;">tshark</span></strong>: Run the tshark program.</p>
       <p>2. <strong><span style="color: #b74b4b;">-nn</span></strong>: Don't convert numbers to names.</p>
@@ -272,7 +272,7 @@
       <p>4. <strong><span style="color: #b74b4b;">-Y '...'</span></strong>: Only show me beacon frames (0x08) and probe response frames (0x05).</p>
       <p>5. <strong><span style="color: #b74b4b;">-T fields -e wlan.bssid -e wlan.ssid</span></strong>: Just show me the MAC address and the network name. Nothing else.</p>
 
-      <p>This command gave us a much cleaner output, just two columns of data:</p>
+      <p>This command gave us a much cleaner output as you can see in the screenshot below, just two columns of data:</p>
 
       <p><strong><span style="color: #b74b4b;">00:23:69:61:00:d0 &nbsp;&nbsp;&nbsp; 4d656e7430724e6574</span></strong></p>
 
@@ -287,7 +287,7 @@
 
       <p><strong><span style="color: #b74b4b;">4d656e7430724e6574</span></strong></p>
 
-      <p>That's called <strong>hexadecimal</strong>, a way computers represent text using numbers and letters. We translated it back to normal text using a tiny command:</p>
+      <p>That's called <strong>hexadecimal</strong>, a way computers represent text using numbers and letters. We translated it back to normal text using a tiny command as you can see at the end of the screenshot below:</p>
 
       <p><strong><span style="color: #b74b4b;">echo 4d656e7430724e6574 | xxd -r -p</span></strong></p>
 
@@ -314,11 +314,15 @@
 
       <p>This little exercise taught us a few important things:</p>
 
-      <p>1. <strong><span style="color: #b74b4b;">WiFi networks announce themselves constantly</span></strong> using beacon frames. That's how your phone knows what networks are nearby.</p>
+      <p>1. <strong><span style="color: #b74b4b;">WiFi networks announce themselves constantly</span></strong> using beacon frames. That's how your phone knows what WiFi networks are nearby.</p>
       <p>2. <strong><span style="color: #b74b4b;">WiFi signals are completely open</span></strong>, anyone with the right tools can listen to them. That's not a security flaw; it's just how WiFi was designed.</p>
       <p>3. <strong><span style="color: #b74b4b;">tcpdump</span></strong> is a great tool for quickly looking at network traffic. It's simple and fast.</p>
       <p>4. <strong><span style="color: #b74b4b;">tshark</span></strong> is more precise, it lets us pull out exactly the fields we want, nothing more.</p>
-      <p>5. <strong><span style="color: #b74b4b;">Always double-check your findings</span></strong> with a second tool or method. That's the heart of digital forensics.</p>
+      <p>5. <strong><span style="color: #b74b4b;">Always double-check your findings</span></strong> with a second tool or method.</p> 
+
+      <br>
+      
+      <p>That's the heart of digital forensics.</p>
 
       <div class="spacer"></div>
 
