@@ -13,12 +13,13 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
   <style>
-    .nav-links .nav-btn {
+    .logo-btn {
       display: inline-block;
       padding: 0.45em 1.1em;
       font-size: 0.9rem;
       text-decoration: none;
       border-radius: 999px;
+      white-space: nowrap;
     }
     .sidebar .nav-btn {
       display: inline-block;
@@ -36,15 +37,12 @@
   <!-- NAVIGATION BAR -->
   <header>
     <nav class="navbar glass">
-      <div class="logo">
-        <img src="LOGO.jpg" alt="Black Widow Logo">
-      </div>
+      <a href="playground.html" class="btn nav-btn logo-btn">Join The Playground</a>
   
       <ul class="nav-links">
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="playground.html" class="btn nav-btn">Join The Playground</a></li>
       </ul>
   
       <div class="hamburger" id="hamburger">
