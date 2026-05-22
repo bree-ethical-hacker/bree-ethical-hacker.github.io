@@ -808,7 +808,7 @@ span {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1rem 9%;
+  padding: 2rem 9%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1843,7 +1843,3 @@ span {
     color: black !important;                 /* Added !important */
     box-shadow: 0 0 15px #4bb78e !important; /* Added !important */
 }
-
-
-
-
