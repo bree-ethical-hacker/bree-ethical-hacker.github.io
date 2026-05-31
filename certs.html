@@ -231,183 +231,104 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    // Navigation
-    const hamburger = document.getElementById('hamburger');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const menuSound = new Audio('menu.mp3');
+    // ========================================
+    // UNIVERSAL NAVIGATION - WORKS ON ALL PAGES
+    // ========================================
     
-    hamburger.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-      overlay.classList.toggle('active');
-      menuSound.currentTime = 0;
-      menuSound.play().catch(() => {});
-    });
-    overlay.addEventListener('click', () => {
-      sidebar.classList.remove('active');
-      overlay.classList.remove('active');
-    });
-
-    const navSound = new Audio('nav.mp3');
-    document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        navSound.currentTime = 0;
-        navSound.play().catch(() => {});
-        setTimeout(() => { window.location.href = link.getAttribute('href'); }, 150);
-      });
-    });
-
-    // Certificate Card System
-    const cardImages = ["Juja.png", "Strathmore.png", "Diploma.png"];
-    const cardLine = document.getElementById('cardLine');
-    let isPaused = false;
-    let currentPosition = 0;
-    let animationId = null;
-    let speed = 0.5;
-    let direction = -1;
-
-    function getCardWidth() {
-      const width = window.innerWidth;
-      if (width <= 480) return 220;
-      if (width <= 768) return 260;
-      if (width <= 1024) return 300;
-      return 350;
-    }
-
-    function createCards() {
-      cardLine.innerHTML = '';
-      const cardWidth = getCardWidth();
-      const cardsNeeded = Math.ceil(window.innerWidth / cardWidth) + 4;
+    (function() {
+      // Get elements
+      const hamburger = document.getElementById('hamburger');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
       
-      for (let i = 0; i < cardsNeeded; i++) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'card-wrapper';
-        wrapper.style.width = cardWidth + 'px';
-        
-        const normalCard = document.createElement('div');
-        normalCard.className = 'card card-normal';
-        const img = document.createElement('img');
-        img.className = 'card-image';
-        img.src = cardImages[i % cardImages.length];
-        img.alt = 'Certificate';
-        normalCard.appendChild(img);
-        
-        const asciiCard = document.createElement('div');
-        asciiCard.className = 'card card-ascii';
-        const asciiContent = document.createElement('div');
-        asciiContent.className = 'ascii-content';
-        asciiContent.textContent = generateCode(cardWidth);
-        asciiCard.appendChild(asciiContent);
-        
-        wrapper.appendChild(normalCard);
-        wrapper.appendChild(asciiCard);
-        cardLine.appendChild(wrapper);
-      }
-    }
-
-    function generateCode(width) {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-      let code = "";
-      const lines = Math.floor(width / 8);
-      for (let i = 0; i < lines * 5; i++) {
-        for (let j = 0; j < 8; j++) {
-          code += chars[Math.floor(Math.random() * chars.length)];
+      // Sound effects (optional - remove if you don't have the audio files)
+      const menuSound = new Audio('menu.mp3');
+      const navSound = new Audio('nav.mp3');
+      
+      // Function to open sidebar
+      function openSidebar() {
+        if (sidebar) {
+          sidebar.classList.add('active');
+          document.body.classList.add('sidebar-open');
         }
-        code += "\n";
+        if (overlay) overlay.classList.add('active');
       }
-      return code;
-    }
-
-    function animate() {
-      if (!isPaused) {
-        currentPosition += speed * direction;
-        const cardWidth = getCardWidth();
-        const totalWidth = cardLine.children.length * (cardWidth + 20);
-        
-        if (currentPosition < -totalWidth) {
-          currentPosition = window.innerWidth;
-        } else if (currentPosition > window.innerWidth) {
-          currentPosition = -totalWidth;
+      
+      // Function to close sidebar
+      function closeSidebar() {
+        if (sidebar) {
+          sidebar.classList.remove('active');
+          document.body.classList.remove('sidebar-open');
         }
-        
-        cardLine.style.transform = `translateX(${currentPosition}px)`;
-      }
-      animationId = requestAnimationFrame(animate);
-    }
-
-    function handleResize() {
-      createCards();
-      currentPosition = 0;
-      cardLine.style.transform = `translateX(0px)`;
-    }
-
-    // Control buttons
-    document.getElementById('pauseBtn').addEventListener('click', () => {
-      isPaused = !isPaused;
-      const btn = document.getElementById('pauseBtn');
-      btn.innerHTML = isPaused ? '<i class="fa-solid fa-play"></i> <span>Play</span>' : '<i class="fa-solid fa-pause"></i> <span>Pause</span>';
-    });
-    
-    document.getElementById('homeBtn').addEventListener('click', () => {
-      window.location.href = 'index.html';
-    });
-    
-    document.getElementById('directionBtn').addEventListener('click', () => {
-      direction *= -1;
-    });
-
-    // Initialize
-    createCards();
-    animate();
-    window.addEventListener('resize', handleResize);
-
-    // Simple particle effect
-    const canvas = document.getElementById('particleCanvas');
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      let particles = [];
-      
-      function resizeCanvas() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
+        if (overlay) overlay.classList.remove('active');
       }
       
-      function createParticles() {
-        particles = [];
-        for (let i = 0; i < 50; i++) {
-          particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 2 + 1,
-            alpha: Math.random() * 0.5,
-            speed: Math.random() * 0.5 + 0.2
-          });
-        }
-      }
-      
-      function drawParticles() {
-        if (!ctx) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(192, 57, 43, ${p.alpha})`;
-          ctx.fill();
-          p.y -= p.speed;
-          if (p.y < 0) p.y = canvas.height;
+      // Toggle sidebar on hamburger click
+      if (hamburger) {
+        hamburger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (sidebar && sidebar.classList.contains('active')) {
+            closeSidebar();
+          } else {
+            openSidebar();
+          }
+          // Play sound (optional)
+          menuSound.currentTime = 0;
+          menuSound.play().catch(() => {});
         });
-        requestAnimationFrame(drawParticles);
       }
       
-      window.addEventListener('resize', () => {
-        resizeCanvas();
-        createParticles();
+      // Close sidebar when clicking overlay
+      if (overlay) {
+        overlay.addEventListener('click', closeSidebar);
+      }
+      
+      // Handle sidebar link clicks with sound and navigation
+      if (sidebar) {
+        const sidebarLinks = sidebar.querySelectorAll('a');
+        sidebarLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const destination = link.getAttribute('href');
+            
+            // Play sound
+            navSound.currentTime = 0;
+            navSound.play().catch(() => {});
+            
+            // Close sidebar
+            closeSidebar();
+            
+            // Navigate after delay
+            setTimeout(() => {
+              window.location.href = destination;
+            }, 150);
+          });
+        });
+      }
+      
+      // Handle desktop nav links
+      const desktopLinks = document.querySelectorAll('.nav-links a');
+      desktopLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const destination = link.getAttribute('href');
+          
+          navSound.currentTime = 0;
+          navSound.play().catch(() => {});
+          
+          setTimeout(() => {
+            window.location.href = destination;
+          }, 150);
+        });
       });
-      resizeCanvas();
-      createParticles();
-      drawParticles();
-    }
-  </script>
+      
+      // Close sidebar on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sidebar && sidebar.classList.contains('active')) {
+          closeSidebar();
+        }
+      });
+    })();
+</script>
 </body>
 </html>
