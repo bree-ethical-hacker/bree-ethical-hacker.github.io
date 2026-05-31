@@ -1,61 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!--CONTACT HEAD -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact</title>
-  <!-- Font Awesome -->
+  <title>Contact | Black Widow</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <!-- Main CSS -->
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
-
-  <!-- BLACK WIDOW BUTTON -->
   <style>
-    .logo-btn {
-      display: inline-block;
-      padding: 0.75em 1.6em;
-      font-size: 1.1rem;
-      text-decoration: none !important;
-      border-radius: 999px;
-      white-space: nowrap;
+    .web-svg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 110vmax;
+      height: 110vmax;
+      opacity: 0.09;
+      pointer-events: none;
+      z-index: 0;
     }
-    .logo-btn::after,
-    .logo-btn::before {
-      display: none !important;
-    }
-    .sidebar .nav-btn {
-      display: inline-block;
-      margin-top: 0.5rem;
-      padding: 0.5em 1.3em;
-      text-decoration: none;
-      border-radius: 999px;
-    }
+    .contact-section { position: relative; z-index: 1; }
   </style>
 </head>
 
-<!-- CONTACT BODY -->
 <body>
 
-  <!-- NAVIGATION BAR -->
+  <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
+      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="400" y2="800" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="206" y2="786" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="52" y2="690" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="0" y2="520" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="0" y2="400" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="0" y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="52" y2="110" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="206" y2="14" stroke-width="0.6"/>
+    </g>
+  </svg>
+
   <header>
     <nav class="navbar glass">
-      <a href="community.html" class="btn nav-btn logo-btn">Black Widow Community</a>
-  
+      <a href="community.html" class="btn-nav logo-btn">Black Widow Community</a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="contact.html" class="active">Contact</a></li>
       </ul>
-  
-      <div class="hamburger" id="hamburger">
-        <i class="fa fa-bars"></i>
-      </div>
+      <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
     </nav>
-  
-    <!-- Sidebar (mobile only) -->
     <div class="sidebar" id="sidebar">
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -63,95 +64,53 @@
         <li><a href="contact.html" class="active">Contact</a></li>
       </ul>
     </div>
-  
-    <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
   </header>
 
-  
-  <!-- PAGE CONTENT SECTION -->
-<section class="contact-section">
-  <div class="contact-container">
-    
-    <!-- WORDINGS - Now on top -->
-    <div class="contact-heading">
-      <h1>Let's have a <br>
-        <span>Conversation</span>
-      </h1>
+  <section class="contact-section">
+    <div class="contact-container">
+      <div class="contact-heading">
+        <h1>Let's have a <br><span>Conversation</span></h1>
+      </div>
+      <div class="contact-calendly">
+        <div class="calendly-inline-widget" data-url="https://calendly.com/kagwe-bridgette/30min"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      </div>
     </div>
+  </section>
 
-
-    <!-- CALENDLY BOOKING - Now below -->
-    <div class="contact-calendly">
-      <div class="calendly-inline-widget" data-url="https://calendly.com/kagwe-bridgette/30min"></div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-    </div>
-
-  </div>
-</section>
-
-  
-
-  
-  <!-- FOOTER -->
   <footer class="footer glass-footer">
-    <p>Based in Melbourne, Australia</p>
+    <p>Based in <span>Melbourne, Australia</span></p>
   </footer>
-  
 
-  <!-- JAVASCRIPT -->
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
-
-  <!-- GLASS NAVIGATION BAR -->
   <script>
-    
-    // GLASS NAVIGATION BAR (Updated with sound)
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
-    
-    // Create audio element for hamburger menu sound
-    const menuSound = new Audio('menu.mp3'); // Change filename to match your sound file
-    
+    const menuSound = new Audio('menu.mp3');
     hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
-      
-      // Play sound effect
-      menuSound.currentTime = 0; // Reset to start in case it's clicked multiple times quickly
-      menuSound.play().catch(() => {}); // Catch any playback errors silently
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
     });
-    
     overlay.addEventListener('click', () => {
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
     });
-
-
-    // NAVIGATION LINKS SOUND EFFECT
     const navSound = new Audio('nav.mp3');
-    
     const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
-    
     allNavLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent immediate navigation
-        
+        e.preventDefault();
         navSound.currentTime = 0;
         navSound.play().catch(() => {});
-        
-        // Get the href before navigation
         const destination = link.getAttribute('href');
-        
-        // Navigate after a short delay to allow sound to play
-        setTimeout(() => {
-          window.location.href = destination;
-        }, 150); // Adjust timing as needed (150ms is usually good)
+        setTimeout(() => { window.location.href = destination; }, 150);
       });
     });
-    
   </script>
-  
 </body>
 </html>
