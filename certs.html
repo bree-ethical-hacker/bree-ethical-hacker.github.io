@@ -1,50 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=yes">
   <title>Certificates | Black Widow</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
   <style>
-    .web-svg {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 110vmax;
-      height: 110vmax;
-      opacity: 0.09;
-      pointer-events: none;
-      z-index: 0;
+    /* Certificates page specific responsive styles */
+    .certs-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    /* Preserve all certificate-specific styles */
-    * { margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; border: none; outline: none; -webkit-tap-highlight-color: transparent; }
-    html { font-size: 62.5%; }
-    body { background: #000000; min-height: 100vh; overflow-x: hidden; font-family: 'Raleway', sans-serif; display: flex; flex-direction: column; color: white; }
-    .certificates-heading { text-align: center; padding: 2rem 2rem 0.5rem 2rem; max-width: 900px; margin: 12rem auto 0; position: relative; z-index: 1; }
-    .certificates-heading h2 { font-size: 3.5rem; font-weight: 800; color: var(--red); margin-bottom: 0; text-transform: uppercase; letter-spacing: 0.15rem; font-family: 'Cinzel', serif; }
-    .controls { position: relative; width: 100%; display: flex; flex-direction: row; justify-content: center; gap: 10px; z-index: 90; flex-wrap: nowrap; margin: 0.5rem auto 1rem; }
-    .control-btn { display: inline-block; padding: 1rem 2.8rem; background-color: transparent; border-radius: 4rem; font-size: 1.6rem; color: var(--red); letter-spacing: 0.3rem; font-weight: 600; border: 2px solid var(--red); transition: 0.3s ease; cursor: pointer; }
-    .control-btn:hover { transform: scale3d(1.03, 1.03, 1.03); background-color: var(--red); color: var(--black); box-shadow: 0 0 25px var(--red); }
-    .container { position: relative; width: 100%; flex: 1; margin-top: 1rem; display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 350px); overflow: visible; z-index: 1; }
-    .card-stream { position: absolute; width: 100%; height: 180px; display: flex; align-items: center; overflow: visible; }
-    .card-line { display: flex; align-items: center; gap: 60px; white-space: nowrap; cursor: grab; user-select: none; will-change: transform; }
-    .card-line:active { cursor: grabbing; }
-    .card-wrapper { position: relative; width: 400px; height: 250px; flex-shrink: 0; }
-    .card { position: absolute; top: 0; left: 0; width: 400px; height: 250px; border-radius: 15px; overflow: hidden; }
-    .card-normal { background: transparent; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; justify-content: space-between; padding: 0; color: white; z-index: 2; position: relative; overflow: hidden; }
-    .card-image { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; transition: all 0.3s ease; filter: brightness(1.1) contrast(1.1); }
-    .card-ascii { background: transparent; z-index: 1; position: absolute; top: 0; left: 0; width: 400px; height: 250px; border-radius: 15px; overflow: hidden; }
-    .scanner { display: block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 4px; height: 300px; border-radius: 30px; background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.8), var(--red), rgba(139,0,0,0.8), transparent); box-shadow: 0 0 20px var(--red); animation: scanPulse 2s ease-in-out infinite alternate; z-index: 10; }
-    @keyframes scanPulse { 0% { opacity: 0.8; transform: translate(-50%, -50%) scaleY(1); } 100% { opacity: 1; transform: translate(-50%, -50%) scaleY(1.1); } }
-    @media (max-width: 768px) { .certificates-heading { margin-top: 10rem; } .certificates-heading h2 { font-size: 2.5rem; } .card-wrapper { width: 280px; height: 175px; } }
-    @media (max-width: 480px) { .certificates-heading h2 { font-size: 2rem; } .card-wrapper { width: 250px; height: 156px; } }
+    .certificates-heading {
+      text-align: center;
+      padding: clamp(6rem, 15vw, 10rem) 1.5rem 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .certificates-heading h2 {
+      font-size: clamp(1.8rem, 6vw, 3.5rem);
+      font-weight: 800;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 0.15rem;
+      font-family: 'Cinzel', serif;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: clamp(0.8rem, 3vw, 1.5rem);
+      flex-wrap: wrap;
+      margin: 1rem auto 2rem;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 10;
+    }
+    .control-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: clamp(0.6rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.8rem);
+      background: transparent;
+      border: 2px solid var(--red);
+      border-radius: 4rem;
+      font-size: clamp(1rem, 3vw, 1.6rem);
+      color: var(--red);
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+      min-height: 44px;
+    }
+    .control-btn i { font-size: clamp(1rem, 3vw, 1.4rem); }
+    .control-btn:hover {
+      background: var(--red);
+      color: var(--black);
+      transform: scale(1.02);
+    }
+    .cert-container {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      min-height: 400px;
+      overflow: hidden;
+      margin: 1rem 0 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .card-stream {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .card-stream::-webkit-scrollbar {
+      height: 5px;
+    }
+    .card-stream::-webkit-scrollbar-track {
+      background: var(--black-3);
+      border-radius: 10px;
+    }
+    .card-stream::-webkit-scrollbar-thumb {
+      background: var(--red);
+      border-radius: 10px;
+    }
+    .card-line {
+      display: flex;
+      align-items: center;
+      gap: clamp(1.5rem, 4vw, 4rem);
+      padding: 2rem;
+      will-change: transform;
+    }
+    .card-wrapper {
+      position: relative;
+      width: clamp(200px, 30vw, 350px);
+      height: auto;
+      aspect-ratio: 16 / 10;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .card-wrapper:hover { transform: scale(1.02); }
+    .card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    .card-normal {
+      background: transparent;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      z-index: 2;
+    }
+    .card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+    }
+    .card-ascii {
+      background: rgba(0,0,0,0.7);
+      z-index: 1;
+      backdrop-filter: blur(2px);
+    }
+    .ascii-content {
+      width: 100%;
+      height: 100%;
+      color: rgba(220, 210, 255, 0.5);
+      font-family: 'Courier New', monospace;
+      font-size: clamp(6px, 1.5vw, 10px);
+      line-height: 1.2;
+      overflow: hidden;
+      white-space: pre-wrap;
+      word-break: break-all;
+      padding: 8px;
+    }
+    .scanner {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 4px;
+      height: clamp(150px, 40vh, 300px);
+      background: linear-gradient(to bottom, transparent, rgba(192,57,43,0.8), var(--red), rgba(192,57,43,0.8), transparent);
+      box-shadow: 0 0 20px var(--red);
+      animation: scanPulse 2s ease-in-out infinite alternate;
+      z-index: 100;
+      pointer-events: none;
+    }
+    @keyframes scanPulse {
+      0% { opacity: 0.6; transform: translate(-50%, -50%) scaleY(1); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scaleY(1.1); }
+    }
+    @media (max-width: 768px) {
+      .card-line { gap: 1.5rem; padding: 1rem; }
+      .scanner { height: 200px; width: 3px; }
+    }
+    @media (max-width: 480px) {
+      .card-line { gap: 1rem; padding: 0.8rem; }
+      .scanner { height: 150px; width: 2px; }
+    }
   </style>
 </head>
-
 <body>
 
   <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
@@ -57,52 +186,228 @@
       <line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
       <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/>
       <line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="400" y2="800" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="206" y2="786" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52" y2="690" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="0" y2="520" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="0" y2="400" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="0" y2="280" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52" y2="110" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="206" y2="14" stroke-width="0.6"/>
     </g>
   </svg>
 
   <header>
     <nav class="navbar glass">
       <a href="community.html" class="btn-nav logo-btn">Black Widow Community</a>
-      <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
       <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
     </nav>
-    <div class="sidebar" id="sidebar"><ul><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="sidebar" id="sidebar">
+      <ul><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul>
+    </div>
     <div class="overlay" id="overlay"></div>
   </header>
 
-  <div class="certificates-heading"><h2>CERTIFICATES</h2></div>
-  <div class="controls"><button class="control-btn" onclick="toggleAnimation()"><i class="fa-solid fa-pause"></i></button><button class="control-btn" onclick="goHome()"><i class="fa-solid fa-house"></i></button><button class="control-btn" onclick="changeDirection()"><i class="fa-solid fa-arrows-left-right"></i></button></div>
-  <div class="container"><canvas id="particleCanvas"></canvas><canvas id="scannerCanvas"></canvas><div class="scanner"></div><div class="card-stream" id="cardStream"><div class="card-line" id="cardLine"></div></div></div>
+  <div class="certs-wrapper">
+    <div class="certificates-heading">
+      <h2>CERTIFICATES</h2>
+    </div>
 
-  <footer class="footer glass-footer"><p>Based in <span>Melbourne, Australia</span></p></footer>
+    <div class="controls">
+      <button class="control-btn" id="pauseBtn"><i class="fa-solid fa-pause"></i> <span>Pause</span></button>
+      <button class="control-btn" id="homeBtn"><i class="fa-solid fa-house"></i> <span>Home</span></button>
+      <button class="control-btn" id="directionBtn"><i class="fa-solid fa-arrows-left-right"></i> <span>Direction</span></button>
+    </div>
+
+    <div class="cert-container">
+      <canvas id="particleCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5;"></canvas>
+      <div class="scanner" id="scanner"></div>
+      <div class="card-stream" id="cardStream">
+        <div class="card-line" id="cardLine"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer glass-footer">
+    <p>Based in <span>Melbourne, Australia</span></p>
+  </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    // Preserve all original certificate functionality
+    // Navigation
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     const menuSound = new Audio('menu.mp3');
-    hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); menuSound.currentTime = 0; menuSound.play().catch(() => {}); });
-    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
-    const navSound = new Audio('nav.mp3');
-    const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
-    allNavLinks.forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); navSound.currentTime = 0; navSound.play().catch(() => {}); const destination = link.getAttribute('href'); setTimeout(() => { window.location.href = destination; }, 150); }); });
+    
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
+    });
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
 
-    // CardStreamController class (keep all original functionality - abbreviated for brevity)
-    class CardStreamController { constructor() { this.container = document.getElementById("cardStream"); this.cardLine = document.getElementById("cardLine"); this.init(); } init() { this.populateCardLine(); this.calculateDimensions(); this.setupEventListeners(); this.updateCardPosition(); this.animate(); } getCurrentCardWidth() { const w = window.innerWidth; if (w <= 375) return 220; if (w <= 480) return 250; if (w <= 768) return 280; if (w <= 991) return 300; return 400; } populateCardLine() { this.cardLine.innerHTML = ""; for (let i = 0; i < 8; i++) { const wrapper = document.createElement("div"); wrapper.className = "card-wrapper"; const w = this.getCurrentCardWidth(); wrapper.style.width = w + 'px'; wrapper.style.height = Math.floor(w * 0.625) + 'px'; const normalCard = document.createElement("div"); normalCard.className = "card card-normal"; const img = document.createElement("img"); img.className = "card-image"; img.src = ["Juja.png", "Strathmore.png", "Diploma.png"][i % 3]; normalCard.appendChild(img); wrapper.appendChild(normalCard); this.cardLine.appendChild(wrapper); } } calculateDimensions() { this.containerWidth = window.innerWidth; this.cardLineWidth = this.cardLine.scrollWidth; } setupEventListeners() { window.addEventListener("resize", () => this.handleResize()); } handleResize() { this.calculateDimensions(); this.updateCardPosition(); } updateCardPosition() { if (this.position === undefined) this.position = 0; this.cardLine.style.transform = `translateX(${this.position}px)`; } animate() { requestAnimationFrame(() => this.animate()); } }
-    let cardStream; document.addEventListener("DOMContentLoaded", () => { cardStream = new CardStreamController(); });
-    function toggleAnimation() { if (cardStream) cardStream.toggleAnimation(); }
-    function goHome() { window.location.href = 'index.html'; }
-    function changeDirection() { if (cardStream) cardStream.changeDirection(); }
+    const navSound = new Audio('nav.mp3');
+    document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navSound.currentTime = 0;
+        navSound.play().catch(() => {});
+        setTimeout(() => { window.location.href = link.getAttribute('href'); }, 150);
+      });
+    });
+
+    // Certificate Card System
+    const cardImages = ["Juja.png", "Strathmore.png", "Diploma.png"];
+    const cardLine = document.getElementById('cardLine');
+    let isPaused = false;
+    let currentPosition = 0;
+    let animationId = null;
+    let speed = 0.5;
+    let direction = -1;
+
+    function getCardWidth() {
+      const width = window.innerWidth;
+      if (width <= 480) return 220;
+      if (width <= 768) return 260;
+      if (width <= 1024) return 300;
+      return 350;
+    }
+
+    function createCards() {
+      cardLine.innerHTML = '';
+      const cardWidth = getCardWidth();
+      const cardsNeeded = Math.ceil(window.innerWidth / cardWidth) + 4;
+      
+      for (let i = 0; i < cardsNeeded; i++) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'card-wrapper';
+        wrapper.style.width = cardWidth + 'px';
+        
+        const normalCard = document.createElement('div');
+        normalCard.className = 'card card-normal';
+        const img = document.createElement('img');
+        img.className = 'card-image';
+        img.src = cardImages[i % cardImages.length];
+        img.alt = 'Certificate';
+        normalCard.appendChild(img);
+        
+        const asciiCard = document.createElement('div');
+        asciiCard.className = 'card card-ascii';
+        const asciiContent = document.createElement('div');
+        asciiContent.className = 'ascii-content';
+        asciiContent.textContent = generateCode(cardWidth);
+        asciiCard.appendChild(asciiContent);
+        
+        wrapper.appendChild(normalCard);
+        wrapper.appendChild(asciiCard);
+        cardLine.appendChild(wrapper);
+      }
+    }
+
+    function generateCode(width) {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+      let code = "";
+      const lines = Math.floor(width / 8);
+      for (let i = 0; i < lines * 5; i++) {
+        for (let j = 0; j < 8; j++) {
+          code += chars[Math.floor(Math.random() * chars.length)];
+        }
+        code += "\n";
+      }
+      return code;
+    }
+
+    function animate() {
+      if (!isPaused) {
+        currentPosition += speed * direction;
+        const cardWidth = getCardWidth();
+        const totalWidth = cardLine.children.length * (cardWidth + 20);
+        
+        if (currentPosition < -totalWidth) {
+          currentPosition = window.innerWidth;
+        } else if (currentPosition > window.innerWidth) {
+          currentPosition = -totalWidth;
+        }
+        
+        cardLine.style.transform = `translateX(${currentPosition}px)`;
+      }
+      animationId = requestAnimationFrame(animate);
+    }
+
+    function handleResize() {
+      createCards();
+      currentPosition = 0;
+      cardLine.style.transform = `translateX(0px)`;
+    }
+
+    // Control buttons
+    document.getElementById('pauseBtn').addEventListener('click', () => {
+      isPaused = !isPaused;
+      const btn = document.getElementById('pauseBtn');
+      btn.innerHTML = isPaused ? '<i class="fa-solid fa-play"></i> <span>Play</span>' : '<i class="fa-solid fa-pause"></i> <span>Pause</span>';
+    });
+    
+    document.getElementById('homeBtn').addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+    
+    document.getElementById('directionBtn').addEventListener('click', () => {
+      direction *= -1;
+    });
+
+    // Initialize
+    createCards();
+    animate();
+    window.addEventListener('resize', handleResize);
+
+    // Simple particle effect
+    const canvas = document.getElementById('particleCanvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      
+      function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+      
+      function createParticles() {
+        particles = [];
+        for (let i = 0; i < 50; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1,
+            alpha: Math.random() * 0.5,
+            speed: Math.random() * 0.5 + 0.2
+          });
+        }
+      }
+      
+      function drawParticles() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(192, 57, 43, ${p.alpha})`;
+          ctx.fill();
+          p.y -= p.speed;
+          if (p.y < 0) p.y = canvas.height;
+        });
+        requestAnimationFrame(drawParticles);
+      }
+      
+      window.addEventListener('resize', () => {
+        resizeCanvas();
+        createParticles();
+      });
+      resizeCanvas();
+      createParticles();
+      drawParticles();
+    }
   </script>
 </body>
 </html>
