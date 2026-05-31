@@ -2,389 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Black Widow Community</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Community page specific styles */
     .spider-icon {
       display: block;
-      font-size: 2.8rem;
+      font-size: clamp(2rem, 8vw, 3rem);
       color: var(--red);
       text-align: center;
       margin-bottom: 1rem;
       animation: pulse 3s ease-in-out infinite;
     }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(0.94); }
-    }
-
-    .hero {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 6rem 2rem 4rem;
-      max-width: 860px;
-      margin: 0 auto;
-    }
-
-    .hero h1 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.4rem, 6vw, 4.6rem);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: 0.03em;
-      margin-bottom: 1.4rem;
-    }
-
+    @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.94); } }
+    .hero { text-align: center; padding: 4rem 1.5rem; max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 6vw, 4.6rem); font-weight: 900; line-height: 1.2; }
     .hero h1 span { color: var(--red); }
-
-    .hero .subtitle {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      font-weight: 300;
-      color: var(--white-muted);
-      line-height: 1.75;
-      max-width: 640px;
-      margin: 0 auto 2.8rem;
-    }
-
-    .divider {
-      width: 80px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--red), transparent);
-      margin: 3rem auto;
-    }
-
-    .urgency-strip {
-      position: relative;
-      z-index: 1;
-      background: linear-gradient(135deg, rgba(140,20,10,0.35) 0%, rgba(80,10,5,0.35) 100%);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 1.2rem 2rem;
-      text-align: center;
-      font-size: 0.88rem;
-      color: var(--white-muted);
-      letter-spacing: 0.04em;
-    }
-
+    .hero .subtitle { font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: var(--white-muted); line-height: 1.6; max-width: 640px; margin: 0 auto 2rem; }
+    .urgency-strip { background: linear-gradient(135deg, rgba(140,20,10,0.35) 0%, rgba(80,10,5,0.35) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0.8rem 1rem; text-align: center; font-size: clamp(0.7rem, 2vw, 0.9rem); color: var(--white-muted); }
     .urgency-strip strong { color: var(--red); }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .pricing-card {
-      background: var(--black-3);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 2.5rem 2rem;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s, transform 0.3s;
-    }
-
-    .pricing-card:hover {
-      border-color: var(--border);
-      transform: translateY(-4px);
-    }
-
-    .pricing-card.featured {
-      border-color: var(--red);
-      background: linear-gradient(160deg, rgba(140,20,10,0.15) 0%, var(--black-3) 60%);
-    }
-
-    .card-badge {
-      display: inline-block;
-      padding: 0.3em 0.9em;
-      background: var(--red);
-      color: var(--white);
-      border-radius: 999px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
-    }
-
-    .card-icon {
-      font-size: 2.2rem;
-      color: var(--red);
-      margin-bottom: 1rem;
-    }
-
-    .card-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 0.6rem;
-    }
-
-    .card-desc {
-      color: var(--white-muted);
-      font-size: 0.9rem;
-      line-height: 1.65;
-      margin-bottom: 2rem;
-    }
-
-    .price-row {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      margin-bottom: 2rem;
-    }
-
-    .price-tier {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.65rem 0.9rem;
-      border-radius: 8px;
-      background: var(--white-faint);
-      font-size: 0.88rem;
-    }
-
+    .divider { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); margin: 2rem auto; }
+    section { max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem; position: relative; z-index: 1; }
+    @media (max-width: 768px) { section { padding: 3rem 1.2rem; } }
+    .section-label { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.28em; color: var(--red); text-align: center; margin-bottom: 0.5rem; }
+    .section-title { font-family: 'Cinzel', serif; font-size: clamp(1.4rem, 4vw, 2.4rem); font-weight: 700; text-align: center; margin-bottom: 0.8rem; }
+    .section-intro { text-align: center; color: var(--white-muted); font-size: clamp(0.9rem, 2vw, 1rem); max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.6; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1.5rem; }
+    .pricing-card { background: var(--black-3); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 2rem 1.5rem; transition: border-color 0.3s, transform 0.3s; }
+    .pricing-card:hover { border-color: var(--border); transform: translateY(-4px); }
+    .pricing-card.featured { border-color: var(--red); background: linear-gradient(160deg, rgba(140,20,10,0.15) 0%, var(--black-3) 60%); }
+    .card-badge { display: inline-block; padding: 0.2em 0.8em; background: var(--red); color: var(--white); border-radius: 999px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .card-icon { font-size: 1.8rem; color: var(--red); margin-bottom: 0.8rem; }
+    .card-title { font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .card-desc { color: var(--white-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 1.5rem; }
+    .price-row { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .price-tier { display: flex; justify-content: space-between; padding: 0.5rem 0.8rem; border-radius: 8px; background: var(--white-faint); font-size: 0.85rem; }
     .price-tier.early { border-left: 3px solid var(--green); }
     .price-tier.general { border-left: 3px solid var(--white-muted); }
     .price-tier.late { border-left: 3px solid var(--red); }
-
-    .tier-label { color: var(--white-muted); font-weight: 400; }
-    .tier-price { font-weight: 700; font-size: 1rem; }
     .price-tier.early .tier-price { color: var(--green); }
     .price-tier.late .tier-price { color: var(--red); }
-
-    .features-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-    }
-
-    .features-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      font-size: 0.88rem;
-      color: var(--white-muted);
-      line-height: 1.5;
-    }
-
-    .features-list li i {
-      color: var(--red);
-      margin-top: 2px;
-      flex-shrink: 0;
-    }
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .portfolio-card {
-      background: var(--black-3);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 1.8rem 1.5rem;
-      text-align: center;
-      transition: border-color 0.25s, transform 0.25s;
-    }
-
-    .portfolio-card:hover {
-      border-color: var(--border);
-      transform: translateY(-3px);
-    }
-
-    .portfolio-card .p-icon {
-      font-size: 2rem;
-      color: var(--red);
-      margin-bottom: 0.9rem;
-    }
-
-    .portfolio-card h4 {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .portfolio-card p {
-      font-size: 0.83rem;
-      color: var(--white-muted);
-      line-height: 1.6;
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.6rem;
-    }
-
-    .testimonial-card {
-      background: var(--black-3);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: border-color 0.25s, transform 0.25s;
-    }
-
-    .testimonial-card:hover {
-      border-color: var(--border);
-      transform: translateY(-3px);
-    }
-
-    .video-placeholder {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: var(--black-4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .play-circle {
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      background: var(--red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s, background 0.2s;
-    }
-
-    .video-placeholder:hover .play-circle {
-      transform: scale(1.1);
-      background: var(--red-dark);
-    }
-
-    .play-circle i { color: var(--white); font-size: 1.1rem; margin-left: 3px; }
-
-    .testimonial-body { padding: 1.2rem 1.3rem; }
-    .testimonial-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem; }
-    .testimonial-role {
-      font-size: 0.78rem;
-      color: var(--red);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      margin-bottom: 0.7rem;
-    }
-    .testimonial-quote {
-      font-size: 0.85rem;
-      color: var(--white-muted);
-      line-height: 1.65;
-      font-style: italic;
-    }
-
-    .video-note {
-      text-align: center;
-      margin-top: 2.5rem;
-      padding: 1.2rem 1.5rem;
-      border: 1px dashed var(--border);
-      border-radius: 10px;
-      font-size: 0.85rem;
-      color: var(--white-muted);
-    }
-
-    .sep {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      max-width: 1040px;
-      margin: 0 auto;
-    }
-
-    section {
-      position: relative;
-      z-index: 1;
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-    }
-
-    .section-label {
-      font-family: 'Cinzel', serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.28em;
-      color: var(--red);
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
-      text-align: center;
-    }
-
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 0.9rem;
-    }
-
-    .section-intro {
-      text-align: center;
-      color: var(--white-muted);
-      font-size: 1rem;
-      font-weight: 300;
-      max-width: 580px;
-      margin: 0 auto 3.5rem;
-      line-height: 1.75;
-    }
-
-    .cta-btn {
-      display: block;
-      width: 100%;
-      padding: 0.9em 1.5em;
-      margin-top: 2rem;
-      background: var(--red);
-      color: var(--white);
-      border: none;
-      border-radius: 999px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .cta-btn:hover { background: var(--red-dark); transform: scale(1.02); }
+    .features-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .features-list li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--white-muted); }
+    .features-list li i { color: var(--red); margin-top: 2px; }
+    .cta-btn { display: block; width: 100%; padding: 0.8rem; margin-top: 1.5rem; background: var(--red); color: var(--white); border-radius: 999px; font-size: 0.85rem; font-weight: 700; text-align: center; cursor: pointer; transition: background 0.2s; }
+    .cta-btn:hover { background: var(--red-dark); }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1.2rem; }
+    .portfolio-card { background: var(--black-3); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.2rem; text-align: center; }
+    .portfolio-card .p-icon { font-size: 1.6rem; color: var(--red); margin-bottom: 0.6rem; }
+    .portfolio-card h4 { font-family: 'Cinzel', serif; font-size: 0.9rem; margin-bottom: 0.4rem; }
+    .portfolio-card p { font-size: 0.75rem; color: var(--white-muted); line-height: 1.4; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1.2rem; }
+    .testimonial-card { background: var(--black-3); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; }
+    .video-placeholder { width: 100%; aspect-ratio: 16/9; background: var(--black-4); display: flex; align-items: center; justify-content: center; }
+    .play-circle { width: 50px; height: 50px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; }
+    .play-circle i { color: var(--white); font-size: 1rem; margin-left: 2px; }
+    .testimonial-body { padding: 1rem; }
+    .testimonial-name { font-weight: 700; font-size: 0.9rem; }
+    .testimonial-role { font-size: 0.7rem; color: var(--red); margin-bottom: 0.5rem; }
+    .testimonial-quote { font-size: 0.8rem; color: var(--white-muted); font-style: italic; line-height: 1.5; }
+    .video-note { text-align: center; margin-top: 2rem; padding: 1rem; border: 1px dashed var(--border); border-radius: 10px; font-size: 0.8rem; }
+    .sep { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); max-width: 1040px; margin: 0 auto; }
   </style>
 </head>
 <body>
 
   <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
     <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
-      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="400" y2="800" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="206" y2="786" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52" y2="690" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="0" y2="520" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="0" y2="400" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="0" y2="280" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52" y2="110" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="206" y2="14" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/><line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/><line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="400" y2="800" stroke-width="0.7"/><line x1="400" y1="400" x2="206" y2="786" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="52" y2="690" stroke-width="0.7"/><line x1="400" y1="400" x2="0" y2="520" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="0" y2="400" stroke-width="0.7"/><line x1="400" y1="400" x2="0" y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="52" y2="110" stroke-width="0.7"/><line x1="400" y1="400" x2="206" y2="14" stroke-width="0.6"/>
       <path d="M400,352 Q448,352 448,400 Q448,448 400,448 Q352,448 352,400 Q352,352 400,352" stroke-width="0.7"/>
       <path d="M400,304 Q452,296 487,334 Q520,362 528,400 Q530,444 496,472 Q462,508 400,496 Q344,504 310,472 Q272,446 272,400 Q270,354 308,326 Q344,296 400,304Z" stroke-width="0.7"/>
-      <path d="M400,250 Q464,238 510,270 Q556,296 574,350 Q590,400 566,454 Q548,506 496,530 Q450,556 400,550 Q348,558 302,530 Q252,508 234,454 Q212,400 228,350 Q246,294 296,268 Q340,238 400,250Z" stroke-width="0.65"/>
-      <path d="M400,190 Q478,176 538,212 Q596,244 626,308 Q656,368 640,436 Q626,502 572,546 Q520,590 452,600 Q400,608 348,598 Q280,590 228,546 Q174,502 160,436 Q144,366 174,308 Q204,244 264,212 Q322,176 400,190Z" stroke-width="0.6"/>
-      <path d="M400,125 Q498,108 568,152 Q640,192 676,272 Q716,348 700,434 Q686,518 622,572 Q560,630 476,648 Q400,660 324,646 Q240,630 178,572 Q114,518 100,434 Q84,348 124,272 Q160,192 232,152 Q302,108 400,125Z" stroke-width="0.55"/>
-      <path d="M400,60 Q518,40 602,94 Q686,142 726,238 Q770,330 754,432 Q740,530 672,600 Q606,672 506,702 Q400,720 294,700 Q194,672 128,600 Q60,530 46,432 Q30,330 74,238 Q114,142 198,94 Q282,40 400,60Z" stroke-width="0.5"/>
     </g>
   </svg>
 
@@ -400,29 +95,23 @@
       <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
     </nav>
     <div class="sidebar" id="sidebar">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+      <ul><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul>
     </div>
     <div class="overlay" id="overlay"></div>
   </header>
 
-  <div class="urgency-strip">
-    <strong>Only 20 seats per week.</strong> Seats refresh every Sunday after the event closes. | Early bird saves 50% — don't wait.
-  </div>
+  <div class="urgency-strip"><strong>Only 20 seats per week.</strong> Seats refresh every Sunday. | Early bird saves 50% — don't wait.</div>
 
-  <section class="hero fade-up">
+  <div class="hero">
     <i class="fa-solid fa-spider spider-icon"></i>
     <h1>Welcome to the<br><span>Black Widow</span><br>Community</h1>
-    <p class="subtitle">This is a tight, intentional group — <strong>20 seats only, every week.</strong> Seats refresh after each event closes, so the moment you're in, you're in with people just as serious as you are.<br><br>Move early and lock in the early bird price of <strong>$25</strong>. General admission is <strong>$49</strong>. Because this is a close-knit, high-accountability space, late-release seats are <strong>$99</strong> — urgency is a filter for who belongs here.</p>
-    <a href="#join" class="btn-nav" style="font-size:1rem; padding: 0.75em 2.2em;">Claim Your Seat</a>
-  </section>
+    <p class="subtitle">This is a tight, intentional group — <strong>20 seats only, every week.</strong> Seats refresh after each event closes.<br><br>Early bird: <strong>$25</strong> | General: <strong>$49</strong> | Late: <strong>$99</strong></p>
+    <a href="#join" class="btn-nav" style="font-size:1rem; padding: 0.7rem 1.8rem;">Claim Your Seat</a>
+  </div>
 
   <div class="divider"></div>
 
-  <section id="join" class="fade-up">
+  <section id="join">
     <p class="section-label">Choose Your Path</p>
     <h2 class="section-title">Pick Your Community</h2>
     <p class="section-intro">Same rigorous curriculum, same tight circle of 20. Choose the format that fits where you are in the world.</p>
@@ -430,7 +119,7 @@
       <div class="pricing-card">
         <i class="fa-solid fa-wifi card-icon"></i>
         <div class="card-title">Online Community</div>
-        <p class="card-desc">Learn, hack, and build alongside your cohort from anywhere on the globe. Full access to live sessions, async resources, and personal accountability.</p>
+        <p class="card-desc">Learn, hack, and build alongside your cohort from anywhere.</p>
         <div class="price-row">
           <div class="price-tier early"><span class="tier-label"><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
           <div class="price-tier general"><span class="tier-label">General Admission</span><span class="tier-price">$49</span></div>
@@ -441,7 +130,6 @@
           <li><i class="fa-solid fa-check"></i>Private community Discord & accountability pods</li>
           <li><i class="fa-solid fa-check"></i>Hands-on lab assignments & CTF walkthroughs</li>
           <li><i class="fa-solid fa-check"></i>Portfolio-building projects included</li>
-          <li><i class="fa-solid fa-check"></i>Access to guest speaker recordings</li>
         </ul>
         <a href="#" class="cta-btn">Join Online — Claim Seat</a>
       </div>
@@ -449,7 +137,7 @@
         <div class="card-badge">Limited Availability</div>
         <i class="fa-solid fa-location-dot card-icon"></i>
         <div class="card-title">In-Person Community</div>
-        <p class="card-desc">Melbourne-based sessions. Work side-by-side in a room of 20 committed beginners. The energy, the focus, the connections — nothing compares to being in the room.</p>
+        <p class="card-desc">Melbourne-based sessions. Work side-by-side in a room of 20 committed beginners.</p>
         <div class="price-row">
           <div class="price-tier early"><span class="tier-label"><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
           <div class="price-tier general"><span class="tier-label">General Admission</span><span class="tier-price">$49</span></div>
@@ -460,7 +148,6 @@
           <li><i class="fa-solid fa-check"></i>Face-to-face mentorship & lab time with Bree</li>
           <li><i class="fa-solid fa-check"></i>Networking with Melbourne's offensive security scene</li>
           <li><i class="fa-solid fa-check"></i>Physical lab environment — Kali rigs provided</li>
-          <li><i class="fa-solid fa-check"></i>Recorded sessions sent to you after every meetup</li>
         </ul>
         <a href="#" class="cta-btn">Join In-Person — Claim Seat</a>
       </div>
@@ -469,59 +156,45 @@
 
   <div class="sep"></div>
 
-  <section class="fade-up">
+  <section>
     <p class="section-label">What You Walk Away With</p>
     <h2 class="section-title">Portfolios We Build Together</h2>
-    <p class="section-intro">Every member leaves with real, demonstrable work — not certificates collecting dust. Here's what's inside your Black Widow portfolio.</p>
+    <p class="section-intro">Every member leaves with real, demonstrable work — not certificates collecting dust.</p>
     <div class="portfolio-grid">
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-network-wired"></i></div><h4>Network Pentest Report</h4><p>A full written pentest report on a simulated corporate network — the same format real consultants deliver to clients.</p></div>
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-globe"></i></div><h4>Web Application Audit</h4><p>A documented attack-and-findings report on a vulnerable web app, covering OWASP Top 10 vulnerabilities with proof-of-concept screenshots.</p></div>
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-flag"></i></div><h4>CTF Write-Ups</h4><p>Polished technical write-ups of Capture The Flag challenges — the kind that impress hiring managers and prove you can think, not just Google.</p></div>
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-terminal"></i></div><h4>Custom Scripts & Tools</h4><p>Python scripts and automation tools you wrote during labs, hosted on GitHub with READMEs that show off your process and thinking.</p></div>
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-chart-bar"></i></div><h4>Threat Modeling Case Study</h4><p>A structured threat model for a real-world system — demonstrating you can think offensively at the architecture level, not just the tool level.</p></div>
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-id-badge"></i></div><h4>LinkedIn & Resume Refresh</h4><p>A curated professional profile that translates everything you've built into language that gets you through the door — tailored for offensive security roles.</p></div>
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-network-wired"></i></div><h4>Network Pentest Report</h4><p>Full written pentest report on a simulated corporate network.</p></div>
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-globe"></i></div><h4>Web Application Audit</h4><p>Documented attack-and-findings report covering OWASP Top 10.</p></div>
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-flag"></i></div><h4>CTF Write-Ups</h4><p>Polished technical write-ups that impress hiring managers.</p></div>
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-terminal"></i></div><h4>Custom Scripts & Tools</h4><p>Python scripts hosted on GitHub with READMEs.</p></div>
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-chart-bar"></i></div><h4>Threat Modeling Case Study</h4><p>Structured threat model for real-world systems.</p></div>
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-id-badge"></i></div><h4>LinkedIn & Resume Refresh</h4><p>Curated professional profile for offensive security roles.</p></div>
     </div>
   </section>
 
   <div class="sep"></div>
 
-  <section class="fade-up">
+  <section>
     <p class="section-label">From the Community</p>
     <h2 class="section-title">Hear It From Them</h2>
-    <p class="section-intro">Real members. Real results. No fluff — just people who decided to show up and build.</p>
+    <p class="section-intro">Real members. Real results. No fluff.</p>
     <div class="testimonials-grid">
       <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Community Member</div><div class="testimonial-role">Offensive Security Beginner</div><p class="testimonial-quote">"Before this, I knew the theory but had nothing to show for it. In 4 weeks I had my first real pentest report."</p></div></div>
-      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Community Member</div><div class="testimonial-role">Aspiring Ethical Hacker</div><p class="testimonial-quote">"The accountability alone was worth it. I'd been stuck for 8 months. Here I was consistent from week one."</p></div></div>
-      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Community Member</div><div class="testimonial-role">Career Changer</div><p class="testimonial-quote">"I came in with zero technical background. I left with a GitHub, a write-up, and a job interview."</p></div></div>
+      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Community Member</div><div class="testimonial-role">Aspiring Ethical Hacker</div><p class="testimonial-quote">"The accountability alone was worth it. I'd been stuck for 8 months."</p></div></div>
+      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Community Member</div><div class="testimonial-role">Career Changer</div><p class="testimonial-quote">"I came in with zero background. I left with a GitHub and a job interview."</p></div></div>
     </div>
-    <div class="video-note"><i class="fa-solid fa-circle-info"></i> Replace the video placeholders above with your real testimonial videos by swapping in <code>&lt;iframe&gt;</code> embeds from YouTube or your preferred video host.</div>
+    <div class="video-note"><i class="fa-solid fa-circle-info"></i> Replace video placeholders with your real testimonial videos.</div>
   </section>
 
-  <footer class="footer glass-footer">
-    <p>Based in <span>Melbourne, Australia</span> · The Black Widow Community · Building Undeniable Ethical Hackers</p>
-  </footer>
+  <footer class="footer glass-footer"><p>Based in <span>Melbourne, Australia</span> · The Black Widow Community</p></footer>
 
   <script>
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     const menuSound = new Audio('menu.mp3');
-
-    hamburger.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-      overlay.classList.toggle('active');
-      menuSound.currentTime = 0;
-      menuSound.play().catch(() => {});
-    });
-    overlay.addEventListener('click', () => {
-      sidebar.classList.remove('active');
-      overlay.classList.remove('active');
-    });
-
+    hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); menuSound.currentTime = 0; menuSound.play().catch(() => {}); });
+    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
     const fadeEls = document.querySelectorAll('.fade-up');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.1 });
+    const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }); }, { threshold: 0.1 });
     fadeEls.forEach(el => io.observe(el));
   </script>
 </body>
