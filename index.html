@@ -1,60 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- MAIN PAGE HEAD -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bree's Portfolio</title>
-  <!-- Font Awesome + Swiper CSS -->
+  <title>Bree's Portfolio | Black Widow</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
-  <!-- Main CSS -->
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
   <style>
-    .logo-btn {
-      display: inline-block;
-      padding: 0.75em 1.6em;
-      font-size: 1.1rem;
-      text-decoration: none !important;
-      border-radius: 999px;
-      white-space: nowrap;
+    /* Spider web background SVG */
+    .web-svg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 110vmax;
+      height: 110vmax;
+      opacity: 0.09;
+      pointer-events: none;
+      z-index: 0;
     }
-    .logo-btn::after,
-    .logo-btn::before {
-      display: none !important;
-    }
-    .sidebar .nav-btn {
-      display: inline-block;
-      margin-top: 0.5rem;
-      padding: 0.5em 1.3em;
-      text-decoration: none;
-      border-radius: 999px;
+    .home {
+      position: relative;
+      z-index: 1;
     }
   </style>
-</head> 
+</head>
 
-<!-- MAIN PAGE BODY   -->
 <body>
 
-  <!-- NAVIGATION BAR -->
+  <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
+      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="400" y2="800" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="206" y2="786" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="52" y2="690" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="0" y2="520" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="0" y2="400" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="0" y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="52" y2="110" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="206" y2="14" stroke-width="0.6"/>
+      <path d="M400,352 Q448,352 448,400 Q448,448 400,448 Q352,448 352,400 Q352,352 400,352" stroke-width="0.7"/>
+      <path d="M400,304 Q452,296 487,334 Q520,362 528,400 Q530,444 496,472 Q462,508 400,496 Q344,504 310,472 Q272,446 272,400 Q270,354 308,326 Q344,296 400,304Z" stroke-width="0.7"/>
+      <path d="M400,250 Q464,238 510,270 Q556,296 574,350 Q590,400 566,454 Q548,506 496,530 Q450,556 400,550 Q348,558 302,530 Q252,508 234,454 Q212,400 228,350 Q246,294 296,268 Q340,238 400,250Z" stroke-width="0.65"/>
+      <path d="M400,190 Q478,176 538,212 Q596,244 626,308 Q656,368 640,436 Q626,502 572,546 Q520,590 452,600 Q400,608 348,598 Q280,590 228,546 Q174,502 160,436 Q144,366 174,308 Q204,244 264,212 Q322,176 400,190Z" stroke-width="0.6"/>
+    </g>
+  </svg>
+
   <header>
     <nav class="navbar glass">
-      <a href="community.html" class="btn nav-btn logo-btn">Black Widow Community</a>
-  
+      <a href="community.html" class="btn-nav logo-btn">Black Widow Community</a>
       <ul class="nav-links">
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
-  
-      <div class="hamburger" id="hamburger">
-        <i class="fa fa-bars"></i>
-      </div>
+      <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
     </nav>
-  
-    <!-- Sidebar (mobile only) -->
     <div class="sidebar" id="sidebar">
       <ul>
         <li><a href="index.html" class="active">Home</a></li>
@@ -62,59 +73,24 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
-  
-    <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
   </header>
 
-
-
-  <!-- MAIN PAGE CONTENT -->
   <section class="home">
-
-    <!-- BREE'S HEADSHOT -->
     <div class="home-img">
       <img src="Headshot.jpg" alt="Bree's Headshot">
     </div>
-
-    <!-- INTRO WORDS -->
     <div class="home-content">
-
-      <!-- AI Conversation Playback Card -->
       <div class="ai-audio-card main-audio">
-        
-        <button id="ai-play-btn" class="play-btn">
-          <i class="fa-solid fa-play"></i>
-        </button>
-        
+        <button id="ai-play-btn" class="play-btn"><i class="fa-solid fa-play"></i></button>
         <div class="audio-info">
-          <div class="progress-container">
-            <div id="ai-progress-bar" class="progress-bar"></div>
-          </div>
-          
-          <div class="time">
-            <span id="ai-current-time">0:00</span>
-            <span id="ai-duration">--</span>
-          </div>
+          <div class="progress-container"><div id="ai-progress-bar" class="progress-bar"></div></div>
+          <div class="time"><span id="ai-current-time">0:00</span><span id="ai-duration">--</span></div>
         </div>
-        
         <audio id="ai-audio" src="PROJECTS/Introduction.mp3"></audio>
       </div>
-
-
-      <!-- HOME PAGE WORDINGS -->
       <h1>Hey, It's <span>Bree</span></h1>
-      
-      <h3 class="typing-text">
-        I'm a Jr. <br> 
-        
-        <span class="typing-wrapper">
-          <span id="dynamic-text"></span>
-          <span class="cursor"></span>
-        </span>
-
-      </h3>
-      
+      <h3 class="typing-text">I'm a Jr. <br><span class="typing-wrapper"><span id="dynamic-text"></span><span class="cursor"></span></span></h3>
       <p>My vision is to create a community, The Black Widow Community, where cybersecurity beginners interested in offensive security stop feeling stuck between knowing cyber and doing cyber, where hands-on experience builds portfolios that don't just showcase skills, but will open doors for you, yes you whose reading this.</p>
       <br>
       <p>My mission is to bridge the gap between theory and the real world, while creating accountability that transforms inconsistent learning into inevitable growth.</p>
@@ -122,82 +98,47 @@
       <p>Hey reader, let me give you a bit of info about myself. At 18, I moved across the globe alone to find out what it would really take to build a life from scratch. I had no connections, no technical background, and no clear path into cybersecurity. I struggled with the weight of competition, and no matter how many degrees and certificates I earned, I still doubted my abilities.</p>
       <br>
       <p>I know exactly how that feels, which is why I built the The Black Widow Community to support beginners in offensive security. So you can become an undeniable Ethical Hacker.</p>
-      
-      
-      <!-- MEDIA LINKS -->
       <div class="social-icons">
         <a href="https://www.linkedin.com/in/bree-kagwe" data-sound="click" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
         <a href="https://www.youtube.com/@HackerBree" data-sound="click" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-        <a href="certs.html" data-sound="click" target="_blank"><i class="fa-solid fa-folder-open"></i></a>
+        <a href="certs.html" data-sound="click"><i class="fa-solid fa-folder-open"></i></a>
       </div>
-
-      <!-- CERTIFICATES LINK -->
-      <a href="guests.html" data-sound="click" class="btn">Our Guests</a> 
-      
+      <a href="guests.html" data-sound="click" class="btn">Our Guests</a>
     </div>
   </section>
 
-  
-  <!-- FOOTER -->
   <footer class="footer glass-footer">
-    <p>Based in Melbourne, Australia</p>
+    <p>Based in <span>Melbourne, Australia</span></p>
   </footer>
 
-
-  <!-- JAVASCRIPT -->
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
-
-  <!-- GLASS NAVIGATION BAR -->
   <script>
-    
-    // GLASS NAVIGATION BAR (Updated with sound)
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
-    
-    // Create audio element for hamburger menu sound
-    const menuSound = new Audio('menu.mp3'); // Change filename to match your sound file
-    
+    const menuSound = new Audio('menu.mp3');
     hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
-      
-      // Play sound effect
-      menuSound.currentTime = 0; // Reset to start in case it's clicked multiple times quickly
-      menuSound.play().catch(() => {}); // Catch any playback errors silently
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
     });
-    
     overlay.addEventListener('click', () => {
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
     });
-
-
-    // NAVIGATION LINKS SOUND EFFECT
-    // NAVIGATION LINKS SOUND EFFECT
     const navSound = new Audio('nav.mp3');
-    
     const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
-    
     allNavLinks.forEach(link => {
       link.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent immediate navigation
-        
+        e.preventDefault();
         navSound.currentTime = 0;
         navSound.play().catch(() => {});
-        
-        // Get the href before navigation
         const destination = link.getAttribute('href');
-        
-        // Navigate after a short delay to allow sound to play
-        setTimeout(() => {
-          window.location.href = destination;
-        }, 150); // Adjust timing as needed (150ms is usually good)
+        setTimeout(() => { window.location.href = destination; }, 150);
       });
     });
-    
   </script>
-
 </body>
 </html>
