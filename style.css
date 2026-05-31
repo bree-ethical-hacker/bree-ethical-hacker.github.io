@@ -858,3 +858,199 @@ button, a, .btn, .control-btn, .nav-btn, .play-btn {
 @media (hover: hover) {
   button:hover, a:hover, .btn:hover { transition: all 0.2s ease; }
 }
+
+
+
+
+/* ========================================
+   FIXED NAVBAR - WORKS ON ALL PAGES
+   ======================================== */
+
+/* Main navbar container */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 5%;
+  background: var(--glass);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Black Widow button - ALWAYS VISIBLE */
+.navbar .logo-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--red);
+  background: transparent;
+  border: 1px solid var(--red);
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.navbar .logo-btn:hover {
+  background: var(--red);
+  color: var(--black);
+  box-shadow: 0 0 15px var(--red);
+}
+
+/* Desktop navigation links - horizontal */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: var(--white-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+  color: var(--red);
+}
+
+/* Hamburger button - ALWAYS ON RIGHT */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: var(--white-muted);
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  margin-left: auto;
+  order: 3;
+}
+
+/* Sidebar - VERTICAL LINKS on mobile */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  max-width: 70%;
+  height: 100vh;
+  background: var(--black-2);
+  border-left: 1px solid var(--border);
+  z-index: 2000;
+  padding: 8rem 2rem 2rem;
+  transition: right 0.3s ease;
+  backdrop-filter: blur(20px);
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+/* VERTICAL menu links (not horizontal!) */
+.sidebar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  text-align: center;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: var(--white-muted);
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 0.2s;
+  display: block;
+  padding: 0.5rem;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  color: var(--red);
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1500;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.8rem 4%;
+  }
+  
+  /* Hide desktop nav links on mobile */
+  .nav-links {
+    display: none !important;
+  }
+  
+  /* Show hamburger on mobile */
+  .hamburger {
+    display: block !important;
+  }
+  
+  /* Ensure Black Widow button is visible on mobile */
+  .navbar .logo-btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar .logo-btn {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .hamburger {
+    font-size: 1.6rem;
+  }
+  
+  .sidebar ul li a {
+    font-size: 1.4rem;
+  }
+}
+
+/* Fix for body scroll when sidebar open */
+body.sidebar-open {
+  overflow: hidden;
+}
