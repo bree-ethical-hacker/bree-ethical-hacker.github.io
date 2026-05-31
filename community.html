@@ -5,154 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Black Widow Community</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Raleway:wght@300;400;500;600&display=swap');
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --red: #c0392b;
-      --red-dark: #8e1c12;
-      --red-glow: rgba(192,57,43,0.18);
-      --black: #0a0a0a;
-      --black-2: #111111;
-      --black-3: #181818;
-      --black-4: #222222;
-      --white: #f5f0eb;
-      --white-muted: rgba(245,240,235,0.65);
-      --white-faint: rgba(245,240,235,0.12);
-      --glass: rgba(20,10,10,0.72);
-      --border: rgba(192,57,43,0.25);
-      --border-subtle: rgba(245,240,235,0.08);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Raleway', sans-serif;
-      background-color: var(--black);
-      color: var(--white);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ── TEXTURE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(140,20,10,0.22) 0%, transparent 70%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── WEB LINES ── */
-    .web-svg {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 110vmax; height: 110vmax;
-      opacity: 0.09;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── NAVBAR ── */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 2.5rem;
-      background: var(--glass);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-
-    .navbar .brand {
-      font-family: 'Cinzel', serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--red);
-      letter-spacing: 0.06em;
-      text-decoration: none;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 2.2rem;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--white-muted);
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover, .nav-links a.active { color: var(--red); }
-
-    .btn-nav {
-      display: inline-block;
-      padding: 0.55em 1.4em;
-      background: transparent;
-      border: 1px solid var(--red);
-      color: var(--red);
-      border-radius: 999px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.07em;
-      text-decoration: none;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .btn-nav:hover { background: var(--red); color: var(--white); }
-
-    .hamburger { display: none; font-size: 1.4rem; cursor: pointer; color: var(--white-muted); }
-
-    .sidebar {
-      display: none;
-      position: fixed;
-      top: 0; right: -100%;
-      width: 260px; height: 100vh;
-      background: var(--black-2);
-      border-left: 1px solid var(--border);
-      z-index: 200;
-      padding: 5rem 2rem 2rem;
-      transition: right 0.3s ease;
-    }
-
-    .sidebar.active { right: 0; display: block; }
-    .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; }
-    .sidebar a { text-decoration: none; color: var(--white-muted); font-size: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; }
-    .sidebar a:hover { color: var(--red); }
-
-    .overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 150;
-    }
-
-    .overlay.active { display: block; }
-
-    /* ── SPIDER ICON ── */
+    /* Community page specific styles */
     .spider-icon {
       display: block;
       font-size: 2.8rem;
@@ -167,7 +22,6 @@
       50% { opacity: 0.7; transform: scale(0.94); }
     }
 
-    /* ── HERO ── */
     .hero {
       position: relative;
       z-index: 1;
@@ -197,8 +51,6 @@
       margin: 0 auto 2.8rem;
     }
 
-    .hero .subtitle strong { color: var(--white); font-weight: 600; }
-
     .divider {
       width: 80px;
       height: 2px;
@@ -206,7 +58,6 @@
       margin: 3rem auto;
     }
 
-    /* ── URGENCY STRIP ── */
     .urgency-strip {
       position: relative;
       z-index: 1;
@@ -222,44 +73,6 @@
 
     .urgency-strip strong { color: var(--red); }
 
-    /* ── SECTIONS ── */
-    section {
-      position: relative;
-      z-index: 1;
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-    }
-
-    .section-label {
-      font-family: 'Cinzel', serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.28em;
-      color: var(--red);
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
-      text-align: center;
-    }
-
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 0.9rem;
-    }
-
-    .section-intro {
-      text-align: center;
-      color: var(--white-muted);
-      font-size: 1rem;
-      font-weight: 300;
-      max-width: 580px;
-      margin: 0 auto 3.5rem;
-      line-height: 1.75;
-    }
-
-    /* ── PRICING CARDS ── */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -276,29 +89,15 @@
       transition: border-color 0.3s, transform 0.3s;
     }
 
-    .pricing-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--red), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
     .pricing-card:hover {
       border-color: var(--border);
       transform: translateY(-4px);
     }
 
-    .pricing-card:hover::before { opacity: 1; }
-
     .pricing-card.featured {
       border-color: var(--red);
       background: linear-gradient(160deg, rgba(140,20,10,0.15) 0%, var(--black-3) 60%);
     }
-
-    .pricing-card.featured::before { opacity: 1; }
 
     .card-badge {
       display: inline-block;
@@ -350,22 +149,13 @@
       font-size: 0.88rem;
     }
 
-    .price-tier.early {
-      border-left: 3px solid #2ecc71;
-    }
-
-    .price-tier.general {
-      border-left: 3px solid var(--white-muted);
-    }
-
-    .price-tier.late {
-      border-left: 3px solid var(--red);
-    }
+    .price-tier.early { border-left: 3px solid var(--green); }
+    .price-tier.general { border-left: 3px solid var(--white-muted); }
+    .price-tier.late { border-left: 3px solid var(--red); }
 
     .tier-label { color: var(--white-muted); font-weight: 400; }
     .tier-price { font-weight: 700; font-size: 1rem; }
-
-    .price-tier.early .tier-price { color: #2ecc71; }
+    .price-tier.early .tier-price { color: var(--green); }
     .price-tier.late .tier-price { color: var(--red); }
 
     .features-list {
@@ -388,32 +178,8 @@
       color: var(--red);
       margin-top: 2px;
       flex-shrink: 0;
-      font-size: 0.85rem;
     }
 
-    .cta-btn {
-      display: block;
-      width: 100%;
-      padding: 0.9em 1.5em;
-      margin-top: 2rem;
-      background: var(--red);
-      color: var(--white);
-      border: none;
-      border-radius: 999px;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .cta-btn:hover { background: var(--red-dark); transform: scale(1.02); }
-
-    /* ── PORTFOLIOS ── */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -453,7 +219,6 @@
       line-height: 1.6;
     }
 
-    /* ── TESTIMONIALS ── */
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -484,13 +249,6 @@
       cursor: pointer;
     }
 
-    .video-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(140,20,10,0.25) 0%, transparent 60%);
-    }
-
     .play-circle {
       width: 56px; height: 56px;
       border-radius: 50%;
@@ -498,8 +256,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      z-index: 1;
       transition: transform 0.2s, background 0.2s;
     }
 
@@ -510,27 +266,8 @@
 
     .play-circle i { color: var(--white); font-size: 1.1rem; margin-left: 3px; }
 
-    .video-label {
-      position: absolute;
-      bottom: 10px; left: 12px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--white-muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      z-index: 1;
-    }
-
-    .testimonial-body {
-      padding: 1.2rem 1.3rem;
-    }
-
-    .testimonial-name {
-      font-weight: 700;
-      font-size: 0.95rem;
-      margin-bottom: 0.25rem;
-    }
-
+    .testimonial-body { padding: 1.2rem 1.3rem; }
+    .testimonial-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem; }
     .testimonial-role {
       font-size: 0.78rem;
       color: var(--red);
@@ -539,7 +276,6 @@
       letter-spacing: 0.07em;
       margin-bottom: 0.7rem;
     }
-
     .testimonial-quote {
       font-size: 0.85rem;
       color: var(--white-muted);
@@ -547,7 +283,6 @@
       font-style: italic;
     }
 
-    /* ── VIDEO INPUT NOTE ── */
     .video-note {
       text-align: center;
       margin-top: 2.5rem;
@@ -558,9 +293,6 @@
       color: var(--white-muted);
     }
 
-    .video-note i { color: var(--red); margin-right: 0.4rem; }
-
-    /* ── SECTION SEPARATOR ── */
     .sep {
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--border), transparent);
@@ -568,54 +300,71 @@
       margin: 0 auto;
     }
 
-    /* ── FOOTER ── */
-    footer {
+    section {
       position: relative;
       z-index: 1;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
       text-align: center;
-      padding: 2rem;
-      background: var(--glass);
-      border-top: 1px solid var(--border);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      font-size: 0.85rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.9rem;
+    }
+
+    .section-intro {
+      text-align: center;
       color: var(--white-muted);
+      font-size: 1rem;
       font-weight: 300;
-      letter-spacing: 0.05em;
+      max-width: 580px;
+      margin: 0 auto 3.5rem;
+      line-height: 1.75;
     }
 
-    footer span { color: var(--red); font-weight: 600; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-      .navbar { padding: 1rem 1.3rem; }
-      .nav-links { display: none; }
-      .hamburger { display: block; }
-      section { padding: 3.5rem 1.2rem; }
-      .hero { padding: 4rem 1.2rem 2.5rem; }
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 0.9em 1.5em;
+      margin-top: 2rem;
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      border-radius: 999px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
     }
 
-    /* ── ENTRANCE ANIMATIONS ── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .fade-up.visible {
-      opacity: 1;
-      transform: none;
-    }
+    .cta-btn:hover { background: var(--red-dark); transform: scale(1.02); }
   </style>
 </head>
 <body>
 
-  <!-- SPIDER WEB SVG -->
   <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="white" fill="none" stroke-linecap="round">
-      <!-- 16 radial spokes from centre -->
-      <line x1="400" y1="400" x2="400" y2="0"   stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="594" y2="14"  stroke-width="0.6"/>
+    <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
+      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
       <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/>
       <line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
       <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/>
@@ -624,133 +373,32 @@
       <line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
       <line x1="400" y1="400" x2="400" y2="800" stroke-width="0.7"/>
       <line x1="400" y1="400" x2="206" y2="786" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52"  y2="690" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="0"   y2="520" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="0"   y2="400" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="0"   y2="280" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52"  y2="110" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="206" y2="14"  stroke-width="0.6"/>
-
-      <!-- Ring 1 — innermost, r≈48 -->
+      <line x1="400" y1="400" x2="52" y2="690" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="0" y2="520" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="0" y2="400" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="0" y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="52" y2="110" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="206" y2="14" stroke-width="0.6"/>
       <path d="M400,352 Q448,352 448,400 Q448,448 400,448 Q352,448 352,400 Q352,352 400,352" stroke-width="0.7"/>
-
-      <!-- Ring 2 — r≈96, slightly organic -->
-      <path d="
-        M400,304 Q452,296 487,334
-        Q520,362 528,400
-        Q530,444 496,472
-        Q462,508 400,496
-        Q344,504 310,472
-        Q272,446 272,400
-        Q270,354 308,326
-        Q344,296 400,304Z
-      " stroke-width="0.7"/>
-
-      <!-- Ring 3 — r≈150 -->
-      <path d="
-        M400,250 Q464,238 510,270
-        Q556,296 574,350
-        Q590,400 566,454
-        Q548,506 496,530
-        Q450,556 400,550
-        Q348,558 302,530
-        Q252,508 234,454
-        Q212,400 228,350
-        Q246,294 296,268
-        Q340,238 400,250Z
-      " stroke-width="0.65"/>
-
-      <!-- Ring 4 — r≈210 -->
-      <path d="
-        M400,190 Q478,176 538,212
-        Q596,244 626,308
-        Q656,368 640,436
-        Q626,502 572,546
-        Q520,590 452,600
-        Q400,608 348,598
-        Q280,590 228,546
-        Q174,502 160,436
-        Q144,366 174,308
-        Q204,244 264,212
-        Q322,176 400,190Z
-      " stroke-width="0.6"/>
-
-      <!-- Ring 5 — r≈275 -->
-      <path d="
-        M400,125 Q498,108 568,152
-        Q640,192 676,272
-        Q716,348 700,434
-        Q686,518 622,572
-        Q560,630 476,648
-        Q400,660 324,646
-        Q240,630 178,572
-        Q114,518 100,434
-        Q84,348 124,272
-        Q160,192 232,152
-        Q302,108 400,125Z
-      " stroke-width="0.55"/>
-
-      <!-- Ring 6 — r≈340, near edge -->
-      <path d="
-        M400,60 Q518,40 602,94
-        Q686,142 726,238
-        Q770,330 754,432
-        Q740,530 672,600
-        Q606,672 506,702
-        Q400,720 294,700
-        Q194,672 128,600
-        Q60,530 46,432
-        Q30,330 74,238
-        Q114,142 198,94
-        Q282,40 400,60Z
-      " stroke-width="0.5"/>
-
-      <!-- Ring 7 — outermost r≈390 -->
-      <path d="
-        M400,8 Q538,-10 636,52
-        Q736,108 780,224
-        Q798,314 792,400
-        Q786,490 752,568
-        Q704,660 618,716
-        Q524,768 400,776
-        Q276,772 184,718
-        Q98,662 50,568
-        Q14,490 8,400
-        Q2,314 20,224
-        Q64,108 164,52
-        Q262,-10 400,8Z
-      " stroke-width="0.45"/>
-
-      <!-- Subtle inner anchor threads connecting spokes -->
-      <path d="M400,352 Q448,296 487,334" stroke-width="0.35" opacity="0.6"/>
-      <path d="M487,334 Q528,352 528,400" stroke-width="0.35" opacity="0.6"/>
-      <path d="M528,400 Q510,444 496,472" stroke-width="0.35" opacity="0.6"/>
-      <path d="M496,472 Q450,504 400,496" stroke-width="0.35" opacity="0.6"/>
-      <path d="M400,496 Q348,506 310,472" stroke-width="0.35" opacity="0.6"/>
-      <path d="M310,472 Q272,444 272,400" stroke-width="0.35" opacity="0.6"/>
-      <path d="M272,400 Q290,354 308,326" stroke-width="0.35" opacity="0.6"/>
-      <path d="M308,326 Q350,296 400,304" stroke-width="0.35" opacity="0.6"/>
+      <path d="M400,304 Q452,296 487,334 Q520,362 528,400 Q530,444 496,472 Q462,508 400,496 Q344,504 310,472 Q272,446 272,400 Q270,354 308,326 Q344,296 400,304Z" stroke-width="0.7"/>
+      <path d="M400,250 Q464,238 510,270 Q556,296 574,350 Q590,400 566,454 Q548,506 496,530 Q450,556 400,550 Q348,558 302,530 Q252,508 234,454 Q212,400 228,350 Q246,294 296,268 Q340,238 400,250Z" stroke-width="0.65"/>
+      <path d="M400,190 Q478,176 538,212 Q596,244 626,308 Q656,368 640,436 Q626,502 572,546 Q520,590 452,600 Q400,608 348,598 Q280,590 228,546 Q174,502 160,436 Q144,366 174,308 Q204,244 264,212 Q322,176 400,190Z" stroke-width="0.6"/>
+      <path d="M400,125 Q498,108 568,152 Q640,192 676,272 Q716,348 700,434 Q686,518 622,572 Q560,630 476,648 Q400,660 324,646 Q240,630 178,572 Q114,518 100,434 Q84,348 124,272 Q160,192 232,152 Q302,108 400,125Z" stroke-width="0.55"/>
+      <path d="M400,60 Q518,40 602,94 Q686,142 726,238 Q770,330 754,432 Q740,530 672,600 Q606,672 506,702 Q400,720 294,700 Q194,672 128,600 Q60,530 46,432 Q30,330 74,238 Q114,142 198,94 Q282,40 400,60Z" stroke-width="0.5"/>
     </g>
   </svg>
 
-  <!-- NAVIGATION BAR -->
   <header>
-    <nav class="navbar">
-      <a href="index.html" class="brand">&#9675; Black Widow</a>
-
+    <nav class="navbar glass">
+      <a href="community.html" class="btn-nav logo-btn">Black Widow</a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
-
       <a href="#join" class="btn-nav">Join Now</a>
-
-      <div class="hamburger" id="hamburger">
-        <i class="fa fa-bars"></i>
-      </div>
+      <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
     </nav>
-
     <div class="sidebar" id="sidebar">
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -758,60 +406,36 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
-
     <div class="overlay" id="overlay"></div>
   </header>
 
-  <!-- URGENCY STRIP -->
   <div class="urgency-strip">
-    <strong>Only 20 seats per week.</strong> &nbsp;Seats refresh every Sunday after the event closes. &nbsp;|&nbsp; Early bird saves 50% — don't wait.
+    <strong>Only 20 seats per week.</strong> Seats refresh every Sunday after the event closes. | Early bird saves 50% — don't wait.
   </div>
 
-  <!-- HERO -->
   <section class="hero fade-up">
     <i class="fa-solid fa-spider spider-icon"></i>
     <h1>Welcome to the<br><span>Black Widow</span><br>Community</h1>
-    <p class="subtitle">
-      This is a tight, intentional group — <strong>20 seats only, every week.</strong>
-      Seats refresh after each event closes, so the moment you're in, you're in with people just as serious as you are.
-      <br><br>
-      Move early and lock in the early bird price of <strong>$25</strong>. General admission is <strong>$49</strong>.
-      Because this is a close-knit, high-accountability space, late-release seats are <strong>$99</strong> — urgency is a filter for who belongs here.
-    </p>
+    <p class="subtitle">This is a tight, intentional group — <strong>20 seats only, every week.</strong> Seats refresh after each event closes, so the moment you're in, you're in with people just as serious as you are.<br><br>Move early and lock in the early bird price of <strong>$25</strong>. General admission is <strong>$49</strong>. Because this is a close-knit, high-accountability space, late-release seats are <strong>$99</strong> — urgency is a filter for who belongs here.</p>
     <a href="#join" class="btn-nav" style="font-size:1rem; padding: 0.75em 2.2em;">Claim Your Seat</a>
   </section>
 
   <div class="divider"></div>
 
-  <!-- PRICING -->
   <section id="join" class="fade-up">
     <p class="section-label">Choose Your Path</p>
     <h2 class="section-title">Pick Your Community</h2>
     <p class="section-intro">Same rigorous curriculum, same tight circle of 20. Choose the format that fits where you are in the world.</p>
-
     <div class="pricing-grid">
-
-      <!-- ONLINE -->
       <div class="pricing-card">
         <i class="fa-solid fa-wifi card-icon"></i>
         <div class="card-title">Online Community</div>
         <p class="card-desc">Learn, hack, and build alongside your cohort from anywhere on the globe. Full access to live sessions, async resources, and personal accountability.</p>
-
         <div class="price-row">
-          <div class="price-tier early">
-            <span class="tier-label"><i class="fa-solid fa-bolt" style="margin-right:5px;color:#2ecc71;"></i>Early Bird</span>
-            <span class="tier-price">$25</span>
-          </div>
-          <div class="price-tier general">
-            <span class="tier-label">General Admission</span>
-            <span class="tier-price">$49</span>
-          </div>
-          <div class="price-tier late">
-            <span class="tier-label"><i class="fa-solid fa-lock" style="margin-right:5px;color:var(--red);"></i>Late Release</span>
-            <span class="tier-price">$99</span>
-          </div>
+          <div class="price-tier early"><span class="tier-label"><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
+          <div class="price-tier general"><span class="tier-label">General Admission</span><span class="tier-price">$49</span></div>
+          <div class="price-tier late"><span class="tier-label"><i class="fa-solid fa-lock" style="margin-right:5px;color:var(--red);"></i>Late Release</span><span class="tier-price">$99</span></div>
         </div>
-
         <ul class="features-list">
           <li><i class="fa-solid fa-check"></i>Live weekly virtual sessions with Bree</li>
           <li><i class="fa-solid fa-check"></i>Private community Discord & accountability pods</li>
@@ -819,32 +443,18 @@
           <li><i class="fa-solid fa-check"></i>Portfolio-building projects included</li>
           <li><i class="fa-solid fa-check"></i>Access to guest speaker recordings</li>
         </ul>
-
         <a href="#" class="cta-btn">Join Online — Claim Seat</a>
       </div>
-
-      <!-- IN-PERSON -->
       <div class="pricing-card featured">
         <div class="card-badge">Limited Availability</div>
         <i class="fa-solid fa-location-dot card-icon"></i>
         <div class="card-title">In-Person Community</div>
         <p class="card-desc">Melbourne-based sessions. Work side-by-side in a room of 20 committed beginners. The energy, the focus, the connections — nothing compares to being in the room.</p>
-
         <div class="price-row">
-          <div class="price-tier early">
-            <span class="tier-label"><i class="fa-solid fa-bolt" style="margin-right:5px;color:#2ecc71;"></i>Early Bird</span>
-            <span class="tier-price">$25</span>
-          </div>
-          <div class="price-tier general">
-            <span class="tier-label">General Admission</span>
-            <span class="tier-price">$49</span>
-          </div>
-          <div class="price-tier late">
-            <span class="tier-label"><i class="fa-solid fa-lock" style="margin-right:5px;color:var(--red);"></i>Late Release</span>
-            <span class="tier-price">$99</span>
-          </div>
+          <div class="price-tier early"><span class="tier-label"><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
+          <div class="price-tier general"><span class="tier-label">General Admission</span><span class="tier-price">$49</span></div>
+          <div class="price-tier late"><span class="tier-label"><i class="fa-solid fa-lock" style="margin-right:5px;color:var(--red);"></i>Late Release</span><span class="tier-price">$99</span></div>
         </div>
-
         <ul class="features-list">
           <li><i class="fa-solid fa-check"></i>Everything in Online, plus in-room access</li>
           <li><i class="fa-solid fa-check"></i>Face-to-face mentorship & lab time with Bree</li>
@@ -852,138 +462,62 @@
           <li><i class="fa-solid fa-check"></i>Physical lab environment — Kali rigs provided</li>
           <li><i class="fa-solid fa-check"></i>Recorded sessions sent to you after every meetup</li>
         </ul>
-
         <a href="#" class="cta-btn">Join In-Person — Claim Seat</a>
       </div>
-
     </div>
   </section>
 
   <div class="sep"></div>
 
-  <!-- PORTFOLIOS -->
   <section class="fade-up">
     <p class="section-label">What You Walk Away With</p>
     <h2 class="section-title">Portfolios We Build Together</h2>
     <p class="section-intro">Every member leaves with real, demonstrable work — not certificates collecting dust. Here's what's inside your Black Widow portfolio.</p>
-
     <div class="portfolio-grid">
-
-      <div class="portfolio-card">
-        <div class="p-icon"><i class="fa-solid fa-network-wired"></i></div>
-        <h4>Network Pentest Report</h4>
-        <p>A full written pentest report on a simulated corporate network — the same format real consultants deliver to clients.</p>
-      </div>
-
-      <div class="portfolio-card">
-        <div class="p-icon"><i class="fa-solid fa-globe"></i></div>
-        <h4>Web Application Audit</h4>
-        <p>A documented attack-and-findings report on a vulnerable web app, covering OWASP Top 10 vulnerabilities with proof-of-concept screenshots.</p>
-      </div>
-
-      <div class="portfolio-card">
-        <div class="p-icon"><i class="fa-solid fa-flag"></i></div>
-        <h4>CTF Write-Ups</h4>
-        <p>Polished technical write-ups of Capture The Flag challenges — the kind that impress hiring managers and prove you can think, not just Google.</p>
-      </div>
-
-      <div class="portfolio-card">
-        <div class="p-icon"><i class="fa-solid fa-terminal"></i></div>
-        <h4>Custom Scripts & Tools</h4>
-        <p>Python scripts and automation tools you wrote during labs, hosted on GitHub with READMEs that show off your process and thinking.</p>
-      </div>
-
-      <div class="portfolio-card">
-        <div class="p-icon"><i class="fa-solid fa-chart-bar"></i></div>
-        <h4>Threat Modeling Case Study</h4>
-        <p>A structured threat model for a real-world system — demonstrating you can think offensively at the architecture level, not just the tool level.</p>
-      </div>
-
-      <div class="portfolio-card">
-        <div class="p-icon"><i class="fa-solid fa-id-badge"></i></div>
-        <h4>LinkedIn & Resume Refresh</h4>
-        <p>A curated professional profile that translates everything you've built into language that gets you through the door — tailored for offensive security roles.</p>
-      </div>
-
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-network-wired"></i></div><h4>Network Pentest Report</h4><p>A full written pentest report on a simulated corporate network — the same format real consultants deliver to clients.</p></div>
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-globe"></i></div><h4>Web Application Audit</h4><p>A documented attack-and-findings report on a vulnerable web app, covering OWASP Top 10 vulnerabilities with proof-of-concept screenshots.</p></div>
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-flag"></i></div><h4>CTF Write-Ups</h4><p>Polished technical write-ups of Capture The Flag challenges — the kind that impress hiring managers and prove you can think, not just Google.</p></div>
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-terminal"></i></div><h4>Custom Scripts & Tools</h4><p>Python scripts and automation tools you wrote during labs, hosted on GitHub with READMEs that show off your process and thinking.</p></div>
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-chart-bar"></i></div><h4>Threat Modeling Case Study</h4><p>A structured threat model for a real-world system — demonstrating you can think offensively at the architecture level, not just the tool level.</p></div>
+      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-id-badge"></i></div><h4>LinkedIn & Resume Refresh</h4><p>A curated professional profile that translates everything you've built into language that gets you through the door — tailored for offensive security roles.</p></div>
     </div>
   </section>
 
   <div class="sep"></div>
 
-  <!-- TESTIMONIALS / VIDEOS -->
   <section class="fade-up">
     <p class="section-label">From the Community</p>
     <h2 class="section-title">Hear It From Them</h2>
     <p class="section-intro">Real members. Real results. No fluff — just people who decided to show up and build.</p>
-
     <div class="testimonials-grid">
-
-      <div class="testimonial-card">
-        <div class="video-placeholder">
-          <div class="play-circle"><i class="fa-solid fa-play"></i></div>
-          <span class="video-label">Member Story</span>
-        </div>
-        <div class="testimonial-body">
-          <div class="testimonial-name">Community Member</div>
-          <div class="testimonial-role">Offensive Security Beginner</div>
-          <p class="testimonial-quote">"Before this, I knew the theory but had nothing to show for it. In 4 weeks I had my first real pentest report."</p>
-        </div>
-      </div>
-
-      <div class="testimonial-card">
-        <div class="video-placeholder">
-          <div class="play-circle"><i class="fa-solid fa-play"></i></div>
-          <span class="video-label">Member Story</span>
-        </div>
-        <div class="testimonial-body">
-          <div class="testimonial-name">Community Member</div>
-          <div class="testimonial-role">Aspiring Ethical Hacker</div>
-          <p class="testimonial-quote">"The accountability alone was worth it. I'd been stuck for 8 months. Here I was consistent from week one."</p>
-        </div>
-      </div>
-
-      <div class="testimonial-card">
-        <div class="video-placeholder">
-          <div class="play-circle"><i class="fa-solid fa-play"></i></div>
-          <span class="video-label">Member Story</span>
-        </div>
-        <div class="testimonial-body">
-          <div class="testimonial-name">Community Member</div>
-          <div class="testimonial-role">Career Changer</div>
-          <p class="testimonial-quote">"I came in with zero technical background. I left with a GitHub, a write-up, and a job interview."</p>
-        </div>
-      </div>
-
+      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Community Member</div><div class="testimonial-role">Offensive Security Beginner</div><p class="testimonial-quote">"Before this, I knew the theory but had nothing to show for it. In 4 weeks I had my first real pentest report."</p></div></div>
+      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Community Member</div><div class="testimonial-role">Aspiring Ethical Hacker</div><p class="testimonial-quote">"The accountability alone was worth it. I'd been stuck for 8 months. Here I was consistent from week one."</p></div></div>
+      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Community Member</div><div class="testimonial-role">Career Changer</div><p class="testimonial-quote">"I came in with zero technical background. I left with a GitHub, a write-up, and a job interview."</p></div></div>
     </div>
-
-    <div class="video-note">
-      <i class="fa-solid fa-circle-info"></i>
-      Replace the video placeholders above with your real testimonial videos by swapping in <code>&lt;iframe&gt;</code> embeds from YouTube or your preferred video host.
-    </div>
+    <div class="video-note"><i class="fa-solid fa-circle-info"></i> Replace the video placeholders above with your real testimonial videos by swapping in <code>&lt;iframe&gt;</code> embeds from YouTube or your preferred video host.</div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="glass-footer">
-    <p>Based in <span>Melbourne, Australia</span> &nbsp;·&nbsp; The Black Widow Community &nbsp;·&nbsp; Building Undeniable Ethical Hackers</p>
+  <footer class="footer glass-footer">
+    <p>Based in <span>Melbourne, Australia</span> · The Black Widow Community · Building Undeniable Ethical Hackers</p>
   </footer>
 
-  <!-- JS -->
   <script>
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
+    const menuSound = new Audio('menu.mp3');
 
     hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
     });
-
     overlay.addEventListener('click', () => {
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
     });
 
-    // Fade-up on scroll
     const fadeEls = document.querySelectorAll('.fade-up');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
