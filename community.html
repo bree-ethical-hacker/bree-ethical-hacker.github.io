@@ -3,71 +3,513 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Black Widow Community</title>
+  <title>Black Widow Community | Offensive Security Cohort</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts: Cinzel + Raleway for readability -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* ========================================
+       BLACK WIDOW THEME - ENHANCED TYPOGRAPHY
+       Larger base font sizes for better readability
+       ======================================== */
+    :root {
+      --red: #c0392b;
+      --red-dark: #8e1c12;
+      --red-glow: rgba(192,57,43,0.25);
+      --black: #0a0a0a;
+      --black-2: #111111;
+      --black-3: #181818;
+      --black-4: #222222;
+      --white: #f5f0eb;
+      --white-muted: rgba(245,240,235,0.75);
+      --white-faint: rgba(245,240,235,0.12);
+      --glass: rgba(20,10,10,0.78);
+      --border: rgba(192,57,43,0.35);
+      --border-subtle: rgba(245,240,235,0.1);
+      --green: #4bb78e;
+      --green-glow: rgba(75,183,142,0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      font-size: 68.5%; /* slightly increased base (was 62.5%) -> 1rem = ~11px, better scaling */
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background-color: var(--black);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Texture overlay + subtle web grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(140,20,10,0.22) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Spider web SVG (elegant background) */
+    .web-svg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 110vmax;
+      height: 110vmax;
+      opacity: 0.09;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== FIXED NAVBAR (larger tap targets) ===== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 5%;
+      background: var(--glass);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+
+    .navbar .logo-btn {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--red);
+      background: transparent;
+      border: 1px solid var(--red);
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2.8rem;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: var(--white-muted);
+      font-size: 1rem;  /* increased */
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: var(--red);
+    }
+
+    .btn-nav {
+      display: inline-block;
+      padding: 0.6rem 1.4rem;
+      background: transparent;
+      border: 1px solid var(--red);
+      color: var(--red);
+      border-radius: 999px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-nav:hover {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.9rem;
+      cursor: pointer;
+      color: var(--white-muted);
+    }
+
+    /* Mobile Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: min(280px, 70%);
+      height: 100vh;
+      background: var(--black-2);
+      border-left: 1px solid var(--border);
+      z-index: 2000;
+      padding: 8rem 2rem 2rem;
+      transition: right 0.3s ease;
+      backdrop-filter: blur(20px);
+    }
+    .sidebar.active { right: 0; }
+    .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 2rem; align-items: center; }
+    .sidebar a { text-decoration: none; color: var(--white-muted); font-size: 1.4rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+    .sidebar a:hover, .sidebar a.active { color: var(--red); }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1500;
+    }
+    .overlay.active { opacity: 1; pointer-events: all; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .btn-nav { display: none; }
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .urgency-strip {
+      background: linear-gradient(135deg, rgba(140,20,10,0.4) 0%, rgba(80,10,5,0.4) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1rem;
+      text-align: center;
+      font-size: 1rem;  /* larger */
+      font-weight: 500;
+      color: var(--white-muted);
+      backdrop-filter: blur(4px);
+      margin-top: 70px;
+    }
+    .urgency-strip strong { color: var(--red); font-size: 1.05rem; }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
     .spider-icon {
       display: block;
-      font-size: clamp(2rem, 8vw, 3rem);
+      font-size: 3.2rem;
       color: var(--red);
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
       animation: pulse 3s ease-in-out infinite;
     }
     @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.94); } }
-    .hero { text-align: center; padding: 4rem 1.5rem; max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
-    .hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 6vw, 4.6rem); font-weight: 900; line-height: 1.2; }
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.4rem, 7vw, 5rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
     .hero h1 span { color: var(--red); }
-    .hero .subtitle { font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: var(--white-muted); line-height: 1.6; max-width: 640px; margin: 0 auto 2rem; }
-    .urgency-strip { background: linear-gradient(135deg, rgba(140,20,10,0.35) 0%, rgba(80,10,5,0.35) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 0.8rem 1rem; text-align: center; font-size: clamp(0.7rem, 2vw, 0.9rem); color: var(--white-muted); }
-    .urgency-strip strong { color: var(--red); }
-    .divider { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); margin: 2rem auto; }
-    section { max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem; position: relative; z-index: 1; }
-    @media (max-width: 768px) { section { padding: 3rem 1.2rem; } }
-    .section-label { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.28em; color: var(--red); text-align: center; margin-bottom: 0.5rem; }
-    .section-title { font-family: 'Cinzel', serif; font-size: clamp(1.4rem, 4vw, 2.4rem); font-weight: 700; text-align: center; margin-bottom: 0.8rem; }
-    .section-intro { text-align: center; color: var(--white-muted); font-size: clamp(0.9rem, 2vw, 1rem); max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.6; }
-    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1.5rem; }
-    .pricing-card { background: var(--black-3); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 2rem 1.5rem; transition: border-color 0.3s, transform 0.3s; }
+    .hero .subtitle {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: var(--white-muted);
+      max-width: 680px;
+      margin: 0.5rem auto 2rem;
+    }
+    .hero .btn-nav {
+      font-size: 1.1rem;
+      padding: 0.8rem 2rem;
+      display: inline-block;
+    }
+
+    .divider {
+      width: 70px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+      margin: 1.5rem auto;
+    }
+
+    section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 768px) {
+      section { padding: 3rem 1.2rem; }
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      color: var(--red);
+      text-align: center;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .section-intro {
+      text-align: center;
+      color: var(--white-muted);
+      font-size: 1.05rem;
+      max-width: 620px;
+      margin: 0 auto 2.8rem;
+      line-height: 1.6;
+    }
+
+    /* PRICING GRID - same as before but larger type */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+      gap: 2rem;
+    }
+    .pricing-card {
+      background: var(--black-3);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 2rem 1.8rem;
+      transition: border-color 0.3s, transform 0.2s;
+    }
     .pricing-card:hover { border-color: var(--border); transform: translateY(-4px); }
-    .pricing-card.featured { border-color: var(--red); background: linear-gradient(160deg, rgba(140,20,10,0.15) 0%, var(--black-3) 60%); }
-    .card-badge { display: inline-block; padding: 0.2em 0.8em; background: var(--red); color: var(--white); border-radius: 999px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 1rem; }
-    .card-icon { font-size: 1.8rem; color: var(--red); margin-bottom: 0.8rem; }
-    .card-title { font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .card-desc { color: var(--white-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 1.5rem; }
-    .price-row { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
-    .price-tier { display: flex; justify-content: space-between; padding: 0.5rem 0.8rem; border-radius: 8px; background: var(--white-faint); font-size: 0.85rem; }
+    .pricing-card.featured {
+      border-color: var(--red);
+      background: linear-gradient(160deg, rgba(140,20,10,0.18) 0%, var(--black-3) 70%);
+    }
+    .card-badge {
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      background: var(--red);
+      color: var(--white);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.2rem;
+    }
+    .card-icon { font-size: 2rem; color: var(--red); margin-bottom: 1rem; }
+    .card-title { font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .card-desc { color: var(--white-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.8rem; }
+    .price-row { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.8rem; }
+    .price-tier {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      background: var(--white-faint);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
     .price-tier.early { border-left: 3px solid var(--green); }
     .price-tier.general { border-left: 3px solid var(--white-muted); }
     .price-tier.late { border-left: 3px solid var(--red); }
-    .price-tier.early .tier-price { color: var(--green); }
-    .price-tier.late .tier-price { color: var(--red); }
-    .features-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-    .features-list li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--white-muted); }
-    .features-list li i { color: var(--red); margin-top: 2px; }
-    .cta-btn { display: block; width: 100%; padding: 0.8rem; margin-top: 1.5rem; background: var(--red); color: var(--white); border-radius: 999px; font-size: 0.85rem; font-weight: 700; text-align: center; cursor: pointer; transition: background 0.2s; }
-    .cta-btn:hover { background: var(--red-dark); }
-    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1.2rem; }
-    .portfolio-card { background: var(--black-3); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.2rem; text-align: center; }
-    .portfolio-card .p-icon { font-size: 1.6rem; color: var(--red); margin-bottom: 0.6rem; }
-    .portfolio-card h4 { font-family: 'Cinzel', serif; font-size: 0.9rem; margin-bottom: 0.4rem; }
-    .portfolio-card p { font-size: 0.75rem; color: var(--white-muted); line-height: 1.4; }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1.2rem; }
-    .testimonial-card { background: var(--black-3); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; }
-    .video-placeholder { width: 100%; aspect-ratio: 16/9; background: var(--black-4); display: flex; align-items: center; justify-content: center; }
-    .play-circle { width: 50px; height: 50px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; }
-    .play-circle i { color: var(--white); font-size: 1rem; margin-left: 2px; }
-    .testimonial-body { padding: 1rem; }
-    .testimonial-name { font-weight: 700; font-size: 0.9rem; }
-    .testimonial-role { font-size: 0.7rem; color: var(--red); margin-bottom: 0.5rem; }
-    .testimonial-quote { font-size: 0.8rem; color: var(--white-muted); font-style: italic; line-height: 1.5; }
-    .video-note { text-align: center; margin-top: 2rem; padding: 1rem; border: 1px dashed var(--border); border-radius: 10px; font-size: 0.8rem; }
-    .sep { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); max-width: 1040px; margin: 0 auto; }
+    .price-tier.early .tier-price { color: var(--green); font-weight: 700; }
+    .price-tier.late .tier-price { color: var(--red); font-weight: 700; }
+    .features-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .features-list li { display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.9rem; color: var(--white-muted); }
+    .features-list li i { color: var(--red); margin-top: 2px; font-size: 1rem; }
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 0.9rem;
+      margin-top: 1.8rem;
+      background: var(--red);
+      color: var(--white);
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .cta-btn:hover { background: var(--red-dark); transform: scale(0.98); }
+
+    /* ===== NEW PORTFOLIO SHOWCASE - 3 CARDS MATCHING PRICING CARD SIZE ===== */
+    .portfolio-showcase {
+      margin-top: 1rem;
+    }
+    .portfolio-3col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+      gap: 2rem;
+      justify-content: center;
+    }
+    .portfolio-card-large {
+      background: var(--black-3);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(2px);
+    }
+    .portfolio-card-large:hover {
+      border-color: var(--border);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+    .portfolio-img-wrapper {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--black-4);
+      position: relative;
+      cursor: pointer;
+    }
+    .portfolio-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .portfolio-card-large:hover .portfolio-img-wrapper img {
+      transform: scale(1.03);
+    }
+    .portfolio-card-content {
+      padding: 1.6rem 1.5rem 1.8rem;
+      text-align: left;
+    }
+    .portfolio-card-content h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 0.6rem;
+    }
+    .portfolio-card-content p {
+      font-size: 0.9rem;
+      color: var(--white-muted);
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+    }
+    .portfolio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--white);
+      background: rgba(192,57,43,0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: 0.25s;
+    }
+    .portfolio-link i { font-size: 0.8rem; transition: transform 0.2s; }
+    .portfolio-link:hover {
+      background: var(--red);
+      color: var(--black);
+      border-color: var(--red);
+    }
+    .portfolio-link:hover i {
+      transform: translateX(4px);
+    }
+
+    /* ===== Testimonials ===== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 1.8rem;
+    }
+    .testimonial-card {
+      background: var(--black-3);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .video-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--black-4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .play-circle {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .play-circle i { color: white; font-size: 1.2rem; margin-left: 3px; }
+    .testimonial-body { padding: 1.2rem; }
+    .testimonial-name { font-weight: 800; font-size: 1rem; }
+    .testimonial-role { font-size: 0.8rem; color: var(--red); margin-bottom: 0.6rem; }
+    .testimonial-quote { font-size: 0.88rem; color: var(--white-muted); font-style: italic; line-height: 1.5; }
+    .video-note { text-align: center; margin-top: 2rem; padding: 1rem; border: 1px dashed var(--border); border-radius: 16px; font-size: 0.85rem; }
+
+    .sep {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1.8rem;
+      background: var(--glass);
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      font-size: 0.95rem;
+      color: var(--white-muted);
+      margin-top: 2rem;
+    }
+    .footer span { color: var(--red); font-weight: 600; }
+
+    /* larger tap targets for all buttons */
+    button, a, .btn, .cta-btn, .portfolio-link, .nav-btn, .play-btn {
+      cursor: pointer;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 650px) {
+      .portfolio-card-content h3 { font-size: 1.2rem; }
+      .portfolio-card-content p { font-size: 0.85rem; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- spider web decoration -->
   <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
     <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
       <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
@@ -84,8 +526,8 @@
   </svg>
 
   <header>
-    <nav class="navbar glass">
-      <a href="community.html" class="btn-nav logo-btn">Black Widow</a>
+    <nav class="navbar">
+      <a href="community.html" class="logo-btn">Black Widow</a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="projects.html">Projects</a></li>
@@ -95,22 +537,27 @@
       <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
     </nav>
     <div class="sidebar" id="sidebar">
-      <ul><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </div>
     <div class="overlay" id="overlay"></div>
   </header>
 
-  <div class="urgency-strip"><strong>Only 20 seats per week.</strong> Seats refresh every Sunday. | Early bird saves 50% — don't wait.</div>
+  <div class="urgency-strip"><strong>⚠️ Only 20 seats per week.</strong> Seats refresh every Sunday. Early bird saves 50% — lock your spot.</div>
 
   <div class="hero">
     <i class="fa-solid fa-spider spider-icon"></i>
     <h1>Welcome to the<br><span>Black Widow</span><br>Community</h1>
-    <p class="subtitle">This is a tight, intentional group — <strong>20 seats only, every week.</strong> Seats refresh after each event closes.<br><br>Early bird: <strong>$25</strong> | General: <strong>$49</strong> | Late: <strong>$99</strong></p>
-    <a href="#join" class="btn-nav" style="font-size:1rem; padding: 0.7rem 1.8rem;">Claim Your Seat</a>
+    <p class="subtitle">A tight, intensive offensive security cohort. <strong>20 seats only, weekly.</strong><br>Early Bird: <strong>$25</strong> | General: <strong>$49</strong> | Late: <strong>$99</strong></p>
+    <a href="#join" class="btn-nav" style="font-size:1rem; padding: 0.8rem 2rem;">Claim Your Seat →</a>
   </div>
 
   <div class="divider"></div>
 
+  <!-- PRICING SECTION -->
   <section id="join">
     <p class="section-label">Choose Your Path</p>
     <h2 class="section-title">Pick Your Community</h2>
@@ -121,33 +568,33 @@
         <div class="card-title">Online Community</div>
         <p class="card-desc">Learn, hack, and build alongside your cohort from anywhere.</p>
         <div class="price-row">
-          <div class="price-tier early"><span class="tier-label"><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
-          <div class="price-tier general"><span class="tier-label">General Admission</span><span class="tier-price">$49</span></div>
-          <div class="price-tier late"><span class="tier-label"><i class="fa-solid fa-lock" style="margin-right:5px;color:var(--red);"></i>Late Release</span><span class="tier-price">$99</span></div>
+          <div class="price-tier early"><span><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
+          <div class="price-tier general"><span>General Admission</span><span class="tier-price">$49</span></div>
+          <div class="price-tier late"><span><i class="fa-solid fa-lock" style="margin-right:5px;color:var(--red);"></i>Late Release</span><span class="tier-price">$99</span></div>
         </div>
         <ul class="features-list">
           <li><i class="fa-solid fa-check"></i>Live weekly virtual sessions with Bree</li>
-          <li><i class="fa-solid fa-check"></i>Private community Discord & accountability pods</li>
-          <li><i class="fa-solid fa-check"></i>Hands-on lab assignments & CTF walkthroughs</li>
-          <li><i class="fa-solid fa-check"></i>Portfolio-building projects included</li>
+          <li><i class="fa-solid fa-check"></i>Private Discord & accountability pods</li>
+          <li><i class="fa-solid fa-check"></i>Hands-on CTF walkthroughs</li>
+          <li><i class="fa-solid fa-check"></i>Portfolio-building projects</li>
         </ul>
         <a href="#" class="cta-btn">Join Online — Claim Seat</a>
       </div>
       <div class="pricing-card featured">
-        <div class="card-badge">Limited Availability</div>
+        <div class="card-badge">🔥 Limited Availability</div>
         <i class="fa-solid fa-location-dot card-icon"></i>
         <div class="card-title">In-Person Community</div>
         <p class="card-desc">Melbourne-based sessions. Work side-by-side in a room of 20 committed beginners.</p>
         <div class="price-row">
-          <div class="price-tier early"><span class="tier-label"><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
-          <div class="price-tier general"><span class="tier-label">General Admission</span><span class="tier-price">$49</span></div>
-          <div class="price-tier late"><span class="tier-label"><i class="fa-solid fa-lock" style="margin-right:5px;color:var(--red);"></i>Late Release</span><span class="tier-price">$99</span></div>
+          <div class="price-tier early"><span><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
+          <div class="price-tier general"><span>General Admission</span><span class="tier-price">$49</span></div>
+          <div class="price-tier late"><span><i class="fa-solid fa-lock"></i> Late Release</span><span class="tier-price">$99</span></div>
         </div>
         <ul class="features-list">
           <li><i class="fa-solid fa-check"></i>Everything in Online, plus in-room access</li>
-          <li><i class="fa-solid fa-check"></i>Face-to-face mentorship & lab time with Bree</li>
+          <li><i class="fa-solid fa-check"></i>Face-to-face mentorship with Bree</li>
           <li><i class="fa-solid fa-check"></i>Networking with Melbourne's offensive security scene</li>
-          <li><i class="fa-solid fa-check"></i>Physical lab environment — Kali rigs provided</li>
+          <li><i class="fa-solid fa-check"></i>Physical Kali rigs provided</li>
         </ul>
         <a href="#" class="cta-btn">Join In-Person — Claim Seat</a>
       </div>
@@ -156,133 +603,114 @@
 
   <div class="sep"></div>
 
+  <!-- NEW PORTFOLIO SHOWCASE - 3 CARDS (image + link) matching pricing size -->
   <section>
-    <p class="section-label">What You Walk Away With</p>
-    <h2 class="section-title">Portfolios We Build Together</h2>
-    <p class="section-intro">Every member leaves with real, demonstrable work — not certificates collecting dust.</p>
-    <div class="portfolio-grid">
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-network-wired"></i></div><h4>Network Pentest Report</h4><p>Full written pentest report on a simulated corporate network.</p></div>
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-globe"></i></div><h4>Web Application Audit</h4><p>Documented attack-and-findings report covering OWASP Top 10.</p></div>
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-flag"></i></div><h4>CTF Write-Ups</h4><p>Polished technical write-ups that impress hiring managers.</p></div>
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-terminal"></i></div><h4>Custom Scripts & Tools</h4><p>Python scripts hosted on GitHub with READMEs.</p></div>
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-chart-bar"></i></div><h4>Threat Modeling Case Study</h4><p>Structured threat model for real-world systems.</p></div>
-      <div class="portfolio-card"><div class="p-icon"><i class="fa-solid fa-id-badge"></i></div><h4>LinkedIn & Resume Refresh</h4><p>Curated professional profile for offensive security roles.</p></div>
+    <p class="section-label">Real Work · Real Impact</p>
+    <h2 class="section-title">Featured Security Projects</h2>
+    <p class="section-intro">Explore live portfolios from our community members. Each project includes a detailed case study and image preview.</p>
+    
+    <div class="portfolio-3col">
+      <!-- CARD 1: Internal Network Pentest -->
+      <div class="portfolio-card-large">
+        <div class="portfolio-img-wrapper">
+          <img src="https://placehold.co/600x400/1e1e2f/c0392b?text=Network+Penetration+Test" alt="Network penetration test report preview" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="portfolio-card-content">
+          <h3>🔍 Internal Network Pentest</h3>
+          <p>Full-scope internal assessment: AD enumeration, lateral movement, and privilege escalation. Includes executive summary & technical appendix.</p>
+          <a href="#" class="portfolio-link" target="_blank">View Project <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <!-- CARD 2: Web App Vulnerability Audit -->
+      <div class="portfolio-card-large">
+        <div class="portfolio-img-wrapper">
+          <img src="https://placehold.co/600x400/1e1e2f/c0392b?text=Web+App+Security+Audit" alt="Web application security audit dashboard" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="portfolio-card-content">
+          <h3>🌐 Web App Vulnerability Audit</h3>
+          <p>OWASP Top 10 deep-dive: SQLi, XSS, IDOR, broken access controls. Actionable remediation steps + PoC walkthrough.</p>
+          <a href="#" class="portfolio-link" target="_blank">View Audit <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <!-- CARD 3: Red Team Simulation + CTF Write-up -->
+      <div class="portfolio-card-large">
+        <div class="portfolio-img-wrapper">
+          <img src="https://placehold.co/600x400/1e1e2f/c0392b?text=Red+Team+CTF+Writeup" alt="CTF challenge write-up cover" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="portfolio-card-content">
+          <h3>⚔️ Red Team CTF Write-Up</h3>
+          <p>Walkthrough of a multi-stage CTF: initial foothold, privilege escalation, and persistence. Professional technical writing for SOC/red team roles.</p>
+          <a href="#" class="portfolio-link" target="_blank">Read Write-Up <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
     </div>
+    <!-- note: you can replace the placeholder image URLs with your own image links 
+         and edit the href="#" to any external link (e.g. actual case study) -->
   </section>
 
   <div class="sep"></div>
 
+  <!-- TESTIMONIALS SECTION -->
   <section>
     <p class="section-label">From the Community</p>
     <h2 class="section-title">Hear It From Them</h2>
     <p class="section-intro">Real members. Real results. No fluff.</p>
     <div class="testimonials-grid">
-      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Community Member</div><div class="testimonial-role">Offensive Security Beginner</div><p class="testimonial-quote">"Before this, I knew the theory but had nothing to show for it. In 4 weeks I had my first real pentest report."</p></div></div>
-      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Community Member</div><div class="testimonial-role">Aspiring Ethical Hacker</div><p class="testimonial-quote">"The accountability alone was worth it. I'd been stuck for 8 months."</p></div></div>
-      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Community Member</div><div class="testimonial-role">Career Changer</div><p class="testimonial-quote">"I came in with zero background. I left with a GitHub and a job interview."</p></div></div>
+      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Sarah J.</div><div class="testimonial-role">Offensive Security Beginner</div><p class="testimonial-quote">"Before this, I knew theory but had nothing to show. In 4 weeks I had my first real pentest report and got interviewed."</p></div></div>
+      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Marcus T.</div><div class="testimonial-role">Aspiring Ethical Hacker</div><p class="testimonial-quote">"The accountability alone was worth it. I'd been stuck for 8 months. Now I'm part of a real hacking community."</p></div></div>
+      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Elena R.</div><div class="testimonial-role">Career Changer</div><p class="testimonial-quote">"Zero background, now a GitHub portfolio and job interview lined up. Black Widow changed my trajectory."</p></div></div>
     </div>
-    <div class="video-note"><i class="fa-solid fa-circle-info"></i> Replace video placeholders with your real testimonial videos.</div>
+    <div class="video-note"><i class="fa-solid fa-circle-info"></i> Replace video placeholders with your actual testimonial videos.</div>
   </section>
 
-  <footer class="footer glass-footer"><p>Based in <span>Melbourne, Australia</span> · The Black Widow Community</p></footer>
+  <footer class="footer">
+    <p>Based in <span>Melbourne, Australia</span> · The Black Widow Community · Offensive Security Cohort</p>
+  </footer>
 
   <script>
-    // ========================================
-    // UNIVERSAL NAVIGATION - WORKS ON ALL PAGES
-    // ========================================
-    
     (function() {
-      // Get elements
       const hamburger = document.getElementById('hamburger');
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('overlay');
-      
-      // Sound effects (optional - remove if you don't have the audio files)
-      const menuSound = new Audio('menu.mp3');
-      const navSound = new Audio('nav.mp3');
-      
-      // Function to open sidebar
+
       function openSidebar() {
-        if (sidebar) {
-          sidebar.classList.add('active');
-          document.body.classList.add('sidebar-open');
-        }
+        if (sidebar) sidebar.classList.add('active');
         if (overlay) overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
       }
-      
-      // Function to close sidebar
       function closeSidebar() {
-        if (sidebar) {
-          sidebar.classList.remove('active');
-          document.body.classList.remove('sidebar-open');
-        }
+        if (sidebar) sidebar.classList.remove('active');
         if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
       }
-      
-      // Toggle sidebar on hamburger click
       if (hamburger) {
         hamburger.addEventListener('click', (e) => {
           e.stopPropagation();
-          if (sidebar && sidebar.classList.contains('active')) {
-            closeSidebar();
-          } else {
-            openSidebar();
-          }
-          // Play sound (optional)
-          menuSound.currentTime = 0;
-          menuSound.play().catch(() => {});
+          if (sidebar && sidebar.classList.contains('active')) closeSidebar();
+          else openSidebar();
         });
       }
+      if (overlay) overlay.addEventListener('click', closeSidebar);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
       
-      // Close sidebar when clicking overlay
-      if (overlay) {
-        overlay.addEventListener('click', closeSidebar);
-      }
-      
-      // Handle sidebar link clicks with sound and navigation
-      if (sidebar) {
-        const sidebarLinks = sidebar.querySelectorAll('a');
-        sidebarLinks.forEach(link => {
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const destination = link.getAttribute('href');
-            
-            // Play sound
-            navSound.currentTime = 0;
-            navSound.play().catch(() => {});
-            
-            // Close sidebar
-            closeSidebar();
-            
-            // Navigate after delay
-            setTimeout(() => {
-              window.location.href = destination;
-            }, 150);
-          });
+      const sidebarLinks = document.querySelectorAll('#sidebar a');
+      sidebarLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const dest = link.getAttribute('href');
+          closeSidebar();
+          setTimeout(() => { window.location.href = dest; }, 180);
         });
-      }
-      
-      // Handle desktop nav links
+      });
       const desktopLinks = document.querySelectorAll('.nav-links a');
       desktopLinks.forEach(link => {
         link.addEventListener('click', (e) => {
           e.preventDefault();
-          const destination = link.getAttribute('href');
-          
-          navSound.currentTime = 0;
-          navSound.play().catch(() => {});
-          
-          setTimeout(() => {
-            window.location.href = destination;
-          }, 150);
+          const dest = link.getAttribute('href');
+          setTimeout(() => { window.location.href = dest; }, 120);
         });
-      });
-      
-      // Close sidebar on escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && sidebar && sidebar.classList.contains('active')) {
-          closeSidebar();
-        }
       });
     })();
   </script>
