@@ -2,94 +2,426 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Guests | Black Widow</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
   <style>
-    .web-svg {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 110vmax;
-      height: 110vmax;
-      opacity: 0.09;
-      pointer-events: none;
-      z-index: 0;
+    /* Guests page specific responsive styles */
+    .guests-main {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(6rem, 12vw, 10rem) 1.5rem 4rem;
+      position: relative;
+      z-index: 1;
     }
-    .main-content, .flipping-interface, .case-stack, .case-file, .case-content, .bottom-controls { position: relative; z-index: 1; }
-    .case-title { font-family: 'Cinzel', serif; }
-    .back-btn { border-color: var(--red); color: var(--red); }
-    .back-btn:hover { background-color: var(--red); color: var(--black); box-shadow: 0 0 25px var(--red); }
-    .nav-btn { border-color: var(--red); color: var(--red); }
-    .nav-btn:hover:not(:disabled) { background-color: var(--red); color: var(--black); box-shadow: 0 0 25px var(--red); }
+    .guests-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .case-stack {
+      position: relative;
+      width: min(350px, 85vw);
+      height: min(480px, 65vh);
+      margin: 0 auto;
+    }
+    .case-file {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      transform-origin: center;
+    }
+    .case-file.active {
+      pointer-events: auto;
+      z-index: 10;
+      transform: rotate(0deg) translateY(0) !important;
+    }
+    .case-tab {
+      position: absolute;
+      top: -28px;
+      right: 0;
+      width: min(180px, 50%);
+      z-index: 2;
+    }
+    .case-tab svg {
+      width: 100%;
+      height: auto;
+    }
+    .case-number {
+      position: absolute;
+      top: -24px;
+      right: 0;
+      width: min(160px, 45%);
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+      color: #000;
+      z-index: 3;
+      font-weight: bold;
+    }
+    .case-content {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+      border-radius: 12px;
+      padding: clamp(1rem, 3vh, 1.8rem);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.5rem, 1.5vh, 1rem);
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
+      overflow-y: auto;
+    }
+    .case-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      color: #000;
+      font-weight: 700;
+      word-break: break-word;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: #ccc;
+      margin: 0.2rem 0;
+    }
+    .case-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+      flex: 1;
+    }
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.3rem, 1vh, 0.6rem);
+    }
+    .network-image {
+      background-color: #6b7280;
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      aspect-ratio: 1 / 1;
+      width: 100%;
+    }
+    .abstract-image {
+      background-color: #6b7280;
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      width: 100%;
+      min-height: 120px;
+    }
+    .coming-soon-btn {
+      display: inline-block;
+      padding: clamp(0.3rem, 1.5vh, 0.6rem) clamp(0.6rem, 2vw, 1rem);
+      background: transparent;
+      border: 2px solid var(--green);
+      border-radius: 2rem;
+      font-size: clamp(0.7rem, 2vw, 0.9rem);
+      color: #000;
+      text-align: center;
+      font-weight: 600;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .coming-soon-btn:hover {
+      background: var(--green);
+      color: #fff;
+      transform: scale(1.02);
+    }
+    .week-badge {
+      font-size: clamp(0.7rem, 2vw, 0.9rem);
+      color: #666;
+      text-align: right;
+      border-top: 1px dashed #ccc;
+      padding-top: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .guests-controls {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .guest-nav-btn {
+      width: clamp(45px, 10vw, 55px);
+      height: clamp(45px, 10vw, 55px);
+      border-radius: 50%;
+      border: 2px solid var(--red);
+      background: transparent;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .guest-nav-btn:hover:not(:disabled) {
+      background: var(--red);
+      color: var(--black);
+      transform: scale(1.05);
+    }
+    .guest-nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .guest-nav-btn svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+    .back-to-projects {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border: 2px solid var(--red);
+      border-radius: 2rem;
+      color: var(--red);
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .back-to-projects:hover {
+      background: var(--red);
+      color: var(--black);
+    }
+    @media (max-width: 768px) {
+      .guests-main { padding: 7rem 1rem 3rem; }
+      .case-stack { width: 90vw; height: 55vh; }
+      .case-grid { gap: 0.5rem; }
+    }
+    @media (max-width: 480px) {
+      .case-stack { width: 95vw; height: 50vh; }
+      .case-title { font-size: 1rem; }
+    }
+    @media (max-height: 700px) {
+      .case-stack { height: 65vh; }
+    }
   </style>
 </head>
 <body>
 
   <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
     <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
-      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/><line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/><line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="400" y2="800" stroke-width="0.7"/><line x1="400" y1="400" x2="206" y2="786" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52" y2="690" stroke-width="0.7"/><line x1="400" y1="400" x2="0" y2="520" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="0" y2="400" stroke-width="0.7"/><line x1="400" y1="400" x2="0" y2="280" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52" y2="110" stroke-width="0.7"/><line x1="400" y1="400" x2="206" y2="14" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
     </g>
   </svg>
 
   <header>
     <nav class="navbar glass">
       <a href="community.html" class="btn-nav logo-btn">Black Widow Community</a>
-      <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
       <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
     </nav>
-    <div class="sidebar" id="sidebar"><ul><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="sidebar" id="sidebar">
+      <ul><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul>
+    </div>
     <div class="overlay" id="overlay"></div>
   </header>
 
-  <div class="main-content">
-    <div class="flipping-interface">
+  <div class="guests-main">
+    <div class="guests-container">
       <div class="case-stack" id="caseStack">
-        <div class="case-file" data-index="2" id="case3"><div class="case-tab"><svg width="199" height="29" viewBox="0 0 199 29" fill="none"><path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/></svg></div><div class="case-number">GUEST FILE 03</div><div class="case-content"><div class="case-title">??NAME??</div><div class="divider"></div><div class="case-grid"><div class="left-column"><div class="network-image" style="background-image: url('z.jpg');"></div><a href="#" class="coming-soon-btn">Coming Soon</a></div><div class="abstract-image" style="background-image: url('y.jpg');"></div></div><div class="week-badge">??PROFESSION??</div></div></div>
-        <div class="case-file" data-index="1" id="case2"><div class="case-tab"><svg width="199" height="29" viewBox="0 0 199 29" fill="none"><path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/></svg></div><div class="case-number">GUEST FILE 02</div><div class="case-content"><div class="case-title">??NAME??</div><div class="divider"></div><div class="case-grid"><div class="left-column"><div class="network-image" style="background-image: url('z.jpg');"></div><a href="#" class="coming-soon-btn">Coming Soon</a></div><div class="abstract-image" style="background-image: url('y.jpg');"></div></div><div class="week-badge">??PROFESSION??</div></div></div>
-        <div class="case-file" data-index="0" id="case1"><div class="case-tab"><svg width="199" height="29" viewBox="0 0 199 29" fill="none"><path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/></svg></div><div class="case-number">GUEST FILE 01</div><div class="case-content"><div class="case-title">Christian Azuero</div><div class="divider"></div><div class="case-grid"><div class="left-column"><div class="network-image" style="background-image: url('GUESTS/Christian.png');"></div><a href="https://youtu.be/oAzNqZuUS_0?si=DGWll07Qc_EgXK9R" class="coming-soon-btn" target="_blank">Complete</a></div><div class="abstract-image" style="background-image: url('GUESTS/Azuero.png');"></div></div><div class="week-badge">How To Become A Hacker Christian's POV</div></div></div>
+        <!-- Guest 03 -->
+        <div class="case-file" data-index="2">
+          <div class="case-tab">
+            <svg width="199" height="29" viewBox="0 0 199 29" fill="none"><path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/></svg>
+          </div>
+          <div class="case-number">GUEST FILE 03</div>
+          <div class="case-content">
+            <div class="case-title">??NAME??</div>
+            <div class="divider"></div>
+            <div class="case-grid">
+              <div class="left-column">
+                <div class="network-image" style="background-image: url('z.jpg'); background-size: cover;"></div>
+                <a href="#" class="coming-soon-btn">Coming Soon</a>
+              </div>
+              <div class="abstract-image" style="background-image: url('y.jpg'); background-size: cover;"></div>
+            </div>
+            <div class="week-badge">??PROFESSION??</div>
+          </div>
+        </div>
+        <!-- Guest 02 -->
+        <div class="case-file" data-index="1">
+          <div class="case-tab">
+            <svg width="199" height="29" viewBox="0 0 199 29" fill="none"><path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/></svg>
+          </div>
+          <div class="case-number">GUEST FILE 02</div>
+          <div class="case-content">
+            <div class="case-title">??NAME??</div>
+            <div class="divider"></div>
+            <div class="case-grid">
+              <div class="left-column">
+                <div class="network-image" style="background-image: url('z.jpg'); background-size: cover;"></div>
+                <a href="#" class="coming-soon-btn">Coming Soon</a>
+              </div>
+              <div class="abstract-image" style="background-image: url('y.jpg'); background-size: cover;"></div>
+            </div>
+            <div class="week-badge">??PROFESSION??</div>
+          </div>
+        </div>
+        <!-- Guest 01 -->
+        <div class="case-file active" data-index="0">
+          <div class="case-tab">
+            <svg width="199" height="29" viewBox="0 0 199 29" fill="none"><path d="M-116 32.2842C-116 30.0617 -114.188 28.2654 -111.966 28.2843L-0.177002 29.2357C0.895998 29.2449 1.927 28.8228 2.686 28.0643L29.828 0.9216C30.579 0.17142 31.596 -0.25 32.657 -0.25H195C197.209 -0.25 199 1.5409 199 3.75V307.25C199 309.459 197.209 311.25 195 311.25H-112C-114.209 311.25 -116 309.459 -116 307.25V32.2842Z" fill="white"/></svg>
+          </div>
+          <div class="case-number">GUEST FILE 01</div>
+          <div class="case-content">
+            <div class="case-title">Christian Azuero</div>
+            <div class="divider"></div>
+            <div class="case-grid">
+              <div class="left-column">
+                <div class="network-image" style="background-image: url('GUESTS/Christian.png'); background-size: cover;"></div>
+                <a href="https://youtu.be/oAzNqZuUS_0?si=DGWll07Qc_EgXK9R" class="coming-soon-btn" target="_blank">Watch Interview</a>
+              </div>
+              <div class="abstract-image" style="background-image: url('GUESTS/Azuero.png'); background-size: cover;"></div>
+            </div>
+            <div class="week-badge">How To Become A Hacker - Christian's POV</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guests-controls">
+        <a href="projects.html" class="back-to-projects"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+        <div style="display: flex; gap: 1rem;">
+          <button class="guest-nav-btn" id="prevGuest"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg></button>
+          <button class="guest-nav-btn" id="nextGuest"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></button>
+        </div>
       </div>
     </div>
-    <div class="bottom-controls"><div class="all-buttons-row"><a href="projects.html" class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i><span>Back to Projects</span></a><div class="nav-buttons"><button class="nav-btn" id="prevBtnBottom"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg></button><button class="nav-btn" id="nextBtnBottom"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></button></div></div></div>
   </div>
 
-  <footer class="footer glass-footer"><p>Based in <span>Melbourne, Australia</span></p></footer>
+  <footer class="footer glass-footer">
+    <p>Based in <span>Melbourne, Australia</span></p>
+  </footer>
 
-  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-  <script src="script.js"></script>
   <script>
+    // Navigation
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     const menuSound = new Audio('menu.mp3');
-    hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); menuSound.currentTime = 0; menuSound.play().catch(() => {}); });
-    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
+    
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
+    });
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
     const navSound = new Audio('nav.mp3');
-    const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
-    allNavLinks.forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); navSound.currentTime = 0; navSound.play().catch(() => {}); const destination = link.getAttribute('href'); setTimeout(() => { window.location.href = destination; }, 150); }); });
-    const backBtn = document.getElementById('backBtn');
-    if (backBtn) { backBtn.addEventListener('click', (e) => { e.preventDefault(); navSound.currentTime = 0; navSound.play().catch(() => {}); setTimeout(() => { window.location.href = 'projects.html'; }, 150); }); }
+    document.querySelectorAll('.nav-links a, .sidebar a, .back-to-projects').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navSound.currentTime = 0;
+        navSound.play().catch(() => {});
+        setTimeout(() => { window.location.href = link.getAttribute('href'); }, 150);
+      });
+    });
+
+    // Guest Card Stack Navigation
     const caseFiles = Array.from(document.querySelectorAll('.case-file'));
-    const prevBtnBottom = document.getElementById('prevBtnBottom');
-    const nextBtnBottom = document.getElementById('nextBtnBottom');
-    let currentIndex = 2;
+    const prevBtn = document.getElementById('prevGuest');
+    const nextBtn = document.getElementById('nextGuest');
+    let currentIndex = 0;
     const totalCases = caseFiles.length;
-    function updateStack(index) { caseFiles.forEach((file, i) => { file.classList.remove('active'); if (i === index) file.classList.add('active'); }); if (prevBtnBottom) prevBtnBottom.disabled = index === totalCases - 1; if (nextBtnBottom) nextBtnBottom.disabled = index === 0; }
-    const handlePrevClick = () => { if (currentIndex < totalCases - 1) { currentIndex++; updateStack(currentIndex); } };
-    const handleNextClick = () => { if (currentIndex > 0) { currentIndex--; updateStack(currentIndex); } };
-    if (prevBtnBottom) prevBtnBottom.addEventListener('click', handlePrevClick);
-    if (nextBtnBottom) nextBtnBottom.addEventListener('click', handleNextClick);
-    updateStack(currentIndex);
+
+    function updateStack(index) {
+      caseFiles.forEach((file, i) => {
+        file.classList.remove('active');
+        const offset = Math.abs(i - index);
+        if (i === index) {
+          file.style.transform = 'rotate(0deg) translateY(0)';
+          file.style.opacity = '1';
+          file.style.zIndex = '10';
+        } else if (i < index) {
+          const offsetAmount = (index - i) * 12;
+          file.style.transform = `rotate(${2 + (index - i)}deg) translateY(${offsetAmount}px) translateX(${offsetAmount}px)`;
+          file.style.opacity = '0.85';
+          file.style.zIndex = `${5 - (index - i)}`;
+        } else {
+          const offsetAmount = (i - index) * 12;
+          file.style.transform = `rotate(${-2 - (i - index)}deg) translateY(${offsetAmount}px) translateX(-${offsetAmount}px)`;
+          file.style.opacity = '0.85';
+          file.style.zIndex = `${5 - (i - index)}`;
+        }
+      });
+      
+      if (prevBtn) prevBtn.disabled = index === 0;
+      if (nextBtn) nextBtn.disabled = index === totalCases - 1;
+    }
+
+    function goPrev() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateStack(currentIndex);
+      }
+    }
+
+    function goNext() {
+      if (currentIndex < totalCases - 1) {
+        currentIndex++;
+        updateStack(currentIndex);
+      }
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', goPrev);
+    if (nextBtn) nextBtn.addEventListener('click', goNext);
+
+    // Click on cards to navigate
+    caseFiles.forEach((file, index) => {
+      file.addEventListener('click', () => {
+        if (index !== currentIndex) {
+          currentIndex = index;
+          updateStack(currentIndex);
+        }
+      });
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp') { goNext(); e.preventDefault(); }
+      else if (e.key === 'ArrowDown') { goPrev(); e.preventDefault(); }
+    });
+
+    // Initialize
+    updateStack(0);
+
+    // Handle resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => updateStack(currentIndex), 100);
+    });
   </script>
 </body>
 </html>
