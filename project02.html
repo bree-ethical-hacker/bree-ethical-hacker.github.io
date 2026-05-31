@@ -126,6 +126,27 @@
         font-size: 2.2rem;
       }
     }
+
+    .logo-btn {
+      display: inline-block;
+      padding: 0.75em 1.6em;
+      font-size: 1.1rem;
+      text-decoration: none !important;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .logo-btn::after,
+    .logo-btn::before {
+      display: none !important;
+    }
+    .sidebar .nav-btn {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5em 1.3em;
+      text-decoration: none;
+      border-radius: 999px;
+    }
+ 
   </style>
 </head>
 
@@ -136,6 +157,7 @@
   <!-- NAVIGATION BAR -->
   <header>
     <nav class="navbar glass">
+     <a href="community.html" class="btn nav-btn logo-btn">Black Widow Community</a>
             
       <div class="logo">
         <img src="LOGO.jpg" alt="Black Widow Logo">
