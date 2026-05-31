@@ -1,93 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Projects | Black Widow</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
-  <style>
-    .web-svg {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 110vmax;
-      height: 110vmax;
-      opacity: 0.09;
-      pointer-events: none;
-      z-index: 0;
-    }
-    #projects-slider { position: relative; z-index: 1; }
-    .disclaimer h2, .disclaimer h3 { color: var(--white-muted); }
-    .disclaimer h2 span { color: var(--red); }
-  </style>
 </head>
-
 <body>
 
   <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
     <g stroke="rgba(245,240,235,0.25)" fill="none" stroke-linecap="round">
-      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="400" y2="0" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="14" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/><line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/><line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/><line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
       <line x1="400" y1="400" x2="400" y2="800" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="206" y2="786" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52" y2="690" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="0" y2="520" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="0" y2="400" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="0" y2="280" stroke-width="0.6"/>
-      <line x1="400" y1="400" x2="52" y2="110" stroke-width="0.7"/>
-      <line x1="400" y1="400" x2="206" y2="14" stroke-width="0.6"/>
     </g>
   </svg>
 
   <header>
     <nav class="navbar glass">
       <a href="community.html" class="btn-nav logo-btn">Black Widow Community</a>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="projects.html" class="active">Projects</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+      <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="projects.html" class="active">Projects</a></li><li><a href="contact.html">Contact</a></li></ul>
       <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
     </nav>
-    <div class="sidebar" id="sidebar">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="projects.html" class="active">Projects</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
+    <div class="sidebar" id="sidebar"><ul><li><a href="index.html">Home</a></li><li><a href="projects.html" class="active">Projects</a></li><li><a href="contact.html">Contact</a></li></ul></div>
     <div class="overlay" id="overlay"></div>
   </header>
 
   <section id="projects-slider">
     <div class="container">
-      <div class="disclaimer">
-        <h2><span>DISCLAIMER</span></h2>
-        <h3>All projects were completed in controlled, educational environments using intentionally vulnerable systems.</h3>
-        <h3>They DO NOT involve unauthorized access to real-world systems or people, created purely for demonstration purposes only.</h3>
-      </div>
-
+      <div class="disclaimer"><h2>DISCLAIMER</h2><h3>All projects were completed in controlled, educational environments using intentionally vulnerable systems.</h3><h3>They DO NOT involve unauthorized access to real-world systems.</h3></div>
       <div class="swiper projects-swiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide project-slide"><a href="project01.html"><div class="project-slide-img"><img src="snipper.jpg" alt="Project 01"></div><div class="project-slide-content"><h3 class="project-title">Surveillance Through Android Apps Prevention</h3><a href="project01.html" class="coming-soon-card-btn" data-sound="click">COMING SOON</a></div></a></div>
-          <div class="swiper-slide project-slide"><a href="project02.html"><div class="project-slide-img"><img src="Mask.jpg" alt="Project 02"></div><div class="project-slide-content"><h3 class="project-title">Finding A Hidden Username</h3><a href="project02.html" class="complete-card-btn" data-sound="click">COMPLETE</a></div></a></div>
-          <div class="swiper-slide project-slide"><a href="project03.html"><div class="project-slide-img"><img src="glitch.jpg" alt="Project 03"></div><div class="project-slide-content"><h3 class="project-title">Finding Website Vulnerabilities</h3><a href="project03.html" class="complete-card-btn" data-sound="click">COMPLETE</a></div></a></div>
-          <div class="swiper-slide project-slide"><a href="project04.html"><div class="project-slide-img"><img src="IMAGES/detective.jpg" alt="Project 04"></div><div class="project-slide-content"><h3 class="project-title">Following Digital Breadcrumbs</h3><a href="project04.html" class="complete-card-btn" data-sound="click">COMPLETE</a></div></a></div>
-          <div class="swiper-slide project-slide"><a href="project05.html"><div class="project-slide-img"><img src="IMAGES/wifi.png" alt="Project 05"></div><div class="project-slide-content"><h3 class="project-title">Analyzing Malicious WiFi Signals</h3><a href="project05.html" class="complete-card-btn" data-sound="click">COMPLETE</a></div></a></div>
-          <div class="swiper-slide project-slide"><a href="project06.html"><div class="project-slide-img"><img src="Code.jpg" alt="Project 06"></div><div class="project-slide-content"><h3 class="project-title">Stopping Remote Control Of Machines</h3><a href="project06.html" class="coming-soon-card-btn" data-sound="click">COMING SOON</a></div></a></div>
-          <div class="swiper-slide project-slide"><a href="project07.html"><div class="project-slide-img"><img src="Padlock.jpg" alt="Project 07"></div><div class="project-slide-content"><h3 class="project-title">Hunting For Security Flaws</h3><a href="project07.html" class="coming-soon-card-btn" data-sound="click">COMING SOON</a></div></a></div>
-          <div class="swiper-slide project-slide"><a href="project08.html"><div class="project-slide-img"><img src="Tricking People.jpg" alt="Project 08"></div><div class="project-slide-content"><h3 class="project-title">Accessing Usernames & Passwords</h3><a href="project08.html" class="complete-card-btn" data-sound="click">COMPLETE</a></div></a></div>
+          <div class="swiper-slide project-slide"><a href="project01.html"><div class="project-slide-img"><img src="snipper.jpg" alt="Project 01"></div><div class="project-slide-content"><h3 class="project-title">Surveillance Through Android Apps Prevention</h3><span class="coming-soon-card-btn">COMING SOON</span></div></a></div>
+          <div class="swiper-slide project-slide"><a href="project02.html"><div class="project-slide-img"><img src="Mask.jpg" alt="Project 02"></div><div class="project-slide-content"><h3 class="project-title">Finding A Hidden Username</h3><span class="complete-card-btn">COMPLETE</span></div></a></div>
+          <div class="swiper-slide project-slide"><a href="project03.html"><div class="project-slide-img"><img src="glitch.jpg" alt="Project 03"></div><div class="project-slide-content"><h3 class="project-title">Finding Website Vulnerabilities</h3><span class="complete-card-btn">COMPLETE</span></div></a></div>
+          <div class="swiper-slide project-slide"><a href="project04.html"><div class="project-slide-img"><img src="IMAGES/detective.jpg" alt="Project 04"></div><div class="project-slide-content"><h3 class="project-title">Following Digital Breadcrumbs</h3><span class="complete-card-btn">COMPLETE</span></div></a></div>
+          <div class="swiper-slide project-slide"><a href="project05.html"><div class="project-slide-img"><img src="IMAGES/wifi.png" alt="Project 05"></div><div class="project-slide-content"><h3 class="project-title">Analyzing Malicious WiFi Signals</h3><span class="complete-card-btn">COMPLETE</span></div></a></div>
+          <div class="swiper-slide project-slide"><a href="project06.html"><div class="project-slide-img"><img src="Code.jpg" alt="Project 06"></div><div class="project-slide-content"><h3 class="project-title">Stopping Remote Control Of Machines</h3><span class="coming-soon-card-btn">COMING SOON</span></div></a></div>
+          <div class="swiper-slide project-slide"><a href="project07.html"><div class="project-slide-img"><img src="Padlock.jpg" alt="Project 07"></div><div class="project-slide-content"><h3 class="project-title">Hunting For Security Flaws</h3><span class="coming-soon-card-btn">COMING SOON</span></div></a></div>
+          <div class="swiper-slide project-slide"><a href="project08.html"><div class="project-slide-img"><img src="Tricking People.jpg" alt="Project 08"></div><div class="project-slide-content"><h3 class="project-title">Accessing Usernames & Passwords</h3><span class="complete-card-btn">COMPLETE</span></div></a></div>
         </div>
         <div class="projects-slider-control">
           <div class="swiper-button-prev slider-arrow"><i class="fa fa-chevron-left"></i></div>
@@ -98,38 +54,20 @@
     </div>
   </section>
 
-  <footer class="footer glass-footer">
-    <p>Based in <span>Melbourne, Australia</span></p>
-  </footer>
+  <footer class="footer glass-footer"><p>Based in <span>Melbourne, Australia</span></p></footer>
 
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-  <script src="script.js"></script>
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const menuSound = new Audio('menu.mp3');
-    hamburger.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-      overlay.classList.toggle('active');
-      menuSound.currentTime = 0;
-      menuSound.play().catch(() => {});
-    });
-    overlay.addEventListener('click', () => {
-      sidebar.classList.remove('active');
-      overlay.classList.remove('active');
-    });
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialSlide = parseInt(urlParams.get('slide')) || 0;
+    if (document.querySelector('.projects-swiper')) {
+      new Swiper('.projects-swiper', { effect: 'coverflow', grabCursor: true, centeredSlides: true, loop: true, slidesPerView: 'auto', initialSlide: initialSlide, coverflowEffect: { rotate: 0, stretch: 0, depth: 100, modifier: 2.5 }, pagination: { el: '.swiper-pagination', clickable: true }, navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' } });
+    }
+    const hamburger = document.getElementById('hamburger'), sidebar = document.getElementById('sidebar'), overlay = document.getElementById('overlay'), menuSound = new Audio('menu.mp3');
+    hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); menuSound.currentTime = 0; menuSound.play().catch(() => {}); });
+    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
     const navSound = new Audio('nav.mp3');
-    const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
-    allNavLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        navSound.currentTime = 0;
-        navSound.play().catch(() => {});
-        const destination = link.getAttribute('href');
-        setTimeout(() => { window.location.href = destination; }, 150);
-      });
-    });
+    document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); navSound.currentTime = 0; navSound.play().catch(() => {}); setTimeout(() => { window.location.href = link.getAttribute('href'); }, 150); }); });
   </script>
 </body>
 </html>
