@@ -8,6 +8,157 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="./icon.png">
+  <style>
+    /* OVERRIDES FOR INDEX PAGE - Fixes font sizes and mobile nav */
+    
+    /* Larger paragraph text */
+    .home-content p {
+      font-size: 1.8rem !important;
+      line-height: 1.7 !important;
+      margin-bottom: 1.5rem !important;
+    }
+    
+    @media (max-width: 768px) {
+      .home-content p {
+        font-size: 1.6rem !important;
+        line-height: 1.6 !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .home-content p {
+        font-size: 1.5rem !important;
+        line-height: 1.5 !important;
+      }
+    }
+    
+    /* IMPROVED AUDIO PLAYER - Bigger handle dot */
+    .ai-audio-card {
+      background: var(--black-3);
+      border-radius: 2rem;
+      padding: 0.8rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .ai-audio-card .progress-container {
+      height: 8px !important;
+      background: var(--black-4);
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .ai-audio-card .progress-bar {
+      background: var(--red);
+      height: 100%;
+      border-radius: 10px;
+      width: 0%;
+      position: relative;
+      transition: width 0.1s linear;
+    }
+    
+    /* BIG RED HANDLE DOT */
+    .ai-audio-card .progress-bar::after {
+      content: '';
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background: var(--red);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--red);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .ai-audio-card .progress-bar::after:hover {
+      transform: translateY(-50%) scale(1.2);
+    }
+    
+    .ai-audio-card .play-btn {
+      width: 48px;
+      height: 48px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s;
+      flex-shrink: 0;
+    }
+    
+    .ai-audio-card .play-btn i {
+      font-size: 1.8rem;
+      color: var(--black);
+    }
+    
+    .ai-audio-card .play-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px var(--red);
+    }
+    
+    .ai-audio-card .time {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      color: var(--white-muted);
+      margin-top: 6px;
+    }
+    
+    /* FIXED MOBILE NAVIGATION */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 1.5rem !important;
+      }
+      
+      .logo-btn {
+        font-size: 0.9rem !important;
+        padding: 0.5rem 1rem !important;
+        white-space: nowrap !important;
+      }
+      
+      .hamburger {
+        display: block !important;
+        font-size: 2rem !important;
+      }
+      
+      .nav-links {
+        display: none !important;
+      }
+      
+      .sidebar {
+        width: 70% !important;
+        max-width: 280px !important;
+      }
+      
+      .sidebar ul li a {
+        font-size: 1.6rem !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .logo-btn {
+        font-size: 0.8rem !important;
+        padding: 0.4rem 0.8rem !important;
+      }
+      
+      .hamburger {
+        font-size: 1.8rem !important;
+      }
+    }
+    
+    /* Ensure sidebar is above everything */
+    .sidebar {
+      z-index: 10000 !important;
+    }
+    
+    .overlay {
+      z-index: 9999 !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -26,31 +177,57 @@
 
   <header>
     <nav class="navbar glass">
-      <a href="community.html" class="btn-nav logo-btn">Black Widow Community</a>
-      <ul class="nav-links"><li><a href="index.html" class="active">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul>
-      <div class="hamburger" id="hamburger"><i class="fa fa-bars"></i></div>
+      <a href="community.html" class="btn-nav logo-btn">🕷️ Black Widow</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <i class="fa fa-bars"></i>
+      </div>
     </nav>
-    <div class="sidebar" id="sidebar"><ul><li><a href="index.html" class="active">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="sidebar" id="sidebar">
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
     <div class="overlay" id="overlay"></div>
   </header>
 
   <section class="home">
-    <div class="home-img"><img src="Headshot.jpg" alt="Bree's Headshot"></div>
+    <div class="home-img">
+      <img src="Headshot.jpg" alt="Bree's Headshot">
+    </div>
     <div class="home-content">
+      <!-- IMPROVED AUDIO PLAYER -->
       <div class="ai-audio-card main-audio">
-        <button id="ai-play-btn" class="play-btn"><i class="fa-solid fa-play"></i></button>
-        <div class="audio-info"><div class="progress-container"><div id="ai-progress-bar" class="progress-bar"></div></div><div class="time"><span id="ai-current-time">0:00</span><span id="ai-duration">--</span></div></div>
-        <audio id="ai-audio" src="PROJECTS/Introduction.mp3"></audio>
+        <button id="ai-play-btn" class="play-btn">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        <div class="audio-info">
+          <div class="progress-container" id="progress-container">
+            <div id="ai-progress-bar" class="progress-bar"></div>
+          </div>
+          <div class="time">
+            <span id="ai-current-time">0:00</span>
+            <span id="ai-duration">--</span>
+          </div>
+        </div>
+        <audio id="ai-audio" src="PROJECTS/Introduction.mp3" preload="metadata"></audio>
       </div>
+
       <h1>Hey, It's <span>Bree</span></h1>
       <h3 class="typing-text">I'm a Jr. <br><span class="typing-wrapper"><span id="dynamic-text"></span><span class="cursor"></span></span></h3>
-      <br>
-      <p>My vision is to create a community, The Black Widow Community, where cybersecurity beginners interested in offensive security stop feeling stuck between knowing cyber and doing cyber, where hands-on experience builds portfolios that don't just showcase skills, but will open doors for you, yes you whose reading this.</p>
-      <br>
+      
+      <p>My vision is to create a community, The Black Widow Community, where cybersecurity beginners interested in offensive security stop feeling stuck between knowing cyber and doing cyber, where hands-on experience builds portfolios that don't just showcase skills, but will open doors for you, yes you who's reading this.</p>
+      
       <p>My mission is to bridge the gap between theory and the real world, while creating accountability that transforms inconsistent learning into inevitable growth.</p>
-      <br>
+      
       <p>Hey reader, let me give you a bit of info about myself. At 18, I moved across the globe alone to find out what it would really take to build a life from scratch. I had no connections, no technical background, and no clear path into cybersecurity. I struggled with the weight of competition, and no matter how many degrees and certificates I earned, I still doubted my abilities.</p>
-      <br>
+      
       <p>I know exactly how that feels, which is why I built The Black Widow Community to support beginners in offensive security. So you can become an undeniable Ethical Hacker.</p>
       
       <div class="social-icons">
@@ -62,25 +239,221 @@
     </div>
   </section>
 
-  <footer class="footer glass-footer"><p>Based in <span>Melbourne, Australia</span></p></footer>
+  <footer class="footer glass-footer">
+    <p>Based in <span>Melbourne, Australia</span></p>
+  </footer>
 
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
   <script>
+    // ========================================
+    // FIXED MOBILE NAVIGATION
+    // ========================================
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     const menuSound = new Audio('menu.mp3');
-    hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); menuSound.currentTime = 0; menuSound.play().catch(() => {}); });
-    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
-    const navSound = new Audio('nav.mp3');
-    document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => {
-      link.addEventListener('click', (e) => { e.preventDefault(); navSound.currentTime = 0; navSound.play().catch(() => {}); setTimeout(() => { window.location.href = link.getAttribute('href'); }, 150); });
+    
+    // Open/close sidebar
+    function openSidebar() {
+      sidebar.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeSidebar() {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (sidebar.classList.contains('active')) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
     });
+    
+    overlay.addEventListener('click', closeSidebar);
+    
+    // Close sidebar when clicking a link
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const destination = link.getAttribute('href');
+        closeSidebar();
+        const navSound = new Audio('nav.mp3');
+        navSound.currentTime = 0;
+        navSound.play().catch(() => {});
+        setTimeout(() => {
+          window.location.href = destination;
+        }, 200);
+      });
+    });
+    
+    // Navigation links sound (non-sidebar)
+    const navSound = new Audio('nav.mp3');
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navSound.currentTime = 0;
+        navSound.play().catch(() => {});
+        const destination = link.getAttribute('href');
+        setTimeout(() => {
+          window.location.href = destination;
+        }, 150);
+      });
+    });
+    
+    // ========================================
+    // IMPROVED AUDIO PLAYER WITH BIG HANDLE
+    // ========================================
+    const audio = document.getElementById('ai-audio');
+    const playBtn = document.getElementById('ai-play-btn');
+    const progressBar = document.getElementById('ai-progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+    const currentTimeSpan = document.getElementById('ai-current-time');
+    const durationSpan = document.getElementById('ai-duration');
+    const playIcon = playBtn.querySelector('i');
+    
+    // Format time function
+    function formatTime(seconds) {
+      if (isNaN(seconds) || seconds === undefined || seconds === Infinity) return '0:00';
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+      return `${mins}:${secs}`;
+    }
+    
+    // Load metadata
+    audio.addEventListener('loadedmetadata', () => {
+      durationSpan.textContent = formatTime(audio.duration);
+    });
+    
+    // Fallback for duration
+    setTimeout(() => {
+      if (audio.duration && !isNaN(audio.duration)) {
+        durationSpan.textContent = formatTime(audio.duration);
+      }
+    }, 500);
+    
+    // Play/Pause
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playIcon.classList.remove('fa-play');
+        playIcon.classList.add('fa-pause');
+      } else {
+        audio.pause();
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+      }
+    });
+    
+    // Update progress bar and time
+    audio.addEventListener('timeupdate', () => {
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressBar.style.width = `${progress}%`;
+      currentTimeSpan.textContent = formatTime(audio.currentTime);
+    });
+    
+    // Reset when ended
+    audio.addEventListener('ended', () => {
+      playIcon.classList.remove('fa-pause');
+      playIcon.classList.add('fa-play');
+      progressBar.style.width = '0%';
+      currentTimeSpan.textContent = '0:00';
+    });
+    
+    // Seek functionality - click on progress bar
+    progressContainer.addEventListener('click', (e) => {
+      const rect = progressContainer.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const percentage = clickX / rect.width;
+      audio.currentTime = percentage * audio.duration;
+    });
+    
+    // Drag functionality
+    let isDragging = false;
+    
+    progressContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      const rect = progressContainer.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const percentage = clickX / rect.width;
+      audio.currentTime = percentage * audio.duration;
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        const rect = progressContainer.getBoundingClientRect();
+        let clickX = e.clientX - rect.left;
+        clickX = Math.max(0, Math.min(clickX, rect.width));
+        const percentage = clickX / rect.width;
+        audio.currentTime = percentage * audio.duration;
+      }
+    });
+    
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+    
+    // Touch support for mobile
+    progressContainer.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      const rect = progressContainer.getBoundingClientRect();
+      const touchX = e.touches[0].clientX - rect.left;
+      const percentage = Math.max(0, Math.min(1, touchX / rect.width));
+      audio.currentTime = percentage * audio.duration;
+    });
+    
+    document.addEventListener('touchmove', (e) => {
+      if (isDragging) {
+        const rect = progressContainer.getBoundingClientRect();
+        let touchX = e.touches[0].clientX - rect.left;
+        touchX = Math.max(0, Math.min(touchX, rect.width));
+        const percentage = touchX / rect.width;
+        audio.currentTime = percentage * audio.duration;
+      }
+    });
+    
+    document.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+    
+    // ========================================
+    // TYPING TEXT ANIMATION (Improved)
+    // ========================================
     const roles = ["Sec Analyst", "Ethical Hacker", "Threat Hunter", "Inc Responder", "SOC Analyst"];
     const dynamicText = document.getElementById("dynamic-text");
     let currentRole = 0;
-    function scrambleText(role) { dynamicText.innerText = role; setTimeout(() => { currentRole = (currentRole + 1) % roles.length; scrambleText(roles[currentRole]); }, 2500); }
+    let scrambleInterval;
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*:";
+    
+    function scrambleText(role) {
+      let iteration = 0;
+      const target = role;
+      clearInterval(scrambleInterval);
+      scrambleInterval = setInterval(() => {
+        dynamicText.innerText = target.split("").map((char, idx) => {
+          if (idx < iteration) return target[idx];
+          return letters[Math.floor(Math.random() * letters.length)];
+        }).join("");
+        iteration += 0.5;
+        if (iteration >= target.length) {
+          clearInterval(scrambleInterval);
+          dynamicText.innerText = target;
+          setTimeout(() => {
+            currentRole = (currentRole + 1) % roles.length;
+            scrambleText(roles[currentRole]);
+          }, 2000);
+        }
+      }, 50);
+    }
+    
     scrambleText(roles[0]);
   </script>
 </body>
