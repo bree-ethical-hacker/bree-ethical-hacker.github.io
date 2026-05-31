@@ -1,668 +1,539 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Raleway:wght@300;400;500;600;700&display=swap');
 
-/* WEBSITE LAYOUT */ 
-* { 
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; 
-    text-decoration: none; 
-    border: none;
-    outline: none;
-    font-family: 'Poppins', sans-serif;
-    -webkit-tap-highlight-color: transparent;
-    tap-highlight-color: transparent;
+/* ========================================
+   BLACK WIDOW THEME - GLOBAL STYLES
+   Preserves ALL existing functionality
+   ======================================== */
+
+:root {
+  --red: #c0392b;
+  --red-dark: #8e1c12;
+  --red-glow: rgba(192,57,43,0.18);
+  --black: #0a0a0a;
+  --black-2: #111111;
+  --black-3: #181818;
+  --black-4: #222222;
+  --white: #f5f0eb;
+  --white-muted: rgba(245,240,235,0.65);
+  --white-faint: rgba(245,240,235,0.12);
+  --glass: rgba(20,10,10,0.72);
+  --border: rgba(192,57,43,0.25);
+  --border-subtle: rgba(245,240,235,0.08);
+  --green: #4bb78e;
+  --green-glow: rgba(75,183,142,0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
 }
 
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 
 body {
-    width: 100%;
-    height: 100vh;
-    overflow-x: hidden;
-    background-color: black;
-    color: white;
+  font-family: 'Raleway', sans-serif;
+  background-color: var(--black);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
+/* ── TEXTURE OVERLAY (spider web + grain) ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(140,20,10,0.22) 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── SPIDER WEB SVG BACKGROUND ── */
+.web-svg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110vmax;
+  height: 110vmax;
+  opacity: 0.09;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── NAVBAR (GLASS) ── */
 header {
-    margin-top: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1rem 9%;
-    background-color: transparent;
-    filter: drop-shadow(10px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-
-/* MAIN LOGO */
-.logo {
-    cursor: pointer;
-    transition: 0.5s ease;
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2.5rem;
+  background: var(--glass);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
-.logo img {
-    height: 8rem; /* matches your original font-size */
-    width: auto;
-    display: block;
-    transition: 0.5s ease;
+.navbar .brand, .navbar .logo-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  padding: 0.75em 1.6em;
+  border-radius: 999px;
+  white-space: nowrap;
 }
 
-.logo img:hover {
-    transform: scale(1.05);
-    opacity: 0.8;
+.navbar .logo-btn::after,
+.navbar .logo-btn::before {
+  display: none !important;
 }
 
-
-/* NAVIGATION BAR WITH ANIMATION */
-nav a {
-    position: relative;
-    font-size: 1.8rem;
-    color: white;
-    margin-left: 4rem;
-    font-weight: 500;
-    text-decoration: none;
-    padding-bottom: 5px;
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2.2rem;
 }
 
-nav a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 3px;
-    background-color: #b74b4b;
-    transition: width 0.3s ease;
+.nav-links a {
+  text-decoration: none;
+  color: var(--white-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
 }
 
-nav a:hover::after,
-nav a.active::after {
-    width: 100%;
-    color: #b74b4b;
+.nav-links a:hover, .nav-links a.active {
+  color: var(--red);
 }
 
-@media(max-width:995px) {
-    nav {
-        position: absolute;
-        display: none;
-        top: 0;
-        right: 0;
-        width: 40%;
-        border-left: 3px solid #b74b4b;
-        border-bottom: 3px solid #b74b4b;
-        border-bottom-left-radius: 2rem;
-        padding: 1rem solid;
-        background-color: #161616;
-        border-top: 0.1rem solid rgba(0,0,0,0.1);
-    }
-
-    nav.active {
-        display: block;
-    }
-
-    nav a {
-        display: block;
-        font-size: 2rem;
-        margin: 3rem 0;
-    }
+.btn-nav {
+  display: inline-block;
+  padding: 0.55em 1.4em;
+  background: transparent;
+  border: 1px solid var(--red);
+  color: var(--red);
+  border-radius: 999px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
 }
 
-
-/* ??????? */
-section {
-    min-height: 100vh;
-    padding: calc(5rem + 7.5rem) 9% 5rem;
+.btn-nav:hover {
+  background: var(--red);
+  color: var(--white);
 }
 
-
-/* MAIN WEBSITE PAGE */
-.home {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8rem;
-    background-color: black;
+.hamburger {
+  display: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--white-muted);
 }
 
-.home .home-content h1 {
-    font-size: 6rem;
-    font-weight: 700;
-    line-height: 1.3;
+/* Sidebar (mobile) */
+.sidebar {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 260px;
+  height: 100vh;
+  background: var(--black-2);
+  border-left: 1px solid var(--border);
+  z-index: 200;
+  padding: 5rem 2rem 2rem;
+  transition: right 0.3s ease;
 }
 
-span {
-    color: #b74b4b;
+.sidebar.active {
+  right: 0;
+  display: block;
 }
 
-.home-content h3 {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
+.sidebar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.home-content p {
-    font-size: 1.6rem;
+.sidebar a {
+  text-decoration: none;
+  color: var(--white-muted);
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
-.home-img {
-    border-radius: 50%;
+.sidebar a:hover, .sidebar a.active {
+  color: var(--red);
 }
 
-.home-img img {
-    position: relative;
-    width: 32vw;
-    border-radius: 50%;
-    box-shadow: 0 0 25px solid #b74b4b;
-    cursor: pointer;
-    transition: 0.2s linear;
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 150;
 }
 
-.home-img img:hover {
-    font-size: 1.8rem;
-    font-weight: 500;
+.overlay.active {
+  display: block;
 }
 
-
-/* SOCIAL MEDIA LINKS */
-.social-icons a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 4rem;
-    height: 4rem;
-    background-color: transparent;
-    border: 0.2rem solid #b74b4b;
-    font-size: 2rem;
-    border-radius: 50%;
-    margin: 3rem 1.5rem 3rem 0;
-    transition: 0.3s ease;
-    color: #b74b4b;
+/* ── BUTTON STYLES (preserving original classes) ── */
+.btn, .btn-nav, .coming-soon-card-btn, .complete-card-btn {
+  font-family: 'Raleway', sans-serif;
 }
 
-.social-icons a:hover {
-    color: black;
-    transform: scale(1.3) translateY(-5px);
-    background-color: #b74b4b;
-    box-shadow: 0 0 25px #b74b4b;
-}
-
-
-/* CERTIFICATES BUTTON */
 .btn {
-    display: inline-block;
-    padding: 1rem 2.8rem;
-    background-color: black;
-    border-radius: 4rem;
-    font-size: 1.6rem;
-    color: #b74b4b;
-    letter-spacing: 0.3rem;
-    font-weight: 600;
-    border: 2px solid #b74b4b;
-    transition: 0.3s ease;
-    cursor: pointer;
-    text-decoration: none;
+  display: inline-block;
+  padding: 1rem 2.8rem;
+  background-color: transparent;
+  border-radius: 4rem;
+  font-size: 1.6rem;
+  color: var(--red);
+  letter-spacing: 0.3rem;
+  font-weight: 600;
+  border: 2px solid var(--red);
+  transition: 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .btn:hover {
-    transform: scale3d(1.03, 1.03, 1.03);
-    background-color: #b74b4b;
-    color: black;
-    box-shadow: 0 0 25px #b74b4b;
+  transform: scale3d(1.03, 1.03, 1.03);
+  background-color: var(--red);
+  color: var(--black);
+  box-shadow: 0 0 25px var(--red);
 }
 
-
-/* COMING SOON BUTTON */
 .coming-soon-card-btn {
-    margin: 0;                 /* ✅ no overflow */
-    display: inline-block;
-    padding: 0.4rem 1.5rem;
-    background-color: black;
-    border-radius: 2rem;
-    font-size: 1.2rem;
-    color: #b74b4b;
-    font-weight: 600;
-    border: 2px solid #b74b4b;
-    transition: 0.3s ease;
-    cursor: pointer;
-    text-decoration: none;
+  display: inline-block;
+  padding: 0.4rem 1.5rem;
+  background-color: transparent;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  color: var(--red);
+  font-weight: 600;
+  border: 2px solid var(--red);
+  transition: 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .coming-soon-card-btn:hover {
-    background-color: #b74b4b;
-    color: black;
-    box-shadow: 0 0 15px #b74b4b;
+  background-color: var(--red);
+  color: var(--black);
+  box-shadow: 0 0 15px var(--red);
 }
 
-
-/* COMPLETE BUTTON */
 .complete-card-btn {
-    margin: 0;                 /* ✅ no overflow */
-    display: inline-block;
-    padding: 0.4rem 1.5rem;
-    background-color: black;
-    border-radius: 2rem;
-    font-size: 1.2rem;
-    color: #4bb78e;
-    font-weight: 600;
-    border: 2px solid #4bb78e;
-    transition: 0.3s ease;
-    cursor: pointer;
-    text-decoration: none;
+  display: inline-block;
+  padding: 0.4rem 1.5rem;
+  background-color: transparent;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  color: var(--green) !important;
+  font-weight: 600;
+  border: 2px solid var(--green) !important;
+  transition: 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .complete-card-btn:hover {
-    background-color: #4bb78e;
-    color: black;
-    box-shadow: 0 0 15px #4bb78e;
+  background-color: var(--green) !important;
+  color: var(--black) !important;
+  box-shadow: 0 0 15px var(--green) !important;
 }
 
-
-/* ============================
-   TYPING TEXT ANIMATION
-============================ */
-.typing-wrapper {
-    white-space: nowrap;      /* keeps text + cursor together ALWAYS */
-    display: inline-block;
+.btn-complete {
+  border-color: var(--green) !important;
+  color: var(--green) !important;
 }
 
-.typing-text {
-    font-size: 34px;          /* default desktop size */
-    font-weight: 600;
-    min-width: 280px;
-    position: relative;       /* for blinking cursor */
-    display: inline-block;
-    white-space: nowrap;      /* prevent wrapping on desktop */
-    overflow: hidden;         /* hide extra characters */
+.btn-complete:hover {
+  background: var(--green) !important;
+  color: var(--black) !important;
+  box-shadow: 0 0 25px var(--green) !important;
 }
 
-/* Span for scramble effect */
-.typing-text span {
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;      /* keep each word on a single line */
-}
-
-/* ============================
-   BLINKING CURSOR
-============================ */
-/* .typing-text span::after {
-    content: "";
-    position: absolute;
-    right: -2px;
-    top: 0;
-    width: 3px;
-    height: 100%;
-    background: #b74b4b;
-    animation: cursorBlink 0.7s infinite;
-}
-
-@keyframes cursorBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-} */
-
-
-.cursor {
-    display: inline-block;
-    width: 3px;
-    height: 1em; /* same height as text */
-    background-color: #b74b4b;
-    margin-left: 2px; /* tiny spacing */
-    animation: cursorBlink 0.7s infinite;
-    vertical-align: baseline; /* aligns with baseline of letters */
-}
-
-@keyframes cursorBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-
-/* ============================
-   SCRAMBLE TEXT MEDIA QUERIES
-============================ */
-/* --- Large screens (desktop) --- */
-.typing-text {
-    font-size: 3.4rem;
-    line-height: 4rem;
-}
-
-/* --- Medium screens: iPad Pro, Nest Hub --- */
-@media (max-width: 1200px) and (min-width: 1025px) {
-    .typing-text {
-        font-size: 2.8rem;
-        line-height: 3.2rem;
-    }
-}
-
-/* --- Tablets (smaller) --- */
-@media (max-width: 1024px) and (min-width: 769px) {
-    .typing-text {
-        font-size: 2.4rem; /* slightly bigger for readability */
-        line-height: 3.2rem; /* more vertical spacing */
-        margin-bottom: 1rem; /* extra spacing below typing text */
-    }
-
-    .home-content p {
-        margin-top: 1rem; /* ensure paragraph is spaced below */
-    }
-}
-
-
-/* --- Mobile --- */
-@media (max-width: 768px) and (min-width: 421px) {
-    .typing-text {
-        font-size: 1.8rem;
-        line-height: 2.4rem;
-        white-space: normal;
-    }
-
-    .typing-text span {
-        display: block;
-        font-size: 1.8rem;
-        line-height: 2.4rem;
-        margin-top: 5px;
-        white-space: nowrap;
-    }
-}
-
-/* --- Very small screens --- */
-@media (max-width: 420px) {
-    .typing-text {
-        font-size: 2rem; /* slightly bigger so it's readable */
-        line-height: 2.4rem;
-    }
-
-    .typing-text span {
-        font-size: 2rem;
-        line-height: 2.4rem;
-    }
-}
-
-
-
-
-/* HOME PAGE MEDIA QUERIES */
-@media (max-width: 1000px) {
-    .home {
-        gap: 4rem;
-    }
-}
-
-@media(max-width:995px) {
-    .home {
-        flex-direction: column;
-        margin: 5rem 4rem;
-    }
-
-    .home .home-content h3 {
-        font-size: 2.5rem;
-    }
-
-    .home-content h1 {
-        font-size: 5rem;
-    }
-
-    .home-img img {
-        width: 70vw;
-        margin-top: 4rem;
-    }
-}
-
-
-/* PROJECTS SLIDER */
-#projects-slider {
-    padding: 5rem 0;
-    text-align: center;
-    background: black;
-}
-
-
-/* ?????? */
-.section-heading {
-    font-size: 3.5rem;
-    color: #b74b4b;
-    margin-bottom: 2rem;
-}
-
-
-/* ENTIRE PROJECTS SWIPPER */
-.projects-swiper {
-    height: 50rem;
-    padding: 2rem 0;
-}
-
-
-/* INDIVIDUAL CARDS */
-.project-slide {
-    width: 35rem;
-    height: 42rem;
-    position: relative;
-    border-radius: 2rem;
-    overflow: hidden;
-    background: #161616;
-    border: 1px solid #b74b4b;
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* PROJECT IMAGES */
-.project-slide-img {
-    width: 100%;
-    height: 80%;
-    aspect-ratio: 1 / 1;   /* ✅ keeps images consistent */
-    overflow: hidden;
-    background: #000;
-}
-
-.project-slide-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;    /* ✅ crops evenly */
-    display: block;
-}
-
-
-/* PROJECTS TITLES */
-.project-slide-content {
-    height: 20%;
-    padding: 0 1rem;
-    color: white;
-    text-align: center;
-    margin-top: -25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;   /* ✅ centers vertically */
-    align-items: center;       /* ✅ centers horizontally */
-    gap: 0.5rem;               /* ✅ small spacing between title + button */
-    overflow: hidden;          /* ✅ prevents overflow */
-    padding-top: 0.8rem;
-}
-
-
-/* ?????? */
-.project-title {
-    font-size: 1.6rem;
-    color: #b74b4b;
-    font-weight: 600;
-    margin: 0;                 /* ✅ no margin pushing it out */
-    line-height: 1.2;
-}
-
-
-/* DISCLAIMER */
-.disclaimer {
-    text-align: center;
-    margin-top: 15rem;
-    padding: 3rem 2rem;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.disclaimer h2 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: #b74b4b;
-    margin-bottom: 2rem;
-    margin-top: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.15rem;
-}
-
-.disclaimer p {
-    font-size: 2rem;
-    color: #e0e0e0;
-    margin: 0.3rem 0;
-    line-height: 1;
-}
-
-/* PROJECT SLIDER CONTROLS/ARROWS */
-.projects-slider-control {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-}
-
-.slider-arrow {
-    background: white;
-    color: black;
-    padding: 1rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.slider-arrow:hover {
-    background: #b74b4b;
-    color: white;
-}
-
-
-/* SMALL CIRCLES BOTTOM OF PROJECTS SLIDER */
-.swiper-pagination-bullet {
-    background: transparent !important;   /* no fill */
-    border: 2px solid #b74b4b !important; /* red outline */
-    opacity: 1 !important;                /* keep visible */
-}
-
-.swiper-pagination-bullet-active {
-    background: #b74b4b !important;       /* filled red */
-    border: 2px solid #b74b4b !important; /* outline matches */
-}
-
-
-/* CONTACT WEB PAGE */
-.contact-container {
-  display: flex;
+.social-icons a {
+  display: inline-flex;
   justify-content: center;
-  align-items: flex-start;
-  gap: 2rem;
-  margin-top: 8rem;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  background-color: transparent;
+  border: 0.2rem solid var(--red);
+  font-size: 2rem;
+  border-radius: 50%;
+  margin: 3rem 1.5rem 3rem 0;
+  transition: 0.3s ease;
+  color: var(--red);
 }
 
-.contact-left {
-  flex: 1;
+.social-icons a:hover {
+  color: var(--black);
+  transform: scale(1.3) translateY(-5px);
+  background-color: var(--red);
+  box-shadow: 0 0 25px var(--red);
+}
+
+/* ── HOME PAGE ── */
+section.home {
+  min-height: 100vh;
+  padding: calc(5rem + 7.5rem) 9% 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 8rem;
+  background-color: transparent;
+  position: relative;
+  z-index: 1;
 }
 
-.contact-left h1 {
+.home .home-content h1 {
+  font-size: 6rem;
+  font-weight: 700;
+  line-height: 1.3;
+  font-family: 'Cinzel', serif;
+}
+
+.home-content h1 span,
+.home-content .typing-text span {
+  color: var(--red);
+}
+
+.home-content h3 {
   font-size: 4rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.home-content p {
+  font-size: 1.6rem;
+  color: var(--white-muted);
+  line-height: 1.75;
+}
+
+.home-img {
+  border-radius: 50%;
+}
+
+.home-img img {
+  position: relative;
+  width: 32vw;
+  border-radius: 50%;
+  box-shadow: 0 0 25px var(--red-glow);
+  cursor: pointer;
+  transition: 0.2s linear;
+  border: 2px solid var(--border);
+}
+
+.home-img img:hover {
+  transform: scale(1.02);
+}
+
+/* ── PROJECTS SLIDER ── */
+#projects-slider {
+  padding: 10rem 2rem 5rem 2rem;
+  text-align: center;
+  background: transparent;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.section-heading {
+  font-size: 3.5rem;
+  color: var(--red);
+  margin-bottom: 2rem;
+  font-family: 'Cinzel', serif;
+}
+
+.disclaimer h2 {
+  font-size: 3.5rem;
   font-weight: 800;
+  color: var(--red);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  font-family: 'Cinzel', serif;
+}
+
+.disclaimer h3 {
+  font-size: 1.6rem;
+  color: var(--white-muted);
+  margin: 0.5rem 0;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.projects-swiper {
+  height: 50rem;
+  padding: 2rem 0 6rem 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.project-slide {
+  width: 35rem;
+  height: 42rem;
+  position: relative;
+  border-radius: 2rem;
+  overflow: hidden;
+  background: var(--black-3);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.project-slide-img {
+  width: 100%;
+  height: 80%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--black);
+}
+
+.project-slide-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-slide-content {
+  height: 20%;
+  padding: 0 1rem;
+  color: var(--white);
+  text-align: center;
+  margin-top: -25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: hidden;
+  padding-top: 0.8rem;
+}
+
+.project-title {
+  font-size: 1.6rem;
+  color: var(--red);
+  font-weight: 600;
+  margin: 0;
   line-height: 1.2;
-  text-align: left;
+  font-family: 'Cinzel', serif;
 }
 
-.contact-divider {
-  width: 3px;
-  background-color: #b74b4b;
-  margin: 0 2rem;
-}
-
-.contact-right {
-  flex: 1.5;
+.projects-slider-control {
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 
-
-/* CALENDLY */
-.calendly-inline-widget {
-  width: 100% !important;
-  min-width: 500px;
-  max-width: 700px;
-  height: 700px;
+.slider-arrow {
+  background: var(--white-faint);
+  color: var(--red);
+  padding: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid var(--border);
 }
 
-
-/* RESPONSIVE QUERIES */
-@media(max-width: 900px) {
-  .contact-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .contact-divider {
-    display: none;
-  }
-
-  .contact-left h1 {
-    text-align: center;
-  }
-
-  .calendly-inline-widget {
-    min-width: 100%;
-  }
+.slider-arrow:hover {
+  background: var(--red);
+  color: var(--black);
+  box-shadow: 0 0 15px var(--red);
 }
 
+.swiper-pagination-bullet {
+  background: transparent !important;
+  border: 2px solid var(--red) !important;
+  opacity: 1 !important;
+}
 
-/* PROJECT DETAIL SECTION */
+.swiper-pagination-bullet-active {
+  background: var(--red) !important;
+  border: 2px solid var(--red) !important;
+}
+
+/* ── PROJECT DETAIL PAGES ── */
 .project-detail {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: black;
-  color: white;
+  background: transparent;
+  color: var(--white);
   text-align: center;
-  padding: 10rem 2rem 8rem; /* space below navbar & above footer */
+  padding: 10rem 2rem 8rem;
   box-sizing: border-box;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
-/* PROJECT BOX (the red border container) */
 .project-box {
-  border: 2px solid #b74b4b;
+  border: 2px solid var(--border);
   border-radius: 2rem;
   padding: 4rem;
   max-width: 1000px;
   width: 100%;
-  background: transparent;
+  background: var(--glass);
+  backdrop-filter: blur(8px);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 6rem 0; /* ✅ keeps box a few inches below navbar and above footer */
+  margin: 6rem 0;
 }
 
-/* TEXT STYLING */
 .project-box h1 {
-  color: #b74b4b;
+  color: var(--red);
   font-size: clamp(3rem, 3.8vw, 4rem);
   margin-bottom: 2rem;
   line-height: 1.2;
+  font-family: 'Cinzel', serif;
 }
 
 .project-box p {
@@ -671,9 +542,28 @@ span {
   margin-bottom: 1.8rem;
   word-wrap: break-word;
   max-width: 80%;
+  color: var(--white-muted);
 }
 
-/* BUTTONS CONTAINER */
+.project-box img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  margin: 1.5rem 0;
+  object-fit: contain;
+}
+
+.project-box .step-heading {
+  font-size: clamp(1.6rem, 2vw, 2rem);
+  font-weight: 700;
+  color: var(--red);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
 .project-buttons {
   margin-top: 3rem;
   display: flex;
@@ -683,342 +573,248 @@ span {
   row-gap: 2.5rem;
 }
 
-/* BUTTONS */
-.project-buttons .btn {
+/* ── CONTACT PAGE ── */
+.contact-section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10rem 2rem 8rem;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.contact-heading h1 {
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--white);
+  font-family: 'Cinzel', serif;
+}
+
+.contact-heading h1 span {
+  color: var(--red);
+}
+
+.contact-calendly {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 0 30px var(--red-glow);
+}
+
+.calendly-inline-widget {
+  width: 100% !important;
+  height: 700px !important;
+  border: none;
+}
+
+/* ── CERTIFICATES PAGE ── */
+.certificates-heading {
+  text-align: center;
+  padding: 2rem 2rem 0.5rem 2rem;
+  max-width: 900px;
+  margin: 12rem auto 0;
+  position: relative;
+  z-index: 1;
+}
+
+.certificates-heading h2 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--red);
+  margin-bottom: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  font-family: 'Cinzel', serif;
+}
+
+.controls {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  z-index: 90;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  margin: 0.5rem auto 1rem;
+}
+
+.control-btn {
   display: inline-block;
-  padding: 1.2rem 3rem;
-  border-radius: 3rem;
+  padding: 1rem 2.8rem;
+  background-color: transparent;
+  border-radius: 4rem;
   font-size: 1.6rem;
+  color: var(--red);
+  letter-spacing: 0.3rem;
   font-weight: 600;
-  border: 2px solid #b74b4b;
-  color: #b74b4b;
-  background: transparent;
-  transition: all 0.3s ease;
+  border: 2px solid var(--red);
+  transition: 0.3s ease;
+  cursor: pointer;
   text-decoration: none;
   flex-shrink: 0;
-  min-width: 180px;
 }
 
-.project-buttons .btn:hover {
-  background: #b74b4b;
-  color: black;
-  box-shadow: 0 0 20px #b74b4b;
+.control-btn:hover {
+  transform: scale3d(1.03, 1.03, 1.03);
+  background-color: var(--red);
+  color: var(--black);
+  box-shadow: 0 0 25px var(--red);
 }
 
-/* ✅ ADAPTIVE SPACING FOR LARGE SCREENS */
-@media (min-width: 1025px) {
-  .project-detail {
-    padding: 0;
-    height: calc(100vh - 12rem); /* fills screen but leaves room for navbar/footer */
-  }
-
-  .project-box {
-    margin: 6rem 0; /* keeps gap top & bottom */
-    max-height: calc(100vh - 12rem); /* ensures it never exceeds viewport */
-    justify-content: center;
-  }
+.scanner {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 300px;
+  border-radius: 30px;
+  background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.8), var(--red), rgba(139,0,0,0.8), transparent);
+  box-shadow: 0 0 20px var(--red), 0 0 40px rgba(200,0,0,0.4);
+  animation: scanPulse 2s ease-in-out infinite alternate;
+  z-index: 10;
 }
 
-/* ✅ MOBILE ADJUSTMENTS */
-@media (max-width: 768px) {
-  .project-box {
-    padding: 3rem 2rem;
-  }
-
-  .project-box h1 {
-    font-size: 2.8rem;
-  }
-
-  .project-box p {
-    font-size: 1.6rem;
-    max-width: 100%;
-  }
-
-  .project-buttons {
-    flex-direction: column-reverse; /* ✅ “Coming Soon” above “Back to Projects” */
-    align-items: stretch;
-  }
-
-  .project-buttons .btn {
-    width: 100%;
-    text-align: center;
-  }
+@keyframes scanPulse {
+  0% { opacity: 0.8; transform: translate(-50%, -50%) scaleY(1); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scaleY(1.1); }
 }
 
-@media (max-width: 480px) {
-  .project-detail {
-    padding: 8rem 1.5rem 6rem;
-  }
-
-  .project-box h1 {
-    font-size: 2.4rem;
-  }
-
-  .project-box p {
-    font-size: 1.5rem;
-  }
-}
-
-
-
-
-
-
-
-/* COMING SOON BUTTON SHAKE ANIMATION */
-@keyframes shake {
-  0% { transform: translateX(0); }
-  20% { transform: translateX(-4px); }
-  40% { transform: translateX(4px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
-  100% { transform: translateX(0); }
-}
-
-.btn.shake {
-  animation: shake 0.4s ease;
-}
-
-
-
-/* === GLASS NAVIGATION BAR === */
-
-/* === NAV LINKS (DESKTOP) === */
-.nav-links {
-  display: flex;
-  gap: 2rem; /* space between items */
-  list-style: none;
-  align-items: center;
-}
-
-.nav-links li a {
-  color: white;
-  text-decoration: none;
-  font-size: 2rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.nav-links li a:hover {
-  color: #b74b4b; /* your accent color */
-}
-
-.navbar.glass {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 2rem 9%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 100;
-  backdrop-filter: blur(10px);
-  background: rgba(20, 20, 20, 0.4);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-
-/* === HAMBURGER ICON === */
-.hamburger {
-  display: none;
-  cursor: pointer;
-  font-size: 2rem;
-  color: #b74b4b;
-}
-
-/* === SIDEBAR MENU (MOBILE) === */
-.sidebar {
-  position: fixed;
-  top: 0;
-  right: -300px;
-  width: 260px;
-  height: 100vh;
-  backdrop-filter: blur(20px);
-  background: rgba(20, 20, 20, 0.6);
-  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.4);
-  transition: right 0.4s ease;
-  z-index: 2000; /* <-- increase this so it's above the footer */
+/* ── GUESTS PAGE ── */
+.main-content {
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 12rem 2rem 4rem;
+  width: 100%;
+  min-height: calc(100vh - 5rem);
+  position: relative;
+  z-index: 1;
 }
 
-.sidebar ul {
-  list-style: none;
-  padding: 0;
+.flipping-interface {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 3rem);
+  max-width: min(1200px, 95vw);
+  width: 100%;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  height: min(70vh, 550px);
 }
 
-.sidebar ul li {
-  margin: 25px 0;
+.case-stack {
+  position: relative;
+  width: min(380px, 40vw);
+  height: min(500px, 55vh);
+  margin: 0;
+  aspect-ratio: 380/500;
 }
 
-.sidebar ul li a {
-  color: white;
-  font-size: 2rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.sidebar ul li a:hover {
-  color: #b74b4b;
-}
-
-.sidebar.active {
-  right: 0;
-}
-
-/* === OVERLAY (BEHIND SIDEBAR) === */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+.case-file {
+  position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  transform-origin: center center;
   pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 1000;
 }
 
-.overlay.active {
-  opacity: 1;
-  pointer-events: all;
+.case-file.active {
+  pointer-events: auto;
+  z-index: 10;
 }
 
-/* === RESPONSIVENESS === */
-@media (max-width: 995px) {
-  .nav-links {
-    display: none;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  /* Remove red border and shadow on mobile navbar */
-  .navbar.glass {
-    border: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-  }
-  
-
-  /* Ensure sidebar is straight */
-  .sidebar {
-    border-radius: 0 !important;
-    border-left: none !important;
-  }
+.case-content {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.9));
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  border-top-right-radius: 0;
+  padding: clamp(1.2rem, 3vh, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.6rem, 1.5vh, 1.2rem);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  position: relative;
 }
 
-
-/* === VERTICAL TEXT SIDEBAR MENU === */
-@media (max-width: 995px) {
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* center everything vertically */
-    align-items: center;
-    padding: 6rem 0; /* balanced top/bottom padding */
-    background: rgba(20, 20, 20, 0.6);
-    backdrop-filter: blur(20px);
-    border-radius: 0;
-    border: none;
-  }
-
-  .sidebar ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly; /* ✅ evenly distribute space */
-    align-items: center;
-    height: 70vh; /* keeps equal white space top & bottom */
-    list-style: none;
-    width: 100%;
-  }
-
-  .sidebar ul li {
-    transform: rotate(90deg); /* ✅ text faces the right direction */
-    transform-origin: center;
-    margin: 0;
-  }
-
-  .sidebar ul li a {
-    font-size: 2rem;
-    font-weight: 500;
-    color: white;
-    letter-spacing: 0.2rem;
-    transition: color 0.3s ease;
-  }
-
-  .sidebar ul li a:hover {
-    color: #b74b4b;
-  }
+.case-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.4rem, 2.2vh, 1.8rem);
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  color: #000000;
+  font-weight: 500;
 }
 
-/* Highlight active page in red */
-.nav a.active {
-  color: #b74b4b;
+.coming-soon-btn {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  background-color: transparent;
+  border: 2px solid var(--green);
+  border-radius: 4rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(0.8rem, 1.3vh, 1rem);
+  color: #000;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  font-weight: 600;
+  transition: 0.3s ease;
+  cursor: pointer;
+  width: 100%;
 }
 
-.nav-links li a.active{
-  color: #b74b4b;
+.coming-soon-btn:hover {
+  background-color: var(--green);
+  color: black;
+  transform: scale(1.02);
+  box-shadow: 0 0 15px var(--green);
 }
 
-.sidebar ul li a.active {
-  color: #b74b4b;
-}
-
-
-.footer {
-    position: static;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 5rem;             /* MATCH NAVBAR HEIGHT */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    font-size: 1.8rem;
-    text-align: center;
-    color: #b74b4b;
-}
-
-/* GLASS EFFECT */
-.glass-footer {
-    backdrop-filter: blur(10px);
-    background: rgba(20, 20, 20, 0.4);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-
-
-
-/* === AI AUDIO CARD (SLIM + BORDERLESS) === */
+/* ── AI AUDIO CARD ── */
 .ai-audio-card {
   width: 100%;
   max-width: 600px;
-  height: 4.5rem; /* same height as Resume button */
-  background: #111; /* soft dark background to distinguish it subtly */
+  height: 4.5rem;
+  background: var(--black-3);
   border-radius: 1.2rem;
   display: flex;
   align-items: center;
-  align-self: flex-start;  
+  align-self: flex-start;
   justify-content: space-between;
   padding: 0 1.2rem;
   gap: 1.2rem;
   margin: 2rem auto 0;
   box-sizing: border-box;
-  box-shadow: 0 0 20px rgba(183, 75, 75, 0.1); /* soft red glow */
+  box-shadow: 0 0 20px var(--red-glow);
+  border: 1px solid var(--border-subtle);
 }
 
-/* Play/Pause Button */
 .ai-audio-card .play-btn {
-  background-color: #b74b4b;
-  color: black;
+  background-color: var(--red);
+  color: var(--black);
   border: none;
   border-radius: 50%;
   width: 3rem;
@@ -1033,12 +829,11 @@ span {
 }
 
 .ai-audio-card .play-btn:hover {
-  background-color: #b74b4b;
-  box-shadow: 0 0 20px #b74b4b;
+  background-color: var(--red-dark);
+  box-shadow: 0 0 20px var(--red);
   transform: scale(1.05);
 }
 
-/* Progress bar + time info */
 .ai-audio-card .audio-info {
   flex: 1;
   display: flex;
@@ -1048,439 +843,18 @@ span {
 }
 
 .ai-audio-card .progress-container {
-  background: #222;
+  background: var(--black-4);
   border-radius: 10px;
-  height: 3px;
+  height: 6px;
   width: 100%;
   margin-bottom: 3px;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
-}
-
-.ai-audio-card .progress-bar {
-  background: #b74b4b;
-  width: 0%;
-  height: 100%;
-  position: absolute;
-  left: 0;    /* ensure it always starts from left */
-  top: 0;
-  transition: width 0.1s linear;
-}
-
-.ai-audio-card .time {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  color: #ccc;
-  line-height: 1;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .ai-audio-card {
-    height: 4rem;
-    padding: 0 1rem;
-  }
-
-  .ai-audio-card .play-btn {
-    width: 2.8rem;
-    height: 2.8rem;
-    font-size: 1.3rem;
-  }
-
-  .ai-audio-card .time {
-    font-size: 0.8rem;
-  }
-}
-
-
-/* Align main audio card to the left (home page only) */
-.ai-audio-card.main-audio {
-  margin: 2rem 0 0 0; /* removes the 'auto' centering */
-  align-self: flex-start;
-}
-
-
-
-/* !!!! PROJECTS SWIPPER UPDATE !!!! */
-
-/* PROJECTS SLIDER - CENTERED ON ALL DEVICES */
-#projects-slider {
-  padding: 10rem 2rem 5rem 2rem;
-  text-align: center;
-  background: black;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Container for all content */
-#projects-slider .container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-}
-
-/* DISCLAIMER */
-.disclaimer {
-  text-align: center;
-  padding: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.disclaimer h2 {
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: #b74b4b;
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15rem;
-}
-
-.disclaimer h3 {
-  font-size: 1.6rem;
-  color: #e0e0e0;
-  margin: 0.5rem 0;
-  line-height: 1.5;
-  font-weight: 400;
-}
-
-/* ENTIRE PROJECTS SWIPER */
-.projects-swiper {
-  height: 50rem;
-  padding: 2rem 0;
-  width: 100%;
-  margin: 0 auto;
-}
-
-/* INDIVIDUAL CARDS */
-.project-slide {
-  width: 35rem;
-  height: 42rem;
-  position: relative;
-  border-radius: 2rem;
-  overflow: hidden;
-  background: #161616;
-  border: 1px solid #b74b4b;
-  display: flex;
-  flex-direction: column;
-}
-
-/* PROJECT IMAGES */
-.project-slide-img {
-  width: 100%;
-  height: 80%;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  background: #000;
-}
-
-.project-slide-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* PROJECTS TITLES */
-.project-slide-content {
-  height: 20%;
-  padding: 0 1rem;
-  color: white;
-  text-align: center;
-  margin-top: -25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 0.5rem;
-  overflow: hidden;
-  padding-top: 0.8rem;
-}
-
-.project-title {
-  font-size: 1.6rem;
-  color: #b74b4b;
-  font-weight: 600;
-  margin: 0;
-  line-height: 1.2;
-}
-
-/* PROJECT SLIDER CONTROLS/ARROWS */
-.projects-slider-control {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-}
-
-.slider-arrow {
-  background: white;
-  color: black;
-  padding: 1rem;
-  border-radius: 50%;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.slider-arrow:hover {
-  background: #b74b4b;
-  color: white;
-}
-
-/* SMALL CIRCLES BOTTOM OF PROJECTS SLIDER */
-.swiper-pagination {
-  margin-top: 4rem !important;
-}
-
-.swiper-pagination-bullet {
-  background: transparent !important;
-  border: 2px solid #b74b4b !important;
-  opacity: 1 !important;
-}
-
-.swiper-pagination-bullet-active {
-  background: #b74b4b !important;
-  border: 2px solid #b74b4b !important;
-}
-
-/* RESPONSIVE ADJUSTMENTS */
-@media (max-width: 768px) {
-  .disclaimer h2 {
-    font-size: 2.5rem;
-  }
-  
-  .disclaimer h3 {
-    font-size: 1.4rem;
-  }
-  
-  .projects-swiper {
-    height: 45rem;
-  }
-  
-  .project-slide {
-    width: 30rem;
-    height: 38rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .disclaimer {
-    padding: 1.5rem;
-  }
-  
-  .disclaimer h2 {
-    font-size: 2rem;
-  }
-  
-  .disclaimer h3 {
-    font-size: 1.2rem;
-  }
-  
-  .projects-swiper {
-    height: 40rem;
-  }
-  
-  .project-slide {
-    width: 28rem;
-    height: 36rem;
-  }
-}
-
-
-
-/* ENTIRE PROJECTS SWIPER */
-.projects-swiper {
-  height: 50rem;
-  padding: 2rem 0 6rem 0; /* Reduced from 8rem to 6rem */
-  width: 100%;
-  margin: 0 auto;
-}
-
-/* SMALL CIRCLES BOTTOM OF PROJECTS SLIDER */
-.swiper-pagination {
-  margin-top: 4rem !important;
-}
-
-.swiper-pagination-bullet {
-  background: transparent !important;
-  border: 2px solid #b74b4b !important;
-  opacity: 1 !important;
-}
-
-.swiper-pagination-bullet-active {
-  background: #b74b4b !important;
-  border: 2px solid #b74b4b !important;
-}
-
-/* Increase spacing on smaller devices where overlap occurs */
-@media (max-width: 768px) {
-  .projects-swiper {
-    height: 50rem;
-    padding: 2rem 0 8rem 0; /* Reduced from 10rem to 8rem */
-  }
-}
-
-@media (max-width: 480px) {
-  .projects-swiper {
-    height: 50rem;
-    padding: 2rem 0 10rem 0; /* Reduced from 12rem to 10rem */
-  }
-}
-
-
-
-
-/* ========================================
-   ADD THIS TO YOUR style.css
-   FIX FOR 1440px SCREEN OVERLAP ISSUE
-======================================== */
-
-@media (min-width: 1025px) and (max-width: 1600px) {
-   .project-detail {
-    padding-top: 14rem; /* increased space from navbar */
-  } 
-    
-  .project-box {
-    padding: 2.5rem 3rem 3rem;
-    max-width: 900px;
-  }
-  
-  .project-box h1 {
-    font-size: 2.6rem;
-  }
-  
-  .project-box p {
-    font-size: 1.45rem;
-    line-height: 1.55;
-    max-width: 90%;
-  }
-  
-  .project-buttons .btn {
-    padding: 0.9rem 2rem;
-    font-size: 1.4rem;
-  }
-  
-  .ai-audio-card {
-    max-width: 500px;
-  }
-}
-
-
-
-
-
-/* CONTACT WEB PAGE */
-.contact-section {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10rem 2rem 8rem;
-}
-
-.contact-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-  width: 100%;
-  max-width: 1200px;
-}
-
-.contact-heading {
-  text-align: center;
-}
-
-.contact-heading h1 {
-  font-size: 4.5rem;
-  font-weight: 800;
-  line-height: 1.2;
-  color: white;
-}
-
-.contact-heading h1 span {
-  color: #b74b4b;
-}
-
-/* CALENDLY WITH ROUNDED CORNERS */
-.contact-calendly {
-  width: 100%;
-  max-width: 900px;
-  border-radius: 2rem;
-  overflow: hidden;
-  box-shadow: 0 0 30px rgba(183, 75, 75, 0.2);
-}
-
-.calendly-inline-widget {
-  width: 100% !important;
-  height: 700px !important;
-  border: none;
-}
-
-/* LARGE SCREENS - Expand Calendly width */
-@media(min-width: 1200px) {
-  .contact-calendly {
-    max-width: 1100px;
-  }
-  
-  .calendly-inline-widget {
-    height: 750px !important;
-  }
-}
-
-/* MEDIUM SCREENS - Slightly wider */
-@media(min-width: 769px) and (max-width: 1199px) {
-  .contact-calendly {
-    max-width: 1000px;
-  }
-}
-
-/* TABLET */
-@media(max-width: 768px) {
-  .contact-section {
-    padding: 9rem 2rem 6rem;
-  }
-  
-  .contact-heading h1 {
-    font-size: 3.2rem;
-  }
-  
-  .calendly-inline-widget {
-    height: 600px !important;
-  }
-}
-
-/* MOBILE */
-@media(max-width: 480px) {
-  .contact-section {
-    padding: 8rem 1.5rem 6rem;
-  }
-  
-  .contact-heading h1 {
-    font-size: 2.8rem;
-  }
-  
-  .calendly-inline-widget {
-    height: 550px !important;
-  }
-}
-
-
-
-
-
-
-/* Progress bar with handle */
 .ai-audio-card .progress-bar {
-  background: #b74b4b;
+  background: var(--red);
   width: 0%;
   height: 100%;
   position: absolute;
@@ -1489,7 +863,6 @@ span {
   transition: width 0.1s linear;
 }
 
-/* Progress handle (red dot) - ALWAYS VISIBLE */
 .ai-audio-card .progress-bar::after {
   content: '';
   position: absolute;
@@ -1498,348 +871,194 @@ span {
   transform: translateY(-50%);
   width: 12px;
   height: 12px;
-  background: #b74b4b;
-  box-shadow: 0 0 8px rgba(183, 75, 75, 0.6);
-  opacity: 1; /* Always visible now */
+  background: var(--red);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--red);
+  opacity: 1;
 }
 
-/* Make progress container taller for easier clicking */
-.ai-audio-card .progress-container {
-  background: #222;
-  height: 6px; /* Made taller from 3px */
-  width: 100%;
-  margin-bottom: 3px;
-  overflow: visible; /* Changed from hidden so handle can show */
-  position: relative;
-  cursor: pointer;
-}
-
-
-
-
-
-
-/* FIX 1: Raise pagination dots ONLY (don't touch swiper height) */
-@media (max-width: 768px) {
-  .swiper-pagination {
-    bottom: -3rem !important; /* Moves dots up from their default position */
-  }
-}
-
-@media (max-width: 480px) {
-  .swiper-pagination {
-    bottom: -2rem !important; /* Even higher on smallest screens */
-  }
-}
-
-/* FIX 2: Prevent button cutoff - minimal changes */
-@media (max-width: 768px) {
-  .project-slide-content {
-    overflow: visible; /* Only this change - allows button to show */
-    padding-bottom: 1.5rem; /* Extra breathing room */
-  }
-  
-  /* Make sure buttons don't wrap */
-  .coming-soon-card-btn,
-  .complete-card-btn {
-    white-space: nowrap;
-    padding: 0.5rem 1.6rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .project-slide-content {
-    padding-bottom: 1.2rem;
-  }
-  
-  .project-title {
-    font-size: 1.5rem;
-  }
-}
-
-
-
-
-
-
-/* Raise pagination dots on smaller devices */
-@media (max-width: 768px) {
-  .projects-swiper {
-    padding-bottom: 8rem !important;
-  }
-  
-  .swiper-pagination {
-    position: relative !important;
-    margin-top: 2rem !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .projects-swiper {
-    padding-bottom: 10rem !important;
-  }
-  
-  .swiper-pagination {
-    margin-top: 1.5rem !important;
-  }
-}
-
-
-
-
-
-
-
-
-
-/* === AI AUDIO CARD (SLIM + BORDERLESS) === */
-.ai-audio-card {
-  width: 100%;
-  max-width: 600px;
-  height: 4.5rem;
-  background: #111;
-  border-radius: 1.2rem;
+.ai-audio-card .time {
   display: flex;
-  align-items: center;
-  align-self: flex-start;  
   justify-content: space-between;
-  padding: 0 1.2rem;
-  gap: 1.2rem;
-  margin: 2rem auto 0;
-  box-sizing: border-box;
-  box-shadow: 0 0 20px rgba(183, 75, 75, 0.1);
+  font-size: 0.85rem;
+  color: var(--white-muted);
+  line-height: 1;
 }
 
-/* CHANGED: Ensure duration always has minimum width to prevent layout shift */
-.ai-audio-card .time span {
-  min-width: 35px;
-  display: inline-block;
-  text-align: center;
+.ai-audio-card.main-audio {
+  margin: 2rem 0 0 0;
+  align-self: flex-start;
 }
 
-
-/* ============================
-   TYPING TEXT ANIMATION
-============================ */
-/* CHANGED: Removed gap between text and cursor */
+/* ── TYPING TEXT ANIMATION ── */
 .typing-wrapper {
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0; /* Ensures no gap between text and cursor */
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
 }
 
 .typing-text {
-    font-size: 34px;
-    font-weight: 600;
-    min-width: 280px;
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
+  font-size: 34px;
+  font-weight: 600;
+  min-width: 280px;
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-/* Span for scramble effect */
-.typing-text span {
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;
-}
-
-/* Dynamic text container - prevents wrapping */
 #dynamic-text {
-    display: inline-block;
-    white-space: nowrap;
-    min-width: 165px;
+  display: inline-block;
+  white-space: nowrap;
+  min-width: 165px;
 }
 
-/* ============================
-   BLINKING CURSOR
-============================ */
-/* CHANGED: Removed margin-left to eliminate space */
 .cursor {
-    display: inline-block;
-    width: 3px;
-    height: 1em;
-    background-color: #b74b4b;
-    margin-left: 0px; /* Changed from 2px to 0px */
-    animation: cursorBlink 0.7s infinite;
-    vertical-align: baseline;
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background-color: var(--red);
+  margin-left: 0px;
+  animation: cursorBlink 0.7s infinite;
+  vertical-align: baseline;
 }
 
 @keyframes cursorBlink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-
-/* --- Mobile --- */
-@media (max-width: 768px) and (min-width: 421px) {
-    .typing-text {
-        font-size: 1.8rem;
-        line-height: 2.4rem;
-        white-space: normal;
-    }
-
-    /* CHANGED: Added flex properties to keep cursor on same line */
-    .typing-wrapper {
-        white-space: nowrap;
-        display: inline-flex;
-        align-items: baseline;
-    }
-
-    /* CHANGED: Adjusted minimum width for mobile */
-    #dynamic-text {
-        min-width: 145px;
-    }
-
-    .typing-text span {
-        display: inline-block;
-        font-size: 1.8rem;
-        line-height: 2.4rem;
-        margin-top: 5px;
-        white-space: nowrap;
-    }
+/* ── FOOTER ── */
+.footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+  background: var(--glass);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-size: 0.85rem;
+  color: var(--white-muted);
+  font-weight: 300;
+  letter-spacing: 0.05em;
 }
 
-/* --- Very small screens --- */
-@media (max-width: 420px) {
-    .typing-text {
-        font-size: 2rem;
-        line-height: 2.4rem;
-    }
-
-    /* CHANGED: Added flex properties for smallest screens */
-    .typing-wrapper {
-        white-space: nowrap;
-        display: inline-flex;
-        align-items: baseline;
-    }
-
-    /* CHANGED: Adjusted minimum width for smallest screens */
-    #dynamic-text {
-        min-width: 155px;
-    }
-
-    .typing-text span {
-        font-size: 2rem;
-        line-height: 2.4rem;
-    }
+.footer span, .footer p span {
+  color: var(--red);
+  font-weight: 600;
 }
 
+.glass-footer {
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+}
 
-
-/* LARGE SCREENS - Significantly expand Calendly */
-@media(min-width: 1200px) {
-  .contact-calendly {
-    max-width: 1300px; /* CHANGED: Increased from 1100px to fill more space */
+/* ── RESPONSIVE ── */
+@media (max-width: 995px) {
+  .nav-links {
+    display: none;
   }
-  
+  .hamburger {
+    display: block;
+  }
+  .navbar.glass {
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .home {
+    flex-direction: column;
+    margin: 5rem 4rem;
+  }
+  .home .home-content h3 {
+    font-size: 2.5rem;
+  }
+  .home-content h1 {
+    font-size: 5rem;
+  }
+  .home-img img {
+    width: 70vw;
+    margin-top: 4rem;
+  }
+  section {
+    padding: calc(5rem + 5rem) 5% 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .certificates-heading {
+    margin-top: 10rem;
+  }
+  .project-box {
+    padding: 3rem 2rem;
+  }
+  .project-box p {
+    max-width: 100%;
+  }
+  .project-buttons {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  .project-buttons .btn {
+    width: 100%;
+    text-align: center;
+  }
+  .contact-heading h1 {
+    font-size: 3.2rem;
+  }
   .calendly-inline-widget {
-    height: 900px !important; /* CHANGED: Increased from 750px for better proportions */
+    height: 600px !important;
+  }
+  .flipping-interface {
+    flex-direction: column;
+    height: auto;
+  }
+  .arrow-controls {
+    display: none;
   }
 }
 
-/* EXTRA LARGE SCREENS - Even more expansion */
-/* NEW: Added this entire media query for screens 1400px+ */
-@media(min-width: 1400px) {
-  .contact-calendly {
-    max-width: 1400px; /* NEW: Maximum expansion for very large screens */
+@media (max-width: 480px) {
+  .certificates-heading h2 {
+    font-size: 2.5rem;
   }
-  
+  .project-box h1 {
+    font-size: 2.4rem;
+  }
+  .project-box p {
+    font-size: 1.5rem;
+  }
+  .contact-heading h1 {
+    font-size: 2.8rem;
+  }
   .calendly-inline-widget {
-    height: 950px !important; /* NEW: Taller height to match the wider container */
+    height: 550px !important;
   }
 }
 
-
-
-
-
-
-/* CALENDLY */
-/* CALENDLY WITH ROUNDED CORNERS */
-.contact-calendly {
-  width: 100%;
-  max-width: 900px;
-  border-radius: 2rem;
-  overflow: hidden;
-  box-shadow: 0 0 30px rgba(183, 75, 75, 0.2);
+/* ── ANIMATIONS ── */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
 }
 
-.calendly-inline-widget {
-  width: 100% !important;
-  height: 700px !important;
-  border: none;
+.btn.shake {
+  animation: shake 0.4s ease;
 }
 
-/* NEW: 1024px-1199px screens (common laptop sizes like 1280x800) */
-@media(min-width: 1024px) and (max-width: 1199px) {
-  .contact-calendly {
-    max-width: 1150px; /* CHANGED: Expand to fill more space on medium laptops */
-  }
-  
-  .calendly-inline-widget {
-    height: 850px !important; /* CHANGED: Increase height proportionally */
-  }
+/* ── FADE-UP ANIMATION ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-/* LARGE SCREENS - Significantly expand Calendly */
-@media(min-width: 1200px) {
-  .contact-calendly {
-    max-width: 1300px; /* CHANGED: Increased from 1100px to fill more space */
-  }
-  
-  .calendly-inline-widget {
-    height: 900px !important; /* CHANGED: Increased from 750px for better proportions */
-  }
-}
-
-/* EXTRA LARGE SCREENS - Even more expansion */
-/* NEW: Added this entire media query for screens 1400px+ */
-@media(min-width: 1400px) {
-  .contact-calendly {
-    max-width: 1400px; /* NEW: Maximum expansion for very large screens */
-  }
-  
-  .calendly-inline-widget {
-    height: 950px !important; /* NEW: Taller height to match the wider container */
-  }
-}
-
-
-
-/* GREEN COMPLETE BUTTON */
-.btn-complete {
-  border-color: #4bb78e !important;
-  color: #4bb78e !important;
-}
-
-.btn-complete:hover {
-  background: #4bb78e !important;
-  color: black !important;
-  box-shadow: 0 0 25px #4bb78e !important;
-}
-
-
-/* COMPLETE BUTTON */
-.complete-card-btn {
-    margin: 0;
-    display: inline-block;
-    padding: 0.4rem 1.5rem;
-    background-color: black;
-    border-radius: 2rem;
-    font-size: 1.2rem;
-    color: #4bb78e !important;              /* Added !important */
-    font-weight: 600;
-    border: 2px solid #4bb78e !important;   /* Added !important */
-    transition: 0.3s ease;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.complete-card-btn:hover {
-    background-color: #4bb78e !important;   /* Added !important */
-    color: black !important;                 /* Added !important */
-    box-shadow: 0 0 15px #4bb78e !important; /* Added !important */
+.fade-up.visible {
+  opacity: 1;
+  transform: none;
 }
