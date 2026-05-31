@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,9 +51,10 @@
     /* ── WEB LINES ── */
     .web-svg {
       position: fixed;
-      top: 0; right: 0;
-      width: 420px; height: 420px;
-      opacity: 0.07;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 110vmax; height: 110vmax;
+      opacity: 0.09;
       pointer-events: none;
       z-index: 0;
     }
@@ -610,21 +610,126 @@
 </head>
 <body>
 
-  <!-- DECORATIVE WEB SVG -->
-  <svg class="web-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="white" fill="none">
-      <line x1="200" y1="0" x2="200" y2="400" stroke-width="0.5"/>
-      <line x1="0" y1="200" x2="400" y2="200" stroke-width="0.5"/>
-      <line x1="0" y1="0" x2="400" y2="400" stroke-width="0.5"/>
-      <line x1="400" y1="0" x2="0" y2="400" stroke-width="0.5"/>
-      <line x1="200" y1="0" x2="400" y2="200" stroke-width="0.4"/>
-      <line x1="400" y1="200" x2="200" y2="400" stroke-width="0.4"/>
-      <line x1="200" y1="400" x2="0" y2="200" stroke-width="0.4"/>
-      <line x1="0" y1="200" x2="200" y2="0" stroke-width="0.4"/>
-      <circle cx="200" cy="200" r="40" stroke-width="0.5"/>
-      <circle cx="200" cy="200" r="90" stroke-width="0.5"/>
-      <circle cx="200" cy="200" r="140" stroke-width="0.5"/>
-      <circle cx="200" cy="200" r="195" stroke-width="0.5"/>
+  <!-- SPIDER WEB SVG -->
+  <svg class="web-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="white" fill="none" stroke-linecap="round">
+      <!-- 16 radial spokes from centre -->
+      <line x1="400" y1="400" x2="400" y2="0"   stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="594" y2="14"  stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="110" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="800" y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="800" y2="400" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="800" y2="520" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="748" y2="690" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="594" y2="786" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="400" y2="800" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="206" y2="786" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="52"  y2="690" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="0"   y2="520" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="0"   y2="400" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="0"   y2="280" stroke-width="0.6"/>
+      <line x1="400" y1="400" x2="52"  y2="110" stroke-width="0.7"/>
+      <line x1="400" y1="400" x2="206" y2="14"  stroke-width="0.6"/>
+
+      <!-- Ring 1 — innermost, r≈48 -->
+      <path d="M400,352 Q448,352 448,400 Q448,448 400,448 Q352,448 352,400 Q352,352 400,352" stroke-width="0.7"/>
+
+      <!-- Ring 2 — r≈96, slightly organic -->
+      <path d="
+        M400,304 Q452,296 487,334
+        Q520,362 528,400
+        Q530,444 496,472
+        Q462,508 400,496
+        Q344,504 310,472
+        Q272,446 272,400
+        Q270,354 308,326
+        Q344,296 400,304Z
+      " stroke-width="0.7"/>
+
+      <!-- Ring 3 — r≈150 -->
+      <path d="
+        M400,250 Q464,238 510,270
+        Q556,296 574,350
+        Q590,400 566,454
+        Q548,506 496,530
+        Q450,556 400,550
+        Q348,558 302,530
+        Q252,508 234,454
+        Q212,400 228,350
+        Q246,294 296,268
+        Q340,238 400,250Z
+      " stroke-width="0.65"/>
+
+      <!-- Ring 4 — r≈210 -->
+      <path d="
+        M400,190 Q478,176 538,212
+        Q596,244 626,308
+        Q656,368 640,436
+        Q626,502 572,546
+        Q520,590 452,600
+        Q400,608 348,598
+        Q280,590 228,546
+        Q174,502 160,436
+        Q144,366 174,308
+        Q204,244 264,212
+        Q322,176 400,190Z
+      " stroke-width="0.6"/>
+
+      <!-- Ring 5 — r≈275 -->
+      <path d="
+        M400,125 Q498,108 568,152
+        Q640,192 676,272
+        Q716,348 700,434
+        Q686,518 622,572
+        Q560,630 476,648
+        Q400,660 324,646
+        Q240,630 178,572
+        Q114,518 100,434
+        Q84,348 124,272
+        Q160,192 232,152
+        Q302,108 400,125Z
+      " stroke-width="0.55"/>
+
+      <!-- Ring 6 — r≈340, near edge -->
+      <path d="
+        M400,60 Q518,40 602,94
+        Q686,142 726,238
+        Q770,330 754,432
+        Q740,530 672,600
+        Q606,672 506,702
+        Q400,720 294,700
+        Q194,672 128,600
+        Q60,530 46,432
+        Q30,330 74,238
+        Q114,142 198,94
+        Q282,40 400,60Z
+      " stroke-width="0.5"/>
+
+      <!-- Ring 7 — outermost r≈390 -->
+      <path d="
+        M400,8 Q538,-10 636,52
+        Q736,108 780,224
+        Q798,314 792,400
+        Q786,490 752,568
+        Q704,660 618,716
+        Q524,768 400,776
+        Q276,772 184,718
+        Q98,662 50,568
+        Q14,490 8,400
+        Q2,314 20,224
+        Q64,108 164,52
+        Q262,-10 400,8Z
+      " stroke-width="0.45"/>
+
+      <!-- Subtle inner anchor threads connecting spokes -->
+      <path d="M400,352 Q448,296 487,334" stroke-width="0.35" opacity="0.6"/>
+      <path d="M487,334 Q528,352 528,400" stroke-width="0.35" opacity="0.6"/>
+      <path d="M528,400 Q510,444 496,472" stroke-width="0.35" opacity="0.6"/>
+      <path d="M496,472 Q450,504 400,496" stroke-width="0.35" opacity="0.6"/>
+      <path d="M400,496 Q348,506 310,472" stroke-width="0.35" opacity="0.6"/>
+      <path d="M310,472 Q272,444 272,400" stroke-width="0.35" opacity="0.6"/>
+      <path d="M272,400 Q290,354 308,326" stroke-width="0.35" opacity="0.6"/>
+      <path d="M308,326 Q350,296 400,304" stroke-width="0.35" opacity="0.6"/>
     </g>
   </svg>
 
