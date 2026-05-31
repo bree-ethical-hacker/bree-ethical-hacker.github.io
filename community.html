@@ -187,15 +187,104 @@
   <footer class="footer glass-footer"><p>Based in <span>Melbourne, Australia</span> · The Black Widow Community</p></footer>
 
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const menuSound = new Audio('menu.mp3');
-    hamburger.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); menuSound.currentTime = 0; menuSound.play().catch(() => {}); });
-    overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
-    const fadeEls = document.querySelectorAll('.fade-up');
-    const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }); }, { threshold: 0.1 });
-    fadeEls.forEach(el => io.observe(el));
+    // ========================================
+    // UNIVERSAL NAVIGATION - WORKS ON ALL PAGES
+    // ========================================
+    
+    (function() {
+      // Get elements
+      const hamburger = document.getElementById('hamburger');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      
+      // Sound effects (optional - remove if you don't have the audio files)
+      const menuSound = new Audio('menu.mp3');
+      const navSound = new Audio('nav.mp3');
+      
+      // Function to open sidebar
+      function openSidebar() {
+        if (sidebar) {
+          sidebar.classList.add('active');
+          document.body.classList.add('sidebar-open');
+        }
+        if (overlay) overlay.classList.add('active');
+      }
+      
+      // Function to close sidebar
+      function closeSidebar() {
+        if (sidebar) {
+          sidebar.classList.remove('active');
+          document.body.classList.remove('sidebar-open');
+        }
+        if (overlay) overlay.classList.remove('active');
+      }
+      
+      // Toggle sidebar on hamburger click
+      if (hamburger) {
+        hamburger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (sidebar && sidebar.classList.contains('active')) {
+            closeSidebar();
+          } else {
+            openSidebar();
+          }
+          // Play sound (optional)
+          menuSound.currentTime = 0;
+          menuSound.play().catch(() => {});
+        });
+      }
+      
+      // Close sidebar when clicking overlay
+      if (overlay) {
+        overlay.addEventListener('click', closeSidebar);
+      }
+      
+      // Handle sidebar link clicks with sound and navigation
+      if (sidebar) {
+        const sidebarLinks = sidebar.querySelectorAll('a');
+        sidebarLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const destination = link.getAttribute('href');
+            
+            // Play sound
+            navSound.currentTime = 0;
+            navSound.play().catch(() => {});
+            
+            // Close sidebar
+            closeSidebar();
+            
+            // Navigate after delay
+            setTimeout(() => {
+              window.location.href = destination;
+            }, 150);
+          });
+        });
+      }
+      
+      // Handle desktop nav links
+      const desktopLinks = document.querySelectorAll('.nav-links a');
+      desktopLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const destination = link.getAttribute('href');
+          
+          navSound.currentTime = 0;
+          navSound.play().catch(() => {});
+          
+          setTimeout(() => {
+            window.location.href = destination;
+          }, 150);
+        });
+      });
+      
+      // Close sidebar on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sidebar && sidebar.classList.contains('active')) {
+          closeSidebar();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
