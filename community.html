@@ -505,6 +505,59 @@
       .portfolio-card-content h3 { font-size: 1.2rem; }
       .portfolio-card-content p { font-size: 0.85rem; }
     }
+
+    /* ===== TAB SWITCHER ===== */
+    .tab-switcher {
+      display: flex;
+      justify-content: center;
+      padding: 0 1.5rem 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .tab-track {
+      display: flex;
+      background: var(--black-3);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 5px;
+      position: relative;
+    }
+    .tab-slider {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      height: calc(100% - 10px);
+      background: var(--red);
+      border-radius: 999px;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .tab-btn {
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      border: none;
+      color: var(--white-muted);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.6rem;
+      border-radius: 999px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.25s;
+      min-height: unset;
+    }
+    .tab-btn.active { color: var(--white); }
+    .tab-btn:not(.active):hover { color: var(--white); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    @media (max-width: 500px) {
+      .tab-btn { font-size: 0.75rem; padding: 0.6rem 1rem; letter-spacing: 0.04em; }
+    }
   </style>
 </head>
 <body>
@@ -558,118 +611,123 @@
 
   <div class="divider"></div>
 
-  <!-- PRICING SECTION -->
-  <section id="join">
-    <p class="section-label">Choose Your Path</p>
-    <h2 class="section-title">Pick Your Community</h2>
-    <p class="section-intro">Same tight circle of 20. Choose the format that fits where you are in the world.</p>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <i class="fa-solid fa-wifi card-icon"></i>
-        <div class="card-title">Online Community</div>
-        <p class="card-desc">Learn, ethical hack, and build alongside your cohort from anywhere.</p>
-        <div class="price-row">
-          <div class="price-tier early"><span><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
-          <div class="price-tier general"><span>General Admission</span><span class="tier-price">$49</span></div>
-          <div class="price-tier late"><span><i class="fa-solid fa-lock" style="margin-right:5px;color:var(--red);"></i>Late Release</span><span class="tier-price">$99</span></div>
-        </div>
-        <ul class="features-list">
-          <li><i class="fa-solid fa-check"></i>Live weekly virtual sessions with Bree</li>
-          <li><i class="fa-solid fa-check"></i>Private Discord & accountability pods</li>
-          <li><i class="fa-solid fa-check"></i>Hands-on CTF walkthroughs</li>
-          <li><i class="fa-solid fa-check"></i>Portfolio-building projects</li>
-        </ul>
-        <a href="#" class="cta-btn">Join Online — Claim Seat</a>
-      </div>
-      <div class="pricing-card featured">
-        <div class="card-badge">🔥 Limited Availability</div>
-        <i class="fa-solid fa-location-dot card-icon"></i>
-        <div class="card-title">In-Person Community</div>
-        <p class="card-desc">Melbourne-based sessions. Work side-by-side in a room of 20 committed beginners.</p>
-        <div class="price-row">
-          <div class="price-tier early"><span><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
-          <div class="price-tier general"><span>General Admission</span><span class="tier-price">$49</span></div>
-          <div class="price-tier late"><span><i class="fa-solid fa-lock"></i> Late Release</span><span class="tier-price">$99</span></div>
-        </div>
-        <ul class="features-list">
-          <li><i class="fa-solid fa-check"></i>Everything in Online, plus in-room access</li>
-          <li><i class="fa-solid fa-check"></i>Face-to-face mentorship with Bree</li>
-          <li><i class="fa-solid fa-check"></i>Networking with Melbourne's offensive security scene</li>
-          <li><i class="fa-solid fa-check"></i>Physical Kali rigs provided</li>
-        </ul>
-        <a href="#" class="cta-btn">Join In-Person — Claim Seat</a>
-      </div>
+  <!-- TAB SWITCHER -->
+  <div class="tab-switcher">
+    <div class="tab-track">
+      <div class="tab-slider" id="tab-slider"></div>
+      <button class="tab-btn active" data-tab="community">🕷️ Community</button>
+      <button class="tab-btn" data-tab="projects">⚔️ Projects</button>
+      <button class="tab-btn" data-tab="testimonials">💬 Testimonials</button>
     </div>
-  </section>
+  </div>
 
-  <div class="sep"></div>
-
-  <!-- NEW PORTFOLIO SHOWCASE - 3 CARDS (image + link) matching pricing size -->
-  <section>
-    <p class="section-label">Real Work · Real Impact</p>
-    <h2 class="section-title">Featured Security Projects</h2>
-    <p class="section-intro">Explore live portfolios from our community members. Each project includes a detailed case study and image preview.</p>
-    
-    <div class="portfolio-3col">
-      <!-- CARD 1: Internal Network Pentest -->
-      <div class="portfolio-card-large">
-        <div class="portfolio-img-wrapper">
-          <img src="https://placehold.co/600x400/1e1e2f/c0392b?text=Network+Penetration+Test" alt="Network penetration test report preview" style="width:100%; height:100%; object-fit:cover;">
+  <!-- PANEL 1: COMMUNITY SUBSCRIPTIONS -->
+  <div class="tab-panel active" id="panel-community">
+    <section id="join">
+      <p class="section-label">Choose Your Path</p>
+      <h2 class="section-title">Pick Your Community</h2>
+      <p class="section-intro">Same tight circle of 20. Choose the format that fits where you are in the world.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <i class="fa-solid fa-wifi card-icon"></i>
+          <div class="card-title">Online Community</div>
+          <p class="card-desc">Learn, ethical hack, and build alongside your cohort from anywhere.</p>
+          <div class="price-row">
+            <div class="price-tier early"><span><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
+            <div class="price-tier general"><span>General Admission</span><span class="tier-price">$49</span></div>
+            <div class="price-tier late"><span><i class="fa-solid fa-lock" style="margin-right:5px;color:var(--red);"></i>Late Release</span><span class="tier-price">$99</span></div>
+          </div>
+          <ul class="features-list">
+            <li><i class="fa-solid fa-check"></i>Live weekly virtual sessions with Bree</li>
+            <li><i class="fa-solid fa-check"></i>Private Discord & accountability pods</li>
+            <li><i class="fa-solid fa-check"></i>Hands-on CTF walkthroughs</li>
+            <li><i class="fa-solid fa-check"></i>Portfolio-building projects</li>
+          </ul>
+          <a href="#" class="cta-btn">Join Online — Claim Seat</a>
         </div>
-        <div class="portfolio-card-content">
-          <h3>🔍 Internal Network Pentest</h3>
-          <p>Full-scope internal assessment: AD enumeration, lateral movement, and privilege escalation. Includes executive summary & technical appendix.</p>
-          <a href="#" class="portfolio-link" target="_blank">View Project <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="pricing-card featured">
+          <div class="card-badge">🔥 Limited Availability</div>
+          <i class="fa-solid fa-location-dot card-icon"></i>
+          <div class="card-title">In-Person Community</div>
+          <p class="card-desc">Melbourne-based sessions. Work side-by-side in a room of 20 committed beginners.</p>
+          <div class="price-row">
+            <div class="price-tier early"><span><i class="fa-solid fa-bolt" style="margin-right:5px;color:var(--green);"></i>Early Bird</span><span class="tier-price">$25</span></div>
+            <div class="price-tier general"><span>General Admission</span><span class="tier-price">$49</span></div>
+            <div class="price-tier late"><span><i class="fa-solid fa-lock"></i> Late Release</span><span class="tier-price">$99</span></div>
+          </div>
+          <ul class="features-list">
+            <li><i class="fa-solid fa-check"></i>Everything in Online, plus in-room access</li>
+            <li><i class="fa-solid fa-check"></i>Face-to-face mentorship with Bree</li>
+            <li><i class="fa-solid fa-check"></i>Networking with Melbourne's offensive security scene</li>
+            <li><i class="fa-solid fa-check"></i>Physical Kali rigs provided</li>
+          </ul>
+          <a href="#" class="cta-btn">Join In-Person — Claim Seat</a>
         </div>
       </div>
-      
-      <!-- CARD 2: Web App Vulnerability Audit -->
-      <div class="portfolio-card-large">
-        <div class="portfolio-img-wrapper">
-          <img src="https://placehold.co/600x400/1e1e2f/c0392b?text=Web+App+Security+Audit" alt="Web application security audit dashboard" style="width:100%; height:100%; object-fit:cover;">
+    </section>
+  </div>
+
+  <!-- PANEL 2: PROJECTS -->
+  <div class="tab-panel" id="panel-projects">
+    <section>
+      <p class="section-label">Real Work · Real Impact</p>
+      <h2 class="section-title">Featured Security Projects</h2>
+      <p class="section-intro">Explore live portfolios from our community members. Each project includes a detailed case study and image preview.</p>
+      <div class="portfolio-3col">
+        <div class="portfolio-card-large">
+          <div class="portfolio-img-wrapper">
+            <img src="https://placehold.co/600x400/1e1e2f/c0392b?text=Network+Penetration+Test" alt="Network penetration test report preview" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div class="portfolio-card-content">
+            <h3>🔍 Internal Network Pentest</h3>
+            <p>Full-scope internal assessment: AD enumeration, lateral movement, and privilege escalation. Includes executive summary & technical appendix.</p>
+            <a href="#" class="portfolio-link" target="_blank">View Project <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
         </div>
-        <div class="portfolio-card-content">
-          <h3>🌐 Web App Vulnerability Audit</h3>
-          <p>OWASP Top 10 deep-dive: SQLi, XSS, IDOR, broken access controls. Actionable remediation steps + PoC walkthrough.</p>
-          <a href="#" class="portfolio-link" target="_blank">View Audit <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="portfolio-card-large">
+          <div class="portfolio-img-wrapper">
+            <img src="https://placehold.co/600x400/1e1e2f/c0392b?text=Web+App+Security+Audit" alt="Web application security audit dashboard" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div class="portfolio-card-content">
+            <h3>🌐 Web App Vulnerability Audit</h3>
+            <p>OWASP Top 10 deep-dive: SQLi, XSS, IDOR, broken access controls. Actionable remediation steps + PoC walkthrough.</p>
+            <a href="#" class="portfolio-link" target="_blank">View Audit <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="portfolio-card-large">
+          <div class="portfolio-img-wrapper">
+            <img src="https://placehold.co/600x400/1e1e2f/c0392b?text=Red+Team+CTF+Writeup" alt="CTF challenge write-up cover" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div class="portfolio-card-content">
+            <h3>⚔️ Red Team CTF Write-Up</h3>
+            <p>Walkthrough of a multi-stage CTF: initial foothold, privilege escalation, and persistence. Professional technical writing for SOC/red team roles.</p>
+            <a href="#" class="portfolio-link" target="_blank">Read Write-Up <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
         </div>
       </div>
-      
-      <!-- CARD 3: Red Team Simulation + CTF Write-up -->
-      <div class="portfolio-card-large">
-        <div class="portfolio-img-wrapper">
-          <img src="https://placehold.co/600x400/1e1e2f/c0392b?text=Red+Team+CTF+Writeup" alt="CTF challenge write-up cover" style="width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div class="portfolio-card-content">
-          <h3>⚔️ Red Team CTF Write-Up</h3>
-          <p>Walkthrough of a multi-stage CTF: initial foothold, privilege escalation, and persistence. Professional technical writing for SOC/red team roles.</p>
-          <a href="#" class="portfolio-link" target="_blank">Read Write-Up <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
+    </section>
+  </div>
+
+  <!-- PANEL 3: TESTIMONIALS -->
+  <div class="tab-panel" id="panel-testimonials">
+    <section>
+      <p class="section-label">From the Community</p>
+      <h2 class="section-title">Hear It From Them</h2>
+      <p class="section-intro">Real members. Real results. No fluff.</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Sarah J.</div><div class="testimonial-role">Offensive Security Beginner</div><p class="testimonial-quote">"Before this, I knew theory but had nothing to show. In 4 weeks I had my first real pentest report and got interviewed."</p></div></div>
+        <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Marcus T.</div><div class="testimonial-role">Aspiring Ethical Hacker</div><p class="testimonial-quote">"The accountability alone was worth it. I'd been stuck for 8 months. Now I'm part of a real hacking community."</p></div></div>
+        <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Elena R.</div><div class="testimonial-role">Career Changer</div><p class="testimonial-quote">"Zero background, now a GitHub portfolio and job interview lined up. Black Widow changed my trajectory."</p></div></div>
       </div>
-    </div>
-    <!-- note: you can replace the placeholder image URLs with your own image links 
-         and edit the href="#" to any external link (e.g. actual case study) -->
-  </section>
-
-  <div class="sep"></div>
-
-  <!-- TESTIMONIALS SECTION -->
-  <section>
-    <p class="section-label">From the Community</p>
-    <h2 class="section-title">Hear It From Them</h2>
-    <p class="section-intro">Real members. Real results. No fluff.</p>
-    <div class="testimonials-grid">
-      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Sarah J.</div><div class="testimonial-role">Offensive Security Beginner</div><p class="testimonial-quote">"Before this, I knew theory but had nothing to show. In 4 weeks I had my first real pentest report and got interviewed."</p></div></div>
-      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Marcus T.</div><div class="testimonial-role">Aspiring Ethical Hacker</div><p class="testimonial-quote">"The accountability alone was worth it. I'd been stuck for 8 months. Now I'm part of a real hacking community."</p></div></div>
-      <div class="testimonial-card"><div class="video-placeholder"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div><div class="testimonial-body"><div class="testimonial-name">Elena R.</div><div class="testimonial-role">Career Changer</div><p class="testimonial-quote">"Zero background, now a GitHub portfolio and job interview lined up. Black Widow changed my trajectory."</p></div></div>
-    </div>
-    <div class="video-note"><i class="fa-solid fa-circle-info"></i> Replace video placeholders with your actual testimonial videos.</div>
-  </section>
+      <div class="video-note"><i class="fa-solid fa-circle-info"></i> Replace video placeholders with your actual testimonial videos.</div>
+    </section>
+  </div>
 
   <footer class="footer">
     <p>Based in <span>Melbourne, Australia</span> · The Black Widow Community · Offensive Security Cohort</p>
   </footer>
 
+  <!-- NAVIGATION SCRIPT -->
   <script>
     (function() {
       const hamburger = document.getElementById('hamburger');
@@ -695,7 +753,7 @@
       }
       if (overlay) overlay.addEventListener('click', closeSidebar);
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
-      
+
       const sidebarLinks = document.querySelectorAll('#sidebar a');
       sidebarLinks.forEach(link => {
         link.addEventListener('click', (e) => {
@@ -715,5 +773,34 @@
       });
     })();
   </script>
+
+  <!-- TAB SWITCHER SCRIPT -->
+  <script>
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    const slider = document.getElementById('tab-slider');
+
+    function moveSlider(btn) {
+      slider.style.width = btn.offsetWidth + 'px';
+      slider.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
+    }
+
+    window.addEventListener('load', () => {
+      const activeBtn = document.querySelector('.tab-btn.active');
+      if (activeBtn) moveSlider(activeBtn);
+    });
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('panel-' + target).classList.add('active');
+        moveSlider(btn);
+      });
+    });
+  </script>
+
 </body>
 </html>
