@@ -178,8 +178,8 @@
       font-weight: 700; 
       text-transform: uppercase; 
       letter-spacing: 0.08em;
-      /* ROTATE TEXT 180 DEGREES */
-      transform: rotate(180deg);
+      /* ROTATE TEXT 90 DEGREES */
+      transform: rotate(90deg);
       display: inline-block;
       transition: color 0.2s, transform 0.2s;
       /* For better readability, we also flip horizontally if needed, but 180deg is exactly upside down */
@@ -187,7 +187,7 @@
     }
     .sidebar a:hover, .sidebar a.active { 
       color: var(--red);
-      transform: rotate(180deg) scale(1.05); /* maintain rotation on hover */
+      transform: rotate(90deg) scale(1.05); /* maintain rotation on hover */
     }
     /* ensure proper layout when rotated 180deg (text appears upside down) */
     .sidebar li {
