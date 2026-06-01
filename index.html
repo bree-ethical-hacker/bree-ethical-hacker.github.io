@@ -151,59 +151,45 @@
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
   
-  <!-- UNIVERSAL NAVIGATION SCRIPT -->
+  <!-- NAVIGATION SCRIPT -->
   <script>
-  (function() {
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
+
     const menuSound = new Audio('menu.mp3');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+
+      menuSound.currentTime = 0;
+      menuSound.play().catch(() => {});
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
     const navSound = new Audio('nav.mp3');
-    
-    function openSidebar() {
-      if (sidebar) sidebar.classList.add('active');
-      if (overlay) overlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    
-    function closeSidebar() {
-      if (sidebar) sidebar.classList.remove('active');
-      if (overlay) overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    
-    if (hamburger) {
-      hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (sidebar && sidebar.classList.contains('active')) {
-          closeSidebar();
-        } else {
-          openSidebar();
-        }
-        menuSound.currentTime = 0;
-        menuSound.play().catch(() => {});
-      });
-    }
-    
-    if (overlay) overlay.addEventListener('click', closeSidebar);
-    
-    document.querySelectorAll('.sidebar a, .nav-links a').forEach(link => {
+
+    const allNavLinks = document.querySelectorAll('.nav-links a, .sidebar a');
+
+    allNavLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const destination = link.getAttribute('href');
+
         navSound.currentTime = 0;
         navSound.play().catch(() => {});
-        closeSidebar();
-        setTimeout(() => { window.location.href = destination; }, 150);
+
+        const destination = link.getAttribute('href');
+
+        setTimeout(() => {
+          window.location.href = destination;
+        }, 150);
       });
     });
-    
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && sidebar && sidebar.classList.contains('active')) {
-        closeSidebar();
-      }
-    });
-  })();
   
   // Audio player
   const audio = document.getElementById('ai-audio');
