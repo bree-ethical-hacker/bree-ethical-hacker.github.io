@@ -145,24 +145,54 @@
       color: var(--white-muted);
     }
 
-    /* Mobile Sidebar */
+    /* Mobile Sidebar - ENHANCED GLASS EFFECT + 180° rotated words */
     .sidebar {
       position: fixed;
       top: 0;
       right: -100%;
       width: min(280px, 70%);
       height: 100vh;
-      background: var(--black-2);
-      border-left: 1px solid var(--border);
+      /* ENHANCED GLASS EFFECT: stronger blur, semi-transparent background with subtle gradient */
+      background: rgba(10, 10, 10, 0.55);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      /* glass border with red tint */
+      border-left: 1px solid rgba(192, 57, 43, 0.5);
+      box-shadow: -8px 0 25px rgba(0, 0, 0, 0.5);
       z-index: 2000;
       padding: 8rem 2rem 2rem;
       transition: right 0.3s ease;
-      backdrop-filter: blur(20px);
     }
     .sidebar.active { right: 0; }
-    .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 2rem; align-items: center; }
-    .sidebar a { text-decoration: none; color: var(--white-muted); font-size: 1.4rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
-    .sidebar a:hover, .sidebar a.active { color: var(--red); }
+    .sidebar ul { 
+      list-style: none; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 2rem; 
+      align-items: center;
+    }
+    .sidebar a { 
+      text-decoration: none; 
+      color: var(--white-muted); 
+      font-size: 1.4rem; 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      letter-spacing: 0.08em;
+      /* ROTATE TEXT 180 DEGREES */
+      transform: rotate(180deg);
+      display: inline-block;
+      transition: color 0.2s, transform 0.2s;
+      /* For better readability, we also flip horizontally if needed, but 180deg is exactly upside down */
+      writing-mode: horizontal-tb;
+    }
+    .sidebar a:hover, .sidebar a.active { 
+      color: var(--red);
+      transform: rotate(180deg) scale(1.05); /* maintain rotation on hover */
+    }
+    /* ensure proper layout when rotated 180deg (text appears upside down) */
+    .sidebar li {
+      text-align: center;
+    }
     .overlay {
       position: fixed;
       inset: 0;
